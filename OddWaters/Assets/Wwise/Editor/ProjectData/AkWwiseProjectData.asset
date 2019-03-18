@@ -227,8 +227,6 @@ MonoBehaviour:
       minDuration: 0
   ExpandedItems:
   - /OddWatersWwise
-  - /OddWatersWwise/Banks
-  - /OddWatersWwise/Banks/Default Work Unit
   RtpcWwu:
   - Guid: '{A54DBF65-8D9D-4AA2-ABA9-FC900E45AD2E}'
     m_lastTimePart2: -1999197858
