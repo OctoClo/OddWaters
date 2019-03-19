@@ -30,33 +30,29 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 20.0f))
+            {
+                grabbedObject = hit.collider.GetComponent<Interactible>();
+                if (grabbedObject)
+                {
+                    grabbedObject.Grab();
+                    grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
+                    grabbedObjectOffset = grabbedObject.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z));
+                }
+            }
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             if (grabbedObject)
             {
+                grabbedObject.Drop();
                 grabbedObject = null;
             }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            GrabObject();
-        }        
-    }
-
-    void GrabObject()
-    {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 20.0f))
-        {
-            Interactible interactible = hit.collider.GetComponent<Interactible>();
-            if (interactible)
-            {
-                grabbedObject = interactible;
-                grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
-                grabbedObjectOffset = grabbedObject.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z));
-            }
-        }
+        }  
     }
 
     void FixedUpdate()
@@ -65,6 +61,8 @@ public class InputManager : MonoBehaviour
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z);
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos) + grabbedObjectOffset;
+
+            // Check desk borders before moving
             if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
                 grabbedObject.MoveTo(mouseWorldPos);
         }
