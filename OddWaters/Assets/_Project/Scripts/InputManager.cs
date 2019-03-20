@@ -10,6 +10,10 @@ public class InputManager : MonoBehaviour
     float deskMaxX;
     float deskMinZ;
     float deskMaxZ;
+    
+    Panorama panorama;
+    Vector3 dragBeginPos;
+    const float panoramaSpeedMultiplier = 0.01f;
 
     Camera mainCamera;
     Interactible grabbedObject;
@@ -42,6 +46,15 @@ public class InputManager : MonoBehaviour
                     grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
                     grabbedObjectOffset = grabbedObject.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z));
                 }
+                else
+                {
+                    panorama = hit.collider.GetComponent<Panorama>();
+                    if (panorama)
+                    {
+                        dragBeginPos = Input.mousePosition;
+                        panorama.BeginDrag(dragBeginPos);
+                    }
+                }
             }
         }
 
@@ -52,7 +65,12 @@ public class InputManager : MonoBehaviour
                 grabbedObject.Drop();
                 grabbedObject = null;
             }
-        }  
+            else if (panorama)
+            {
+                panorama.EndDrag();
+                panorama = null;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -65,6 +83,11 @@ public class InputManager : MonoBehaviour
             // Check desk borders before moving
             if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
                 grabbedObject.MoveTo(mouseWorldPos);
+        }
+        else if (panorama)
+        {
+            Vector3 dragCurrentPos = Input.mousePosition;
+            panorama.UpdateSpeed((dragCurrentPos - dragBeginPos) * panoramaSpeedMultiplier);
         }
     }
 }
