@@ -22,7 +22,7 @@ public class Panorama : MonoBehaviour
     void Start()
     {
         cursorOffset = new Vector2(cursorCenter.texture.width / 2, cursorCenter.texture.height / 2);
-        cursorScale = new Vector3(3, 3, 0);
+        cursorScale = new Vector3(1.5f, 1.5f, 0);
 
         planeRenderer = GetComponent<MeshRenderer>();
         planeOffset = new Vector2(0, 0);
