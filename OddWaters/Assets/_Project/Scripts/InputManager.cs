@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
     
     Panorama panorama;
     Vector3 dragBeginPos;
-    const float panoramaSpeedMultiplier = 0.01f;
+    const float panoramaSpeedMultiplier = 0.001f;
 
     Camera mainCamera;
     Interactible grabbedObject;
@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 20.0f))
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 grabbedObject = hit.collider.GetComponent<Interactible>();
                 if (grabbedObject)
@@ -52,7 +52,8 @@ public class InputManager : MonoBehaviour
                     if (panorama)
                     {
                         dragBeginPos = Input.mousePosition;
-                        panorama.BeginDrag(dragBeginPos);
+                        Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                        panorama.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
                     }
                 }
             }
@@ -87,7 +88,7 @@ public class InputManager : MonoBehaviour
         else if (panorama)
         {
             Vector3 dragCurrentPos = Input.mousePosition;
-            panorama.UpdateSpeed((dragCurrentPos - dragBeginPos) * panoramaSpeedMultiplier);
+            panorama.UpdateSpeed(((dragCurrentPos - dragBeginPos) * panoramaSpeedMultiplier).x);
         }
     }
 }
