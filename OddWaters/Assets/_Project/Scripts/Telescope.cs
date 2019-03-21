@@ -60,7 +60,7 @@ public class Telescope : MonoBehaviour
 
     void Update()
     {
-        planeOffset.x -= dragSpeed * Time.deltaTime;
+        planeOffset.x += dragSpeed * Time.deltaTime;
         planeRenderer.material.SetTextureOffset("_MainTex", planeOffset);
     }
 }
