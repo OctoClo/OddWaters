@@ -11,9 +11,9 @@ public class InputManager : MonoBehaviour
     float deskMinZ;
     float deskMaxZ;
     
-    Panorama panorama;
+    Telescope telescope;
     Vector3 dragBeginPos;
-    const float panoramaSpeedMultiplier = 0.001f;
+    const float telescopeSpeedMultiplier = 0.001f;
 
     Camera mainCamera;
     Interactible grabbedObject;
@@ -48,12 +48,12 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    panorama = hit.collider.GetComponent<Panorama>();
-                    if (panorama)
+                    telescope = hit.collider.GetComponent<Telescope>();
+                    if (telescope)
                     {
                         dragBeginPos = Input.mousePosition;
                         Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                        panorama.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                        telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
                     }
                 }
             }
@@ -66,10 +66,10 @@ public class InputManager : MonoBehaviour
                 grabbedObject.Drop();
                 grabbedObject = null;
             }
-            else if (panorama)
+            else if (telescope)
             {
-                panorama.EndDrag();
-                panorama = null;
+                telescope.EndDrag();
+                telescope = null;
             }
         }
     }
@@ -85,10 +85,10 @@ public class InputManager : MonoBehaviour
             if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
                 grabbedObject.MoveTo(mouseWorldPos);
         }
-        else if (panorama)
+        else if (telescope)
         {
             Vector3 dragCurrentPos = Input.mousePosition;
-            panorama.UpdateSpeed(((dragCurrentPos - dragBeginPos) * panoramaSpeedMultiplier).x);
+            telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos) * telescopeSpeedMultiplier).x);
         }
     }
 }
