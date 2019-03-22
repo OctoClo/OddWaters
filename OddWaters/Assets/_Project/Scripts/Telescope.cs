@@ -19,6 +19,11 @@ public class Telescope : MonoBehaviour
     Vector2 planeOffset;
     float dragSpeed;
 
+    [SerializeField]
+    Animator fadeAnimator;
+    [SerializeField]
+    float fadeAnimHalfTime;
+
     void Start()
     {
         cursorOffset = new Vector2(cursorCenter.texture.width / 2, cursorCenter.texture.height / 2);
@@ -64,8 +69,10 @@ public class Telescope : MonoBehaviour
         planeRenderer.material.SetTextureOffset("_MainTex", planeOffset);
     }
 
-    public void ChangeTexture(Texture texture)
+    public IEnumerator ChangeTexture(Texture texture)
     {
+        fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
+        yield return new WaitForSeconds(fadeAnimHalfTime);
         planeRenderer.material.mainTexture = texture;
     }
 }

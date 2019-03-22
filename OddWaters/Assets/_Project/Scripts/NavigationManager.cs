@@ -17,7 +17,7 @@ public class NavigationManager : MonoBehaviour
         if (map.currentZone != currentZone)
         {
             currentZone = map.currentZone;
-            telescope.ChangeTexture(map.GetNewZoneTexture());
+            StartCoroutine(telescope.ChangeTexture(map.GetNewZoneTexture()));
         }
     }
 }
