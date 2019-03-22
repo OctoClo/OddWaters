@@ -24,7 +24,8 @@ public class Interactible : MonoBehaviour
         rigidBody.useGravity = false;
         Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
         verticalGrabOffset.Normalize();
-        verticalGrabOffset.y *= 2;
+        if (rigidBody.velocity == Vector3.zero)
+            verticalGrabOffset.y *= 2;
         gameObject.transform.position += verticalGrabOffset;
     }
 
