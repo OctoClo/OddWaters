@@ -23,6 +23,7 @@ public class Telescope : MonoBehaviour
     Animator fadeAnimator;
     [SerializeField]
     float fadeAnimHalfTime;
+    bool firstAnim;
 
     void Start()
     {
@@ -32,6 +33,8 @@ public class Telescope : MonoBehaviour
         planeRenderer = GetComponent<MeshRenderer>();
         planeOffset = new Vector2(0, 0);
         dragSpeed = 0;
+
+        firstAnim = true;
     }
 
     public void BeginDrag(Vector3 beginPos)
@@ -71,8 +74,17 @@ public class Telescope : MonoBehaviour
 
     public IEnumerator ChangeTexture(Texture texture)
     {
-        fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
-        yield return new WaitForSeconds(fadeAnimHalfTime);
-        planeRenderer.material.mainTexture = texture;
+        if (firstAnim)
+        {
+            firstAnim = false;
+            planeRenderer.material.mainTexture = texture;
+            fadeAnimator.Play("Base Layer.TelescopeFadeOut");
+        }
+        else
+        {
+            fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
+            yield return new WaitForSeconds(fadeAnimHalfTime);
+            planeRenderer.material.mainTexture = texture;
+        }
     }
 }
