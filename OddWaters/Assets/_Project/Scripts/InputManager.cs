@@ -11,23 +11,26 @@ public class InputManager : MonoBehaviour
     float deskMinZ;
     float deskMaxZ;
     
-    Telescope telescope;
-    Vector3 dragBeginPos;
-    const float telescopeSpeedMultiplier = 0.001f;
-
     Camera mainCamera;
+
     Interactible grabbedObject;
     Vector3 grabbedOjectScreenPos;
     Vector3 grabbedObjectOffset;
 
+    Map map;
+
+    Telescope telescope;
+    Vector3 dragBeginPos;
+    const float telescopeSpeedMultiplier = 0.001f;
+
     void Start()
     {
-        Vector3 deskPosition = desk.transform.position;
-        Vector3 deskScale = desk.transform.localScale;
-        deskMinX = deskPosition.x - deskScale.x / 2;
-        deskMaxX = deskPosition.x + deskScale.x / 2;
-        deskMinZ = deskPosition.z - deskScale.z / 2;
-        deskMaxZ = deskPosition.z + deskScale.z / 2;
+        Vector3 position = desk.transform.position;
+        Vector3 scale = desk.transform.localScale;
+        deskMinX = position.x - scale.x / 2;
+        deskMaxX = position.x + scale.x / 2;
+        deskMinZ = position.z - scale.z / 2;
+        deskMaxZ = position.z + scale.z / 2;
 
         mainCamera = Camera.main;
     }
@@ -48,12 +51,21 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    telescope = hit.collider.GetComponent<Telescope>();
-                    if (telescope)
+                    map = hit.collider.transform.GetComponentInParent<Map>();
+                    if (map)
                     {
-                        dragBeginPos = Input.mousePosition;
                         Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                        telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                        map.MoveTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                    }
+                    else
+                    {
+                        telescope = hit.collider.GetComponent<Telescope>();
+                        if (telescope)
+                        {
+                            dragBeginPos = Input.mousePosition;
+                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                        }
                     }
                 }
             }
