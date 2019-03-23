@@ -5,6 +5,9 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField]
+    NavigationManager navigationManager;
+
+    [SerializeField]
     GameObject desk;
     float deskMinX;
     float deskMaxX;
@@ -16,8 +19,6 @@ public class InputManager : MonoBehaviour
     Interactible grabbedObject;
     Vector3 grabbedOjectScreenPos;
     Vector3 grabbedObjectOffset;
-
-    Map map;
 
     Telescope telescope;
     Vector3 dragBeginPos;
@@ -51,11 +52,18 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    map = hit.collider.transform.GetComponentInParent<Map>();
-                    if (map)
+                    MapZone mapZone = hit.collider.transform.GetComponentInParent<MapZone>();
+                    if (mapZone)
                     {
-                        Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                        map.MoveTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                        if (mapZone.visible)
+                        {
+                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            navigationManager.NavigateTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                        }
+                        else
+                        {
+                            Debug.Log("Not yet...");
+                        }
                     }
                     else
                     {
