@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
-    public Texture telescopeTexture;
+    public Sprite telescopeSprite;
 
     public bool visible;
     [SerializeField]

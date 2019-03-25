@@ -23,8 +23,8 @@ public class Map : MonoBehaviour
         }
     }
 
-    public Texture GetCurrentZoneTexture()
+    public Sprite GetCurrentZoneSprite()
     {
-        return mapZones[currentZone].telescopeTexture;
+        return mapZones[currentZone].telescopeSprite;
     }
 }

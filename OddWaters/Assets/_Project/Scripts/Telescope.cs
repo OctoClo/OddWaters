@@ -14,10 +14,20 @@ public class Telescope : MonoBehaviour
     GameObject cursorBegin;
     Vector2 cursorOffset;
     Vector3 cursorScale;
+    
+    [SerializeField]
+    GameObject telescope1;
+    GameObject telescope2;
+    GameObject[] telescopes;
+    Sprite sprite1;
+    Sprite sprite2;
+    float telescopeOffsetX;
 
-    Renderer planeRenderer;
-    Vector2 planeOffset;
+    const float dragSpeedMultiplier = 0.01f;
     float dragSpeed;
+
+    [SerializeField]
+    GameObject zonesFolder;
 
     [SerializeField]
     Animator fadeAnimator;
@@ -30,8 +40,25 @@ public class Telescope : MonoBehaviour
         cursorOffset = new Vector2(cursorCenter.texture.width / 2, cursorCenter.texture.height / 2);
         cursorScale = new Vector3(1.5f, 1.5f, 0);
 
-        planeRenderer = GetComponent<MeshRenderer>();
-        planeOffset = new Vector2(0, 0);
+        GameObject completeZone1 = telescope1.transform.GetChild(0).gameObject;
+        sprite1 = completeZone1.transform.GetComponent<SpriteRenderer>().sprite;
+        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x / sprite1.pixelsPerUnit;
+        Debug.Log("Telescope offset : " + telescopeOffsetX);
+        Debug.Log("Half size : " + sprite1.bounds.extents.x);
+        Debug.Log("PPU : " + sprite1.pixelsPerUnit);
+
+        telescope2 = Instantiate(telescope1, transform);
+        telescope2.name = "Telescope2";
+        sprite2 = telescope2.transform.GetComponentInChildren<SpriteRenderer>().sprite;
+
+        Vector3 telescope2Pos = telescope1.transform.position;
+        telescope2Pos.x = telescopeOffsetX;
+        telescope2.transform.position = telescope2Pos;
+
+        telescopes = new GameObject[2];
+        telescopes[0] = telescope1;
+        telescopes[1] = telescope2;
+
         dragSpeed = 0;
 
         firstAnim = true;
@@ -57,7 +84,7 @@ public class Telescope : MonoBehaviour
 
     public void UpdateSpeed(float speed)
     {
-        dragSpeed = speed;
+        dragSpeed = speed * dragSpeedMultiplier;
         if (dragSpeed == 0)
             Cursor.SetCursor(cursorCenter.texture, cursorOffset, CursorMode.Auto);
         else if (dragSpeed < 0)
@@ -68,23 +95,48 @@ public class Telescope : MonoBehaviour
 
     void Update()
     {
-        planeOffset.x += dragSpeed * Time.deltaTime;
-        planeRenderer.material.SetTextureOffset("_MainTex", planeOffset);
+        Vector3 move = new Vector3(dragSpeed * Time.deltaTime, 0, 0);
+        telescope1.transform.position += move;
+        telescope2.transform.position += move;
+        
+        if (dragSpeed < 0 && telescopes[1].transform.position.x <= 0)
+        {
+            Vector3 newPos = telescopes[0].transform.position;
+            newPos.x = telescopes[1].transform.position.x + telescopeOffsetX;
+            telescopes[0].transform.position = newPos;
+            SwapTelescopes();
+        }
+        else if (dragSpeed > 0 && telescopes[0].transform.position.x >= 0)
+        {
+            Vector3 newPos = telescopes[1].transform.position;
+            newPos.x = telescopes[0].transform.position.x - telescopeOffsetX;
+            telescopes[1].transform.position = newPos;
+            SwapTelescopes();
+        }
     }
 
-    public IEnumerator ChangeTexture(Texture texture)
+    void SwapTelescopes()
+    {
+        GameObject temp = telescopes[0];
+        telescopes[0] = telescopes[1];
+        telescopes[1] = temp;
+    }
+
+    public IEnumerator ChangeSprite(Sprite sprite)
     {
         if (firstAnim)
         {
             firstAnim = false;
-            planeRenderer.material.mainTexture = texture;
+            sprite1 = sprite;
+            sprite2 = sprite;
             fadeAnimator.Play("Base Layer.TelescopeFadeOut");
         }
         else
         {
             fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
             yield return new WaitForSeconds(fadeAnimHalfTime);
-            planeRenderer.material.mainTexture = texture;
+            sprite1 = sprite;
+            sprite2 = sprite;
         }
     }
 }

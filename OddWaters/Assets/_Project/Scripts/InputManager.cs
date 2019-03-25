@@ -22,7 +22,6 @@ public class InputManager : MonoBehaviour
 
     Telescope telescope;
     Vector3 dragBeginPos;
-    const float telescopeSpeedMultiplier = 0.001f;
 
     void Start()
     {
@@ -108,7 +107,7 @@ public class InputManager : MonoBehaviour
         else if (telescope)
         {
             Vector3 dragCurrentPos = Input.mousePosition;
-            telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos) * telescopeSpeedMultiplier).x);
+            telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos)).x);
         }
     }
 }
