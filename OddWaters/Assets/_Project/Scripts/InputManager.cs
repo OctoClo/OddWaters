@@ -20,8 +20,15 @@ public class InputManager : MonoBehaviour
     Vector3 grabbedOjectScreenPos;
     Vector3 grabbedObjectOffset;
 
+    [SerializeField]
     Telescope telescope;
+    Vector3 mouseScreenPos;
     Vector3 dragBeginPos;
+    TelescopeElement telescopeElement;
+
+    bool telescopeClicked;
+    float telescopeTimeSinceClick;
+    float telescopeClickTime;
 
     void Start()
     {
@@ -33,6 +40,10 @@ public class InputManager : MonoBehaviour
         deskMaxZ = position.z + scale.z / 2;
 
         mainCamera = Camera.main;
+
+        telescopeClicked = false;
+        telescopeTimeSinceClick = 0;
+        telescopeClickTime = 0.2f;
     }
 
     void Update()
@@ -61,30 +72,23 @@ public class InputManager : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("Not yet...");
+                            Debug.Log("Zone not yet available");
                         }
                     }
                     else
                     {
-                        TelescopeElement telescopeElement = hit.collider.GetComponent<TelescopeElement>();
-                        if (telescopeElement) // Telescope identification
+                        telescopeElement = hit.collider.GetComponent<TelescopeElement>();
+                        Telescope telescopeHit = hit.collider.GetComponent<Telescope>();
+                        if (telescopeElement || telescopeHit) // Telescope
                         {
-                            telescopeElement.Trigger();
-                        }
-                        else
-                        {
-                            telescope = hit.collider.GetComponent<Telescope>();
-                            if (telescope) // Telescope pan
-                            {
-                                dragBeginPos = Input.mousePosition;
-                                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-                            }
+                            telescopeClicked = true;
+                            dragBeginPos = Input.mousePosition;
+                            mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
                         }
                     }
                 }
             }
-        }
+        }        
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -93,10 +97,29 @@ public class InputManager : MonoBehaviour
                 grabbedObject.Drop();
                 grabbedObject = null;
             }
-            else if (telescope)
+            else if (telescopeClicked)
             {
-                telescope.EndDrag();
-                telescope = null;
+                if (telescopeTimeSinceClick <= telescopeClickTime && telescopeElement)
+                    telescopeElement.Trigger();
+                else
+                    telescope.EndDrag();
+                
+                telescopeClicked = false;
+                telescopeTimeSinceClick = 0;
+            }
+        }
+
+        if (telescopeClicked)
+        {
+            telescopeTimeSinceClick += Time.deltaTime;
+
+            if (telescopeTimeSinceClick == telescopeClickTime)
+                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+
+            if (telescopeTimeSinceClick >= telescopeClickTime)
+            {
+                Vector3 dragCurrentPos = Input.mousePosition;
+                telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos)).x);
             }
         }
     }
@@ -111,11 +134,6 @@ public class InputManager : MonoBehaviour
             // Check desk borders before moving
             if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
                 grabbedObject.MoveTo(mouseWorldPos);
-        }
-        else if (telescope)
-        {
-            Vector3 dragCurrentPos = Input.mousePosition;
-            telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos)).x);
         }
     }
 }
