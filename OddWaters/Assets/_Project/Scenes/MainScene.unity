@@ -331,6 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigationManager: {fileID: 674968308}
   desk: {fileID: 16959296}
+  telescope: {fileID: 1749075880}
 --- !u!1 &112611266
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,10 +518,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 5
   telescopeSprite: {fileID: 21300000, guid: 06c0cf871b55f914db3cd96f0b357755, type: 3}
-  visible: 0
+  _visible: 0
   visibleSprite: {fileID: 21300000, guid: 11a7da86032ddbd4cb9a5fa3f9ef7056, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
-  map: {fileID: 0}
 --- !u!65 &164221437
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -720,10 +720,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 3
   telescopeSprite: {fileID: 21300000, guid: 907ba366a0a119f4ea1285a194fa9843, type: 3}
-  visible: 0
+  _visible: 0
   visibleSprite: {fileID: 21300000, guid: c497846d2c6b51246bb6fc36be5fbe09, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
-  map: {fileID: 0}
 --- !u!65 &363733203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1077,10 +1076,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 1
   telescopeSprite: {fileID: 21300000, guid: 008de7a43a6263e4bbca2dd4b1f23316, type: 3}
-  visible: 0
+  _visible: 0
   visibleSprite: {fileID: 21300000, guid: 768f483f5b50aab4ca7db0993e59e12d, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 468106d71335c374c8322a2bc6614504, type: 3}
-  map: {fileID: 0}
 --- !u!65 &803560858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1151,6 +1149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22251164a4c1145499f5b844fc7d2ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoneDiscoverNumber: 1
+  cloneElement: {fileID: 0}
 --- !u!1 &964588526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,10 +1282,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 0
   telescopeSprite: {fileID: 21300000, guid: dfd5f67637a4f9d4c87d84f00bd86563, type: 3}
-  visible: 1
+  _visible: 1
   visibleSprite: {fileID: 21300000, guid: 24c9c8d05afa4484296302bdfdcaa328, type: 3}
   invisibleSprite: {fileID: 0}
-  map: {fileID: 0}
 --- !u!65 &981342648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1427,7 +1426,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158980442}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.48, y: 0.05, z: -1.06}
+  m_LocalPosition: {x: -2.19, y: 0.1, z: -1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2093409098}
@@ -1469,7 +1468,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 69279d8021773114db109b2f4da3ee54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1905,10 +1904,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 2
   telescopeSprite: {fileID: 21300000, guid: db44d6e4c1c2b194ab324a73616d291b, type: 3}
-  visible: 0
+  _visible: 0
   visibleSprite: {fileID: 21300000, guid: 3fce27d7325f2f541b7964aacaa21042, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
-  map: {fileID: 0}
 --- !u!65 &1644431871
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2071,7 +2069,6 @@ MonoBehaviour:
   cursorLeft: {fileID: 21300000, guid: 6a48bf2c04606e4488e29609ecd6e2f3, type: 3}
   cursorRight: {fileID: 21300000, guid: f9b9d45bd398a0e49bdcee260bf064c7, type: 3}
   telescope1: {fileID: 1004662570}
-  zonesFolder: {fileID: 464759722}
   fadeAnimator: {fileID: 1741706510}
   fadeAnimHalfTime: 0.5
 --- !u!65 &1749075881
@@ -2182,10 +2179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 4
   telescopeSprite: {fileID: 21300000, guid: 4f686468e1f114c4d9b8ca104067306e, type: 3}
-  visible: 0
+  _visible: 0
   visibleSprite: {fileID: 21300000, guid: 468106d71335c374c8322a2bc6614504, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
-  map: {fileID: 0}
 --- !u!65 &1755441420
 BoxCollider:
   m_ObjectHideFlags: 0

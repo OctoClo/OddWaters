@@ -19,15 +19,14 @@ public class Telescope : MonoBehaviour
     GameObject telescope1;
     GameObject telescope2;
     GameObject[] telescopes;
+    GameObject completeZone1;
+    GameObject completeZone2;
     Sprite sprite1;
     Sprite sprite2;
     float telescopeOffsetX;
 
     const float dragSpeedMultiplier = 0.01f;
     float dragSpeed;
-
-    [SerializeField]
-    GameObject zonesFolder;
 
     [SerializeField]
     Animator fadeAnimator;
@@ -40,13 +39,13 @@ public class Telescope : MonoBehaviour
         cursorOffset = new Vector2(cursorCenter.texture.width / 2, cursorCenter.texture.height / 2);
         cursorScale = new Vector3(1.5f, 1.5f, 0);
 
-        GameObject completeZone1 = telescope1.transform.GetChild(0).gameObject;
-        sprite1 = completeZone1.transform.GetComponent<SpriteRenderer>().sprite;
+        completeZone1 = telescope1.transform.GetChild(0).gameObject;
+        sprite1 = completeZone1.GetComponent<SpriteRenderer>().sprite;
         telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x / sprite1.pixelsPerUnit;
 
         telescope2 = Instantiate(telescope1, transform);
         telescope2.name = "Telescope2";
-        sprite2 = telescope2.transform.GetComponentInChildren<SpriteRenderer>().sprite;
+        completeZone2 = telescope2.transform.GetChild(0).gameObject;
 
         Vector3 telescope2Pos = telescope1.transform.position;
         telescope2Pos.x = telescopeOffsetX;
@@ -55,6 +54,19 @@ public class Telescope : MonoBehaviour
         telescopes = new GameObject[2];
         telescopes[0] = telescope1;
         telescopes[1] = telescope2;
+
+        GameObject elementsFolder1 = telescope1.transform.GetChild(1).gameObject;
+        GameObject elementsFolder2 = telescope2.transform.GetChild(1).gameObject;
+        GameObject element1, element2;
+
+        int telescopeElementsCount = elementsFolder1.transform.childCount;
+        for (int i = 0; i < telescopeElementsCount; i++)
+        {
+            element1 = elementsFolder1.transform.GetChild(i).gameObject;
+            element2 = elementsFolder2.transform.GetChild(i).gameObject;
+            element1.GetComponent<TelescopeElement>().cloneElement = element2;
+            element2.GetComponent<TelescopeElement>().cloneElement = element1;
+        }
 
         dragSpeed = 0;
 
@@ -124,16 +136,16 @@ public class Telescope : MonoBehaviour
         if (firstAnim)
         {
             firstAnim = false;
-            sprite1 = sprite;
-            sprite2 = sprite;
+            completeZone1.GetComponent<SpriteRenderer>().sprite = sprite;
+            completeZone2.GetComponent<SpriteRenderer>().sprite = sprite;
             fadeAnimator.Play("Base Layer.TelescopeFadeOut");
         }
         else
         {
             fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
             yield return new WaitForSeconds(fadeAnimHalfTime);
-            sprite1 = sprite;
-            sprite2 = sprite;
+            completeZone1.GetComponent<SpriteRenderer>().sprite = sprite;
+            completeZone2.GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
 }

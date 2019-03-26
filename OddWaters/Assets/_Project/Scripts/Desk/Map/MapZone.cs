@@ -2,19 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class MapZoneChangeEvent : GameEvent { public int currentZone; }
+
 public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
     public Sprite telescopeSprite;
 
-    public bool visible;
+    public bool visible
+    {
+        get
+        {
+            return _visible;
+        }
+        set
+        {
+            _visible = value;
+            spriteRenderer.sprite = (_visible ? visibleSprite : invisibleSprite);
+        }
+    }
+    [SerializeField]
+    bool _visible;
+
     [SerializeField]
     Sprite visibleSprite;
     [SerializeField]
     Sprite invisibleSprite;
-
-    [HideInInspector]
-    public Map map;
 
     SpriteRenderer spriteRenderer;
 
@@ -26,6 +39,6 @@ public class MapZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        map.currentZone = zoneNumber;
+        EventManager.Instance.Raise(new MapZoneChangeEvent() { currentZone = zoneNumber });
     }
 }
