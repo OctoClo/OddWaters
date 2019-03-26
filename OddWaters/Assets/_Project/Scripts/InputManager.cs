@@ -43,7 +43,7 @@ public class InputManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 grabbedObject = hit.collider.GetComponent<Interactible>();
-                if (grabbedObject)
+                if (grabbedObject) // Interactibles drag
                 {
                     grabbedObject.Grab();
                     grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
@@ -52,7 +52,7 @@ public class InputManager : MonoBehaviour
                 else
                 {
                     MapZone mapZone = hit.collider.transform.GetComponentInParent<MapZone>();
-                    if (mapZone)
+                    if (mapZone) // Map navigation
                     {
                         if (mapZone.visible)
                         {
@@ -66,12 +66,20 @@ public class InputManager : MonoBehaviour
                     }
                     else
                     {
-                        telescope = hit.collider.GetComponent<Telescope>();
-                        if (telescope)
+                        TelescopeElement telescopeElement = hit.collider.GetComponent<TelescopeElement>();
+                        if (telescopeElement) // Telescope identification
                         {
-                            dragBeginPos = Input.mousePosition;
-                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                            telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                            telescopeElement.Trigger();
+                        }
+                        else
+                        {
+                            telescope = hit.collider.GetComponent<Telescope>();
+                            if (telescope) // Telescope pan
+                            {
+                                dragBeginPos = Input.mousePosition;
+                                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                            }
                         }
                     }
                 }

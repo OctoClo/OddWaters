@@ -43,9 +43,6 @@ public class Telescope : MonoBehaviour
         GameObject completeZone1 = telescope1.transform.GetChild(0).gameObject;
         sprite1 = completeZone1.transform.GetComponent<SpriteRenderer>().sprite;
         telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x / sprite1.pixelsPerUnit;
-        Debug.Log("Telescope offset : " + telescopeOffsetX);
-        Debug.Log("Half size : " + sprite1.bounds.extents.x);
-        Debug.Log("PPU : " + sprite1.pixelsPerUnit);
 
         telescope2 = Instantiate(telescope1, transform);
         telescope2.name = "Telescope2";
