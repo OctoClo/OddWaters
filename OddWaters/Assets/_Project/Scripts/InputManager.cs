@@ -68,8 +68,8 @@ public class InputManager : MonoBehaviour
                     Island island = hit.collider.GetComponent<Island>();
                     if (island)
                     {
-                        island.Berth();
                         screenManager.Berth(island.illustration, island.character, island.firstTimeVisiting, island.objectToGive);
+                        island.Berth();
                     }
                     else
                     {

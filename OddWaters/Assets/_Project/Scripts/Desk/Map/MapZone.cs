@@ -39,6 +39,7 @@ public class MapZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        EventManager.Instance.Raise(new MapZoneChangeEvent() { currentZone = zoneNumber });
+        if (other.gameObject.name == "Boat")
+            EventManager.Instance.Raise(new MapZoneChangeEvent() { currentZone = zoneNumber });
     }
 }

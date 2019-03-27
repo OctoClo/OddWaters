@@ -14,5 +14,6 @@ public class Island : MonoBehaviour
     public void Berth()
     {
         Debug.Log("Berthing on island n°" + islandNumber);
+        firstTimeVisiting = false;
     }
 }

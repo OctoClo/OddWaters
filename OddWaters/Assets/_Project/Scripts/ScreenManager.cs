@@ -15,6 +15,9 @@ public class ScreenManager : MonoBehaviour
     GameObject desk;
 
     [SerializeField]
+    Inventory inventory;
+
+    [SerializeField]
     GameObject island;
     [SerializeField]
     GameObject[] islandFolders;
@@ -71,6 +74,7 @@ public class ScreenManager : MonoBehaviour
             if (giveObject)
             {
                 Debug.Log("I'm giving you a little present :3");
+                inventory.AddToInventory(objectToGive);
             }
         }
         else
