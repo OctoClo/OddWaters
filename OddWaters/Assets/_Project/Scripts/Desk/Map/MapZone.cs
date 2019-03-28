@@ -8,21 +8,8 @@ public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
     public Sprite telescopeSprite;
-
-    public bool visible
-    {
-        get
-        {
-            return _visible;
-        }
-        set
-        {
-            _visible = value;
-            spriteRenderer.sprite = (_visible ? visibleSprite : invisibleSprite);
-        }
-    }
-    [SerializeField]
-    bool _visible;
+    
+    public bool visible;
 
     [SerializeField]
     Sprite visibleSprite;
@@ -30,16 +17,32 @@ public class MapZone : MonoBehaviour
     Sprite invisibleSprite;
 
     SpriteRenderer spriteRenderer;
+    int childCount;
 
     void Start()
     {
+        childCount = transform.childCount;
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = (visible ? visibleSprite : invisibleSprite);
+        ActivateIslands();
+    }
+
+    public void Discover()
+    {
+        visible = true;
+        spriteRenderer.sprite = visibleSprite;
+        ActivateIslands();
+    }
+
+    void ActivateIslands()
+    {
+        for (int i = 0; i < childCount; i++)
+            transform.GetChild(i).gameObject.SetActive(visible);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Boat")
+        if (other.gameObject.CompareTag("Boat"))
             EventManager.Instance.Raise(new MapZoneChangeEvent() { currentZone = zoneNumber });
     }
 }

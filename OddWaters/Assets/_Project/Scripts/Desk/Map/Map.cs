@@ -45,6 +45,6 @@ public class Map : MonoBehaviour
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)
     {
         Debug.Log("Discovered zone n°" + e.zoneNumber);
-        mapZones[e.zoneNumber].visible = true;
+        mapZones[e.zoneNumber].Discover();
     }
 }

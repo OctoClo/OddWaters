@@ -12,18 +12,23 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     ScreenManager screenManager;
 
+    // Inventory
+
     [SerializeField]
     GameObject desk;
     float deskMinX;
     float deskMaxX;
     float deskMinZ;
     float deskMaxZ;
-    
+
     Camera mainCamera;
+    bool blockInput;
 
     Interactible grabbedObject;
     Vector3 grabbedOjectScreenPos;
     Vector3 grabbedObjectOffset;
+
+    // Telescope
 
     [SerializeField]
     Telescope telescope;
@@ -35,8 +40,14 @@ public class InputManager : MonoBehaviour
     float telescopeTimeSinceClick;
     float telescopeClickTime;
 
-    bool blockInput;
+    // Map
 
+    [SerializeField]
+    [Tooltip("Dans l'ordre : mer, île, KO")]
+    Sprite[] cursorsNavigation;
+    Vector2 cursorOffset;
+    bool navigation;
+    
     void Start()
     {
         Vector3 position = desk.transform.position;
@@ -47,12 +58,14 @@ public class InputManager : MonoBehaviour
         deskMaxZ = position.z + scale.z / 2;
 
         mainCamera = Camera.main;
+        blockInput = false;
 
         telescopeClicked = false;
         telescopeTimeSinceClick = 0;
         telescopeClickTime = 0.2f;
 
-        blockInput = false;
+        cursorOffset = new Vector2(cursorsNavigation[0].texture.width / 2, cursorsNavigation[0].texture.height / 2);
+        navigation = false;
     }
 
     void OnEnable()
@@ -74,6 +87,11 @@ public class InputManager : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0))
                 HandleMouseLeftButtonUp();
+
+            if (Input.GetMouseButtonDown(1) && navigation)
+            {
+                StopNavigation();
+            }
         }
 
         if (telescopeClicked)
@@ -88,6 +106,13 @@ public class InputManager : MonoBehaviour
                 Vector3 dragCurrentPos = Input.mousePosition;
                 telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos)).x);
             }
+        }
+
+        if (navigation)
+        {
+            mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+            int cursorType = (int)navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+            Cursor.SetCursor(cursorsNavigation[cursorType].texture, cursorOffset, CursorMode.Auto);
         }
     }
 
@@ -105,39 +130,52 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                Island island = hit.collider.GetComponent<Island>();
-                if (island)
+                if (hit.collider.CompareTag("Boat")) // Navigation
                 {
-                    screenManager.Berth(island.illustration, island.character, island.firstTimeVisiting, island.objectToGive);
-                    island.Berth();
+                    navigation = true;
                 }
                 else
                 {
-                    MapZone mapZone = hit.collider.transform.GetComponentInParent<MapZone>();
-                    if (mapZone) // Map navigation
+                    Island island = hit.collider.GetComponent<Island>();
+                    if (island && navigation) // Islands navigation
                     {
-                        if (mapZone.visible)
-                        {
-                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                            navigationManager.NavigateTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-
-                            if (screenManager.screenType == EScreenType.ISLAND_SMALL)
-                                screenManager.LeaveIsland();
-                        }
-                        else
-                        {
-                            Debug.Log("Zone not yet available");
-                        }
+                        StopNavigation();
+                        screenManager.Berth(island.illustration, island.character, island.firstTimeVisiting, island.objectToGive);
+                        island.Berth();
                     }
                     else
                     {
-                        telescopeElement = hit.collider.GetComponent<TelescopeElement>();
-                        Telescope telescopeHit = hit.collider.GetComponent<Telescope>();
-                        if (telescopeElement || telescopeHit) // Telescope
+                        MapZone mapZone = hit.collider.transform.GetComponentInParent<MapZone>();
+                        if (mapZone && navigation) // Sea navigation
                         {
-                            telescopeClicked = true;
-                            dragBeginPos = Input.mousePosition;
-                            mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            if (mapZone.visible)
+                            {
+                                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                                if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ENavigationResult.KO)
+                                {
+                                    StopNavigation();
+
+                                    navigationManager.NavigateTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+
+                                    if (screenManager.screenType == EScreenType.ISLAND_SMALL)
+                                        screenManager.LeaveIsland();
+                                }                                
+                            }
+                            else
+                            {
+                                Debug.Log("Zone not yet available");
+                            }
+                        }
+                        else
+                        {
+                            telescopeElement = hit.collider.GetComponent<TelescopeElement>();
+                            Telescope telescopeHit = hit.collider.GetComponent<Telescope>();
+                            if (telescopeElement || telescopeHit) // Telescope
+                            {
+                                telescopeClicked = true;
+                                dragBeginPos = Input.mousePosition;
+                                mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            }
                         }
                     }
                 }
@@ -175,6 +213,12 @@ public class InputManager : MonoBehaviour
             if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
                 grabbedObject.MoveTo(mouseWorldPos);
         }
+    }
+
+    void StopNavigation()
+    {
+        navigation = false;
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     void OnBlockInputEvent(BlockInputEvent e)

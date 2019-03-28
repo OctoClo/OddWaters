@@ -333,6 +333,10 @@ MonoBehaviour:
   screenManager: {fileID: 1974049330}
   desk: {fileID: 16959296}
   telescope: {fileID: 1749075880}
+  cursorsNavigation:
+  - {fileID: 21300000, guid: 26ecb6cb6b3a43742aadd49b8d303c17, type: 3}
+  - {fileID: 21300000, guid: 1d4d53ff3c357f54bbab1c6a53784e52, type: 3}
+  - {fileID: 21300000, guid: 24f42c4e672840248947405b5eb43756, type: 3}
 --- !u!1 &112611266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1689,7 @@ GameObject:
   - component: {fileID: 1158980447}
   m_Layer: 0
   m_Name: Boat
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2125,7 +2129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1468174350
 Transform:
   m_ObjectHideFlags: 0
