@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class BlockInputEvent : GameEvent { public bool block; }
+
 public class InputManager : MonoBehaviour
 {
+    [SerializeField]
+    NavigationManager navigationManager;
+
+    [SerializeField]
+    ScreenManager screenManager;
+
     [SerializeField]
     GameObject desk;
     float deskMinX;
@@ -17,11 +25,17 @@ public class InputManager : MonoBehaviour
     Vector3 grabbedOjectScreenPos;
     Vector3 grabbedObjectOffset;
 
-    Map map;
-
+    [SerializeField]
     Telescope telescope;
+    Vector3 mouseScreenPos;
     Vector3 dragBeginPos;
-    const float telescopeSpeedMultiplier = 0.001f;
+    TelescopeElement telescopeElement;
+
+    bool telescopeClicked;
+    float telescopeTimeSinceClick;
+    float telescopeClickTime;
+
+    bool blockInput;
 
     void Start()
     {
@@ -33,56 +47,120 @@ public class InputManager : MonoBehaviour
         deskMaxZ = position.z + scale.z / 2;
 
         mainCamera = Camera.main;
+
+        telescopeClicked = false;
+        telescopeTimeSinceClick = 0;
+        telescopeClickTime = 0.2f;
+
+        blockInput = false;
+    }
+
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<BlockInputEvent>(OnBlockInputEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<BlockInputEvent>(OnBlockInputEvent);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!blockInput)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Input.GetMouseButtonDown(0))
+                HandleMouseLeftButtonDown();
+
+            if (Input.GetMouseButtonUp(0))
+                HandleMouseLeftButtonUp();
+        }
+
+        if (telescopeClicked)
+        {
+            telescopeTimeSinceClick += Time.deltaTime;
+
+            if (telescopeTimeSinceClick == telescopeClickTime)
+                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+
+            if (telescopeTimeSinceClick >= telescopeClickTime)
             {
-                grabbedObject = hit.collider.GetComponent<Interactible>();
-                if (grabbedObject)
+                Vector3 dragCurrentPos = Input.mousePosition;
+                telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos)).x);
+            }
+        }
+    }
+
+    void HandleMouseLeftButtonDown()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            grabbedObject = hit.collider.GetComponent<Interactible>();
+            if (grabbedObject) // Interactibles drag
+            {
+                grabbedObject.Grab();
+                grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
+                grabbedObjectOffset = grabbedObject.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z));
+            }
+            else
+            {
+                Island island = hit.collider.GetComponent<Island>();
+                if (island)
                 {
-                    grabbedObject.Grab();
-                    grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
-                    grabbedObjectOffset = grabbedObject.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z));
+                    screenManager.Berth(island.illustration, island.character, island.firstTimeVisiting, island.objectToGive);
+                    island.Berth();
                 }
                 else
                 {
-                    map = hit.collider.transform.GetComponentInParent<Map>();
-                    if (map)
+                    MapZone mapZone = hit.collider.transform.GetComponentInParent<MapZone>();
+                    if (mapZone) // Map navigation
                     {
-                        Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                        map.MoveTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                        if (mapZone.visible)
+                        {
+                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            navigationManager.NavigateTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+
+                            if (screenManager.screenType == EScreenType.ISLAND_SMALL)
+                                screenManager.LeaveIsland();
+                        }
+                        else
+                        {
+                            Debug.Log("Zone not yet available");
+                        }
                     }
                     else
                     {
-                        telescope = hit.collider.GetComponent<Telescope>();
-                        if (telescope)
+                        telescopeElement = hit.collider.GetComponent<TelescopeElement>();
+                        Telescope telescopeHit = hit.collider.GetComponent<Telescope>();
+                        if (telescopeElement || telescopeHit) // Telescope
                         {
+                            telescopeClicked = true;
                             dragBeginPos = Input.mousePosition;
-                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                            telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                            mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
                         }
                     }
                 }
             }
         }
+    }
 
-        if (Input.GetMouseButtonUp(0))
+    void HandleMouseLeftButtonUp()
+    {
+        if (grabbedObject)
         {
-            if (grabbedObject)
-            {
-                grabbedObject.Drop();
-                grabbedObject = null;
-            }
-            else if (telescope)
-            {
+            grabbedObject.Drop();
+            grabbedObject = null;
+        }
+        else if (telescopeClicked)
+        {
+            if (telescopeTimeSinceClick <= telescopeClickTime && telescopeElement)
+                telescopeElement.Trigger();
+            else
                 telescope.EndDrag();
-                telescope = null;
-            }
+
+            telescopeClicked = false;
+            telescopeTimeSinceClick = 0;
         }
     }
 
@@ -97,10 +175,10 @@ public class InputManager : MonoBehaviour
             if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
                 grabbedObject.MoveTo(mouseWorldPos);
         }
-        else if (telescope)
-        {
-            Vector3 dragCurrentPos = Input.mousePosition;
-            telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos) * telescopeSpeedMultiplier).x);
-        }
+    }
+
+    void OnBlockInputEvent(BlockInputEvent e)
+    {
+        blockInput = e.block;
     }
 }
