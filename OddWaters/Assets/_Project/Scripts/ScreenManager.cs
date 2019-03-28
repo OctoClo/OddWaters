@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EScreenType { SEA, ISLAND, ISLAND_MIXED }
+public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 
-public enum EIslandIlluType { BIG, SMALL, COUNT }
+public enum EIslandIlluType { FULLSCREEN, SMALL, COUNT }
 
 public class ScreenManager : MonoBehaviour
 {
@@ -31,10 +31,10 @@ public class ScreenManager : MonoBehaviour
 
     EIslandIlluType islandIlluType;
 
-    bool giveObject;
+    bool firstVisit;
     GameObject objectToGive;
 
-    public void Berth(Sprite illustration, Sprite character, bool firstTime, GameObject charaObject)
+    public void Berth(Sprite illustration, Sprite character, bool first, GameObject charaObject)
     {
         for (int i = 0; i < (int)EIslandIlluType.COUNT; i++)
         {
@@ -42,9 +42,14 @@ public class ScreenManager : MonoBehaviour
             islandCharacters[i].GetComponent<SpriteRenderer>().sprite = character;
         }
 
-        giveObject = firstTime;
-        objectToGive = charaObject;
-        StartCoroutine(ChangeScreenType(EScreenType.ISLAND));
+        firstVisit = first;
+        if (firstVisit)
+        {
+            objectToGive = charaObject;
+            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_FULLSCREEN));
+        }
+        else
+            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_SMALL));
     }
 
     public void LeaveIsland()
@@ -56,24 +61,26 @@ public class ScreenManager : MonoBehaviour
     {
         screenType = newType;
 
-        if (screenType == EScreenType.ISLAND)
+        if (screenType == EScreenType.ISLAND_FULLSCREEN)
         {
             desk.SetActive(false);
             telescope.SetActive(false);
             island.SetActive(true);
-            islandIlluType = EIslandIlluType.BIG;
+            islandIlluType = EIslandIlluType.FULLSCREEN;
             ChangeIslandIlluType();
             yield return new WaitForSeconds(2);
-            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_MIXED));
+            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_SMALL));
         }
-        else if (screenType == EScreenType.ISLAND_MIXED)
+        else if (screenType == EScreenType.ISLAND_SMALL)
         {
             desk.SetActive(true);
+            telescope.SetActive(false);
+            island.SetActive(true);
             islandIlluType = EIslandIlluType.SMALL;
             ChangeIslandIlluType();
-            if (giveObject)
+            if (firstVisit)
             {
-                Debug.Log("I'm giving you a little present :3");
+                yield return new WaitForSeconds(0.5f);
                 inventory.AddToInventory(objectToGive);
             }
         }
