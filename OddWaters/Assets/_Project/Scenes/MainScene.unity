@@ -523,7 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 5
   telescopeSprite: {fileID: 21300000, guid: 06c0cf871b55f914db3cd96f0b357755, type: 3}
-  _visible: 0
+  visible: 0
   visibleSprite: {fileID: 21300000, guid: 11a7da86032ddbd4cb9a5fa3f9ef7056, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
 --- !u!65 &164221437
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 3
   telescopeSprite: {fileID: 21300000, guid: 907ba366a0a119f4ea1285a194fa9843, type: 3}
-  _visible: 0
+  visible: 0
   visibleSprite: {fileID: 21300000, guid: c497846d2c6b51246bb6fc36be5fbe09, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
 --- !u!65 &363733203
@@ -1097,6 +1097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 2093409099}
   boat: {fileID: 1158980442}
+  boatSpeed: 0.1
   telescope: {fileID: 1749075880}
 --- !u!1 &803560854
 GameObject:
@@ -1194,7 +1195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 1
   telescopeSprite: {fileID: 21300000, guid: 008de7a43a6263e4bbca2dd4b1f23316, type: 3}
-  _visible: 0
+  visible: 0
   visibleSprite: {fileID: 21300000, guid: 768f483f5b50aab4ca7db0993e59e12d, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 468106d71335c374c8322a2bc6614504, type: 3}
 --- !u!65 &803560858
@@ -1479,7 +1480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 0
   telescopeSprite: {fileID: 21300000, guid: dfd5f67637a4f9d4c87d84f00bd86563, type: 3}
-  _visible: 1
+  visible: 1
   visibleSprite: {fileID: 21300000, guid: 24c9c8d05afa4484296302bdfdcaa328, type: 3}
   invisibleSprite: {fileID: 0}
 --- !u!65 &981342648
@@ -2414,7 +2415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 2
   telescopeSprite: {fileID: 21300000, guid: db44d6e4c1c2b194ab324a73616d291b, type: 3}
-  _visible: 0
+  visible: 0
   visibleSprite: {fileID: 21300000, guid: 3fce27d7325f2f541b7964aacaa21042, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
 --- !u!65 &1644431871
@@ -2720,7 +2721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 4
   telescopeSprite: {fileID: 21300000, guid: 4f686468e1f114c4d9b8ca104067306e, type: 3}
-  _visible: 0
+  visible: 0
   visibleSprite: {fileID: 21300000, guid: 468106d71335c374c8322a2bc6614504, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 07d615cb03567464b8906e909d867028, type: 3}
 --- !u!65 &1755441420

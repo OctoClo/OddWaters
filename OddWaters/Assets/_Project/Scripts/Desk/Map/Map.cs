@@ -23,23 +23,16 @@ public class Map : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.AddListener<MapZoneChangeEvent>(OnMapZoneChangeEvent);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.RemoveListener<MapZoneChangeEvent>(OnMapZoneChangeEvent);
     }
 
     public Sprite GetCurrentZoneSprite()
     {
         return mapZones[currentZone].telescopeSprite;
-    }
-
-    void OnMapZoneChangeEvent(MapZoneChangeEvent e)
-    {
-        currentZone = e.currentZone;
     }
 
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)

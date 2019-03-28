@@ -155,7 +155,7 @@ public class InputManager : MonoBehaviour
                                 {
                                     StopNavigation();
 
-                                    navigationManager.NavigateTo(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                                    navigationManager.NavigateTo(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
 
                                     if (screenManager.screenType == EScreenType.ISLAND_SMALL)
                                         screenManager.LeaveIsland();

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapZoneChangeEvent : GameEvent { public int currentZone; }
-
 public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
@@ -38,11 +36,5 @@ public class MapZone : MonoBehaviour
     {
         for (int i = 0; i < childCount; i++)
             transform.GetChild(i).gameObject.SetActive(visible);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Boat"))
-            EventManager.Instance.Raise(new MapZoneChangeEvent() { currentZone = zoneNumber });
     }
 }

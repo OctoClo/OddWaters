@@ -13,6 +13,13 @@ public class NavigationManager : MonoBehaviour
     [SerializeField]
     GameObject boat;
     float boatPosY;
+    [SerializeField]
+    float boatSpeed;
+    bool navigating;
+    Vector3 journeyTarget;
+    float journeyBeginTime;
+    float journeyLength;
+    bool hasPlayedAnim;
 
     [SerializeField]
     Telescope telescope;
@@ -22,15 +29,30 @@ public class NavigationManager : MonoBehaviour
     void Start()
     {
         boatPosY = boat.transform.position.y;
+        navigating = false;
+        hasPlayedAnim = false;
     }
 
     void Update()
     {
-        if (map.currentZone != currentZone)
+        if (navigating)
         {
-            currentZone = map.currentZone;
-            Sprite newSprite = map.GetCurrentZoneSprite();
-            StartCoroutine(telescope.ChangeSprite(newSprite));
+            if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f)
+            {
+                navigating = false;
+                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+            }
+            else
+            {
+                float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
+                float fracJourney = distCovered / journeyLength;
+                boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
+                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim)
+                {
+                    hasPlayedAnim = true;
+                    telescope.PlayAnimation(false, true, map.GetCurrentZoneSprite());
+                }
+            }
         }
     }
 
@@ -61,12 +83,21 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    public void NavigateTo(Vector3 targetPos)
+    public void NavigateTo(Vector3 targetPos, int zoneNumber)
     {
-        if ((targetPos - boat.transform.position).magnitude >= 0.5f)
+        journeyLength = Vector3.Distance(targetPos, boat.transform.position);
+        if (journeyLength >= 0.5f)
         {
-            targetPos.y = boatPosY;
-            boat.transform.position = targetPos;
+            EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+            navigating = true;
+            journeyTarget = targetPos;
+            journeyTarget.y = boatPosY;
+            journeyBeginTime = Time.time;
+            telescope.PlayAnimation(true, false);
+            hasPlayedAnim = false;
+
+            if (zoneNumber != map.currentZone)
+                map.currentZone = zoneNumber;
         }
     }
 }
