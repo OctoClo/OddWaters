@@ -34,18 +34,18 @@ public class ScreenManager : MonoBehaviour
     bool firstVisit;
     GameObject objectToGive;
 
-    public void Berth(Sprite illustration, Sprite character, bool first, GameObject charaObject)
+    public void Berth(Island island)
     {
         for (int i = 0; i < (int)EIslandIlluType.COUNT; i++)
         {
-            islandIllustrations[i].GetComponent<SpriteRenderer>().sprite = illustration;
-            islandCharacters[i].GetComponent<SpriteRenderer>().sprite = character;
+            islandIllustrations[i].GetComponent<SpriteRenderer>().sprite = island.illustration;
+            islandCharacters[i].GetComponent<SpriteRenderer>().sprite = island.character;
         }
 
-        firstVisit = first;
+        firstVisit = island.firstTimeVisiting;
         if (firstVisit)
         {
-            objectToGive = charaObject;
+            objectToGive = island.objectToGive;
             StartCoroutine(ChangeScreenType(EScreenType.ISLAND_FULLSCREEN));
         }
         else
@@ -83,6 +83,8 @@ public class ScreenManager : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 inventory.AddToInventory(objectToGive);
             }
+            else
+                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
         }
         else
         {

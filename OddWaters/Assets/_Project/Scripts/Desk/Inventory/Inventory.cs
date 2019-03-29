@@ -23,7 +23,6 @@ public class Inventory : MonoBehaviour
 
     public void AddToInventory(GameObject prefab)
     {
-        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
         GameObject newObject = Instantiate(prefab, transform);
         newObject.transform.position = new Vector3(3.25f, 1.95f, 0);
         rb = newObject.GetComponent<Rigidbody>();

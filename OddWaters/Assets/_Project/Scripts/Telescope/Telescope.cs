@@ -30,9 +30,6 @@ public class Telescope : MonoBehaviour
 
     [SerializeField]
     Animator fadeAnimator;
-    [SerializeField]
-    float fadeAnimHalfTime;
-    bool firstAnim;
 
     void Start()
     {
@@ -69,8 +66,6 @@ public class Telescope : MonoBehaviour
         }
 
         dragSpeed = 0;
-
-        firstAnim = true;
     }
 
     public void BeginDrag(Vector3 beginPos)
@@ -131,21 +126,20 @@ public class Telescope : MonoBehaviour
         telescopes[1] = temp;
     }
 
-    public IEnumerator ChangeSprite(Sprite sprite)
+    public void PlayAnimation(bool fadeIn, bool fadeOut, Sprite sprite = null)
     {
-        if (firstAnim)
+        if (sprite != null)
         {
-            firstAnim = false;
             completeZone1.GetComponent<SpriteRenderer>().sprite = sprite;
             completeZone2.GetComponent<SpriteRenderer>().sprite = sprite;
-            fadeAnimator.Play("Base Layer.TelescopeFadeOut");
         }
-        else
-        {
+
+        if (fadeIn && fadeOut)
             fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
-            yield return new WaitForSeconds(fadeAnimHalfTime);
-            completeZone1.GetComponent<SpriteRenderer>().sprite = sprite;
-            completeZone2.GetComponent<SpriteRenderer>().sprite = sprite;
-        }
+        else if (fadeIn)
+            fadeAnimator.Play("Base Layer.TelescopeFadeIn");
+        else if (fadeOut)
+            fadeAnimator.Play("Base Layer.TelescopeFadeOut");
+            
     }
 }

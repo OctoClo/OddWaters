@@ -23,13 +23,11 @@ public class Map : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.AddListener<MapZoneChangeEvent>(OnMapZoneChangeEvent);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.RemoveListener<MapZoneChangeEvent>(OnMapZoneChangeEvent);
     }
 
     public Sprite GetCurrentZoneSprite()
@@ -37,14 +35,9 @@ public class Map : MonoBehaviour
         return mapZones[currentZone].telescopeSprite;
     }
 
-    void OnMapZoneChangeEvent(MapZoneChangeEvent e)
-    {
-        currentZone = e.currentZone;
-    }
-
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)
     {
         Debug.Log("Discovered zone n°" + e.zoneNumber);
-        mapZones[e.zoneNumber].visible = true;
+        mapZones[e.zoneNumber].Discover();
     }
 }

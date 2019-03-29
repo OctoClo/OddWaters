@@ -2,27 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapZoneChangeEvent : GameEvent { public int currentZone; }
-
 public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
     public Sprite telescopeSprite;
-
-    public bool visible
-    {
-        get
-        {
-            return _visible;
-        }
-        set
-        {
-            _visible = value;
-            spriteRenderer.sprite = (_visible ? visibleSprite : invisibleSprite);
-        }
-    }
-    [SerializeField]
-    bool _visible;
+    
+    public bool visible;
 
     [SerializeField]
     Sprite visibleSprite;
@@ -30,16 +15,26 @@ public class MapZone : MonoBehaviour
     Sprite invisibleSprite;
 
     SpriteRenderer spriteRenderer;
+    int childCount;
 
     void Start()
     {
+        childCount = transform.childCount;
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = (visible ? visibleSprite : invisibleSprite);
+        ActivateIslands();
     }
 
-    void OnTriggerEnter(Collider other)
+    public void Discover()
     {
-        if (other.gameObject.name == "Boat")
-            EventManager.Instance.Raise(new MapZoneChangeEvent() { currentZone = zoneNumber });
+        visible = true;
+        spriteRenderer.sprite = visibleSprite;
+        ActivateIslands();
+    }
+
+    void ActivateIslands()
+    {
+        for (int i = 0; i < childCount; i++)
+            transform.GetChild(i).gameObject.SetActive(visible);
     }
 }
