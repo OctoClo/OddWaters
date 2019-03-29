@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Aura2API;
 
 public enum ENavigationResult { SEA, ISLAND, KO };
 
@@ -9,6 +10,11 @@ public class NavigationManager : MonoBehaviour
 {
     [SerializeField]
     ScreenManager screenManager;
+
+    [SerializeField]
+    AutoMoveAndRotate lightScript;
+    [SerializeField]
+    int sunMove = -3;
 
     [SerializeField]
     Map map;
@@ -50,6 +56,7 @@ public class NavigationManager : MonoBehaviour
             if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f)
             {
                 navigating = false;
+                lightScript.rotateDegreesPerSecond.value.y = 0;
                 if (islandTarget)
                 {
                     boatRenderer.sprite = boatSprites[1];
@@ -101,20 +108,26 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
+    void LaunchNavigation(Vector3 target)
+    {
+        navigating = true;
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        boatRenderer.sprite = boatSprites[0];
+        lightScript.rotateDegreesPerSecond.value.y = sunMove;
+        journeyLength = Vector3.Distance(target, boat.transform.position);
+        journeyTarget = target;
+        journeyTarget.y = boatPosY;
+        journeyBeginTime = Time.time;
+    }
+
     public void NavigateToZone(Vector3 targetPos, int zoneNumber)
     {
-        journeyLength = Vector3.Distance(targetPos, boat.transform.position);
-        if (journeyLength >= 1f)
+        if (Vector3.Distance(targetPos, boat.transform.position) >= 1f)
         {
-            EventManager.Instance.Raise(new BlockInputEvent() { block = true });
-            boatRenderer.sprite = boatSprites[0];
-            navigating = true;
-            journeyTarget = targetPos;
-            journeyTarget.y = boatPosY;
-            journeyBeginTime = Time.time;
+            LaunchNavigation(targetPos);
             telescope.PlayAnimation(true, false);
             hasPlayedAnim = false;
-
+            
             if (zoneNumber != map.currentZone)
                 map.currentZone = zoneNumber;
         }
@@ -122,13 +135,7 @@ public class NavigationManager : MonoBehaviour
 
     public void NavigateToIsland(Island island)
     {
-        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
-        boatRenderer.sprite = boatSprites[0];
-        journeyLength = Vector3.Distance(island.transform.position, boat.transform.position);
-        navigating = true;
-        journeyTarget = island.transform.position;
-        journeyTarget.y = boatPosY;
-        journeyBeginTime = Time.time;
+        LaunchNavigation(island.transform.position);
         islandTarget = island;
 
         if (island.islandNumber != map.currentZone)
