@@ -140,8 +140,7 @@ public class InputManager : MonoBehaviour
                     if (island && navigation) // Islands navigation
                     {
                         StopNavigation();
-                        screenManager.Berth(island.illustration, island.character, island.firstTimeVisiting, island.objectToGive);
-                        island.Berth();
+                        navigationManager.NavigateToIsland(island);
                     }
                     else
                     {
@@ -154,11 +153,9 @@ public class InputManager : MonoBehaviour
                                 if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ENavigationResult.KO)
                                 {
                                     StopNavigation();
-
-                                    navigationManager.NavigateTo(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
-
                                     if (screenManager.screenType == EScreenType.ISLAND_SMALL)
                                         screenManager.LeaveIsland();
+                                    navigationManager.NavigateToZone(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
                                 }                                
                             }
                             else
@@ -175,6 +172,10 @@ public class InputManager : MonoBehaviour
                                 telescopeClicked = true;
                                 dragBeginPos = Input.mousePosition;
                                 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            }
+                            else if (navigation)
+                            {
+                                Debug.Log("Navigation is possible on map only");
                             }
                         }
                     }

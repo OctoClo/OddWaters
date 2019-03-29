@@ -1095,8 +1095,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7383a528d06604fbecc306fe9688aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenManager: {fileID: 1974049330}
   map: {fileID: 2093409099}
   boat: {fileID: 1158980442}
+  boatSprites:
+  - {fileID: 21300000, guid: 69279d8021773114db109b2f4da3ee54, type: 3}
+  - {fileID: 21300000, guid: 93a6ffb772b5e644383b01f62c622c3f, type: 3}
   boatSpeed: 0.1
   telescope: {fileID: 1749075880}
 --- !u!1 &803560854
@@ -2170,7 +2174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45384d2e211b8f4793955f5416c7d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandNumber: 0
+  islandNumber: 1
   illustration: {fileID: 21300000, guid: fe8caf032cd589c41b715b696d587cb5, type: 3}
   character: {fileID: 21300000, guid: 55fb573f20c200d43be24b3875bc1dfb, type: 3}
   objectToGive: {fileID: 165029318514557520, guid: 69954ea66519c434eab2403dd6e66e19,
@@ -2612,7 +2616,6 @@ MonoBehaviour:
   cursorRight: {fileID: 21300000, guid: f9b9d45bd398a0e49bdcee260bf064c7, type: 3}
   telescope1: {fileID: 1004662570}
   fadeAnimator: {fileID: 1741706510}
-  fadeAnimHalfTime: 0.5
 --- !u!65 &1749075881
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -8,18 +8,26 @@ public enum ENavigationResult { SEA, ISLAND, KO };
 public class NavigationManager : MonoBehaviour
 {
     [SerializeField]
+    ScreenManager screenManager;
+
+    [SerializeField]
     Map map;
 
     [SerializeField]
     GameObject boat;
     float boatPosY;
+    SpriteRenderer boatRenderer;
+    [SerializeField]
+    Sprite[] boatSprites;
     [SerializeField]
     float boatSpeed;
+
     bool navigating;
     Vector3 journeyTarget;
     float journeyBeginTime;
     float journeyLength;
     bool hasPlayedAnim;
+    Island islandTarget;
 
     [SerializeField]
     Telescope telescope;
@@ -28,9 +36,11 @@ public class NavigationManager : MonoBehaviour
 
     void Start()
     {
+        boatRenderer = boat.GetComponent<SpriteRenderer>();
         boatPosY = boat.transform.position.y;
         navigating = false;
         hasPlayedAnim = false;
+        islandTarget = null;
     }
 
     void Update()
@@ -40,14 +50,22 @@ public class NavigationManager : MonoBehaviour
             if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f)
             {
                 navigating = false;
-                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+                if (islandTarget)
+                {
+                    boatRenderer.sprite = boatSprites[1];
+                    screenManager.Berth(islandTarget);
+                    islandTarget.Berth();
+                    islandTarget = null;
+                }
+                else
+                    EventManager.Instance.Raise(new BlockInputEvent() { block = false });
             }
             else
             {
                 float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
-                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim)
+                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim && !islandTarget)
                 {
                     hasPlayedAnim = true;
                     telescope.PlayAnimation(false, true, map.GetCurrentZoneSprite());
@@ -83,12 +101,13 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    public void NavigateTo(Vector3 targetPos, int zoneNumber)
+    public void NavigateToZone(Vector3 targetPos, int zoneNumber)
     {
         journeyLength = Vector3.Distance(targetPos, boat.transform.position);
-        if (journeyLength >= 0.5f)
+        if (journeyLength >= 1f)
         {
             EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+            boatRenderer.sprite = boatSprites[0];
             navigating = true;
             journeyTarget = targetPos;
             journeyTarget.y = boatPosY;
@@ -99,5 +118,20 @@ public class NavigationManager : MonoBehaviour
             if (zoneNumber != map.currentZone)
                 map.currentZone = zoneNumber;
         }
+    }
+
+    public void NavigateToIsland(Island island)
+    {
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        boatRenderer.sprite = boatSprites[0];
+        journeyLength = Vector3.Distance(island.transform.position, boat.transform.position);
+        navigating = true;
+        journeyTarget = island.transform.position;
+        journeyTarget.y = boatPosY;
+        journeyBeginTime = Time.time;
+        islandTarget = island;
+
+        if (island.islandNumber != map.currentZone)
+            map.currentZone = island.islandNumber;
     }
 }
