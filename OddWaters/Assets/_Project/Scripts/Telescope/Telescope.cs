@@ -32,8 +32,12 @@ public class Telescope : MonoBehaviour
     float dragSpeed;
 
     [SerializeField]
-    float zoomLevel = 1.5f;
-    Vector3 scaleZoom;
+    float scaleZoom = 1.5f;
+    [SerializeField]
+    [Tooltip("Augmente de 0.1 en 0.1")]
+    float zoomLevelMax = 0.3f;
+    float zoomLevel;
+    Vector3 scaleZoomVec;
     Vector3 scaleNormal;
     bool zoom;
 
@@ -79,20 +83,28 @@ public class Telescope : MonoBehaviour
         dragInitialized = false;
 
         zoom = false;
-        scaleZoom = new Vector3(zoomLevel, 1, zoomLevel);
+        zoomLevel = 0;
+        scaleZoomVec = new Vector3(scaleZoom, 1, scaleZoom);
         scaleNormal = new Vector3(1, 1, 1);
     }
 
-    public void Zoom(bool zoomed)
+    public void Zoom(float zoomAmount)
     {
-        zoom = zoomed;
-        Vector3 scale = (zoom ? scaleZoom : scaleNormal);
-        telescopeParent.transform.localScale = scale;
-        telescopeParent.transform.localScale = scale;
-        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * scale.x / sprite1.pixelsPerUnit;
-        Vector3 telescope2Pos = telescopes[0].transform.position;
-        telescope2Pos.x += telescopeOffsetX;
-        telescopes[1].transform.position = telescope2Pos;
+        zoomLevel += zoomAmount;
+        zoomLevel = Mathf.Clamp(zoomLevel, 0f, zoomLevelMax);
+        if (zoomLevel < 0.1f)
+            zoomLevel = 0;
+        if (zoomLevel == 0 || zoomLevel == zoomLevelMax)
+        {
+            zoom = (zoomAmount > 0);
+            Vector3 scale = (zoom ? scaleZoomVec : scaleNormal);
+            telescopeParent.transform.localScale = scale;
+            telescopeParent.transform.localScale = scale;
+            telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * scale.x / sprite1.pixelsPerUnit;
+            Vector3 telescope2Pos = telescopes[0].transform.position;
+            telescope2Pos.x += telescopeOffsetX;
+            telescopes[1].transform.position = telescope2Pos;
+        }
     }
 
     public void BeginDrag(Vector3 beginPos)

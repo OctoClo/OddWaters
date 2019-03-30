@@ -91,23 +91,13 @@ public class InputManager : MonoBehaviour
             if (Input.GetMouseButtonDown(1) && navigation)
                 StopNavigation();
 
-            if (!navigation && Input.GetAxis("Mouse ScrollWheel") > 0)
+            if (!navigation && Input.GetAxis("Mouse ScrollWheel") != 0)
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
                     if (hit.collider.GetComponent<Telescope>() || hit.collider.GetComponent<TelescopeElement>())
-                        telescope.Zoom(true);
-                }
-            }
-                
-            else if (!navigation && Input.GetAxis("Mouse ScrollWheel") < 0)
-            {
-                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    if (hit.collider.GetComponent<Telescope>() || hit.collider.GetComponent<TelescopeElement>())
-                        telescope.Zoom(false);
+                        telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
                 }
             }
         }
