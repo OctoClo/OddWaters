@@ -26,6 +26,7 @@ public class Telescope : MonoBehaviour
     Sprite sprite2;
     float telescopeOffsetX;
 
+    bool dragInitialized;
     const float dragSpeedMultiplier = 0.01f;
     const float dragSpeedMultiplierZoom = 0.001f;
     float dragSpeed;
@@ -75,6 +76,7 @@ public class Telescope : MonoBehaviour
         }
 
         dragSpeed = 0;
+        dragInitialized = false;
 
         zoom = false;
         scaleZoom = new Vector3(zoomLevel, 1, zoomLevel);
@@ -95,13 +97,18 @@ public class Telescope : MonoBehaviour
 
     public void BeginDrag(Vector3 beginPos)
     {
-        cursorBegin = new GameObject("CursorBegin");
-        beginPos.y = 0;
-        cursorBegin.transform.position = beginPos;
-        cursorBegin.transform.rotation = Quaternion.Euler(90, 0, 0);
-        cursorBegin.transform.localScale = cursorScale;
-        SpriteRenderer renderer = cursorBegin.AddComponent<SpriteRenderer>();
-        renderer.sprite = cursorCenter;
+        if (!dragInitialized)
+        {
+            cursorBegin = new GameObject("CursorBegin");
+            beginPos.y = 0;
+            cursorBegin.transform.position = beginPos;
+            cursorBegin.transform.rotation = Quaternion.Euler(90, 0, 0);
+            cursorBegin.transform.localScale = cursorScale;
+            SpriteRenderer renderer = cursorBegin.AddComponent<SpriteRenderer>();
+            renderer.sprite = cursorCenter;
+            renderer.sortingOrder = 1;
+            dragInitialized = true;
+        }
     }
 
     public void EndDrag()
@@ -109,6 +116,7 @@ public class Telescope : MonoBehaviour
         dragSpeed = 0;
         Destroy(cursorBegin);
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        dragInitialized = false;
     }
 
     public void UpdateSpeed(float speed)

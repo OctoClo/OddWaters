@@ -116,11 +116,9 @@ public class InputManager : MonoBehaviour
         {
             telescopeTimeSinceClick += Time.deltaTime;
 
-            if (telescopeTimeSinceClick == telescopeClickTime)
-                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-
             if (telescopeTimeSinceClick >= telescopeClickTime)
             {
+                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
                 Vector3 dragCurrentPos = Input.mousePosition;
                 telescope.UpdateSpeed(((dragCurrentPos - dragBeginPos)).x);
             }
@@ -139,12 +137,41 @@ public class InputManager : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            grabbedObject = hit.collider.GetComponent<Interactible>();
-            if (grabbedObject) // Interactibles drag
+            if (navigation)
             {
-                grabbedObject.Grab();
-                grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
-                grabbedObjectOffset = grabbedObject.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z));
+                Island island = hit.collider.GetComponent<Island>();
+                if (island) // Island navigation
+                {
+                    StopNavigation();
+                    navigationManager.NavigateToIsland(island);
+                }
+                else
+                {
+                    MapZone mapZone = hit.collider.transform.GetComponentInParent<MapZone>();
+                    if (mapZone) // Sea navigation
+                    {
+                        if (mapZone.visible)
+                        {
+                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ENavigationResult.KO)
+                            {
+                                StopNavigation();
+                                if (screenManager.screenType == EScreenType.ISLAND_SMALL)
+                                    screenManager.LeaveIsland();
+                                navigationManager.NavigateToZone(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("Zone not yet available");
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Navigation is possible on map only");
+                        StopNavigation();
+                    }
+                }
             }
             else
             {
@@ -154,50 +181,26 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    Island island = hit.collider.GetComponent<Island>();
-                    if (island && navigation) // Islands navigation
+                    grabbedObject = hit.collider.GetComponent<Interactible>();
+                    if (grabbedObject) // Inventory
                     {
-                        StopNavigation();
-                        navigationManager.NavigateToIsland(island);
+                        grabbedObject.Grab();
+                        grabbedOjectScreenPos = mainCamera.WorldToScreenPoint(grabbedObject.gameObject.transform.position);
+                        grabbedObjectOffset = grabbedObject.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grabbedOjectScreenPos.z));
                     }
                     else
                     {
-                        MapZone mapZone = hit.collider.transform.GetComponentInParent<MapZone>();
-                        if (mapZone && navigation) // Sea navigation
+                        telescopeElement = hit.collider.GetComponent<TelescopeElement>();
+                        Telescope telescopeHit = hit.collider.GetComponent<Telescope>();
+                        if (!navigation && (telescopeElement || telescopeHit)) // Telescope
                         {
-                            if (mapZone.visible)
-                            {
-                                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                                if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ENavigationResult.KO)
-                                {
-                                    StopNavigation();
-                                    if (screenManager.screenType == EScreenType.ISLAND_SMALL)
-                                        screenManager.LeaveIsland();
-                                    navigationManager.NavigateToZone(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
-                                }                                
-                            }
-                            else
-                            {
-                                Debug.Log("Zone not yet available");
-                            }
-                        }
-                        else
-                        {
-                            telescopeElement = hit.collider.GetComponent<TelescopeElement>();
-                            Telescope telescopeHit = hit.collider.GetComponent<Telescope>();
-                            if (telescopeElement || telescopeHit) // Telescope
-                            {
-                                telescopeClicked = true;
-                                dragBeginPos = Input.mousePosition;
-                                mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                            }
-                            else if (navigation)
-                            {
-                                Debug.Log("Navigation is possible on map only");
-                            }
+                            telescopeClicked = true;
+                            dragBeginPos = Input.mousePosition;
+                            mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
                         }
                     }
                 }
+                
             }
         }
     }
