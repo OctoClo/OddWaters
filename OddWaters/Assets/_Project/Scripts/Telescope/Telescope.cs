@@ -18,6 +18,7 @@ public class Telescope : MonoBehaviour
     [SerializeField]
     GameObject telescope1;
     GameObject telescope2;
+    GameObject telescopeParent;
     GameObject[] telescopes;
     GameObject completeZone1;
     GameObject completeZone2;
@@ -26,7 +27,14 @@ public class Telescope : MonoBehaviour
     float telescopeOffsetX;
 
     const float dragSpeedMultiplier = 0.01f;
+    const float dragSpeedMultiplierZoom = 0.001f;
     float dragSpeed;
+
+    [SerializeField]
+    float zoomLevel = 1.5f;
+    Vector3 scaleZoom;
+    Vector3 scaleNormal;
+    bool zoom;
 
     [SerializeField]
     Animator fadeAnimator;
@@ -39,6 +47,7 @@ public class Telescope : MonoBehaviour
         completeZone1 = telescope1.transform.GetChild(0).gameObject;
         sprite1 = completeZone1.GetComponent<SpriteRenderer>().sprite;
         telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x / sprite1.pixelsPerUnit;
+        telescopeParent = telescope1.transform.parent.gameObject;
 
         telescope2 = Instantiate(telescope1, transform);
         telescope2.name = "Telescope2";
@@ -66,6 +75,22 @@ public class Telescope : MonoBehaviour
         }
 
         dragSpeed = 0;
+
+        zoom = false;
+        scaleZoom = new Vector3(zoomLevel, 1, zoomLevel);
+        scaleNormal = new Vector3(1, 1, 1);
+    }
+
+    public void Zoom(bool zoomed)
+    {
+        zoom = zoomed;
+        Vector3 scale = (zoom ? scaleZoom : scaleNormal);
+        telescopeParent.transform.localScale = scale;
+        telescopeParent.transform.localScale = scale;
+        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * scale.x / sprite1.pixelsPerUnit;
+        Vector3 telescope2Pos = telescopes[0].transform.position;
+        telescope2Pos.x += telescopeOffsetX;
+        telescopes[1].transform.position = telescope2Pos;
     }
 
     public void BeginDrag(Vector3 beginPos)
@@ -88,7 +113,7 @@ public class Telescope : MonoBehaviour
 
     public void UpdateSpeed(float speed)
     {
-        dragSpeed = speed * dragSpeedMultiplier;
+        dragSpeed = speed * (zoom ? dragSpeedMultiplierZoom : dragSpeedMultiplier);
         if (dragSpeed == 0)
             Cursor.SetCursor(cursorCenter.texture, cursorOffset, CursorMode.Auto);
         else if (dragSpeed < 0)
