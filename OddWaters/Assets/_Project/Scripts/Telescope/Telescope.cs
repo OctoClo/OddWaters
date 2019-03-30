@@ -18,7 +18,8 @@ public class Telescope : MonoBehaviour
     [SerializeField]
     GameObject telescope1;
     GameObject telescope2;
-    GameObject telescopeParent;
+    Transform telescopeParent;
+    Transform telescopeMask;
     GameObject[] telescopes;
     GameObject completeZone1;
     GameObject completeZone2;
@@ -27,8 +28,10 @@ public class Telescope : MonoBehaviour
     float telescopeOffsetX;
 
     bool dragInitialized;
-    const float dragSpeedMultiplier = 0.01f;
-    const float dragSpeedMultiplierZoom = 0.001f;
+    [SerializeField]
+    float dragSpeedMultiplier = 0.01f;
+    [SerializeField]
+    float dragSpeedMultiplierZoom = 0.003f;
     float dragSpeed;
 
     [SerializeField]
@@ -37,8 +40,11 @@ public class Telescope : MonoBehaviour
     [Tooltip("Augmente de 0.1 en 0.1")]
     float zoomLevelMax = 0.3f;
     float zoomLevel;
-    Vector3 scaleZoomVec;
-    Vector3 scaleNormal;
+    Vector3 scaleParentZoom;
+    Vector3 scaleParentNormal;
+    Vector3 scaleMaskZoom;
+    Vector3 scaleMaskNormal;
+    float scaleMaskChild;
     bool zoom;
 
     [SerializeField]
@@ -51,10 +57,11 @@ public class Telescope : MonoBehaviour
 
         completeZone1 = telescope1.transform.GetChild(0).gameObject;
         sprite1 = completeZone1.GetComponent<SpriteRenderer>().sprite;
-        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x / sprite1.pixelsPerUnit;
-        telescopeParent = telescope1.transform.parent.gameObject;
+        telescopeParent = telescope1.transform.parent;
+        telescopeMask = telescopeParent.parent;
+        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / sprite1.pixelsPerUnit;
 
-        telescope2 = Instantiate(telescope1, transform);
+        telescope2 = Instantiate(telescope1, telescopeParent);
         telescope2.name = "Telescope2";
         completeZone2 = telescope2.transform.GetChild(0).gameObject;
 
@@ -84,8 +91,14 @@ public class Telescope : MonoBehaviour
 
         zoom = false;
         zoomLevel = 0;
-        scaleZoomVec = new Vector3(scaleZoom, 1, scaleZoom);
-        scaleNormal = new Vector3(1, 1, 1);
+        scaleMaskNormal = telescopeMask.localScale;
+        scaleMaskZoom = telescopeMask.localScale;
+        scaleMaskZoom.x /= 2;
+        //scaleMaskChild = scaleMaskNormal.x * scaleMaskZoom.x;
+        scaleParentNormal = telescopeParent.localScale;
+        scaleParentZoom = telescopeParent.localScale;
+        scaleParentZoom.x *= 2 * telescopeParent.localScale.x * scaleZoom;
+        scaleParentZoom.y *= telescopeParent.localScale.y * scaleZoom;
     }
 
     public void Zoom(float zoomAmount)
@@ -97,10 +110,11 @@ public class Telescope : MonoBehaviour
         if (zoomLevel == 0 || zoomLevel == zoomLevelMax)
         {
             zoom = (zoomAmount > 0);
-            Vector3 scale = (zoom ? scaleZoomVec : scaleNormal);
-            telescopeParent.transform.localScale = scale;
-            telescopeParent.transform.localScale = scale;
-            telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * scale.x / sprite1.pixelsPerUnit;
+            
+            telescopeMask.localScale = (zoom ? scaleMaskZoom : scaleMaskNormal);
+            telescopeParent.localScale = (zoom ? scaleParentZoom : scaleParentNormal);
+
+            telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeParent.parent.localScale.x / sprite1.pixelsPerUnit;
             Vector3 telescope2Pos = telescopes[0].transform.position;
             telescope2Pos.x += telescopeOffsetX;
             telescopes[1].transform.position = telescope2Pos;
@@ -118,7 +132,7 @@ public class Telescope : MonoBehaviour
             cursorBegin.transform.localScale = cursorScale;
             SpriteRenderer renderer = cursorBegin.AddComponent<SpriteRenderer>();
             renderer.sprite = cursorCenter;
-            renderer.sortingOrder = 1;
+            renderer.sortingOrder = 2;
             dragInitialized = true;
         }
     }
