@@ -8,6 +8,9 @@ public class PanZone : MonoBehaviour
     GameObject telescope;
 
     [SerializeField]
+    GameObject islandScreen;
+
+    [SerializeField]
     bool goingRight;
 
     [SerializeField]
@@ -30,6 +33,7 @@ public class PanZone : MonoBehaviour
         {
             mainCamera.position += panSpeedVec;
             telescope.transform.position += panSpeedVec;
+            islandScreen.transform.position += panSpeedVec;
         }
     }
 

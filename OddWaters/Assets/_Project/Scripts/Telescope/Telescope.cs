@@ -157,9 +157,9 @@ public class Telescope : MonoBehaviour
         if (dragSpeed == 0)
             Cursor.SetCursor(cursorCenter.texture, cursorOffset, CursorMode.Auto);
         else if (dragSpeed < 0)
-            Cursor.SetCursor(cursorLeft.texture, cursorOffset, CursorMode.Auto);
-        else
             Cursor.SetCursor(cursorRight.texture, cursorOffset, CursorMode.Auto);
+        else
+            Cursor.SetCursor(cursorLeft.texture, cursorOffset, CursorMode.Auto);
     }
 
     void Update()

@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Boat
   - MouseProjection
-  - Telescope
+  - TelescopeCollider
   layers:
   - Default
   - TransparentFX
