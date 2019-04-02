@@ -50,7 +50,8 @@ public class InputManager : MonoBehaviour
     {
         mouseProjection = new GameObject("Mouse Projection");
         mouseProjection.tag = "MouseProjection";
-        mouseProjection.AddComponent<BoxCollider>();
+        BoxCollider mouseCollider = mouseProjection.AddComponent<BoxCollider>();
+        mouseCollider.isTrigger = true;
 
         Vector3 position = desk.transform.position;
         Vector3 scale = desk.transform.localScale;
