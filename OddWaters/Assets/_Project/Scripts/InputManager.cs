@@ -173,7 +173,7 @@ public class InputManager : MonoBehaviour
                 else
                 {
                     RaycastHit hitInfo = hits.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
-                    if (hitInfo.collider) // Inventory
+                    if (hitInfo.collider && hitInfo.collider.GetComponent<Rigidbody>().velocity == Vector3.zero) // Inventory
                     {
                         grabbedObject = hitInfo.collider.GetComponent<Interactible>();
                         grabbedObject.Grab();
