@@ -44,8 +44,12 @@ public class Telescope : MonoBehaviour
     Vector3 scaleParentNormal;
     Vector3 scaleMaskZoom;
     Vector3 scaleMaskNormal;
-    float scaleMaskChild;
     bool zoom;
+
+    [SerializeField]
+    float detectionSensitivity = 0.5f;
+    int telescopeElementsCount;
+    TelescopeElement[] telescopeElements;
 
     [SerializeField]
     Animator fadeAnimator;
@@ -77,13 +81,16 @@ public class Telescope : MonoBehaviour
         GameObject elementsFolder2 = telescope2.transform.GetChild(1).gameObject;
         GameObject element1, element2;
 
-        int telescopeElementsCount = elementsFolder1.transform.childCount;
+        telescopeElementsCount = elementsFolder1.transform.childCount;
+        telescopeElements = new TelescopeElement[telescopeElementsCount * 2];
         for (int i = 0; i < telescopeElementsCount; i++)
         {
             element1 = elementsFolder1.transform.GetChild(i).gameObject;
             element2 = elementsFolder2.transform.GetChild(i).gameObject;
-            element1.GetComponent<TelescopeElement>().cloneElement = element2;
-            element2.GetComponent<TelescopeElement>().cloneElement = element1;
+            telescopeElements[i * i] = element1.GetComponent<TelescopeElement>();
+            telescopeElements[i * i + 1] = element2.GetComponent<TelescopeElement>();
+            telescopeElements[i * i].cloneElement = element2;
+            telescopeElements[i * i + 1].cloneElement = element1;
         }
 
         dragSpeed = 0;
@@ -94,7 +101,6 @@ public class Telescope : MonoBehaviour
         scaleMaskNormal = telescopeMask.localScale;
         scaleMaskZoom = telescopeMask.localScale;
         scaleMaskZoom.x /= 2;
-        //scaleMaskChild = scaleMaskNormal.x * scaleMaskZoom.x;
         scaleParentNormal = telescopeParent.localScale;
         scaleParentZoom = telescopeParent.localScale;
         scaleParentZoom.x *= 2 * telescopeParent.localScale.x * scaleZoom;
@@ -175,6 +181,15 @@ public class Telescope : MonoBehaviour
             newPos.x = telescopes[0].transform.position.x - telescopeOffsetX;
             telescopes[1].transform.position = newPos;
             SwapTelescopes();
+        }
+
+        if (dragSpeed == 0 && zoom)
+        {
+            for (int i = 0; i < telescopeElementsCount; i++)
+            {
+                if (telescopeElements[i].gameObject.activeInHierarchy && (Vector3.Distance(telescopeElements[i].transform.position, telescopeMask.position) <= detectionSensitivity))
+                    telescopeElements[i].Trigger();
+            }
         }
     }
 

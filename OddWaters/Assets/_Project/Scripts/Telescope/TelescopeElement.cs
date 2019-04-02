@@ -14,7 +14,7 @@ public class TelescopeElement : MonoBehaviour
     public void Trigger()
     {
         EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = zoneDiscoverNumber });
-        cloneElement.SetActive(false);
-        gameObject.SetActive(false);
+        cloneElement.gameObject.SetActive(false);
+        gameObject.gameObject.SetActive(false);
     }
 }
