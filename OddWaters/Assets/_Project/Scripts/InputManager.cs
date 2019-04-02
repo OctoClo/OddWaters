@@ -12,7 +12,9 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     ScreenManager screenManager;
 
-    // Inventory
+    GameObject mouseProjection;
+
+    // Desk
 
     [SerializeField]
     GameObject desk;
@@ -50,6 +52,10 @@ public class InputManager : MonoBehaviour
     
     void Start()
     {
+        mouseProjection = new GameObject("Mouse Projection");
+        mouseProjection.tag = "MouseProjection";
+        mouseProjection.AddComponent<BoxCollider>();
+
         Vector3 position = desk.transform.position;
         Vector3 scale = desk.transform.localScale;
         deskMinX = position.x - scale.x / 2;
@@ -120,6 +126,8 @@ public class InputManager : MonoBehaviour
             int cursorType = (int)navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
             Cursor.SetCursor(cursorsNavigation[cursorType].texture, cursorOffset, CursorMode.Auto);
         }
+
+        mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
     }
 
     void HandleMouseLeftButtonDown()
@@ -181,8 +189,8 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         telescopeElement = hit.collider.GetComponent<TelescopeElement>();
-                        Telescope telescopeHit = hit.collider.GetComponent<Telescope>();
-                        if (!navigation && (telescopeElement || telescopeHit)) // Telescope
+                        bool telescope = hit.collider.CompareTag("Telescope");
+                        if (!navigation && (telescopeElement || telescope)) // Telescope
                         {
                             telescopeClicked = true;
                             dragBeginPos = Input.mousePosition;
