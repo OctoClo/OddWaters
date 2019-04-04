@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -83,16 +83,16 @@ public class InputManager : MonoBehaviour
     {
         if (!blockInput)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)) // Left button down
                 HandleMouseLeftButtonDown();
 
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0)) // Left button up
                 HandleMouseLeftButtonUp();
 
-            if (Input.GetMouseButtonDown(1) && navigation)
+            if (Input.GetMouseButtonDown(1) && navigation) // Right button down
                 StopNavigation();
 
-            if (!navigation && Input.GetAxis("Mouse ScrollWheel") != 0)
+            if (!navigation && Input.GetAxis("Mouse ScrollWheel") != 0) // Mouse wheel
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit[] hits = Physics.RaycastAll(ray);
@@ -101,6 +101,22 @@ public class InputManager : MonoBehaviour
                     if (hits.Any(hit => hit.collider.CompareTag("TelescopeCollider") || hit.collider.GetComponent<TelescopeElement>()))
                         telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
                 }
+            }
+
+            if (grabbedObject)
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                    grabbedObject.Rotate(0, -1);
+                else if (Input.GetKeyDown(KeyCode.Z))
+                    grabbedObject.Rotate(0, 1);
+                else if (Input.GetKeyDown(KeyCode.E))
+                    grabbedObject.Rotate(1, 1);
+                else if (Input.GetKeyDown(KeyCode.A))
+                    grabbedObject.Rotate(1, -1);
+                else if (Input.GetKeyDown(KeyCode.D))
+                    grabbedObject.Rotate(2, 1);
+                else if (Input.GetKeyDown(KeyCode.Q))
+                    grabbedObject.Rotate(2, -1);
             }
         }
 

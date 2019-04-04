@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ObjectTest2 : Interactible
 {
-    public override void Test()
+    public override void Trigger()
     {
-        base.Test();
+        base.Trigger();
         Debug.Log("Mouse on ObjectTest2 !");
     }
 }
