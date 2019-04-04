@@ -75,6 +75,7 @@ public class NavigationManager : MonoBehaviour
                 if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim && !islandTarget)
                 {
                     hasPlayedAnim = true;
+                    telescope.ResetZoom();
                     telescope.PlayAnimation(false, true, map.GetCurrentZoneSprite());
                 }
             }

@@ -107,6 +107,13 @@ public class Telescope : MonoBehaviour
         scaleParentZoom.y *= telescopeParent.localScale.y * scaleZoom;
     }
 
+    public void ResetZoom()
+    {
+        zoomLevel = 0;
+        zoom = false;
+        SetZoom();
+    }
+
     public void Zoom(float zoomAmount)
     {
         zoomLevel += zoomAmount;
@@ -116,15 +123,19 @@ public class Telescope : MonoBehaviour
         if (zoomLevel == 0 || zoomLevel == zoomLevelMax)
         {
             zoom = (zoomAmount > 0);
-            
-            telescopeMask.localScale = (zoom ? scaleMaskZoom : scaleMaskNormal);
-            telescopeParent.localScale = (zoom ? scaleParentZoom : scaleParentNormal);
-
-            telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeParent.parent.localScale.x / sprite1.pixelsPerUnit;
-            Vector3 telescope2Pos = telescopes[0].transform.position;
-            telescope2Pos.x += telescopeOffsetX;
-            telescopes[1].transform.position = telescope2Pos;
+            SetZoom();
         }
+    }
+
+    void SetZoom()
+    {
+        telescopeMask.localScale = (zoom ? scaleMaskZoom : scaleMaskNormal);
+        telescopeParent.localScale = (zoom ? scaleParentZoom : scaleParentNormal);
+
+        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeParent.parent.localScale.x / sprite1.pixelsPerUnit;
+        Vector3 telescope2Pos = telescopes[0].transform.position;
+        telescope2Pos.x += telescopeOffsetX;
+        telescopes[1].transform.position = telescope2Pos;
     }
 
     public void BeginDrag(Vector3 beginPos)
