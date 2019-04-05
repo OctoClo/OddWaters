@@ -10,7 +10,7 @@ public class Interactible : MonoBehaviour
     public ERotation[] rotationsAmount = new ERotation[3];
 
     Camera mainCamera;
-    Vector3 verticalGrabOffset;
+    Vector3 beforeZoomPosition;
     Rigidbody rigidBody;
 
     void Start()
@@ -27,11 +27,13 @@ public class Interactible : MonoBehaviour
     public void Grab()
     {
         rigidBody.useGravity = false;
-        Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
-        verticalGrabOffset.Normalize();
         if (rigidBody.velocity == Vector3.zero)
+        {
+            Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
+            verticalGrabOffset.Normalize();
             verticalGrabOffset.y *= 2;
-        gameObject.transform.position += verticalGrabOffset;
+            gameObject.transform.position += verticalGrabOffset;
+        }
     }
 
     public void MoveTo(Vector3 newPosition)
@@ -66,5 +68,22 @@ public class Interactible : MonoBehaviour
         if (rotationsAmount[axis] == ERotation.R180)
             return 180;
         return 0;
+    }
+
+    public void EnterRotationInterface()
+    {
+        rigidBody.useGravity = false;
+        if (rigidBody.velocity == Vector3.zero)
+        {
+            beforeZoomPosition = gameObject.transform.position;
+            Vector3 zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
+            gameObject.transform.position = zoomPosition;
+        }
+    }
+
+    public void ExitRotationInterface()
+    {
+        gameObject.transform.position = beforeZoomPosition;
+        rigidBody.useGravity = true;
     }
 }
