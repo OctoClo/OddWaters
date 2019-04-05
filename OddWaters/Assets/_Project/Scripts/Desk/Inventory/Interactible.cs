@@ -86,4 +86,13 @@ public class Interactible : MonoBehaviour
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
     }
+
+    public void SetRotationInterfaceAxis(RotationInterface rotationInterface)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (rotationsAmount[i] == ERotation.R0)
+                rotationInterface.DeactivateButtons(i);
+        }
+    }
 }
