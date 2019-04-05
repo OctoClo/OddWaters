@@ -17,6 +17,8 @@ public class InputManager : MonoBehaviour
 
     [SerializeField]
     GameObject rotationInterface;
+    [SerializeField]
+    GameObject rotationPanel;
 
     GameObject mouseProjection;
 
@@ -111,6 +113,8 @@ public class InputManager : MonoBehaviour
                 {
                     interactibleState = EInteractibleState.UNKNOWN;
                     rotationInterface.SetActive(false);
+                    rotationPanel.SetActive(false);
+                    telescope.SetImageAlpha(false);
                     interactible.ExitRotationInterface();
                     panZones[0].gameObject.SetActive(true);
                     panZones[1].gameObject.SetActive(true);
@@ -268,6 +272,8 @@ public class InputManager : MonoBehaviour
                 interactibleState = EInteractibleState.CLICKED;
                 interactible.EnterRotationInterface();
                 rotationInterface.SetActive(true);
+                rotationPanel.SetActive(true);
+                telescope.SetImageAlpha(true);
                 panZones[0].gameObject.SetActive(false);
                 panZones[1].gameObject.SetActive(false);
             }

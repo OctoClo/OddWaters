@@ -107,6 +107,13 @@ public class Telescope : MonoBehaviour
         scaleParentZoom.y *= telescopeParent.localScale.y * scaleZoom;
     }
 
+    public void SetImageAlpha(bool dark)
+    {
+        float alpha = (dark ? 0.5f : 1);
+        completeZone1.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
+        completeZone2.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
+    }
+
     public void ResetZoom()
     {
         zoomLevel = 0;
