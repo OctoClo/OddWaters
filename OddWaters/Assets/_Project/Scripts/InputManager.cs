@@ -123,7 +123,7 @@ public class InputManager : MonoBehaviour
                 }
             }
 
-            if (!navigation && interactibleState == EInteractibleState.CLICKED && Input.GetAxis("Mouse ScrollWheel") != 0) // Mouse wheel
+            if (!navigation && interactibleState != EInteractibleState.CLICKED && Input.GetAxis("Mouse ScrollWheel") != 0) // Mouse wheel
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit[] hits = Physics.RaycastAll(ray);
