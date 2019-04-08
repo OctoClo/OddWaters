@@ -7,18 +7,19 @@ public class RotationInterface : MonoBehaviour
 {
     [SerializeField]
     Button[] rotateButtons;
-    int lastAxisDeactivated;
 
     public void DeactivateButtons(int axis)
     {
         rotateButtons[(axis * 2)].interactable = false;
         rotateButtons[(axis * 2) + 1].interactable = false;
-        lastAxisDeactivated = axis;
     }
 
     public void ResetButtons()
     {
-        rotateButtons[(lastAxisDeactivated * 2)].interactable = true;
-        rotateButtons[(lastAxisDeactivated * 2) + 1].interactable = true;
+        for (int i = 0; i < 3; i++)
+        {
+            rotateButtons[(i * 2)].interactable = true;
+            rotateButtons[(i * 2) + 1].interactable = true;
+        }
     }
 }

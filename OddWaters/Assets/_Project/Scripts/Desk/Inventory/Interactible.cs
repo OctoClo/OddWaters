@@ -53,12 +53,12 @@ public class Interactible : MonoBehaviour
         if (axis == 0)
             rotation.x = getRotation(axis);
         else if (axis == 1)
-            rotation.z = getRotation(axis);
-        else if (axis == 2)
             rotation.y = getRotation(axis);
+        else if (axis == 2)
+            rotation.z = getRotation(axis);
 
         rotation *= direction;
-        transform.rotation *= Quaternion.Euler(rotation);
+        transform.Rotate(rotation, Space.World);
     }
 
     int getRotation(int axis)
