@@ -5,10 +5,7 @@ using UnityEngine;
 public class PanZone : MonoBehaviour
 {
     [SerializeField]
-    GameObject telescope;
-
-    [SerializeField]
-    GameObject islandScreen;
+    GameObject upPart;
 
     [SerializeField]
     bool goingRight;
@@ -32,8 +29,7 @@ public class PanZone : MonoBehaviour
         if (pan && ((goingRight && mainCamera.position.x < 9.6) || (!goingRight && mainCamera.position.x > 0.2)))
         {
             mainCamera.position += panSpeedVec;
-            telescope.transform.position += panSpeedVec;
-            islandScreen.transform.position += panSpeedVec;
+            upPart.transform.position += panSpeedVec;
         }
     }
 

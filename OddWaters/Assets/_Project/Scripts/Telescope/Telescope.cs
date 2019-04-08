@@ -234,4 +234,9 @@ public class Telescope : MonoBehaviour
             fadeAnimator.Play("Base Layer.TelescopeFadeOut");
             
     }
+
+    public void ResetAnimation()
+    {
+        fadeAnimator.Play("Base Layer.Default");
+    }
 }

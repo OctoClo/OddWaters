@@ -27,6 +27,8 @@ public class NavigationManager : MonoBehaviour
     Sprite[] boatSprites;
     [SerializeField]
     float boatSpeed;
+    [SerializeField]
+    float minDistance = 1f;
 
     bool navigating;
     Vector3 journeyTarget;
@@ -38,6 +40,7 @@ public class NavigationManager : MonoBehaviour
     [SerializeField]
     Telescope telescope;
 
+    bool onIsland = false;
     int currentZone = -1;
 
     void Start()
@@ -53,30 +56,44 @@ public class NavigationManager : MonoBehaviour
     {
         if (navigating)
         {
-            if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f)
+            if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f) // End of journey
             {
                 navigating = false;
                 lightScript.rotateDegreesPerSecond.value.y = 0;
                 if (islandTarget)
                 {
                     boatRenderer.sprite = boatSprites[1];
-                    screenManager.Berth(islandTarget);
+                    onIsland = true;
+
+                    if (islandTarget.firstTimeVisiting)
+                    {
+                        ResetTelescopeAnimation();
+                        screenManager.Berth(islandTarget);
+                    }
+
                     islandTarget.Berth();
                     islandTarget = null;
                 }
                 else
                     EventManager.Instance.Raise(new BlockInputEvent() { block = false });
             }
-            else
+            else // Still journeying
             {
                 float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
-                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim && !islandTarget)
+                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting)) // Near the end of journey
                 {
                     hasPlayedAnim = true;
                     telescope.ResetZoom();
                     telescope.PlayAnimation(false, true, map.GetCurrentZoneSprite());
+                    if (islandTarget && !islandTarget.firstTimeVisiting)
+                        screenManager.Berth(islandTarget);
+                    if (onIsland)
+                    {
+                        screenManager.LeaveIsland();
+                        onIsland = false;
+                    }
                 }
             }
         }
@@ -119,15 +136,15 @@ public class NavigationManager : MonoBehaviour
         journeyTarget = target;
         journeyTarget.y = boatPosY;
         journeyBeginTime = Time.time;
+        telescope.PlayAnimation(true, false);
+        hasPlayedAnim = false;
     }
 
     public void NavigateToZone(Vector3 targetPos, int zoneNumber)
     {
-        if (Vector3.Distance(targetPos, boat.transform.position) >= 1f)
+        if (Vector3.Distance(targetPos, boat.transform.position) >= minDistance)
         {
             LaunchNavigation(targetPos);
-            telescope.PlayAnimation(true, false);
-            hasPlayedAnim = false;
             
             if (zoneNumber != map.currentZone)
                 map.currentZone = zoneNumber;
@@ -136,10 +153,18 @@ public class NavigationManager : MonoBehaviour
 
     public void NavigateToIsland(Island island)
     {
-        LaunchNavigation(island.transform.position);
-        islandTarget = island;
+        if (Vector3.Distance(island.transform.position, boat.transform.position) >= minDistance)
+        {
+            LaunchNavigation(island.transform.position);
+            islandTarget = island;
 
-        if (island.islandNumber != map.currentZone)
-            map.currentZone = island.islandNumber;
+            if (island.islandNumber != map.currentZone)
+                map.currentZone = island.islandNumber;
+        }
+    }
+
+    void ResetTelescopeAnimation()
+    {
+        telescope.ResetAnimation();
     }
 }

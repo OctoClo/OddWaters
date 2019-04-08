@@ -208,8 +208,6 @@ public class InputManager : MonoBehaviour
                                 if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ENavigationResult.KO)
                                 {
                                     StopNavigation();
-                                    if (screenManager.screenType == EScreenType.ISLAND_SMALL)
-                                        screenManager.LeaveIsland();
                                     navigationManager.NavigateToZone(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
                                 }
                             }
