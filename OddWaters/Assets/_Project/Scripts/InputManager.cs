@@ -182,7 +182,7 @@ public class InputManager : MonoBehaviour
     void HandleMouseLeftButtonDown()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray);
+        RaycastHit[] hits = Physics.RaycastAll(ray).OrderBy(hit => Vector3.SqrMagnitude(hit.point - mainCamera.transform.position)).ToArray(); ;
         if (hits.Length > 0)
         {
             if (interactibleState != EInteractibleState.CLICKED)
