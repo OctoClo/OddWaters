@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Boat
+  - MouseProjection
+  - TelescopeCollider
   layers:
   - Default
   - TransparentFX

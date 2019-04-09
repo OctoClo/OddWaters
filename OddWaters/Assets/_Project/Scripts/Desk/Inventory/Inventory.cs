@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        targetPos = new Vector3(3.25f, 1.95f, -1.2f);
+        targetPos = new Vector3(6.25f, 1.95f, -1.2f);
         moving = false;
         waiting = false;
         waitTime = 0.7f;
@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
     public void AddToInventory(GameObject prefab)
     {
         GameObject newObject = Instantiate(prefab, transform);
-        newObject.transform.position = new Vector3(3.25f, 1.95f, 0);
+        newObject.transform.position = new Vector3(6.25f, 1.95f, 0);
         rb = newObject.GetComponent<Rigidbody>();
         rbPos = newObject.transform.position;
         rb.useGravity = false;
