@@ -4,8 +4,6 @@ using UnityEngine;
 using System.Linq;
 using Aura2API;
 
-public enum ENavigationResult { SEA, ISLAND, KO };
-
 public class NavigationManager : MonoBehaviour
 {
     [SerializeField]
@@ -99,7 +97,7 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    public ENavigationResult GetNavigationResult(Vector3 targetPos)
+    public ECursor GetNavigationResult(Vector3 targetPos)
     {
         Vector3 rayOrigin = targetPos;
         rayOrigin.y += 1;
@@ -107,7 +105,7 @@ public class NavigationManager : MonoBehaviour
 
         if (hits.Any(hit => hit.collider.GetComponent<Island>()))
         {
-            return ENavigationResult.ISLAND;
+            return ECursor.NAVIGATION_ISLAND;
         }
         else
         {
@@ -116,13 +114,9 @@ public class NavigationManager : MonoBehaviour
             direction.Normalize();
             hits = Physics.RaycastAll(boat.transform.position, direction, distance);
             if (hits.Any(hit => hit.collider.GetComponent<Island>() || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible)))
-            {
-                return ENavigationResult.KO;
-            }
+                return ECursor.NAVIGATION_KO;
             else
-            {
-                return ENavigationResult.SEA;
-            }
+                return ECursor.NAVIGATION_OK;
         }
     }
 

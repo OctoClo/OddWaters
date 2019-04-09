@@ -52,11 +52,7 @@ public class InputManager : MonoBehaviour
     bool telescopeDrag;
 
     // Map
-
-    [SerializeField]
-    [Tooltip("Dans l'ordre : mer, île, KO")]
-    Sprite[] cursorsNavigation;
-    Vector2 cursorOffset;
+    
     bool navigation;
     
     void Start()
@@ -80,8 +76,6 @@ public class InputManager : MonoBehaviour
         interactibleClickTime = 0.15f;
 
         telescopeDrag = false;
-
-        cursorOffset = new Vector2(cursorsNavigation[0].texture.width / 2, cursorsNavigation[0].texture.height / 2);
         navigation = false;
     }
 
@@ -172,8 +166,8 @@ public class InputManager : MonoBehaviour
         if (navigation)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-            int cursorType = (int)navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-            Cursor.SetCursor(cursorsNavigation[cursorType].texture, cursorOffset, CursorMode.Auto);
+            ECursor cursor = navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+            CursorManager.Instance.SetCursor(cursor);
         }
 
         mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
@@ -205,7 +199,7 @@ public class InputManager : MonoBehaviour
                             if (mapZone.visible)
                             {
                                 Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                                if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ENavigationResult.KO)
+                                if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ECursor.NAVIGATION_KO)
                                 {
                                     StopNavigation();
                                     navigationManager.NavigateToZone(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
@@ -301,7 +295,7 @@ public class InputManager : MonoBehaviour
     void StopNavigation()
     {
         navigation = false;
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
 
     void OnBlockInputEvent(BlockInputEvent e)
