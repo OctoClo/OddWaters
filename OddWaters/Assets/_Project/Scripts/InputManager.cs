@@ -187,8 +187,7 @@ public class InputManager : MonoBehaviour
         if (navigation)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-            ECursor cursor = navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-            CursorManager.Instance.SetCursor(cursor);
+            navigationManager.SetCursorNavigation(mainCamera.ScreenToWorldPoint(mouseScreenPos));
         }
 
         mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
@@ -222,10 +221,16 @@ public class InputManager : MonoBehaviour
                             if (mapZone.visible)
                             {
                                 Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                                if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ECursor.NAVIGATION_KO)
+                                ENavigationResult result = navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                                if (result == ENavigationResult.SEA)
                                 {
                                     StopNavigation();
-                                    navigationManager.NavigateToZone(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
+                                    navigationManager.NavigateToPosition(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
+                                }
+                                else if (result == ENavigationResult.TYPHOON)
+                                {
+                                    StopNavigation();
+                                    Debug.Log("A typhoon D:");
                                 }
                             }
                             else

@@ -4,6 +4,14 @@ using UnityEngine;
 using System.Linq;
 using Aura2API;
 
+public enum ENavigationResult
+{
+    SEA,
+    ISLAND,
+    TYPHOON,
+    KO
+}
+
 public class NavigationManager : MonoBehaviour
 {
     [SerializeField]
@@ -97,16 +105,34 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    public ECursor GetNavigationResult(Vector3 targetPos)
+    public void SetCursorNavigation(Vector3 currentPos)
+    {
+        ENavigationResult result = GetNavigationResult(currentPos);
+        switch (result)
+        {
+            case ENavigationResult.SEA:
+            case ENavigationResult.TYPHOON:
+                CursorManager.Instance.SetCursor(ECursor.NAVIGATION_OK);
+                break;
+
+            case ENavigationResult.ISLAND:
+                CursorManager.Instance.SetCursor(ECursor.NAVIGATION_ISLAND);
+                break;
+
+            case ENavigationResult.KO:
+                CursorManager.Instance.SetCursor(ECursor.NAVIGATION_KO);
+                break;
+        }
+    }
+
+    public ENavigationResult GetNavigationResult(Vector3 targetPos)
     {
         Vector3 rayOrigin = targetPos;
         rayOrigin.y += 1;
         RaycastHit[] hits = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
 
         if (hits.Any(hit => hit.collider.GetComponent<Island>()))
-        {
-            return ECursor.NAVIGATION_ISLAND;
-        }
+            return ENavigationResult.ISLAND;
         else
         {
             Vector3 direction = (targetPos - boat.transform.position);
@@ -114,9 +140,11 @@ public class NavigationManager : MonoBehaviour
             direction.Normalize();
             hits = Physics.RaycastAll(boat.transform.position, direction, distance);
             if (hits.Any(hit => hit.collider.GetComponent<Island>() || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible)))
-                return ECursor.NAVIGATION_KO;
+                return ENavigationResult.KO;
+            else if (hits.Any(hit => hit.collider.CompareTag("Typhoon")))
+                return ENavigationResult.TYPHOON;
             else
-                return ECursor.NAVIGATION_OK;
+                return ENavigationResult.SEA;
         }
     }
 
@@ -134,7 +162,7 @@ public class NavigationManager : MonoBehaviour
         hasPlayedAnim = false;
     }
 
-    public void NavigateToZone(Vector3 targetPos, int zoneNumber)
+    public void NavigateToPosition(Vector3 targetPos, int zoneNumber)
     {
         if (Vector3.Distance(targetPos, boat.transform.position) >= minDistance)
         {
