@@ -6,13 +6,7 @@ public class Telescope : MonoBehaviour
 {
     [SerializeField]
     Sprite cursorCenter;
-    [SerializeField]
-    Sprite cursorLeft;
-    [SerializeField]
-    Sprite cursorRight;
-    
     GameObject cursorBegin;
-    Vector2 cursorOffset;
     Vector3 cursorScale;
     
     [SerializeField]
@@ -56,8 +50,7 @@ public class Telescope : MonoBehaviour
 
     void Start()
     {
-        cursorOffset = new Vector2(cursorCenter.texture.width / 2, cursorCenter.texture.height / 2);
-        cursorScale = new Vector3(1.5f, 1.5f, 0);
+        cursorScale = new Vector3(1f, 1f, 0);
 
         completeZone1 = telescope1.transform.GetChild(0).gameObject;
         sprite1 = completeZone1.GetComponent<SpriteRenderer>().sprite;
@@ -149,14 +142,14 @@ public class Telescope : MonoBehaviour
     {
         if (!dragInitialized)
         {
-            cursorBegin = new GameObject("CursorBegin");
+            /*cursorBegin = new GameObject("CursorBegin");
             beginPos.y = 0;
             cursorBegin.transform.position = beginPos;
             cursorBegin.transform.rotation = Quaternion.Euler(90, 0, 0);
             cursorBegin.transform.localScale = cursorScale;
             SpriteRenderer renderer = cursorBegin.AddComponent<SpriteRenderer>();
             renderer.sprite = cursorCenter;
-            renderer.sortingOrder = 2;
+            renderer.sortingOrder = 2;*/
             dragInitialized = true;
         }
     }
@@ -165,7 +158,7 @@ public class Telescope : MonoBehaviour
     {
         dragSpeed = 0;
         Destroy(cursorBegin);
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         dragInitialized = false;
     }
 
@@ -173,11 +166,11 @@ public class Telescope : MonoBehaviour
     {
         dragSpeed = speed * (zoom ? dragSpeedMultiplierZoom : dragSpeedMultiplier);
         if (dragSpeed == 0)
-            Cursor.SetCursor(cursorCenter.texture, cursorOffset, CursorMode.Auto);
+            CursorManager.Instance.SetCursor(ECursor.TELESCOPE_PAN_CENTER);
         else if (dragSpeed < 0)
-            Cursor.SetCursor(cursorRight.texture, cursorOffset, CursorMode.Auto);
+            CursorManager.Instance.SetCursor(ECursor.TELESCOPE_PAN_RIGHT);
         else
-            Cursor.SetCursor(cursorLeft.texture, cursorOffset, CursorMode.Auto);
+            CursorManager.Instance.SetCursor(ECursor.TELESCOPE_PAN_LEFT);
     }
 
     void Update()
