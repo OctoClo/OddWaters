@@ -230,7 +230,7 @@ public class InputManager : MonoBehaviour
                                 else if (result == ENavigationResult.TYPHOON)
                                 {
                                     StopNavigation();
-                                    Debug.Log("A typhoon D:");
+                                    navigationManager.NavigateToTyphoon(mainCamera.ScreenToWorldPoint(mouseScreenPos));
                                 }
                             }
                             else

@@ -42,6 +42,8 @@ public class NavigationManager : MonoBehaviour
     float journeyLength;
     bool hasPlayedAnim;
     Island islandTarget;
+    bool navigatingToTyphoon;
+    Vector3 initialPos;
 
     [SerializeField]
     Telescope telescope;
@@ -58,11 +60,22 @@ public class NavigationManager : MonoBehaviour
         islandTarget = null;
     }
 
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);    
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
+    }
+
     void Update()
     {
         if (navigating)
         {
-            if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f) // End of journey
+            // End of journey
+            if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f)
             {
                 navigating = false;
                 lightScript.rotateDegreesPerSecond.value.y = 0;
@@ -83,12 +96,14 @@ public class NavigationManager : MonoBehaviour
                 else
                     EventManager.Instance.Raise(new BlockInputEvent() { block = false });
             }
-            else // Still journeying
+            // Still journeying
+            else
             {
                 float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
-                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting)) // Near the end of journey
+                // Near the end of journey
+                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting) && !navigatingToTyphoon)
                 {
                     hasPlayedAnim = true;
                     telescope.ResetZoom();
@@ -185,8 +200,25 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
+    public void NavigateToTyphoon(Vector3 targetPos)
+    {
+        if (Vector3.Distance(targetPos, boat.transform.position) >= minDistance)
+        {
+            LaunchNavigation(targetPos);
+            navigatingToTyphoon = true;
+            initialPos = boat.transform.position;
+        }
+    }
+
     void ResetTelescopeAnimation()
     {
         telescope.ResetAnimation();
+    }
+
+    void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
+    {
+        journeyLength = Vector3.Distance(initialPos, boat.transform.position);
+        journeyTarget = initialPos;
+        journeyBeginTime = Time.time;
     }
 }
