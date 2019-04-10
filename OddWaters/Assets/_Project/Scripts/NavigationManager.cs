@@ -35,6 +35,8 @@ public class NavigationManager : MonoBehaviour
     float boatSpeed;
     [SerializeField]
     float minDistance = 1f;
+    [SerializeField]
+    float maxDistance = 3f;
 
     bool navigating;
     Vector3 journeyTarget;
@@ -142,25 +144,30 @@ public class NavigationManager : MonoBehaviour
 
     public ENavigationResult GetNavigationResult(Vector3 targetPos)
     {
-        Vector3 rayOrigin = targetPos;
-        rayOrigin.y += 1;
-        RaycastHit[] hits = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
-
-        if (hits.Any(hit => hit.collider.GetComponent<Island>()))
-            return ENavigationResult.ISLAND;
-        else
+        if (Vector3.Distance(targetPos, boat.transform.position) <= maxDistance)
         {
-            Vector3 direction = (targetPos - boat.transform.position);
-            float distance = direction.magnitude;
-            direction.Normalize();
-            hits = Physics.RaycastAll(boat.transform.position, direction, distance);
-            if (hits.Any(hit => hit.collider.GetComponent<Island>() || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible)))
-                return ENavigationResult.KO;
-            else if (hits.Any(hit => hit.collider.CompareTag("Typhoon")))
-                return ENavigationResult.TYPHOON;
+            Vector3 rayOrigin = targetPos;
+            rayOrigin.y += 1;
+            RaycastHit[] hits = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
+
+            if (hits.Any(hit => hit.collider.GetComponent<Island>()))
+                return ENavigationResult.ISLAND;
             else
-                return ENavigationResult.SEA;
+            {
+                Vector3 direction = (targetPos - boat.transform.position);
+                float distance = direction.magnitude;
+                direction.Normalize();
+                hits = Physics.RaycastAll(boat.transform.position, direction, distance);
+                if (hits.Any(hit => hit.collider.GetComponent<Island>() || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible)))
+                    return ENavigationResult.KO;
+                if (hits.Any(hit => hit.collider.CompareTag("Typhoon")))
+                    return ENavigationResult.TYPHOON;
+                else
+                    return ENavigationResult.SEA;
+            }
         }
+
+        return ENavigationResult.KO;
     }
 
     void LaunchNavigation(Vector3 target)
