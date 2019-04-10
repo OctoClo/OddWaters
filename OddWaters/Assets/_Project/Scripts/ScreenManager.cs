@@ -33,6 +33,7 @@ public class ScreenManager : MonoBehaviour
 
     bool firstVisit;
     GameObject objectToGive;
+    int nextZone;
 
     public void Berth(Island island)
     {
@@ -46,6 +47,7 @@ public class ScreenManager : MonoBehaviour
         if (firstVisit)
         {
             objectToGive = island.objectToGive;
+            nextZone = island.nextZone;
             StartCoroutine(ChangeScreenType(EScreenType.ISLAND_FULLSCREEN));
         }
         else
@@ -82,6 +84,8 @@ public class ScreenManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.5f);
                 inventory.AddToInventory(objectToGive);
+                yield return new WaitForSeconds(1f);
+                EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
             }
             else
                 EventManager.Instance.Raise(new BlockInputEvent() { block = false });

@@ -9,6 +9,9 @@ public class Map : MonoBehaviour
     MapZone[] mapZones;
     int nbZones;
 
+    [SerializeField]
+    Island[] islands;
+
     [HideInInspector]
     public int currentZone;
 
@@ -23,11 +26,13 @@ public class Map : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
+        EventManager.Instance.AddListener<DiscoverIslandEvent>(OnDiscoverIslandEvent);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
+        EventManager.Instance.RemoveListener<DiscoverIslandEvent>(OnDiscoverIslandEvent);
     }
 
     public Sprite GetCurrentZoneSprite()
@@ -39,5 +44,11 @@ public class Map : MonoBehaviour
     {
         Debug.Log("Discovered zone n°" + e.zoneNumber);
         mapZones[e.zoneNumber].Discover();
+    }
+
+    void OnDiscoverIslandEvent(DiscoverIslandEvent e)
+    {
+        Debug.Log("Discovered island n°" + e.islandNumber);
+        islands[e.islandNumber].Discover();
     }
 }

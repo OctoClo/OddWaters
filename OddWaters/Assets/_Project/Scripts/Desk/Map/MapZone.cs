@@ -15,26 +15,16 @@ public class MapZone : MonoBehaviour
     Sprite invisibleSprite;
 
     SpriteRenderer spriteRenderer;
-    int childCount;
 
     void Start()
     {
-        childCount = transform.childCount;
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = (visible ? visibleSprite : invisibleSprite);
-        ActivateIslands();
     }
 
     public void Discover()
     {
         visible = true;
         spriteRenderer.sprite = visibleSprite;
-        ActivateIslands();
-    }
-
-    void ActivateIslands()
-    {
-        for (int i = 0; i < childCount; i++)
-            transform.GetChild(i).gameObject.SetActive(visible);
     }
 }
