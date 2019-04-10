@@ -11,15 +11,18 @@ public enum ECursor
     NAVIGATION_OK,
     NAVIGATION_ISLAND,
     NAVIGATION_KO,
+    HOVER,
+    DRAG,
     COUNT
 }
 
 public class CursorManager : Singleton<CursorManager>
 {
     [SerializeField]
-    [Tooltip("Order : DEFAULT - TELESCOPE_PAN_CENTER - TELESCOPE_PAN_LEFT - TELESCOPE_PAN_RIGHT - NAVIGATION_OK - NAVIGATION_ISLAND - NAVIGATION_KO")]
+    [Tooltip("Order : DEFAULT - TELESCOPE_PAN_CENTER - TELESCOPE_PAN_LEFT - TELESCOPE_PAN_RIGHT - NAVIGATION_OK - NAVIGATION_ISLAND - NAVIGATION_KO - HOVER - DRAG")]
     Sprite[] cursorSprites;
     Vector2[] cursorOffsets;
+    ECursor currentCursor = ECursor.COUNT;
 
     void Start()
     {
@@ -42,6 +45,10 @@ public class CursorManager : Singleton<CursorManager>
 
     public void SetCursor(ECursor cursor)
     {
-        Cursor.SetCursor(cursorSprites[(int)cursor].texture, cursorOffsets[(int)cursor], CursorMode.Auto);
+        if (currentCursor != cursor)
+        {
+            Cursor.SetCursor(cursorSprites[(int)cursor].texture, cursorOffsets[(int)cursor], CursorMode.Auto);
+            currentCursor = cursor;
+        }
     }
 }

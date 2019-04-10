@@ -142,14 +142,14 @@ public class Telescope : MonoBehaviour
     {
         if (!dragInitialized)
         {
-            cursorBegin = new GameObject("CursorBegin");
+            /*cursorBegin = new GameObject("CursorBegin");
             beginPos.y = 0;
             cursorBegin.transform.position = beginPos;
             cursorBegin.transform.rotation = Quaternion.Euler(90, 0, 0);
             cursorBegin.transform.localScale = cursorScale;
             SpriteRenderer renderer = cursorBegin.AddComponent<SpriteRenderer>();
             renderer.sprite = cursorCenter;
-            renderer.sortingOrder = 2;
+            renderer.sortingOrder = 2;*/
             dragInitialized = true;
         }
     }
