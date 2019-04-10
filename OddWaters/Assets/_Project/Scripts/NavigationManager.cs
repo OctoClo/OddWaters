@@ -56,7 +56,8 @@ public class NavigationManager : MonoBehaviour
     void Start()
     {
         boatRenderer = boat.GetComponent<SpriteRenderer>();
-        boatPosY = boat.transform.position.y;
+        initialPos = boat.transform.position;
+        boatPosY = initialPos.y;
         navigating = false;
         hasPlayedAnim = false;
         islandTarget = null;
@@ -175,6 +176,12 @@ public class NavigationManager : MonoBehaviour
         navigating = true;
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
         boatRenderer.sprite = boatSprites[0];
+        boat.transform.LookAt(target);
+        Vector3 rotation = boat.transform.eulerAngles;
+        rotation.z = -rotation.y;
+        rotation.x = 90;
+        rotation.y = 0;
+        boat.transform.eulerAngles = rotation;
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         journeyLength = Vector3.Distance(target, boat.transform.position);
         journeyTarget = target;
