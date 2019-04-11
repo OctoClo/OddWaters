@@ -239,8 +239,27 @@ public class Telescope : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 foreach (Island island in boat.GetIslandsInSight())
                 {
+                    // Create islands
+                    elementsFolder1 = telescopes[0].transform.GetChild(1).gameObject;
+                    elementsFolder2 = telescopes[1].transform.GetChild(1).gameObject;
                     GameObject island3D1 = Instantiate(island.island3D, elementsFolder1.transform);
                     GameObject island3D2 = Instantiate(island.island3D, elementsFolder2.transform);
+
+                    // Place islands in 0-360°
+                    float angle = Angle360(-boat.transform.right, island.transform.position - boat.transform.position, boat.transform.right);
+                    Sprite spriteTelescope = completeZone1.GetComponent<SpriteRenderer>().sprite;
+                    float offset = 720 * angle / (spriteTelescope.texture.width / 2f);
+                    if (angle < 180)
+                        offset *= -1;
+                    offset *= completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / spriteTelescope.pixelsPerUnit;
+                    Vector3 islandPosition = island3D1.transform.position;
+                    islandPosition.x = offset;
+                    island3D1.transform.position = islandPosition;
+                    islandPosition = island3D2.transform.position;
+                    islandPosition.x = offset + telescopeOffsetX;
+                    island3D2.transform.position = islandPosition;
+
+                    // Initialize telescope elements
                     TelescopeElement island3D1Element = island3D1.GetComponent<TelescopeElement>();
                     TelescopeElement island3D2Element = island3D2.GetComponent<TelescopeElement>();
                     island3D1Element.cloneElement = island3D2;
@@ -250,6 +269,12 @@ public class Telescope : MonoBehaviour
                 }
             }
         }
+    }
+
+    float Angle360(Vector3 from, Vector3 to, Vector3 right)
+    {
+        float angle = Vector3.Angle(from, to);
+        return (Vector3.Angle(right, to) > 90f) ? 360f - angle : angle;
     }
 
     public void ResetAnimation()
