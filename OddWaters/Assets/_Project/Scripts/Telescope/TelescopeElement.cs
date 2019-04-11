@@ -9,12 +9,14 @@ public class TelescopeElement : MonoBehaviour
     public int islandDiscoverNumber;
 
     [HideInInspector]
+    public Island islandDiscover;
+
+    [HideInInspector]
     public GameObject cloneElement;
 
     public void Trigger()
     {
+        cloneElement.GetComponent<TelescopeElement>().enabled = false;
         EventManager.Instance.Raise(new DiscoverIslandEvent() { islandNumber = islandDiscoverNumber });
-        cloneElement.gameObject.SetActive(false);
-        gameObject.gameObject.SetActive(false);
     }
 }

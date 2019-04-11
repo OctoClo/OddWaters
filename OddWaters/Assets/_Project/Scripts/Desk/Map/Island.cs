@@ -12,19 +12,17 @@ public class Island : MonoBehaviour
     public Sprite illustration;
     public Sprite character;
     public GameObject objectToGive;
+    public GameObject island3D;
 
     [HideInInspector]
     public bool firstTimeVisiting = true;
 
     SpriteRenderer spriteRenderer;
-    BoxCollider boxCollider;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = visible;
-        boxCollider = GetComponent<BoxCollider>();
-        boxCollider.enabled = visible;
     }
 
     public void Berth()
@@ -36,6 +34,21 @@ public class Island : MonoBehaviour
     {
         visible = true;
         spriteRenderer.enabled = true;
-        boxCollider.enabled = true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ViewZone"))
+        {
+            other.transform.parent.GetComponent<Boat>().IslandInSight(this);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ViewZone"))
+        {
+            other.transform.parent.GetComponent<Boat>().IslandNoMoreInSight(this);
+        }
     }
 }

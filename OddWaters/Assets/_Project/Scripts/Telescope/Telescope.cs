@@ -17,6 +17,8 @@ public class Telescope : MonoBehaviour
     GameObject[] telescopes;
     GameObject completeZone1;
     GameObject completeZone2;
+    GameObject elementsFolder1;
+    GameObject elementsFolder2;
     Sprite sprite1;
     Sprite sprite2;
     float telescopeOffsetX;
@@ -42,11 +44,12 @@ public class Telescope : MonoBehaviour
 
     [SerializeField]
     float detectionSensitivity = 0.5f;
-    int telescopeElementsCount;
-    TelescopeElement[] telescopeElements;
 
     [SerializeField]
     Animator fadeAnimator;
+
+    [SerializeField]
+    Boat boat;
 
     void Start()
     {
@@ -70,21 +73,9 @@ public class Telescope : MonoBehaviour
         telescopes[0] = telescope1;
         telescopes[1] = telescope2;
 
-        GameObject elementsFolder1 = telescope1.transform.GetChild(1).gameObject;
-        GameObject elementsFolder2 = telescope2.transform.GetChild(1).gameObject;
+        elementsFolder1 = telescope1.transform.GetChild(1).gameObject;
+        elementsFolder2 = telescope2.transform.GetChild(1).gameObject;
         GameObject element1, element2;
-
-        telescopeElementsCount = elementsFolder1.transform.childCount;
-        telescopeElements = new TelescopeElement[telescopeElementsCount * 2];
-        for (int i = 0; i < telescopeElementsCount; i++)
-        {
-            element1 = elementsFolder1.transform.GetChild(i).gameObject;
-            element2 = elementsFolder2.transform.GetChild(i).gameObject;
-            telescopeElements[i * i] = element1.GetComponent<TelescopeElement>();
-            telescopeElements[i * i + 1] = element2.GetComponent<TelescopeElement>();
-            telescopeElements[i * i].cloneElement = element2;
-            telescopeElements[i * i + 1].cloneElement = element1;
-        }
 
         dragSpeed = 0;
         dragInitialized = false;
@@ -196,10 +187,19 @@ public class Telescope : MonoBehaviour
 
         if (dragSpeed == 0 && zoom)
         {
-            for (int i = 0; i < telescopeElementsCount; i++)
+            int islandCount = elementsFolder1.transform.childCount;
+            for (int i = 0; i < islandCount; i++)
             {
-                if (telescopeElements[i].gameObject.activeInHierarchy && (Vector3.Distance(telescopeElements[i].transform.position, telescopeMask.position) <= detectionSensitivity))
-                    telescopeElements[i].Trigger();
+                TelescopeElement island3D1 = elementsFolder1.transform.GetChild(i).GetComponent<TelescopeElement>();
+                if (!island3D1.islandDiscover.visible)
+                {
+                    if (island3D1.gameObject.activeInHierarchy && (Vector3.Distance(island3D1.transform.position, telescopeMask.position) <= detectionSensitivity))
+                        island3D1.Trigger();
+
+                    TelescopeElement island3D2 = elementsFolder2.transform.GetChild(i).GetComponent<TelescopeElement>();
+                    if (island3D2.gameObject.activeInHierarchy && (Vector3.Distance(island3D2.transform.position, telescopeMask.position) <= detectionSensitivity))
+                        island3D2.Trigger();
+                }
             }
         }
     }
@@ -211,7 +211,7 @@ public class Telescope : MonoBehaviour
         telescopes[1] = temp;
     }
 
-    public void PlayAnimation(bool fadeIn, bool fadeOut, Sprite sprite = null)
+    public IEnumerator PlayAnimation(bool fadeIn, bool fadeOut, Sprite sprite = null)
     {
         if (sprite != null)
         {
@@ -221,11 +221,35 @@ public class Telescope : MonoBehaviour
 
         if (fadeIn && fadeOut)
             fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
-        else if (fadeIn)
-            fadeAnimator.Play("Base Layer.TelescopeFadeIn");
-        else if (fadeOut)
-            fadeAnimator.Play("Base Layer.TelescopeFadeOut");
-            
+        else
+        {
+            if (fadeIn)
+            {
+                int islandCount = elementsFolder1.transform.childCount;
+                for (int i = 0; i < islandCount; i++)
+                {
+                    Destroy(elementsFolder1.transform.GetChild(i).gameObject);
+                    Destroy(elementsFolder2.transform.GetChild(i).gameObject);
+                }
+                fadeAnimator.Play("Base Layer.TelescopeFadeIn");
+            }
+            else if (fadeOut)
+            {
+                fadeAnimator.Play("Base Layer.TelescopeFadeOut");
+                yield return new WaitForSeconds(0.5f);
+                foreach (Island island in boat.GetIslandsInSight())
+                {
+                    GameObject island3D1 = Instantiate(island.island3D, elementsFolder1.transform);
+                    GameObject island3D2 = Instantiate(island.island3D, elementsFolder2.transform);
+                    TelescopeElement island3D1Element = island3D1.GetComponent<TelescopeElement>();
+                    TelescopeElement island3D2Element = island3D2.GetComponent<TelescopeElement>();
+                    island3D1Element.cloneElement = island3D2;
+                    island3D2Element.cloneElement = island3D1;
+                    island3D1Element.islandDiscover = island;
+                    island3D2Element.islandDiscover = island;
+                }
+            }
+        }
     }
 
     public void ResetAnimation()

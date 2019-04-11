@@ -110,7 +110,7 @@ public class NavigationManager : MonoBehaviour
                 {
                     hasPlayedAnim = true;
                     telescope.ResetZoom();
-                    telescope.PlayAnimation(false, true, map.GetCurrentZoneSprite());
+                    StartCoroutine(telescope.PlayAnimation(false, true, map.GetCurrentZoneSprite()));
                     if (islandTarget && !islandTarget.firstTimeVisiting)
                         screenManager.Berth(islandTarget);
                     if (onIsland)
@@ -151,7 +151,7 @@ public class NavigationManager : MonoBehaviour
             rayOrigin.y += 1;
             RaycastHit[] hits = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
 
-            if (hits.Any(hit => hit.collider.GetComponent<Island>()))
+            if (hits.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible))
                 return ENavigationResult.ISLAND;
             else
             {
@@ -187,7 +187,7 @@ public class NavigationManager : MonoBehaviour
         journeyTarget = target;
         journeyTarget.y = boatPosY;
         journeyBeginTime = Time.time;
-        telescope.PlayAnimation(true, false);
+        StartCoroutine(telescope.PlayAnimation(true, false));
         hasPlayedAnim = false;
     }
 
