@@ -15,12 +15,14 @@ public class Boat : MonoBehaviour
 
     public void IslandInSight(Island island)
     {
-        islandsInSight.Add(island);
+        if (!islandsInSight.Contains(island))
+            islandsInSight.Add(island);
     }
 
     public void IslandNoMoreInSight(Island island)
     {
-        islandsInSight.Remove(island);
+        if (islandsInSight.Contains(island))
+            islandsInSight.Remove(island);
     }
 
     public List<Island> GetIslandsInSight()

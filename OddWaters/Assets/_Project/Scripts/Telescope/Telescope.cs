@@ -272,13 +272,10 @@ public class Telescope : MonoBehaviour
                     // Place islands in 0-360°
                     float angle = Angle360(-boat.transform.up, island.transform.position - boat.transform.position, boat.transform.right);
                     angle = 360 - angle;
-                    Debug.Log("Angle : " + angle);
                     Sprite spriteTelescope = completeZone1.GetComponent<SpriteRenderer>().sprite;
                     float spriteWidth = spriteTelescope.texture.width;
                     float offset = angle * (spriteWidth / 360f) - (spriteWidth / 2f);
-                    Debug.Log("Offset pixels : " + offset);
                     offset *= completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / spriteTelescope.pixelsPerUnit;
-                    Debug.Log("Offset in real world : " + offset);
                     island3D1.transform.localPosition = new Vector3(offset, 0, 0);
                     island3D2.transform.localPosition = new Vector3(offset, 0, 0);
 
