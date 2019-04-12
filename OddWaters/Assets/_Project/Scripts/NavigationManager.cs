@@ -84,8 +84,13 @@ public class NavigationManager : MonoBehaviour
                 lightScript.rotateDegreesPerSecond.value.y = 0;
                 if (islandTarget)
                 {
-                    boatRenderer.sprite = boatSprites[1];
                     onIsland = true;
+                    boatRenderer.sprite = boatSprites[1];
+
+                    // Reset rotations
+                    boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
+                    boat.transform.GetChild(0).gameObject.SetActive(false);
+                    boat.transform.localRotation = Quaternion.Euler(90, 0, 0);
 
                     if (islandTarget.firstTimeVisiting)
                     {
@@ -184,12 +189,12 @@ public class NavigationManager : MonoBehaviour
         boat.transform.eulerAngles = rotation;
 
         // Reset field of view rotation
-        rotation.x = 0;
         boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
 
         // Initialize navigation values
         navigating = true;
         boatRenderer.sprite = boatSprites[0];
+        boat.transform.GetChild(0).gameObject.SetActive(true);
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         journeyLength = Vector3.Distance(target, boat.transform.position);
         journeyTarget = target;
