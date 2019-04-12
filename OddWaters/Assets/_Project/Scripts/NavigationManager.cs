@@ -173,15 +173,23 @@ public class NavigationManager : MonoBehaviour
 
     void LaunchNavigation(Vector3 target)
     {
-        navigating = true;
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
-        boatRenderer.sprite = boatSprites[0];
+        
+        // Rotate boat
         boat.transform.LookAt(target);
         Vector3 rotation = boat.transform.eulerAngles;
         rotation.z = -rotation.y;
         rotation.x = 90;
         rotation.y = 0;
         boat.transform.eulerAngles = rotation;
+
+        // Reset field of view rotation
+        rotation.x = 0;
+        boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
+
+        // Initialize navigation values
+        navigating = true;
+        boatRenderer.sprite = boatSprites[0];
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         journeyLength = Vector3.Distance(target, boat.transform.position);
         journeyTarget = target;

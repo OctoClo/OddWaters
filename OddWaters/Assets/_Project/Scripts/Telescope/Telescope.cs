@@ -23,12 +23,16 @@ public class Telescope : MonoBehaviour
     Sprite sprite2;
     float telescopeOffsetX;
 
+    [SerializeField]
+    Transform center;
+
     bool dragInitialized;
     [SerializeField]
     float dragSpeedMultiplier = 0.01f;
     [SerializeField]
     float dragSpeedMultiplierZoom = 0.003f;
     float dragSpeed;
+    float posMax;
 
     [SerializeField]
     float scaleZoom = 1.5f;
@@ -53,33 +57,36 @@ public class Telescope : MonoBehaviour
 
     void Start()
     {
-        cursorScale = new Vector3(1f, 1f, 0);
-
+        // Find some game objects
         completeZone1 = telescope1.transform.GetChild(0).gameObject;
         sprite1 = completeZone1.GetComponent<SpriteRenderer>().sprite;
         telescopeParent = telescope1.transform.parent;
         telescopeMask = telescopeParent.parent;
+
         telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / sprite1.pixelsPerUnit;
 
+        // Clone telescope 1
         telescope2 = Instantiate(telescope1, telescopeParent);
         telescope2.name = "Telescope2";
         completeZone2 = telescope2.transform.GetChild(0).gameObject;
-
         Vector3 telescope2Pos = telescope1.transform.position;
         telescope2Pos.x = telescopeOffsetX;
         telescope2.transform.position = telescope2Pos;
 
+        // Find other game objects
         telescopes = new GameObject[2];
         telescopes[0] = telescope1;
         telescopes[1] = telescope2;
-
         elementsFolder1 = telescope1.transform.GetChild(1).gameObject;
         elementsFolder2 = telescope2.transform.GetChild(1).gameObject;
-        GameObject element1, element2;
 
+        // Initialize drag values
         dragSpeed = 0;
         dragInitialized = false;
+        cursorScale = new Vector3(1f, 1f, 0);
+        posMax = telescopeOffsetX * telescopes[0].transform.localScale.x;
 
+        // Initialize zoom values
         zoom = false;
         zoomLevel = 0;
         scaleMaskNormal = telescopeMask.localScale;
@@ -169,15 +176,16 @@ public class Telescope : MonoBehaviour
         Vector3 move = new Vector3(dragSpeed * Time.deltaTime, 0, 0);
         telescope1.transform.position += move;
         telescope2.transform.position += move;
-        
-        if (dragSpeed < 0 && telescopes[1].transform.position.x <= 0)
+
+        // Swap telescopes if needed
+        if (dragSpeed < 0 && telescopes[1].transform.position.x <= center.position.x)
         {
             Vector3 newPos = telescopes[0].transform.position;
             newPos.x = telescopes[1].transform.position.x + telescopeOffsetX;
             telescopes[0].transform.position = newPos;
             SwapTelescopes();
         }
-        else if (dragSpeed > 0 && telescopes[0].transform.position.x >= 0)
+        else if (dragSpeed > 0 && telescopes[0].transform.position.x >= center.position.x)
         {
             Vector3 newPos = telescopes[1].transform.position;
             newPos.x = telescopes[0].transform.position.x - telescopeOffsetX;
@@ -185,7 +193,14 @@ public class Telescope : MonoBehaviour
             SwapTelescopes();
         }
 
-        if (dragSpeed == 0 && zoom)
+        // Field of view rotation
+        if (dragSpeed != 0)
+        {
+            float telescopeRotation = telescopes[0].transform.localPosition.x * (360f / posMax) - (posMax / 2);
+            boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
+        }
+        // Element identification on zoom
+        else if (zoom)
         {
             int islandCount = elementsFolder1.transform.childCount;
             for (int i = 0; i < islandCount; i++)
@@ -202,6 +217,14 @@ public class Telescope : MonoBehaviour
                 }
             }
         }
+    }
+
+    void ResetPosition()
+    {
+        telescopes[0].transform.localPosition = Vector3.zero;
+        Vector3 newPosition = telescopes[0].transform.position;
+        newPosition.x += telescopeOffsetX;
+        telescopes[1].transform.position = newPosition;
     }
 
     void SwapTelescopes()
@@ -235,6 +258,7 @@ public class Telescope : MonoBehaviour
             }
             else if (fadeOut)
             {
+                ResetPosition();
                 fadeAnimator.Play("Base Layer.TelescopeFadeOut");
                 yield return new WaitForSeconds(0.5f);
                 foreach (Island island in boat.GetIslandsInSight())
@@ -246,18 +270,17 @@ public class Telescope : MonoBehaviour
                     GameObject island3D2 = Instantiate(island.island3D, elementsFolder2.transform);
 
                     // Place islands in 0-360°
-                    float angle = Angle360(-boat.transform.right, island.transform.position - boat.transform.position, boat.transform.right);
+                    float angle = Angle360(-boat.transform.up, island.transform.position - boat.transform.position, boat.transform.right);
+                    angle = 360 - angle;
+                    Debug.Log("Angle : " + angle);
                     Sprite spriteTelescope = completeZone1.GetComponent<SpriteRenderer>().sprite;
-                    float offset = 720 * angle / (spriteTelescope.texture.width / 2f);
-                    if (angle < 180)
-                        offset *= -1;
+                    float spriteWidth = spriteTelescope.texture.width;
+                    float offset = angle * (spriteWidth / 360f) - (spriteWidth / 2f);
+                    Debug.Log("Offset pixels : " + offset);
                     offset *= completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / spriteTelescope.pixelsPerUnit;
-                    Vector3 islandPosition = island3D1.transform.position;
-                    islandPosition.x = offset;
-                    island3D1.transform.position = islandPosition;
-                    islandPosition = island3D2.transform.position;
-                    islandPosition.x = offset + telescopeOffsetX;
-                    island3D2.transform.position = islandPosition;
+                    Debug.Log("Offset in real world : " + offset);
+                    island3D1.transform.localPosition = new Vector3(offset, 0, 0);
+                    island3D2.transform.localPosition = new Vector3(offset, 0, 0);
 
                     // Initialize telescope elements
                     TelescopeElement island3D1Element = island3D1.GetComponent<TelescopeElement>();
@@ -273,6 +296,8 @@ public class Telescope : MonoBehaviour
 
     float Angle360(Vector3 from, Vector3 to, Vector3 right)
     {
+        from.y = 0;
+        to.y = 0;
         float angle = Vector3.Angle(from, to);
         return (Vector3.Angle(right, to) > 90f) ? 360f - angle : angle;
     }
