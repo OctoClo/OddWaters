@@ -84,7 +84,7 @@ public class ScreenManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.5f);
                 inventory.AddToInventory(objectToGive);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2.5f);
                 EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
             }
             else

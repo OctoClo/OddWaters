@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 787944877}
   - component: {fileID: 787944881}
   - component: {fileID: 787944880}
-  - component: {fileID: 787944876}
+  - component: {fileID: 5828078540333372146}
   m_Layer: 0
-  m_Name: Letter
+  m_Name: GlobalObject0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.1210363, y: 0.23, z: 3.9979637}
   m_Center: {x: -0.0000017881393, y: 0.06, z: 0}
---- !u!114 &787944876
+--- !u!114 &5828078540333372146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 787944874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b9921591810c44994f03721c868767, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2d57ccc45b2454b83434e11eaacd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationsAmount: 000000000000000002000000
+  rotationsAmount: 010000000100000002000000

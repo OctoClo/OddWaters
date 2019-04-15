@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 165029318514557525}
   - component: {fileID: 165029318514557526}
   - component: {fileID: 3336887622954164363}
-  - component: {fileID: 165029318514557523}
+  - component: {fileID: 8072607127039030999}
   m_Layer: 0
-  m_Name: ObjectTest2
+  m_Name: Island0Object0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 3.3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &165029318514557523
+--- !u!114 &8072607127039030999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 165029318514557520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45a5787476068f4ea776068d6e78a60, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2d57ccc45b2454b83434e11eaacd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationsAmount: 010000000100000002000000
+  rotationsAmount: 000000000100000002000000

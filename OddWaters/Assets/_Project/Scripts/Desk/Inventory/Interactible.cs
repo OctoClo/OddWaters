@@ -6,23 +6,24 @@ public enum ERotation { R0, R90, R180 };
 
 public class Interactible : MonoBehaviour
 {
+    [SerializeField]
+    [Range(1, 4)]
+    float rotationSpeed = 3f;
+    float rotationSpeedMax = 1.8f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
+    bool rotating;
+    Quaternion rotationBefore;
+    Quaternion rotationAfter;
+    float rotationTime = 0;
+    float currentRotationSpeed;
 
     Camera mainCamera;
     Rigidbody rigidBody;
 
     bool zoom;
     Vector3 beforeZoomPosition;
-    Vector3 zoomPosition;
-
-    bool rotating;
-    Quaternion rotationBefore;
-    Quaternion rotationAfter;
-    float rotationTime = 0;
-    float currentRotationSpeed;
-    float rotationSpeed = 0.8f;
-    float rotationSpeedMax = 1.2f;
+    Vector3 zoomPosition;    
 
     void Start()
     {
