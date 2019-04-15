@@ -91,6 +91,9 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+
         if (!blockInput)
         {
             // Left button down
@@ -148,17 +151,17 @@ public class InputManager : MonoBehaviour
                 if (interactibleState == EInteractibleState.DRAGNDROP)
                 {
                     if (Input.GetKeyDown(KeyCode.S))
-                        interactible.Rotate(0, -1);
-                    else if (Input.GetKeyDown(KeyCode.Z))
                         interactible.Rotate(0, 1);
+                    else if (Input.GetKeyDown(KeyCode.Z))
+                        interactible.Rotate(0, -1);
                     else if (Input.GetKeyDown(KeyCode.E))
                         interactible.Rotate(1, 1);
                     else if (Input.GetKeyDown(KeyCode.A))
                         interactible.Rotate(1, -1);
                     else if (Input.GetKeyDown(KeyCode.D))
-                        interactible.Rotate(2, 1);
-                    else if (Input.GetKeyDown(KeyCode.Q))
                         interactible.Rotate(2, -1);
+                    else if (Input.GetKeyDown(KeyCode.Q))
+                        interactible.Rotate(2, 1);
                 }
             }
 
@@ -187,8 +190,7 @@ public class InputManager : MonoBehaviour
         if (navigation)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-            ECursor cursor = navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-            CursorManager.Instance.SetCursor(cursor);
+            navigationManager.SetCursorNavigation(mainCamera.ScreenToWorldPoint(mouseScreenPos));
         }
 
         mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
@@ -222,10 +224,16 @@ public class InputManager : MonoBehaviour
                             if (mapZone.visible)
                             {
                                 Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                                if (navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos)) != ECursor.NAVIGATION_KO)
+                                ENavigationResult result = navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                                if (result == ENavigationResult.SEA)
                                 {
                                     StopNavigation();
-                                    navigationManager.NavigateToZone(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
+                                    navigationManager.NavigateToPosition(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
+                                }
+                                else if (result == ENavigationResult.TYPHOON)
+                                {
+                                    StopNavigation();
+                                    navigationManager.NavigateToTyphoon(mainCamera.ScreenToWorldPoint(mouseScreenPos));
                                 }
                             }
                             else
@@ -287,6 +295,7 @@ public class InputManager : MonoBehaviour
             }
             else if (interactibleState == EInteractibleState.UNKNOWN)
             {
+                CursorManager.Instance.SetCursor(ECursor.DEFAULT);
                 interactibleState = EInteractibleState.CLICKED;
                 interactible.EnterRotationInterface();
                 rotationInterface.gameObject.SetActive(true);
@@ -331,11 +340,11 @@ public class InputManager : MonoBehaviour
 
     public void RotateButtonPositive(int axis)
     {
-        interactible.Rotate(axis, 1);
+        interactible.Rotate(axis, -1);
     }
 
     public void RotateButtonNegative(int axis)
     {
-        interactible.Rotate(axis, -1);
+        interactible.Rotate(axis, 1);
     }
 }
