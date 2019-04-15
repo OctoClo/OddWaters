@@ -391,9 +391,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63616405}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.032, y: -0, z: 0.09}
-  m_LocalScale: {x: 1.7042787, y: 1.78, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.032, y: -0.11, z: 0.09}
+  m_LocalScale: {x: 0.5, y: 0.46054804, z: 1}
   m_Children: []
   m_Father: {fileID: 1004662571}
   m_RootOrder: 0
@@ -435,12 +435,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: dfd5f67637a4f9d4c87d84f00bd86563, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7e2ea4b81690a741827541eda3c66c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 46.25, y: 7.74}
+  m_Size: {x: 90, y: 7.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1503,7 +1503,7 @@ GameObject:
   - component: {fileID: 450506210}
   - component: {fileID: 450506209}
   m_Layer: 0
-  m_Name: Background
+  m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1735,7 +1735,7 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 1625520203}
+  shadowMapRenderTexture: {fileID: 1754546504}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
@@ -2216,7 +2216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b9921591810c44994f03721c868767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationsAmount: 010000000100000002000000
+  rotationsAmount: 000000000000000002000000
 --- !u!65 &787944880
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2960,7 +2960,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fe8caf032cd589c41b715b696d587cb5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b94edee40395114cb1a4e0b2ad9d916, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3069,7 +3069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 0
-  telescopeSprite: {fileID: 21300000, guid: dfd5f67637a4f9d4c87d84f00bd86563, type: 3}
+  telescopeSprite: {fileID: 21300000, guid: d7e2ea4b81690a741827541eda3c66c8, type: 3}
   visible: 1
   visibleSprite: {fileID: 21300000, guid: 1469952e267f85442b9208ab445408bd, type: 3}
   invisibleSprite: {fileID: 21300000, guid: 482f8ea27aa0b314783a30f032a674cc, type: 3}
@@ -3170,7 +3170,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: ffe87dc27f4514b449034de0ad9fc643, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 798f746108e47454c96bdd401d085c6a, type: 2}
+      objectReference: {fileID: 2100000, guid: 459f4f62c0a4ab44f92e63a69d1b8680, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffe87dc27f4514b449034de0ad9fc643, type: 3}
 --- !u!1 &1004662570
@@ -3230,7 +3230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048610608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.723, z: -0}
+  m_LocalPosition: {x: 0, y: -0.33, z: 0}
   m_LocalScale: {x: 0.0952381, y: 0.5128206, z: 1}
   m_Children: []
   m_Father: {fileID: 401242963}
@@ -3273,7 +3273,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fe8caf032cd589c41b715b696d587cb5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b94edee40395114cb1a4e0b2ad9d916, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3372,7 +3372,7 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 1776453839}
+  shadowMapRenderTexture: {fileID: 1462610767}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
@@ -4162,8 +4162,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321722983}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.182, y: -0.076, z: -0}
-  m_LocalScale: {x: 0.023809524, y: 0.12820518, z: 1}
+  m_LocalPosition: {x: 0.322, y: -0.72, z: -0}
+  m_LocalScale: {x: 0.078663476, y: 0.4235836, z: 3.303951}
   m_Children: []
   m_Father: {fileID: 401242963}
   m_RootOrder: 1
@@ -4205,12 +4205,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 55fb573f20c200d43be24b3875bc1dfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.44, y: 9}
+  m_Size: {x: 1.45, y: 5.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4636,6 +4636,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!84 &1462610767
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1480563024
 GameObject:
   m_ObjectHideFlags: 0
@@ -4694,8 +4726,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502730881}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 4.33, y: 0, z: -1.31}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.52, y: -0, z: -1.725}
+  m_LocalScale: {x: 2.0144022, y: 2.0144022, z: 2.0144022}
   m_Children: []
   m_Father: {fileID: 2059770322}
   m_RootOrder: 1
@@ -4737,12 +4769,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 55fb573f20c200d43be24b3875bc1dfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.44, y: 9}
+  m_Size: {x: 1.45, y: 5.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5080,38 +5112,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581922434}
   m_CullTransparentMesh: 0
---- !u!84 &1625520203
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1660011145
 GameObject:
   m_ObjectHideFlags: 0
@@ -5640,6 +5640,38 @@ MonoBehaviour:
   detectionSensitivity: 0.5
   fadeAnimator: {fileID: 1741706510}
   boat: {fileID: 1158980446}
+--- !u!84 &1754546504
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1765868307
 GameObject:
   m_ObjectHideFlags: 0
@@ -5769,38 +5801,6 @@ MonoBehaviour:
   frustumSettings:
     baseSettings: {fileID: 1825436578}
     qualitySettings: {fileID: 917373570}
---- !u!84 &1776453839
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!84 &1790844938
 RenderTexture:
   m_ObjectHideFlags: 0
@@ -6805,8 +6805,8 @@ MonoBehaviour:
   islandNumber: 0
   nextZone: 1
   visible: 0
-  illustration: {fileID: 21300000, guid: fe8caf032cd589c41b715b696d587cb5, type: 3}
-  character: {fileID: 21300000, guid: 55fb573f20c200d43be24b3875bc1dfb, type: 3}
+  illustration: {fileID: 21300000, guid: 9b94edee40395114cb1a4e0b2ad9d916, type: 3}
+  character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
   objectToGive: {fileID: 165029318514557520, guid: 69954ea66519c434eab2403dd6e66e19,
     type: 3}
   island3D: {fileID: 1570853805686565552, guid: e17ae3851974e0d42a5e7e3353d64e6f,
@@ -6968,7 +6968,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb91d4d7a17035948a0aae5a49c1b563, type: 2}
+  - {fileID: 2100000, guid: e4b3ae53b1a9f924280d84b52b461b90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
