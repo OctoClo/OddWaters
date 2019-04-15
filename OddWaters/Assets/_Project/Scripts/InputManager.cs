@@ -91,6 +91,9 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+
         if (!blockInput)
         {
             // Left button down
@@ -148,17 +151,17 @@ public class InputManager : MonoBehaviour
                 if (interactibleState == EInteractibleState.DRAGNDROP)
                 {
                     if (Input.GetKeyDown(KeyCode.S))
-                        interactible.Rotate(0, -1);
-                    else if (Input.GetKeyDown(KeyCode.Z))
                         interactible.Rotate(0, 1);
+                    else if (Input.GetKeyDown(KeyCode.Z))
+                        interactible.Rotate(0, -1);
                     else if (Input.GetKeyDown(KeyCode.E))
                         interactible.Rotate(1, 1);
                     else if (Input.GetKeyDown(KeyCode.A))
                         interactible.Rotate(1, -1);
                     else if (Input.GetKeyDown(KeyCode.D))
-                        interactible.Rotate(2, 1);
-                    else if (Input.GetKeyDown(KeyCode.Q))
                         interactible.Rotate(2, -1);
+                    else if (Input.GetKeyDown(KeyCode.Q))
+                        interactible.Rotate(2, 1);
                 }
             }
 
@@ -292,6 +295,7 @@ public class InputManager : MonoBehaviour
             }
             else if (interactibleState == EInteractibleState.UNKNOWN)
             {
+                CursorManager.Instance.SetCursor(ECursor.DEFAULT);
                 interactibleState = EInteractibleState.CLICKED;
                 interactible.EnterRotationInterface();
                 rotationInterface.gameObject.SetActive(true);
@@ -336,11 +340,11 @@ public class InputManager : MonoBehaviour
 
     public void RotateButtonPositive(int axis)
     {
-        interactible.Rotate(axis, 1);
+        interactible.Rotate(axis, -1);
     }
 
     public void RotateButtonNegative(int axis)
     {
-        interactible.Rotate(axis, -1);
+        interactible.Rotate(axis, 1);
     }
 }

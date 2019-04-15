@@ -10,13 +10,26 @@ public class Interactible : MonoBehaviour
     public ERotation[] rotationsAmount = new ERotation[3];
 
     Camera mainCamera;
-    Vector3 beforeZoomPosition;
     Rigidbody rigidBody;
+
+    bool zoom;
+    Vector3 beforeZoomPosition;
+    Vector3 zoomPosition;
+
+    bool rotating;
+    Quaternion rotationBefore;
+    Quaternion rotationAfter;
+    float rotationTime = 0;
+    float currentRotationSpeed;
+    float rotationSpeed = 0.8f;
+    float rotationSpeedMax = 1.2f;
 
     void Start()
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
+        rotating = false;
+        currentRotationSpeed = rotationSpeed;
     }
 
     public virtual void Trigger()
@@ -48,17 +61,44 @@ public class Interactible : MonoBehaviour
 
     public void Rotate(int axis, int direction)
     {
-        Vector3 rotation = Vector3.zero;
+        if (rotating)
+        {
+            currentRotationSpeed = rotationSpeedMax;
+            rotationBefore = rotationAfter;
+        }
+        else
+            rotationBefore = transform.rotation;
 
+        rotating = true;
+        rotationTime = 0;
+
+        Vector3 axisVec = Vector3.zero;
         if (axis == 0)
-            rotation.x = getRotation(axis);
+            axisVec = Vector3.right;
         else if (axis == 1)
-            rotation.y = getRotation(axis);
+            axisVec = Vector3.up;
         else if (axis == 2)
-            rotation.z = getRotation(axis);
+            axisVec = Vector3.forward;
 
-        rotation *= direction;
-        transform.Rotate(rotation, Space.World);
+        rotationAfter = rotationBefore * Quaternion.AngleAxis(getRotation(axis) * direction, axisVec);
+    }
+
+    void Update()
+    {
+        if (rotating)
+        {
+            rotationTime += Time.deltaTime * currentRotationSpeed;
+            transform.rotation = Quaternion.Slerp(rotationBefore, rotationAfter, rotationTime);
+
+            if (zoom)
+                gameObject.transform.position = zoomPosition;
+
+            if (rotationTime >= 1)
+            {
+                rotating = false;
+                currentRotationSpeed = rotationSpeed;
+            }
+        }
     }
 
     int getRotation(int axis)
@@ -72,19 +112,27 @@ public class Interactible : MonoBehaviour
 
     public void EnterRotationInterface()
     {
+        zoom = true;
         rigidBody.useGravity = false;
         if (rigidBody.velocity == Vector3.zero)
         {
             beforeZoomPosition = gameObject.transform.position;
-            Vector3 zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
+            zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
             gameObject.transform.position = zoomPosition;
         }
     }
 
     public void ExitRotationInterface()
     {
+        if (rotating)
+        {
+            rotating = false;
+            currentRotationSpeed = rotationSpeed;
+            transform.rotation = rotationAfter;
+        }
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
+        zoom = false;
     }
 
     public void SetRotationInterfaceAxis(RotationInterface rotationInterface)
