@@ -14,12 +14,12 @@ public class RotationInterface : MonoBehaviour
         rotateButtons[(axis * 2) + 1].interactable = false;
     }
 
-    public void ResetButtons()
+    public void SetButtons(bool active)
     {
         for (int i = 0; i < 3; i++)
         {
-            rotateButtons[(i * 2)].interactable = true;
-            rotateButtons[(i * 2) + 1].interactable = true;
+            rotateButtons[(i * 2)].interactable = active;
+            rotateButtons[(i * 2) + 1].interactable = active;
         }
     }
 }

@@ -112,7 +112,7 @@ public class InputManager : MonoBehaviour
                 else if (interactibleState == EInteractibleState.CLICKED)
                 {
                     interactibleState = EInteractibleState.UNKNOWN;
-                    rotationInterface.ResetButtons();
+                    rotationInterface.SetButtons(true);
                     rotationInterface.gameObject.SetActive(false);
                     rotationPanel.SetActive(false);
                     telescope.SetImageAlpha(false);
@@ -148,7 +148,7 @@ public class InputManager : MonoBehaviour
                     interactibleOffset = interactible.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
                 }
 
-                if (interactibleState == EInteractibleState.DRAGNDROP)
+                if (interactibleState == EInteractibleState.DRAGNDROP && !interactible.rotating)
                 {
                     if (Input.GetKeyDown(KeyCode.S))
                         interactible.Rotate(0, 1);
@@ -299,7 +299,6 @@ public class InputManager : MonoBehaviour
                 interactibleState = EInteractibleState.CLICKED;
                 interactible.EnterRotationInterface();
                 rotationInterface.gameObject.SetActive(true);
-                interactible.SetRotationInterfaceAxis(rotationInterface);
                 rotationPanel.SetActive(true);
                 telescope.SetImageAlpha(true);
                 panZones[0].gameObject.SetActive(false);

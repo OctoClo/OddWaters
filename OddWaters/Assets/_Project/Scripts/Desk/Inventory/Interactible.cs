@@ -9,10 +9,13 @@ public class Interactible : MonoBehaviour
     [SerializeField]
     [Range(1, 4)]
     float rotationSpeed = 3f;
-    float rotationSpeedMax = 1.8f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
-    bool rotating;
+    
+    public RotationInterface rotationInterface;
+
+    [HideInInspector]
+    public bool rotating;
     Quaternion rotationBefore;
     Quaternion rotationAfter;
     float rotationTime = 0;
@@ -62,16 +65,11 @@ public class Interactible : MonoBehaviour
 
     public void Rotate(int axis, int direction)
     {
-        if (rotating)
-        {
-            currentRotationSpeed = rotationSpeedMax;
-            rotationBefore = rotationAfter;
-        }
-        else
-            rotationBefore = transform.rotation;
+        rotationInterface.SetButtons(false);
 
         rotating = true;
         rotationTime = 0;
+        rotationBefore = transform.rotation;
 
         Vector3 axisVec = Vector3.zero;
         if (axis == 0)
@@ -98,6 +96,8 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
+                rotationInterface.SetButtons(true);
+                SetRotationButtons();
             }
         }
     }
@@ -121,6 +121,17 @@ public class Interactible : MonoBehaviour
             zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
             gameObject.transform.position = zoomPosition;
         }
+
+        SetRotationButtons();
+    }
+
+    void SetRotationButtons()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (rotationsAmount[i] == ERotation.R0)
+                rotationInterface.DeactivateButtons(i);
+        }
     }
 
     public void ExitRotationInterface()
@@ -134,14 +145,5 @@ public class Interactible : MonoBehaviour
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
         zoom = false;
-    }
-
-    public void SetRotationInterfaceAxis(RotationInterface rotationInterface)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (rotationsAmount[i] == ERotation.R0)
-                rotationInterface.DeactivateButtons(i);
-        }
     }
 }
