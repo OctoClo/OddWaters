@@ -12,7 +12,7 @@ public class Island : MonoBehaviour
     public Sprite illustration;
     public Sprite character;
     public GameObject objectToGive;
-    public GameObject island3D;
+    public Sprite islandSprite;
 
     [HideInInspector]
     public bool firstTimeVisiting = true;
