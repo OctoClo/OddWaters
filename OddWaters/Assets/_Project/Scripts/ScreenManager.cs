@@ -31,9 +31,17 @@ public class ScreenManager : MonoBehaviour
 
     EIslandIlluType islandIlluType;
 
+    Island currentIsland;
     bool firstVisit;
     GameObject objectToGive;
     int nextZone;
+
+    private void Start()
+    {
+        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
+        AkSoundEngine.SetState("Weather", "Fine");
+        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
+    }
 
     public void Berth(Island island)
     {
@@ -43,6 +51,7 @@ public class ScreenManager : MonoBehaviour
             islandCharacters[i].GetComponent<SpriteRenderer>().sprite = island.character;
         }
 
+        currentIsland = island;
         firstVisit = island.firstTimeVisiting;
         if (firstVisit)
         {
@@ -56,6 +65,7 @@ public class ScreenManager : MonoBehaviour
 
     public void LeaveIsland()
     {
+        AkSoundEngine.PostEvent("Stop_AMB_Island" + currentIsland.islandNumber, gameObject);
         StartCoroutine(ChangeScreenType(EScreenType.SEA));
     }
 
@@ -84,6 +94,7 @@ public class ScreenManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.5f);
                 inventory.AddToInventory(objectToGive);
+                AkSoundEngine.PostEvent("Play_Island" + currentIsland.islandNumber + "_Object0", gameObject);
                 yield return new WaitForSeconds(1f);
                 EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
             }

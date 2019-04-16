@@ -27,6 +27,7 @@ public class Island : MonoBehaviour
 
     public void Berth()
     {
+        AkSoundEngine.PostEvent("Play_AMB_Island" + islandNumber, gameObject);
         firstTimeVisiting = false;
     }
 

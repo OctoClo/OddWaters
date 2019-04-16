@@ -179,6 +179,7 @@ public class NavigationManager : MonoBehaviour
     void LaunchNavigation(Vector3 target)
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        AkSoundEngine.PostEvent("Play_Departure", gameObject);
         
         // Rotate boat
         boat.transform.LookAt(target);
