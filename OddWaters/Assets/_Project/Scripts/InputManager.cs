@@ -339,11 +339,11 @@ public class InputManager : MonoBehaviour
 
     public void RotateButtonPositive(int axis)
     {
-        interactible.Rotate(axis, -1);
+        interactible.Rotate(axis, 1);
     }
 
     public void RotateButtonNegative(int axis)
     {
-        interactible.Rotate(axis, 1);
+        interactible.Rotate(axis, -1);
     }
 }

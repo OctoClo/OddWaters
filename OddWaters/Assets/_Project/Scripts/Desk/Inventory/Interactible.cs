@@ -11,7 +11,7 @@ public class Interactible : MonoBehaviour
     float rotationSpeed = 3f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
-    
+
     public RotationInterface rotationInterface;
 
     [HideInInspector]
@@ -26,7 +26,7 @@ public class Interactible : MonoBehaviour
 
     bool zoom;
     Vector3 beforeZoomPosition;
-    Vector3 zoomPosition;    
+    Vector3 zoomPosition;
 
     void Start()
     {
@@ -79,7 +79,7 @@ public class Interactible : MonoBehaviour
         else if (axis == 2)
             axisVec = Vector3.forward;
 
-        rotationAfter = rotationBefore * Quaternion.AngleAxis(getRotation(axis) * direction, axisVec);
+        rotationAfter = Quaternion.AngleAxis(getRotation(axis) * direction, axisVec) * rotationBefore;
     }
 
     void Update()
