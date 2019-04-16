@@ -7,12 +7,16 @@ public enum ERotation { R0, R90, R180 };
 public class Interactible : MonoBehaviour
 {
     [SerializeField]
+    TextAsset transcriptJSON;
+    Transcript transcript;
+
+    [SerializeField]
     [Range(1, 4)]
     float rotationSpeed = 3f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
 
-    public RotationInterface rotationInterface;
+    public InspectionInterface inspectionInterface;
 
     [HideInInspector]
     public bool rotating;
@@ -34,6 +38,9 @@ public class Interactible : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         rotating = false;
         currentRotationSpeed = rotationSpeed;
+
+        if (transcriptJSON != null)
+            transcript = JsonUtility.FromJson<Transcript>(transcriptJSON.text);
     }
 
     public virtual void Trigger()
@@ -65,7 +72,7 @@ public class Interactible : MonoBehaviour
 
     public void Rotate(int axis, int direction)
     {
-        rotationInterface.SetButtons(false);
+        inspectionInterface.SetButtonsActive(false);
 
         rotating = true;
         rotationTime = 0;
@@ -96,8 +103,7 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
-                rotationInterface.SetButtons(true);
-                SetRotationButtons();
+                inspectionInterface.SetButtonsActive(true);
             }
         }
     }
@@ -122,16 +128,13 @@ public class Interactible : MonoBehaviour
             gameObject.transform.position = zoomPosition;
         }
 
-        SetRotationButtons();
-    }
-
-    void SetRotationButtons()
-    {
+        inspectionInterface.InitializeInterface(transcript);
         for (int i = 0; i < 3; i++)
         {
             if (rotationsAmount[i] == ERotation.R0)
-                rotationInterface.DeactivateButtons(i);
+                inspectionInterface.DeactivateAxis(i);
         }
+        inspectionInterface.SetButtonsActive(true);
     }
 
     public void ExitRotationInterface()

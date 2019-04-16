@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d57ccc45b2454b83434e11eaacd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transcriptJSON: {fileID: 4900000, guid: 83e6714e8e1e49146acc9dc45b44a07b, type: 3}
   rotationSpeed: 3
   rotationsAmount: 010000000100000002000000
   rotationInterface: {fileID: 0}

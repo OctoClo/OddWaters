@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     ScreenManager screenManager;
 
     [SerializeField]
-    RotationInterface rotationInterface;
+    InspectionInterface inspectionInterface;
     [SerializeField]
     GameObject rotationPanel;
 
@@ -112,8 +112,7 @@ public class InputManager : MonoBehaviour
                 else if (interactibleState == EInteractibleState.CLICKED)
                 {
                     interactibleState = EInteractibleState.UNKNOWN;
-                    rotationInterface.SetButtons(true);
-                    rotationInterface.gameObject.SetActive(false);
+                    inspectionInterface.gameObject.SetActive(false);
                     rotationPanel.SetActive(false);
                     telescope.SetImageAlpha(false);
                     interactible.ExitRotationInterface();
@@ -298,7 +297,7 @@ public class InputManager : MonoBehaviour
                 CursorManager.Instance.SetCursor(ECursor.DEFAULT);
                 interactibleState = EInteractibleState.CLICKED;
                 interactible.EnterRotationInterface();
-                rotationInterface.gameObject.SetActive(true);
+                inspectionInterface.gameObject.SetActive(true);
                 rotationPanel.SetActive(true);
                 telescope.SetImageAlpha(true);
                 panZones[0].gameObject.SetActive(false);

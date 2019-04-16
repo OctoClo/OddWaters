@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    RotationInterface rotationInterface;
+    InspectionInterface inspectionInterface;
 
     [SerializeField]
     Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour
         rbPos = newObject.transform.position;
         rb.useGravity = false;
         Interactible interactible = newObject.GetComponent<Interactible>();
-        interactible.rotationInterface = rotationInterface;
+        interactible.inspectionInterface = inspectionInterface;
 
         moving = true;
     }
