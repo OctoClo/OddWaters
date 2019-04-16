@@ -50,5 +50,7 @@ public class Map : MonoBehaviour
     {
         Debug.Log("Discovered island n°" + e.islandNumber);
         islands[e.islandNumber].Discover();
+        AkSoundEngine.PostEvent("Play_Note",gameObject);
+        AkSoundEngine.PostEvent("Play_Discovery_Acte1",gameObject);
     }
 }
