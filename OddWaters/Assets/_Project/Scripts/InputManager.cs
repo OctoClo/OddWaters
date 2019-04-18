@@ -52,7 +52,9 @@ public class InputManager : MonoBehaviour
     bool telescopeDrag;
 
     // Map
-    
+
+    [SerializeField]
+    Boat boat;
     bool navigation;
     
     void Start()
@@ -61,6 +63,7 @@ public class InputManager : MonoBehaviour
         mouseProjection.tag = "MouseProjection";
         BoxCollider mouseCollider = mouseProjection.AddComponent<BoxCollider>();
         mouseCollider.isTrigger = true;
+        boat.mouseProjection = mouseProjection;
 
         Vector3 position = desk.transform.position;
         Vector3 scale = desk.transform.localScale;
@@ -189,10 +192,11 @@ public class InputManager : MonoBehaviour
         if (navigation)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-            navigationManager.SetCursorNavigation(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
+            navigationManager.SetCursorNavigation(mouseWorldPos);
         }
 
-        mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
+        mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - 0.3f));
     }
 
     void HandleMouseLeftButtonDown()
@@ -251,7 +255,10 @@ public class InputManager : MonoBehaviour
                 {
                     // Launch navigation
                     if (hits.Any(hit => hit.collider.CompareTag("Boat")))
+                    {
                         navigation = true;
+                        boat.StartTargeting();
+                    }
                     else
                     {
                         // Interactible
@@ -329,6 +336,7 @@ public class InputManager : MonoBehaviour
     {
         navigation = false;
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+        boat.StopTargeting();
     }
 
     void OnBlockInputEvent(BlockInputEvent e)

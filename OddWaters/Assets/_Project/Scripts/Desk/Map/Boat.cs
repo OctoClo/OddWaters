@@ -6,11 +6,34 @@ public class BoatInTyphoonEvent : GameEvent { };
 
 public class Boat : MonoBehaviour
 {
+    [SerializeField]
+    LineRenderer line;
+    [HideInInspector]
+    public GameObject mouseProjection;
+
     List<Island> islandsInSight;
 
     void Start()
     {
-        islandsInSight = new List<Island>();   
+        line.enabled = false;
+        islandsInSight = new List<Island>();
+    }
+
+    public void StartTargeting()
+    {
+        line.SetPosition(0, transform.position);
+        line.enabled = true;
+    }
+
+    public void StopTargeting()
+    {
+        line.enabled = false;
+    }
+
+    void Update()
+    {
+        if (line.enabled)
+            line.SetPosition(1, mouseProjection.transform.position);    
     }
 
     public void IslandInSight(Island island)
