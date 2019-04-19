@@ -53,6 +53,9 @@ public class NavigationManager : MonoBehaviour
     bool onIsland = false;
     int currentZone = -1;
 
+    [HideInInspector]
+    public Vector3 obstaclePos;
+
     void Start()
     {
         boatRenderer = boat.GetComponent<SpriteRenderer>();
@@ -77,8 +80,10 @@ public class NavigationManager : MonoBehaviour
     {
         if (navigating)
         {
+            Vector3 journey = journeyTarget - boat.transform.position;
+
             // End of journey
-            if (Vector3.Distance(boat.transform.position, journeyTarget) <= 0.1f)
+            if (journey.sqrMagnitude <= 0.1f * 0.1f)
             {
                 navigating = false;
                 lightScript.rotateDegreesPerSecond.value.y = 0;
@@ -111,7 +116,7 @@ public class NavigationManager : MonoBehaviour
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
                 // Near the end of journey
-                if (Vector3.Distance(boat.transform.position, journeyTarget) <= 1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting) && !navigatingToTyphoon)
+                if (journey.sqrMagnitude <= 1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting) && !navigatingToTyphoon)
                 {
                     hasPlayedAnim = true;
                     telescope.ResetZoom();
@@ -128,9 +133,9 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    public void SetCursorNavigation(Vector3 currentPos)
+    public void UpdateNavigation(Vector3 targetPos)
     {
-        ENavigationResult result = GetNavigationResult(currentPos);
+        ENavigationResult result = GetNavigationResult(targetPos);
         switch (result)
         {
             case ENavigationResult.SEA:
@@ -150,30 +155,44 @@ public class NavigationManager : MonoBehaviour
 
     public ENavigationResult GetNavigationResult(Vector3 targetPos)
     {
-        if (Vector3.Distance(targetPos, boat.transform.position) <= maxDistance)
+        obstaclePos = Vector3.zero;
+        Vector3 journey = targetPos - boat.transform.position;
+        float distance = journey.magnitude;
+        RaycastHit[] hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, distance);
+        RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<Island>() || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
+        if (obstacle.collider)
+        {
+            obstaclePos = obstacle.point;
+            return ENavigationResult.KO;
+        }
+        else if (distance <= maxDistance)
         {
             Vector3 rayOrigin = targetPos;
             rayOrigin.y += 1;
-            RaycastHit[] hits = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
-
-            if (hits.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible))
+            RaycastHit[] hitsAtTarget = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
+            if (hitsAtTarget.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible))
                 return ENavigationResult.ISLAND;
+            else if (hitsOnJourney.Any(hit => hit.collider.CompareTag("Typhoon")))
+                return ENavigationResult.TYPHOON;
+            else if (hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible))
+                return ENavigationResult.SEA;
             else
             {
-                Vector3 direction = (targetPos - boat.transform.position);
-                float distance = direction.magnitude;
-                direction.Normalize();
-                hits = Physics.RaycastAll(boat.transform.position, direction, distance);
-                if (hits.Any(hit => hit.collider.GetComponent<Island>() || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible)))
-                    return ENavigationResult.KO;
-                if (hits.Any(hit => hit.collider.CompareTag("Typhoon")))
-                    return ENavigationResult.TYPHOON;
-                else
-                    return ENavigationResult.SEA;
+                hitsOnJourney = Physics.RaycastAll(targetPos, -journey, distance);
+                RaycastHit endOfMap = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == map.currentZone);
+                obstaclePos = endOfMap.point;
+                return ENavigationResult.KO;
             }
         }
-
-        return ENavigationResult.KO;
+        else
+        {
+            float factor = maxDistance / journey.magnitude;
+            float x = (targetPos.x - boat.transform.position.x) * factor + boat.transform.position.x;
+            float y = (targetPos.y - boat.transform.position.y) * factor + boat.transform.position.y;
+            float z = (targetPos.z - boat.transform.position.z) * factor + boat.transform.position.z;
+            obstaclePos = new Vector3(x, y, z);
+            return ENavigationResult.KO;
+        }
     }
 
     void LaunchNavigation(Vector3 target)
@@ -196,7 +215,7 @@ public class NavigationManager : MonoBehaviour
         boatRenderer.sprite = boatSprites[0];
         boat.transform.GetChild(0).gameObject.SetActive(true);
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
-        journeyLength = Vector3.Distance(target, boat.transform.position);
+        journeyLength = (target - boat.transform.position).sqrMagnitude;
         journeyTarget = target;
         journeyTarget.y = boatPosY;
         journeyBeginTime = Time.time;
@@ -206,7 +225,8 @@ public class NavigationManager : MonoBehaviour
 
     public void NavigateToPosition(Vector3 targetPos, int zoneNumber)
     {
-        if (Vector3.Distance(targetPos, boat.transform.position) >= minDistance)
+        Vector3 journey = targetPos - boat.transform.position;
+        if (journey.sqrMagnitude >= minDistance * minDistance)
         {
             LaunchNavigation(targetPos);
             
@@ -217,7 +237,8 @@ public class NavigationManager : MonoBehaviour
 
     public void NavigateToIsland(Island island)
     {
-        if (Vector3.Distance(island.transform.position, boat.transform.position) >= minDistance)
+        Vector3 journey = island.transform.position - boat.transform.position;
+        if (journey.sqrMagnitude >= minDistance * minDistance)
         {
             LaunchNavigation(island.transform.position);
             islandTarget = island;
@@ -229,7 +250,8 @@ public class NavigationManager : MonoBehaviour
 
     public void NavigateToTyphoon(Vector3 targetPos)
     {
-        if (Vector3.Distance(targetPos, boat.transform.position) >= minDistance)
+        Vector3 journey = targetPos - boat.transform.position;
+        if (journey.sqrMagnitude >= minDistance * minDistance)
         {
             LaunchNavigation(targetPos);
             navigatingToTyphoon = true;
@@ -244,7 +266,7 @@ public class NavigationManager : MonoBehaviour
 
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
-        journeyLength = Vector3.Distance(initialPos, boat.transform.position);
+        journeyLength = (boat.transform.position - initialPos).sqrMagnitude;
         journeyTarget = initialPos;
         journeyBeginTime = Time.time;
     }

@@ -193,7 +193,7 @@ public class InputManager : MonoBehaviour
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
-            navigationManager.SetCursorNavigation(mouseWorldPos);
+            navigationManager.UpdateNavigation(mouseWorldPos);
         }
 
         mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - 0.3f));

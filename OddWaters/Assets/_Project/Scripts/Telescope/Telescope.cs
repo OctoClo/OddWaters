@@ -206,13 +206,15 @@ public class Telescope : MonoBehaviour
             for (int i = 0; i < islandCount; i++)
             {
                 TelescopeElement island3D1 = elementsFolder1.transform.GetChild(i).GetComponent<TelescopeElement>();
+                float distanceIsland1 = (island3D1.transform.position - telescopeMask.position).sqrMagnitude;
                 if (!island3D1.islandDiscover.visible)
                 {
-                    if (island3D1.gameObject.activeInHierarchy && (Vector3.Distance(island3D1.transform.position, telescopeMask.position) <= detectionSensitivity))
+                    if (island3D1.gameObject.activeInHierarchy && distanceIsland1 <= detectionSensitivity * detectionSensitivity)
                         island3D1.Trigger();
 
                     TelescopeElement island3D2 = elementsFolder2.transform.GetChild(i).GetComponent<TelescopeElement>();
-                    if (island3D2.gameObject.activeInHierarchy && (Vector3.Distance(island3D2.transform.position, telescopeMask.position) <= detectionSensitivity))
+                    float distanceIsland2 = (island3D2.transform.position - telescopeMask.position).sqrMagnitude;
+                    if (island3D2.gameObject.activeInHierarchy && distanceIsland2 <= detectionSensitivity * detectionSensitivity)
                         island3D2.Trigger();
                 }
             }
