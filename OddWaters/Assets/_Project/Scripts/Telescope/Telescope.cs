@@ -206,13 +206,15 @@ public class Telescope : MonoBehaviour
             for (int i = 0; i < islandCount; i++)
             {
                 TelescopeElement island3D1 = elementsFolder1.transform.GetChild(i).GetComponent<TelescopeElement>();
+                float distanceIsland1 = (island3D1.transform.position - telescopeMask.position).sqrMagnitude;
                 if (!island3D1.islandDiscover.visible)
                 {
-                    if (island3D1.gameObject.activeInHierarchy && (Vector3.Distance(island3D1.transform.position, telescopeMask.position) <= detectionSensitivity))
+                    if (island3D1.gameObject.activeInHierarchy && distanceIsland1 <= detectionSensitivity * detectionSensitivity)
                         island3D1.Trigger();
 
                     TelescopeElement island3D2 = elementsFolder2.transform.GetChild(i).GetComponent<TelescopeElement>();
-                    if (island3D2.gameObject.activeInHierarchy && (Vector3.Distance(island3D2.transform.position, telescopeMask.position) <= detectionSensitivity))
+                    float distanceIsland2 = (island3D2.transform.position - telescopeMask.position).sqrMagnitude;
+                    if (island3D2.gameObject.activeInHierarchy && distanceIsland2 <= detectionSensitivity * detectionSensitivity)
                         island3D2.Trigger();
                 }
             }
@@ -266,8 +268,27 @@ public class Telescope : MonoBehaviour
                     // Create islands
                     elementsFolder1 = telescopes[0].transform.GetChild(1).gameObject;
                     elementsFolder2 = telescopes[1].transform.GetChild(1).gameObject;
-                    GameObject island3D1 = Instantiate(island.island3D, elementsFolder1.transform);
-                    GameObject island3D2 = Instantiate(island.island3D, elementsFolder2.transform);
+                    Vector3 spriteScale = completeZone1.transform.localScale;
+
+                    GameObject island1 = new GameObject("Island" + island.islandNumber);
+                    SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = island.islandSprite;
+                    spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                    spriteRenderer.sortingOrder = 2;
+                    island1.AddComponent<BoxCollider>();
+                    island1.transform.parent = elementsFolder1.transform;
+                    island1.transform.rotation = Quaternion.Euler(90, 0, 0);
+                    island1.transform.localScale = spriteScale;
+
+                    GameObject island2 = new GameObject("Island" + island.islandNumber);
+                    spriteRenderer = island2.AddComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = island.islandSprite;
+                    spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                    spriteRenderer.sortingOrder = 2;
+                    island2.AddComponent<BoxCollider>();
+                    island2.transform.parent = elementsFolder2.transform;
+                    island2.transform.rotation = Quaternion.Euler(90, 0, 0);
+                    island2.transform.localScale = spriteScale;
 
                     // Place islands in 0-360°
                     float angle = Angle360(-boat.transform.up, island.transform.position - boat.transform.position, boat.transform.right);
@@ -276,14 +297,14 @@ public class Telescope : MonoBehaviour
                     float spriteWidth = spriteTelescope.texture.width;
                     float offset = angle * (spriteWidth / 360f) - (spriteWidth / 2f);
                     offset *= completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / spriteTelescope.pixelsPerUnit;
-                    island3D1.transform.localPosition = new Vector3(offset, 0, 0);
-                    island3D2.transform.localPosition = new Vector3(offset, 0, 0);
+                    island1.transform.localPosition = new Vector3(offset, 0, 0);
+                    island2.transform.localPosition = new Vector3(offset, 0, 0);
 
                     // Initialize telescope elements
-                    TelescopeElement island3D1Element = island3D1.GetComponent<TelescopeElement>();
-                    TelescopeElement island3D2Element = island3D2.GetComponent<TelescopeElement>();
-                    island3D1Element.cloneElement = island3D2;
-                    island3D2Element.cloneElement = island3D1;
+                    TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
+                    TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
+                    island3D1Element.cloneElement = island2;
+                    island3D2Element.cloneElement = island1;
                     island3D1Element.islandDiscover = island;
                     island3D2Element.islandDiscover = island;
                 }

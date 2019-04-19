@@ -16,10 +16,11 @@ public class InputManager : MonoBehaviour
     ScreenManager screenManager;
 
     [SerializeField]
-    RotationInterface rotationInterface;
+    InspectionInterface inspectionInterface;
     [SerializeField]
     GameObject rotationPanel;
 
+    Camera mainCamera;
     GameObject mouseProjection;
 
     // Desk
@@ -27,15 +28,8 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     PanZone[] panZones;
 
-    [SerializeField]
-    GameObject desk;
-    float deskMinX;
-    float deskMaxX;
-    float deskMinZ;
-    float deskMaxZ;
-
-    Camera mainCamera;
-    bool blockInput;
+    [HideInInspector]
+    public bool mouseProjectionOutOfDesk;
 
     Interactible interactible;
     Vector3 interactibleScreenPos;
@@ -43,6 +37,7 @@ public class InputManager : MonoBehaviour
     EInteractibleState interactibleState;
     float interactiblePressTime;
     float interactibleClickTime;
+    bool blockInput;
 
     // Telescope
 
@@ -52,7 +47,9 @@ public class InputManager : MonoBehaviour
     bool telescopeDrag;
 
     // Map
-    
+
+    [SerializeField]
+    Boat boat;
     bool navigation;
     
     void Start()
@@ -61,13 +58,10 @@ public class InputManager : MonoBehaviour
         mouseProjection.tag = "MouseProjection";
         BoxCollider mouseCollider = mouseProjection.AddComponent<BoxCollider>();
         mouseCollider.isTrigger = true;
+        mouseCollider.size = new Vector3(0.5f, 1, 0.5f);
+        boat.mouseProjection = mouseProjection;
 
-        Vector3 position = desk.transform.position;
-        Vector3 scale = desk.transform.localScale;
-        deskMinX = position.x - scale.x / 2;
-        deskMaxX = position.x + scale.x / 2;
-        deskMinZ = position.z - scale.z / 2;
-        deskMaxZ = position.z + scale.z / 2;
+        mouseProjectionOutOfDesk = false;
 
         mainCamera = Camera.main;
         blockInput = false;
@@ -112,8 +106,7 @@ public class InputManager : MonoBehaviour
                 else if (interactibleState == EInteractibleState.CLICKED)
                 {
                     interactibleState = EInteractibleState.UNKNOWN;
-                    rotationInterface.ResetButtons();
-                    rotationInterface.gameObject.SetActive(false);
+                    inspectionInterface.gameObject.SetActive(false);
                     rotationPanel.SetActive(false);
                     telescope.SetImageAlpha(false);
                     interactible.ExitRotationInterface();
@@ -148,7 +141,7 @@ public class InputManager : MonoBehaviour
                     interactibleOffset = interactible.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
                 }
 
-                if (interactibleState == EInteractibleState.DRAGNDROP)
+                if (interactibleState == EInteractibleState.DRAGNDROP && !interactible.rotating)
                 {
                     if (Input.GetKeyDown(KeyCode.S))
                         interactible.Rotate(0, 1);
@@ -190,10 +183,11 @@ public class InputManager : MonoBehaviour
         if (navigation)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-            navigationManager.SetCursorNavigation(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
+            navigationManager.UpdateNavigation(mouseWorldPos);
         }
 
-        mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
+        mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - 0.3f));
     }
 
     void HandleMouseLeftButtonDown()
@@ -252,7 +246,10 @@ public class InputManager : MonoBehaviour
                 {
                     // Launch navigation
                     if (hits.Any(hit => hit.collider.CompareTag("Boat")))
+                    {
                         navigation = true;
+                        boat.StartTargeting();
+                    }
                     else
                     {
                         // Interactible
@@ -298,8 +295,7 @@ public class InputManager : MonoBehaviour
                 CursorManager.Instance.SetCursor(ECursor.DEFAULT);
                 interactibleState = EInteractibleState.CLICKED;
                 interactible.EnterRotationInterface();
-                rotationInterface.gameObject.SetActive(true);
-                interactible.SetRotationInterfaceAxis(rotationInterface);
+                inspectionInterface.gameObject.SetActive(true);
                 rotationPanel.SetActive(true);
                 telescope.SetImageAlpha(true);
                 panZones[0].gameObject.SetActive(false);
@@ -322,7 +318,7 @@ public class InputManager : MonoBehaviour
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos) + interactibleOffset;
 
             // Check desk borders before moving
-            if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
+            if (!mouseProjectionOutOfDesk)
                 interactible.MoveTo(mouseWorldPos);
         }
     }
@@ -331,6 +327,7 @@ public class InputManager : MonoBehaviour
     {
         navigation = false;
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+        boat.StopTargeting();
     }
 
     void OnBlockInputEvent(BlockInputEvent e)
@@ -340,11 +337,11 @@ public class InputManager : MonoBehaviour
 
     public void RotateButtonPositive(int axis)
     {
-        interactible.Rotate(axis, -1);
+        interactible.Rotate(axis, 1);
     }
 
     public void RotateButtonNegative(int axis)
     {
-        interactible.Rotate(axis, 1);
+        interactible.Rotate(axis, -1);
     }
 }

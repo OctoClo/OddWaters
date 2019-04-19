@@ -6,8 +6,24 @@ public enum ERotation { R0, R90, R180 };
 
 public class Interactible : MonoBehaviour
 {
+    [SerializeField]
+    TextAsset transcriptJSON;
+    Transcript transcript;
+
+    [SerializeField]
+    [Range(1, 4)]
+    float rotationSpeed = 3f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
+
+    public InspectionInterface inspectionInterface;
+
+    [HideInInspector]
+    public bool rotating;
+    Quaternion rotationBefore;
+    Quaternion rotationAfter;
+    float rotationTime = 0;
+    float currentRotationSpeed;
 
     Camera mainCamera;
     Rigidbody rigidBody;
@@ -16,20 +32,15 @@ public class Interactible : MonoBehaviour
     Vector3 beforeZoomPosition;
     Vector3 zoomPosition;
 
-    bool rotating;
-    Quaternion rotationBefore;
-    Quaternion rotationAfter;
-    float rotationTime = 0;
-    float currentRotationSpeed;
-    float rotationSpeed = 0.8f;
-    float rotationSpeedMax = 1.2f;
-
     void Start()
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
         rotating = false;
         currentRotationSpeed = rotationSpeed;
+
+        if (transcriptJSON != null)
+            transcript = JsonUtility.FromJson<Transcript>(transcriptJSON.text);
     }
 
     public virtual void Trigger()
@@ -61,16 +72,11 @@ public class Interactible : MonoBehaviour
 
     public void Rotate(int axis, int direction)
     {
-        if (rotating)
-        {
-            currentRotationSpeed = rotationSpeedMax;
-            rotationBefore = rotationAfter;
-        }
-        else
-            rotationBefore = transform.rotation;
+        inspectionInterface.SetButtonsActive(false);
 
         rotating = true;
         rotationTime = 0;
+        rotationBefore = transform.rotation;
 
         Vector3 axisVec = Vector3.zero;
         if (axis == 0)
@@ -80,7 +86,7 @@ public class Interactible : MonoBehaviour
         else if (axis == 2)
             axisVec = Vector3.forward;
 
-        rotationAfter = rotationBefore * Quaternion.AngleAxis(getRotation(axis) * direction, axisVec);
+        rotationAfter = Quaternion.AngleAxis(getRotation(axis) * direction, axisVec) * rotationBefore;
     }
 
     void Update()
@@ -97,6 +103,7 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
+                inspectionInterface.SetButtonsActive(true);
             }
         }
     }
@@ -120,6 +127,14 @@ public class Interactible : MonoBehaviour
             zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
             gameObject.transform.position = zoomPosition;
         }
+
+        inspectionInterface.InitializeInterface(transcript);
+        for (int i = 0; i < 3; i++)
+        {
+            if (rotationsAmount[i] == ERotation.R0)
+                inspectionInterface.DeactivateAxis(i);
+        }
+        inspectionInterface.SetButtonsActive(true);
     }
 
     public void ExitRotationInterface()
@@ -133,14 +148,5 @@ public class Interactible : MonoBehaviour
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
         zoom = false;
-    }
-
-    public void SetRotationInterfaceAxis(RotationInterface rotationInterface)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (rotationsAmount[i] == ERotation.R0)
-                rotationInterface.DeactivateButtons(i);
-        }
     }
 }

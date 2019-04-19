@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField]
+    InspectionInterface inspectionInterface;
+
+    [SerializeField]
+    Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
+    [SerializeField]
+    Vector3 targetPos = new Vector3(6.25f, 1.95f, -1.2f);
+
     Rigidbody rb;
     Vector3 rbPos;
-    Vector3 targetPos;
+   
     bool moving;
     bool waiting;
     float waitTime;
@@ -14,7 +22,6 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        targetPos = new Vector3(6.25f, 1.95f, -1.2f);
         moving = false;
         waiting = false;
         waitTime = 0.7f;
@@ -24,10 +31,13 @@ public class Inventory : MonoBehaviour
     public void AddToInventory(GameObject prefab)
     {
         GameObject newObject = Instantiate(prefab, transform);
-        newObject.transform.position = new Vector3(6.25f, 1.95f, 0);
+        newObject.transform.position = spawnPos;
         rb = newObject.GetComponent<Rigidbody>();
         rbPos = newObject.transform.position;
         rb.useGravity = false;
+        Interactible interactible = newObject.GetComponent<Interactible>();
+        interactible.inspectionInterface = inspectionInterface;
+
         moving = true;
     }
 
@@ -44,10 +54,10 @@ public class Inventory : MonoBehaviour
         }
         if (moving)
         {
-            rbPos.z -= 0.1f;
+            rbPos.z -= 0.03f;
             rb.position = rbPos;
 
-            if (rb.position == targetPos)
+            if ((rb.position - targetPos).sqrMagnitude <= 0.01f)
             {
                 rb.useGravity = true;
                 moving = false;

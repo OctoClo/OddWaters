@@ -26,7 +26,7 @@ public class PanZone : MonoBehaviour
 
     void Update()
     {
-        if (pan && ((goingRight && mainCamera.position.x < 9.6) || (!goingRight && mainCamera.position.x > 0.2)))
+        if (pan && ((goingRight && mainCamera.position.x < 8.4f) || (!goingRight && mainCamera.position.x > 0.2)))
         {
             mainCamera.position += panSpeedVec;
             upPart.transform.position += panSpeedVec;

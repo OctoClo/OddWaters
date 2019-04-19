@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1570853805686565552
+--- !u!1 &787944874
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1978966757181086908}
-  - component: {fileID: 3166921087232329495}
-  - component: {fileID: 750729904985603347}
-  - component: {fileID: 5648622019256261864}
-  - component: {fileID: 5624592700625004130}
+  - component: {fileID: 787944875}
+  - component: {fileID: 3202388833264700303}
+  - component: {fileID: 711236726655482523}
+  - component: {fileID: 787944881}
+  - component: {fileID: 787944880}
+  - component: {fileID: 5828078540333372146}
   m_Layer: 0
-  m_Name: Island0
+  m_Name: GlobalObject0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1978966757181086908
+--- !u!4 &787944875
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570853805686565552}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.67, y: 0.66, z: 1.52}
+  m_GameObject: {fileID: 787944874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.81, y: 0, z: -1.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!33 &3166921087232329495
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3202388833264700303
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570853805686565552}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &750729904985603347
+  m_GameObject: {fileID: 787944874}
+  m_Mesh: {fileID: 4300000, guid: ffe87dc27f4514b449034de0ad9fc643, type: 3}
+--- !u!23 &711236726655482523
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570853805686565552}
+  m_GameObject: {fileID: 787944874}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 459f4f62c0a4ab44f92e63a69d1b8680, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,31 +80,49 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &5648622019256261864
-CapsuleCollider:
+--- !u!54 &787944881
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570853805686565552}
+  m_GameObject: {fileID: 787944874}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 3
+--- !u!65 &787944880
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787944874}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5624592700625004130
+  serializedVersion: 2
+  m_Size: {x: 3.1210363, y: 0.23, z: 3.9979637}
+  m_Center: {x: -0.0000017881393, y: 0.06, z: 0}
+--- !u!114 &5828078540333372146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570853805686565552}
+  m_GameObject: {fileID: 787944874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22251164a4c1145499f5b844fc7d2ddc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2d57ccc45b2454b83434e11eaacd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandDiscoverNumber: 0
-  cloneElement: {fileID: 0}
+  transcriptJSON: {fileID: 4900000, guid: 83e6714e8e1e49146acc9dc45b44a07b, type: 3}
+  rotationSpeed: 3
+  rotationsAmount: 010000000100000002000000
+  rotationInterface: {fileID: 0}
+  rotating: 0
