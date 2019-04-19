@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     GameObject rotationPanel;
 
+    Camera mainCamera;
     GameObject mouseProjection;
 
     // Desk
@@ -27,15 +28,8 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     PanZone[] panZones;
 
-    [SerializeField]
-    GameObject desk;
-    float deskMinX;
-    float deskMaxX;
-    float deskMinZ;
-    float deskMaxZ;
-
-    Camera mainCamera;
-    bool blockInput;
+    [HideInInspector]
+    public bool mouseProjectionOutOfDesk;
 
     Interactible interactible;
     Vector3 interactibleScreenPos;
@@ -43,6 +37,7 @@ public class InputManager : MonoBehaviour
     EInteractibleState interactibleState;
     float interactiblePressTime;
     float interactibleClickTime;
+    bool blockInput;
 
     // Telescope
 
@@ -63,14 +58,10 @@ public class InputManager : MonoBehaviour
         mouseProjection.tag = "MouseProjection";
         BoxCollider mouseCollider = mouseProjection.AddComponent<BoxCollider>();
         mouseCollider.isTrigger = true;
+        mouseCollider.size = new Vector3(0.5f, 1, 0.5f);
         boat.mouseProjection = mouseProjection;
 
-        Vector3 position = desk.transform.position;
-        Vector3 scale = desk.transform.localScale;
-        deskMinX = position.x - scale.x / 2;
-        deskMaxX = position.x + scale.x / 2;
-        deskMinZ = position.z - scale.z / 2;
-        deskMaxZ = position.z + scale.z / 2;
+        mouseProjectionOutOfDesk = false;
 
         mainCamera = Camera.main;
         blockInput = false;
@@ -327,7 +318,7 @@ public class InputManager : MonoBehaviour
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos) + interactibleOffset;
 
             // Check desk borders before moving
-            if (mouseWorldPos.x >= deskMinX && mouseWorldPos.x <= deskMaxX && mouseWorldPos.z >= deskMinZ && mouseWorldPos.z <= deskMaxZ)
+            if (!mouseProjectionOutOfDesk)
                 interactible.MoveTo(mouseWorldPos);
         }
     }
