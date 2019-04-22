@@ -83,7 +83,7 @@ public class NavigationManager : MonoBehaviour
             Vector3 journey = journeyTarget - boat.transform.position;
 
             // End of journey
-            if (journey.sqrMagnitude <= 0.1f * 0.1f)
+            if (journey.sqrMagnitude <= 0.001f)
             {
                 navigating = false;
                 lightScript.rotateDegreesPerSecond.value.y = 0;
@@ -120,7 +120,8 @@ public class NavigationManager : MonoBehaviour
                 {
                     hasPlayedAnim = true;
                     telescope.ResetZoom();
-                    StartCoroutine(telescope.PlayAnimation(false, true, map.GetCurrentZoneSprite()));
+                    telescope.PlayAnimation(false, true);
+                    telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentZoneSprite());
                     if (islandTarget && !islandTarget.firstTimeVisiting)
                         screenManager.Berth(islandTarget);
                     if (onIsland)
@@ -220,7 +221,7 @@ public class NavigationManager : MonoBehaviour
         journeyTarget = target;
         journeyTarget.y = boatPosY;
         journeyBeginTime = Time.time;
-        StartCoroutine(telescope.PlayAnimation(true, false));
+        telescope.PlayAnimation(true, false);
         hasPlayedAnim = false;
     }
 

@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
 
     [SerializeField]
     InspectionInterface inspectionInterface;
+
     [SerializeField]
     GameObject rotationPanel;
 
@@ -24,13 +25,12 @@ public class InputManager : MonoBehaviour
     GameObject mouseProjection;
 
     // Desk
-
     [SerializeField]
     PanZone[] panZones;
-
     [HideInInspector]
     public bool mouseProjectionOutOfDesk;
 
+    // Interactible
     Interactible interactible;
     Vector3 interactibleScreenPos;
     Vector3 interactibleOffset;
@@ -40,14 +40,12 @@ public class InputManager : MonoBehaviour
     bool blockInput;
 
     // Telescope
-
     [SerializeField]
     Telescope telescope;
     Vector3 dragBeginPos;
     bool telescopeDrag;
 
     // Map
-
     [SerializeField]
     Boat boat;
     bool navigation;
