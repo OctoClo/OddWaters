@@ -48,6 +48,11 @@ public class Telescope : MonoBehaviour
     Vector3 scaleContainerNormal;
     Vector3 scaleContainerZoom;
 
+    bool zoomAnimation;
+    Vector3 scaleMaskTarget;
+    Vector3 scaleContainerTarget;
+    float zoomAnimationAlpha;
+
     [SerializeField]
     float islandDetectionSensitivity = 0.5f;
     GameObject islandInSight = null;
@@ -120,13 +125,10 @@ public class Telescope : MonoBehaviour
 
     void SetZoom()
     {
-        maskZoom.transform.localScale = (zoom ? scaleMaskZoom : scaleMaskNormal);
-        telescopeContainer.localScale = (zoom ? scaleContainerZoom : scaleContainerNormal);
-
-        telescopeOffsetX = spriteZoneWidth * completeZone1.transform.localScale.x * telescopeContainer.localScale.x / spriteZonePPU;
-        Vector3 telescope2Pos = telescopes[0].transform.position;
-        telescope2Pos.x += telescopeOffsetX;
-        telescopes[1].transform.position = telescope2Pos;
+        zoomAnimation = true;
+        zoomAnimationAlpha = 0;
+        scaleMaskTarget = (zoom ? scaleMaskZoom : scaleMaskNormal);
+        scaleContainerTarget = (zoom ? scaleContainerZoom : scaleContainerNormal);
     }
 
     public void BeginDrag(Vector3 beginPos)
@@ -173,11 +175,6 @@ public class Telescope : MonoBehaviour
             SwapTelescopes();
         }
 
-        if (islandInSight != null)
-        {
-            Debug.DrawLine(boat.transform.position, islandInSight.transform.position);
-        }
-
         // Field of view rotation
         if (currentDragSpeed != 0)
         {
@@ -203,6 +200,23 @@ public class Telescope : MonoBehaviour
                         island3D2.Trigger();
                 }
             }
+        }
+
+        // Zoom animation
+        if (zoomAnimation)
+        {
+            zoomAnimationAlpha += Time.deltaTime;
+            maskZoom.transform.localScale = Vector3.Lerp(maskZoom.transform.localScale, scaleMaskTarget, zoomAnimationAlpha);
+            telescopeContainer.transform.localScale = Vector3.Lerp(telescopeContainer.transform.localScale, scaleContainerTarget, zoomAnimationAlpha);
+
+            telescopeOffsetX = spriteZoneWidth * completeZone1.transform.localScale.x * telescopeContainer.localScale.x / spriteZonePPU;
+            Vector3 telescope2Pos = telescopes[0].transform.position;
+            telescope2Pos.x += telescopeOffsetX;
+            telescopes[1].transform.position = telescope2Pos;
+
+
+            if (zoomAnimationAlpha >= 1)
+                zoomAnimation = false;
         }
     }
 
