@@ -31,9 +31,11 @@ public class Island : MonoBehaviour
         firstTimeVisiting = false;
     }
 
-    public void Discover()
+    public IEnumerator Discover()
     {
-        visible = true;
+        AkSoundEngine.PostEvent("Play_Discovery_Acte1", gameObject);
+        yield return new WaitForSeconds(1.5f);
+        AkSoundEngine.PostEvent("Play_Note", gameObject);
         spriteRenderer.enabled = true;
     }
 

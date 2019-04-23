@@ -48,9 +48,13 @@ public class Map : MonoBehaviour
 
     void OnDiscoverIslandEvent(DiscoverIslandEvent e)
     {
-        Debug.Log("Discovered island n°" + e.islandNumber);
-        islands[e.islandNumber].Discover();
-        AkSoundEngine.PostEvent("Play_Note",gameObject);
-        AkSoundEngine.PostEvent("Play_Discovery_Acte1",gameObject);
+        Island island = islands[e.islandNumber];
+        if (!island.visible)
+        {
+            Debug.Log("Discovered island n°" + e.islandNumber);
+            island.visible = true;
+            StartCoroutine(islands[e.islandNumber].Discover());
+        }
+        
     }
 }
