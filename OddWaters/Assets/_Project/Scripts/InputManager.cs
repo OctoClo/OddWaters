@@ -309,15 +309,13 @@ public class InputManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Interactible drag and drop
-        if (interactible && interactibleState == EInteractibleState.DRAGNDROP)
+        // Interactible drag and drop - Check desk borders before moving
+        if (interactible && interactibleState == EInteractibleState.DRAGNDROP && !mouseProjectionOutOfDesk)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z);
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos) + interactibleOffset;
-
-            // Check desk borders before moving
-            if (!mouseProjectionOutOfDesk)
-                interactible.MoveTo(mouseWorldPos);
+            interactible.MoveTo(mouseWorldPos);
+                
         }
     }
 

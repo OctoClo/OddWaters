@@ -37,9 +37,6 @@ public class Map : MonoBehaviour
                 islandCounter++;
             }
         }
-
-        Debug.Log(mapZones);
-        Debug.Log(islands);
     }
 
     void OnEnable()
