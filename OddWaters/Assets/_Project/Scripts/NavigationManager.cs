@@ -50,6 +50,8 @@ public class NavigationManager : MonoBehaviour
     [SerializeField]
     Telescope telescope;
 
+    [HideInInspector]
+    public int currentIslandNumber;
     bool onIsland = false;
     int currentZone = -1;
 
@@ -64,6 +66,7 @@ public class NavigationManager : MonoBehaviour
         navigating = false;
         hasPlayedAnim = false;
         islandTarget = null;
+        currentIslandNumber = -1;
     }
 
     void OnEnable()
@@ -90,6 +93,7 @@ public class NavigationManager : MonoBehaviour
                 if (islandTarget)
                 {
                     onIsland = true;
+                    currentIslandNumber = islandTarget.islandNumber;
                     boatRenderer.sprite = boatSprites[1];
 
                     // Reset rotations
@@ -127,6 +131,7 @@ public class NavigationManager : MonoBehaviour
                     {
                         screenManager.LeaveIsland();
                         onIsland = false;
+                        currentIslandNumber = -1;
                     }
                 }
             }
