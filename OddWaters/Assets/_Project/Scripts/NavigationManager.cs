@@ -156,10 +156,21 @@ public class NavigationManager : MonoBehaviour
     public ENavigationResult GetNavigationResult(Vector3 targetPos)
     {
         obstaclePos = Vector3.zero;
+
         Vector3 journey = targetPos - boat.transform.position;
         float distance = journey.magnitude;
+
+        Vector3 rayOrigin = targetPos;
+        rayOrigin.y += 1;
+
+        RaycastHit[] hitsAtTarget = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
+        // Visible island at target position (ok)
+        if (hitsAtTarget.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible) && distance <= maxDistance)
+            return ENavigationResult.ISLAND;
+        
         RaycastHit[] hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, distance);
-        RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<Island>() || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
+        RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => (hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible) || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
+        // Visible island or invisible map zone on trajectory (ko)
         if (obstacle.collider)
         {
             obstaclePos = obstacle.point;
@@ -167,15 +178,13 @@ public class NavigationManager : MonoBehaviour
         }
         else if (distance <= maxDistance)
         {
-            Vector3 rayOrigin = targetPos;
-            rayOrigin.y += 1;
-            RaycastHit[] hitsAtTarget = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
-            if (hitsAtTarget.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible))
-                return ENavigationResult.ISLAND;
-            else if (hitsOnJourney.Any(hit => hit.collider.CompareTag("Typhoon")))
+            // Typhoon (ok)
+            if (hitsOnJourney.Any(hit => hit.collider.CompareTag("Typhoon")))
                 return ENavigationResult.TYPHOON;
+            // Visible map zone (ok)
             else if (hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible))
                 return ENavigationResult.SEA;
+            // No map (ko)
             else
             {
                 hitsOnJourney = Physics.RaycastAll(targetPos, -journey, distance);
@@ -186,6 +195,7 @@ public class NavigationManager : MonoBehaviour
         }
         else
         {
+            // Too far (ko)
             float factor = maxDistance / journey.magnitude;
             float x = (targetPos.x - boat.transform.position.x) * factor + boat.transform.position.x;
             float y = (targetPos.y - boat.transform.position.y) * factor + boat.transform.position.y;
@@ -241,15 +251,11 @@ public class NavigationManager : MonoBehaviour
 
     public void NavigateToIsland(Island island)
     {
-        Vector3 journey = island.transform.position - boat.transform.position;
-        if (journey.sqrMagnitude >= minDistance * minDistance)
-        {
-            LaunchNavigation(island.transform.position);
-            islandTarget = island;
+        LaunchNavigation(island.transform.position);
+        islandTarget = island;
 
-            if (island.islandNumber != map.currentZone)
-                map.currentZone = island.islandNumber;
-        }
+        if (island.islandNumber != map.currentZone)
+            map.currentZone = island.islandNumber;
     }
 
     public void NavigateToTyphoon(Vector3 targetPos)
