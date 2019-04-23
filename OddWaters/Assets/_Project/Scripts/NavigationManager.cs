@@ -49,9 +49,7 @@ public class NavigationManager : MonoBehaviour
 
     [SerializeField]
     Telescope telescope;
-
-    [HideInInspector]
-    public int currentIslandNumber;
+    
     bool onIsland = false;
     int currentZone = -1;
 
@@ -66,7 +64,6 @@ public class NavigationManager : MonoBehaviour
         navigating = false;
         hasPlayedAnim = false;
         islandTarget = null;
-        currentIslandNumber = -1;
     }
 
     void OnEnable()
@@ -93,7 +90,6 @@ public class NavigationManager : MonoBehaviour
                 if (islandTarget)
                 {
                     onIsland = true;
-                    currentIslandNumber = islandTarget.islandNumber;
                     boatRenderer.sprite = boatSprites[1];
 
                     // Reset rotations
@@ -131,7 +127,6 @@ public class NavigationManager : MonoBehaviour
                     {
                         screenManager.LeaveIsland();
                         onIsland = false;
-                        currentIslandNumber = -1;
                     }
                 }
             }
@@ -174,7 +169,7 @@ public class NavigationManager : MonoBehaviour
             return ENavigationResult.ISLAND;
         
         RaycastHit[] hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, distance);
-        RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => (hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != currentIslandNumber) || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
+        RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => (hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber) || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
         // Visible island or invisible map zone on trajectory (ko)
         if (obstacle.collider)
         {

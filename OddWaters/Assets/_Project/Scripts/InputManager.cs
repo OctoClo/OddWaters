@@ -203,7 +203,7 @@ public class InputManager : MonoBehaviour
                     if (hitInfo.collider)
                     {
                         Island island = hitInfo.collider.GetComponent<Island>();
-                        if (island.islandNumber != navigationManager.currentIslandNumber)
+                        if (island.islandNumber != screenManager.currentIslandNumber)
                         {
                             StopNavigation();
                             navigationManager.NavigateToIsland(island);
