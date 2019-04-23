@@ -21,6 +21,7 @@ ModelImporter:
     400014: map_papier_02
     2100000: lambert8
     2100002: anisotropic3
+    2100004: map_01_low_lambert8_BaseColor_1Material
     2300000: Map_03
     2300002: Map_Clous_01
     2300004: Map_Clous_02

@@ -116,10 +116,9 @@ public class NavigationManager : MonoBehaviour
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
                 // Near the end of journey
-                if (journey.sqrMagnitude <= 1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting) && !navigatingToTyphoon)
+                if (journey.sqrMagnitude <= 0.1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting) && !navigatingToTyphoon)
                 {
                     hasPlayedAnim = true;
-                    telescope.ResetZoom();
                     telescope.PlayAnimation(false, true);
                     telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentZoneSprite());
                     if (islandTarget && !islandTarget.firstTimeVisiting)
@@ -221,7 +220,10 @@ public class NavigationManager : MonoBehaviour
         journeyTarget = target;
         journeyTarget.y = boatPosY;
         journeyBeginTime = Time.time;
+
+        // Dezoom and fade out
         telescope.PlayAnimation(true, false);
+        telescope.ResetZoom();
         hasPlayedAnim = false;
     }
 

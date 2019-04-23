@@ -52,6 +52,10 @@ public class Roll : MonoBehaviour
 
         elapsedTime += Time.deltaTime;
 
+        xOffset = transform.position.x - initialPos.x;
+        yOffset = transform.position.y - initialPos.y;
+        zOffset = transform.position.z - initialPos.z;
+
         if (rollX)
             xOffset = Mathf.Sin(elapsedTime * (xSpeed / 100)) * (xAmp / 100);
         if (rollY)

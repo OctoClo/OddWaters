@@ -47,6 +47,10 @@ public class Telescope : MonoBehaviour
     Vector3 scaleMaskZoom;
     Vector3 scaleContainerNormal;
     Vector3 scaleContainerZoom;
+    [SerializeField]
+    GameObject colliderNormal;
+    [SerializeField]
+    GameObject colliderZoom;
 
     bool zoomAnimation;
     Vector3 scaleMaskTarget;
@@ -127,8 +131,21 @@ public class Telescope : MonoBehaviour
     {
         zoomAnimation = true;
         zoomAnimationAlpha = 0;
-        scaleMaskTarget = (zoom ? scaleMaskZoom : scaleMaskNormal);
-        scaleContainerTarget = (zoom ? scaleContainerZoom : scaleContainerNormal);
+
+        if (zoom)
+        {
+            colliderNormal.SetActive(false);
+            colliderZoom.SetActive(true);
+            scaleMaskTarget = scaleMaskZoom;
+            scaleContainerTarget = scaleContainerZoom;
+        }
+        else
+        {
+            colliderNormal.SetActive(true);
+            colliderZoom.SetActive(false);
+            scaleMaskTarget = scaleMaskNormal;
+            scaleContainerTarget = scaleContainerNormal;
+        }
     }
 
     public void BeginDrag(Vector3 beginPos)

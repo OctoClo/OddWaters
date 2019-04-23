@@ -10,6 +10,7 @@ ModelImporter:
     100008: Bougeoir_low
     100010: Bougeoir_meche_low
     100012: //RootNode
+    100014: Bougeoir_low 1
     400000: Bougeoir_anse_low
     400002: Bougeoir_bougie_low
     400004: Bougeoir_clous_01_low
@@ -17,20 +18,24 @@ ModelImporter:
     400008: Bougeoir_low
     400010: Bougeoir_meche_low
     400012: //RootNode
+    400014: Bougeoir_low 1
     2100000: lambert9
     2100002: lambert10
+    2100004: bougie
     2300000: Bougeoir_anse_low
     2300002: Bougeoir_bougie_low
     2300004: Bougeoir_clous_01_low
     2300006: Bougeoir_clous_02_low
     2300008: Bougeoir_low
     2300010: Bougeoir_meche_low
+    2300012: Bougeoir_low 1
     3300000: Bougeoir_anse_low
     3300002: Bougeoir_bougie_low
     3300004: Bougeoir_clous_01_low
     3300006: Bougeoir_clous_02_low
     3300008: Bougeoir_low
     3300010: Bougeoir_meche_low
+    3300012: Bougeoir_low 1
     4300000: Bougeoir_low
     4300002: Bougeoir_clous_02_low
     4300004: Bougeoir_clous_01_low
