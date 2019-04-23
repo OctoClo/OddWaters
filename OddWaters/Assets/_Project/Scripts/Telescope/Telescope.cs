@@ -5,97 +5,99 @@ using UnityEngine;
 public class Telescope : MonoBehaviour
 {
     [SerializeField]
-    Sprite cursorCenter;
-    GameObject cursorBegin;
-    Vector3 cursorScale;
-    
-    [SerializeField]
-    GameObject telescope1;
-    GameObject telescope2;
-    Transform telescopeParent;
-    Transform telescopeMask;
-    GameObject[] telescopes;
-    GameObject completeZone1;
-    GameObject completeZone2;
-    GameObject elementsFolder1;
-    GameObject elementsFolder2;
-    Sprite sprite1;
-    Sprite sprite2;
-    float telescopeOffsetX;
-
-    [SerializeField]
-    Transform center;
-
-    bool dragInitialized;
-    [SerializeField]
-    float dragSpeedMultiplier = 0.01f;
-    [SerializeField]
-    float dragSpeedMultiplierZoom = 0.003f;
-    float dragSpeed;
-    float posMax;
-
-    [SerializeField]
-    float scaleZoom = 1.5f;
-    [SerializeField]
-    [Tooltip("Augmente de 0.1 en 0.1")]
-    float zoomLevelMax = 0.3f;
-    float zoomLevel;
-    Vector3 scaleParentZoom;
-    Vector3 scaleParentNormal;
-    Vector3 scaleMaskZoom;
-    Vector3 scaleMaskNormal;
-    bool zoom;
-
-    [SerializeField]
-    float detectionSensitivity = 0.5f;
-
-    [SerializeField]
     Animator fadeAnimator;
 
     [SerializeField]
     Boat boat;
 
+    // General
+    [SerializeField]
+    GameObject telescope1;
+    
+    GameObject[] telescopes;
+    Transform telescopeContainer;
+    GameObject completeZone1;
+    GameObject completeZone2;
+    float telescopeOffsetX;
+    float spriteZoneWidth;
+    float spriteZonePPU;
+    
+    // Drag
+    [SerializeField]
+    [Range(0.1f, 2)]
+    float dragSpeedNormal = 1;
+    [SerializeField]
+    [Range(0.01f, 1)]
+    float dragSpeedZoom = 0.3f;
+    float currentDragSpeed;
+    float telescopePosMax;
+    Vector3 cursorScale;
+
+    // Zoom
+    bool zoom;
+    [SerializeField]
+    GameObject maskZoom;
+    [SerializeField]
+    float zoomPower = 1.5f;
+    [SerializeField]
+    [Tooltip("Augmente de 0.1 en 0.1")]
+    float wheelZoomThreshold = 0.3f;
+    float wheelZoomLevel;
+    Vector3 scaleMaskNormal;
+    Vector3 scaleMaskZoom;
+    Vector3 scaleContainerNormal;
+    Vector3 scaleContainerZoom;
+    [SerializeField]
+    GameObject colliderNormal;
+    [SerializeField]
+    GameObject colliderZoom;
+
+    bool zoomAnimation;
+    Vector3 scaleMaskTarget;
+    Vector3 scaleContainerTarget;
+    float zoomAnimationAlpha;
+
+    [SerializeField]
+    float islandDetectionSensitivity = 0.5f;
+    GameObject islandInSight = null;
+
     void Start()
     {
-        // Find some game objects
+        // Find some game objects and calculate things
+        telescopeContainer = telescope1.transform.parent;
         completeZone1 = telescope1.transform.GetChild(0).gameObject;
-        sprite1 = completeZone1.GetComponent<SpriteRenderer>().sprite;
-        telescopeParent = telescope1.transform.parent;
-        telescopeMask = telescopeParent.parent;
-
-        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / sprite1.pixelsPerUnit;
+        Sprite sprite = completeZone1.GetComponent<SpriteRenderer>().sprite;
+        spriteZoneWidth = sprite.texture.width;
+        spriteZonePPU = sprite.pixelsPerUnit;
+        telescopeOffsetX = spriteZoneWidth * completeZone1.transform.localScale.x / spriteZonePPU;
 
         // Clone telescope 1
-        telescope2 = Instantiate(telescope1, telescopeParent);
+        GameObject telescope2 = Instantiate(telescope1, telescopeContainer);
         telescope2.name = "Telescope2";
         completeZone2 = telescope2.transform.GetChild(0).gameObject;
         Vector3 telescope2Pos = telescope1.transform.position;
         telescope2Pos.x = telescopeOffsetX;
         telescope2.transform.position = telescope2Pos;
 
-        // Find other game objects
+        // Initialize telescope array
         telescopes = new GameObject[2];
         telescopes[0] = telescope1;
         telescopes[1] = telescope2;
-        elementsFolder1 = telescope1.transform.GetChild(1).gameObject;
-        elementsFolder2 = telescope2.transform.GetChild(1).gameObject;
 
         // Initialize drag values
-        dragSpeed = 0;
-        dragInitialized = false;
+        dragSpeedNormal /= 100f;
+        dragSpeedZoom /= 100f;
+        currentDragSpeed = 0;
         cursorScale = new Vector3(1f, 1f, 0);
-        posMax = telescopeOffsetX * telescopes[0].transform.localScale.x;
+        telescopePosMax = telescopeOffsetX / 2f;
 
         // Initialize zoom values
         zoom = false;
-        zoomLevel = 0;
-        scaleMaskNormal = telescopeMask.localScale;
-        scaleMaskZoom = telescopeMask.localScale;
-        scaleMaskZoom.x /= 2;
-        scaleParentNormal = telescopeParent.localScale;
-        scaleParentZoom = telescopeParent.localScale;
-        scaleParentZoom.x *= 2 * telescopeParent.localScale.x * scaleZoom;
-        scaleParentZoom.y *= telescopeParent.localScale.y * scaleZoom;
+        wheelZoomLevel = 0;
+        scaleMaskNormal = maskZoom.transform.localScale;
+        scaleMaskZoom = new Vector3(1, 1, 1);
+        scaleContainerNormal = new Vector3(1, 1, 1);
+        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);
     }
 
     public void SetImageAlpha(bool dark)
@@ -107,18 +109,18 @@ public class Telescope : MonoBehaviour
 
     public void ResetZoom()
     {
-        zoomLevel = 0;
+        wheelZoomLevel = 0;
         zoom = false;
         SetZoom();
     }
 
     public void Zoom(float zoomAmount)
     {
-        zoomLevel += zoomAmount;
-        zoomLevel = Mathf.Clamp(zoomLevel, 0f, zoomLevelMax);
-        if (zoomLevel < 0.1f)
-            zoomLevel = 0;
-        if (zoomLevel == 0 || zoomLevel == zoomLevelMax)
+        wheelZoomLevel += zoomAmount;
+        wheelZoomLevel = Mathf.Clamp(wheelZoomLevel, 0f, wheelZoomThreshold);
+        if (wheelZoomLevel < 0.1f)
+            wheelZoomLevel = 0;
+        if (wheelZoomLevel == 0 || wheelZoomLevel == wheelZoomThreshold)
         {
             zoom = (zoomAmount > 0);
             SetZoom();
@@ -127,45 +129,42 @@ public class Telescope : MonoBehaviour
 
     void SetZoom()
     {
-        telescopeMask.localScale = (zoom ? scaleMaskZoom : scaleMaskNormal);
-        telescopeParent.localScale = (zoom ? scaleParentZoom : scaleParentNormal);
+        zoomAnimation = true;
+        zoomAnimationAlpha = 0;
 
-        telescopeOffsetX = sprite1.texture.width * completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeParent.parent.localScale.x / sprite1.pixelsPerUnit;
-        Vector3 telescope2Pos = telescopes[0].transform.position;
-        telescope2Pos.x += telescopeOffsetX;
-        telescopes[1].transform.position = telescope2Pos;
+        if (zoom)
+        {
+            colliderNormal.SetActive(false);
+            colliderZoom.SetActive(true);
+            scaleMaskTarget = scaleMaskZoom;
+            scaleContainerTarget = scaleContainerZoom;
+        }
+        else
+        {
+            colliderNormal.SetActive(true);
+            colliderZoom.SetActive(false);
+            scaleMaskTarget = scaleMaskNormal;
+            scaleContainerTarget = scaleContainerNormal;
+        }
     }
 
     public void BeginDrag(Vector3 beginPos)
     {
-        if (!dragInitialized)
-        {
-            /*cursorBegin = new GameObject("CursorBegin");
-            beginPos.y = 0;
-            cursorBegin.transform.position = beginPos;
-            cursorBegin.transform.rotation = Quaternion.Euler(90, 0, 0);
-            cursorBegin.transform.localScale = cursorScale;
-            SpriteRenderer renderer = cursorBegin.AddComponent<SpriteRenderer>();
-            renderer.sprite = cursorCenter;
-            renderer.sortingOrder = 2;*/
-            dragInitialized = true;
-        }
+
     }
 
     public void EndDrag()
     {
-        dragSpeed = 0;
-        Destroy(cursorBegin);
+        currentDragSpeed = 0;
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-        dragInitialized = false;
     }
 
     public void UpdateSpeed(float speed)
     {
-        dragSpeed = speed * (zoom ? dragSpeedMultiplierZoom : dragSpeedMultiplier);
-        if (dragSpeed == 0)
+        currentDragSpeed = speed * (zoom ? dragSpeedZoom : dragSpeedNormal);
+        if (currentDragSpeed == 0)
             CursorManager.Instance.SetCursor(ECursor.TELESCOPE_PAN_CENTER);
-        else if (dragSpeed < 0)
+        else if (currentDragSpeed < 0)
             CursorManager.Instance.SetCursor(ECursor.TELESCOPE_PAN_RIGHT);
         else
             CursorManager.Instance.SetCursor(ECursor.TELESCOPE_PAN_LEFT);
@@ -173,19 +172,19 @@ public class Telescope : MonoBehaviour
 
     void Update()
     {
-        Vector3 move = new Vector3(dragSpeed * Time.deltaTime, 0, 0);
-        telescope1.transform.position += move;
-        telescope2.transform.position += move;
+        Vector3 move = new Vector3(currentDragSpeed * Time.deltaTime, 0, 0);
+        telescopes[0].transform.position += move;
+        telescopes[1].transform.position += move;
 
         // Swap telescopes if needed
-        if (dragSpeed < 0 && telescopes[1].transform.position.x <= center.position.x)
+        if (currentDragSpeed < 0 && telescopes[1].transform.position.x <= maskZoom.transform.position.x)
         {
             Vector3 newPos = telescopes[0].transform.position;
             newPos.x = telescopes[1].transform.position.x + telescopeOffsetX;
             telescopes[0].transform.position = newPos;
             SwapTelescopes();
         }
-        else if (dragSpeed > 0 && telescopes[0].transform.position.x >= center.position.x)
+        else if (currentDragSpeed > 0 && telescopes[0].transform.position.x >= maskZoom.transform.position.x)
         {
             Vector3 newPos = telescopes[1].transform.position;
             newPos.x = telescopes[0].transform.position.x - telescopeOffsetX;
@@ -194,30 +193,47 @@ public class Telescope : MonoBehaviour
         }
 
         // Field of view rotation
-        if (dragSpeed != 0)
+        if (currentDragSpeed != 0)
         {
-            float telescopeRotation = telescopes[0].transform.localPosition.x * (360f / posMax) - (posMax / 2);
+            float telescopeRotation = telescopes[0].transform.localPosition.x * (360f / (telescopePosMax * 2)) - telescopePosMax * (360f / (telescopePosMax * 2)) + 180;
             boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
         }
         // Element identification on zoom
         else if (zoom)
         {
-            int islandCount = elementsFolder1.transform.childCount;
-            for (int i = 0; i < islandCount; i++)
+            int islandCount = telescopes[0].transform.childCount - 1;
+            for (int i = 1; i <= islandCount; i++)
             {
-                TelescopeElement island3D1 = elementsFolder1.transform.GetChild(i).GetComponent<TelescopeElement>();
-                float distanceIsland1 = (island3D1.transform.position - telescopeMask.position).sqrMagnitude;
+                TelescopeElement island3D1 = telescopes[0].transform.GetChild(i).GetComponent<TelescopeElement>();
+                float distanceIsland1 = (island3D1.transform.position - maskZoom.transform.position).sqrMagnitude;
                 if (!island3D1.islandDiscover.visible)
                 {
-                    if (island3D1.gameObject.activeInHierarchy && distanceIsland1 <= detectionSensitivity * detectionSensitivity)
+                    if (island3D1.gameObject.activeInHierarchy && distanceIsland1 <= islandDetectionSensitivity * islandDetectionSensitivity)
                         island3D1.Trigger();
 
-                    TelescopeElement island3D2 = elementsFolder2.transform.GetChild(i).GetComponent<TelescopeElement>();
-                    float distanceIsland2 = (island3D2.transform.position - telescopeMask.position).sqrMagnitude;
-                    if (island3D2.gameObject.activeInHierarchy && distanceIsland2 <= detectionSensitivity * detectionSensitivity)
+                    TelescopeElement island3D2 = telescopes[1].transform.GetChild(i).GetComponent<TelescopeElement>();
+                    float distanceIsland2 = (island3D2.transform.position - maskZoom.transform.position).sqrMagnitude;
+                    if (island3D2.gameObject.activeInHierarchy && distanceIsland2 <= islandDetectionSensitivity * islandDetectionSensitivity)
                         island3D2.Trigger();
                 }
             }
+        }
+
+        // Zoom animation
+        if (zoomAnimation)
+        {
+            zoomAnimationAlpha += Time.deltaTime;
+            maskZoom.transform.localScale = Vector3.Lerp(maskZoom.transform.localScale, scaleMaskTarget, zoomAnimationAlpha);
+            telescopeContainer.transform.localScale = Vector3.Lerp(telescopeContainer.transform.localScale, scaleContainerTarget, zoomAnimationAlpha);
+
+            telescopeOffsetX = spriteZoneWidth * completeZone1.transform.localScale.x * telescopeContainer.localScale.x / spriteZonePPU;
+            Vector3 telescope2Pos = telescopes[0].transform.position;
+            telescope2Pos.x += telescopeOffsetX;
+            telescopes[1].transform.position = telescope2Pos;
+
+
+            if (zoomAnimationAlpha >= 1)
+                zoomAnimation = false;
         }
     }
 
@@ -236,79 +252,73 @@ public class Telescope : MonoBehaviour
         telescopes[1] = temp;
     }
 
-    public IEnumerator PlayAnimation(bool fadeIn, bool fadeOut, Sprite sprite = null)
+    public void PlayAnimation(bool fadeIn, bool fadeOut)
     {
-        if (sprite != null)
-        {
-            completeZone1.GetComponent<SpriteRenderer>().sprite = sprite;
-            completeZone2.GetComponent<SpriteRenderer>().sprite = sprite;
-        }
-
         if (fadeIn && fadeOut)
             fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
         else
         {
             if (fadeIn)
-            {
-                int islandCount = elementsFolder1.transform.childCount;
-                for (int i = 0; i < islandCount; i++)
-                {
-                    Destroy(elementsFolder1.transform.GetChild(i).gameObject);
-                    Destroy(elementsFolder2.transform.GetChild(i).gameObject);
-                }
                 fadeAnimator.Play("Base Layer.TelescopeFadeIn");
-            }
             else if (fadeOut)
-            {
-                ResetPosition();
                 fadeAnimator.Play("Base Layer.TelescopeFadeOut");
-                yield return new WaitForSeconds(0.5f);
-                foreach (Island island in boat.GetIslandsInSight())
-                {
-                    // Create islands
-                    elementsFolder1 = telescopes[0].transform.GetChild(1).gameObject;
-                    elementsFolder2 = telescopes[1].transform.GetChild(1).gameObject;
-                    Vector3 spriteScale = completeZone1.transform.localScale;
+        }
+    }
 
-                    GameObject island1 = new GameObject("Island" + island.islandNumber);
-                    SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
-                    spriteRenderer.sprite = island.islandSprite;
-                    spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-                    spriteRenderer.sortingOrder = 2;
-                    island1.AddComponent<BoxCollider>();
-                    island1.transform.parent = elementsFolder1.transform;
-                    island1.transform.rotation = Quaternion.Euler(90, 0, 0);
-                    island1.transform.localScale = spriteScale;
+    public void RefreshElements(Vector3 boatUp, Vector3 target, Vector3 boatRight, Sprite sprite)
+    {
+        completeZone1.GetComponent<SpriteRenderer>().sprite = sprite;
+        completeZone2.GetComponent<SpriteRenderer>().sprite = sprite;
 
-                    GameObject island2 = new GameObject("Island" + island.islandNumber);
-                    spriteRenderer = island2.AddComponent<SpriteRenderer>();
-                    spriteRenderer.sprite = island.islandSprite;
-                    spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-                    spriteRenderer.sortingOrder = 2;
-                    island2.AddComponent<BoxCollider>();
-                    island2.transform.parent = elementsFolder2.transform;
-                    island2.transform.rotation = Quaternion.Euler(90, 0, 0);
-                    island2.transform.localScale = spriteScale;
+        ResetPosition();
 
-                    // Place islands in 0-360°
-                    float angle = Angle360(-boat.transform.up, island.transform.position - boat.transform.position, boat.transform.right);
-                    angle = 360 - angle;
-                    Sprite spriteTelescope = completeZone1.GetComponent<SpriteRenderer>().sprite;
-                    float spriteWidth = spriteTelescope.texture.width;
-                    float offset = angle * (spriteWidth / 360f) - (spriteWidth / 2f);
-                    offset *= completeZone1.transform.localScale.x * telescope1.transform.localScale.x * telescopeParent.localScale.x * telescopeMask.localScale.x / spriteTelescope.pixelsPerUnit;
-                    island1.transform.localPosition = new Vector3(offset, 0, 0);
-                    island2.transform.localPosition = new Vector3(offset, 0, 0);
+        int islandCount = telescopes[0].transform.childCount - 1;
+        for (int i = 1; i <= islandCount; i++)
+        {
+            Destroy(telescopes[0].transform.GetChild(i).gameObject);
+            Destroy(telescopes[1].transform.GetChild(i).gameObject);
+        }
 
-                    // Initialize telescope elements
-                    TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
-                    TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
-                    island3D1Element.cloneElement = island2;
-                    island3D2Element.cloneElement = island1;
-                    island3D1Element.islandDiscover = island;
-                    island3D2Element.islandDiscover = island;
-                }
-            }
+        foreach (Island island in boat.GetIslandsInSight())
+        {
+            // Create islands
+            Vector3 spriteScale = completeZone1.transform.localScale;
+
+            GameObject island1 = new GameObject("Island" + island.islandNumber);
+            SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = island.islandSprite;
+            spriteRenderer.sortingOrder = 2;
+            island1.AddComponent<BoxCollider>();
+            island1.transform.parent = telescopes[0].transform;
+            island1.transform.rotation = Quaternion.Euler(90, 0, 0);
+            island1.transform.localScale = spriteScale;
+
+            GameObject island2 = new GameObject("Island" + island.islandNumber);
+            spriteRenderer = island2.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = island.islandSprite;
+            spriteRenderer.sortingOrder = 2;
+            island2.AddComponent<BoxCollider>();
+            island2.transform.parent = telescopes[1].transform;
+            island2.transform.rotation = Quaternion.Euler(90, 0, 0);
+            island2.transform.localScale = spriteScale;
+
+            // Place islands in 0-360°
+            float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
+            angle = 360 - angle;
+            float offset = angle * (spriteZoneWidth / 360f) - (spriteZoneWidth / 2f);
+            offset *= completeZone1.transform.localScale.x / spriteZonePPU;
+            island1.transform.localPosition = new Vector3(offset, 0, 0);
+            island2.transform.localPosition = new Vector3(offset, 0, 0);
+
+            // Initialize telescope elements
+            TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
+            TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
+            island3D1Element.cloneElement = island2;
+            island3D2Element.cloneElement = island1;
+            island3D1Element.islandDiscover = island;
+            island3D2Element.islandDiscover = island;
+
+            islandInSight = island.gameObject;
         }
     }
 
