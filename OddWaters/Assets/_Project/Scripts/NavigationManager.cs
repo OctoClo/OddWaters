@@ -120,7 +120,7 @@ public class NavigationManager : MonoBehaviour
                 {
                     hasPlayedAnim = true;
                     telescope.PlayAnimation(false, true);
-                    telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentZoneSprite());
+                    telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
                     if (islandTarget && !islandTarget.firstTimeVisiting)
                         screenManager.Berth(islandTarget);
                     if (onIsland)
@@ -243,9 +243,9 @@ public class NavigationManager : MonoBehaviour
         if (journey.sqrMagnitude >= minDistance * minDistance)
         {
             LaunchNavigation(targetPos);
-            
+
             if (zoneNumber != map.currentZone)
-                map.currentZone = zoneNumber;
+                map.ChangeZone(zoneNumber);
         }
     }
 
@@ -255,7 +255,7 @@ public class NavigationManager : MonoBehaviour
         islandTarget = island;
 
         if (island.islandNumber != map.currentZone)
-            map.currentZone = island.islandNumber;
+            map.ChangeZone(island.islandNumber);
     }
 
     public void NavigateToTyphoon(Vector3 targetPos)

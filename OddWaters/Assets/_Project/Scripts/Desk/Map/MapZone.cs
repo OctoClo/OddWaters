@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
-    public Sprite telescopeSprite;
+    public GameObject telescopePanorama;
     
     public bool visible;
 
