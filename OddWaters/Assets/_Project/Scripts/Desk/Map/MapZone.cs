@@ -10,21 +10,21 @@ public class MapZone : MonoBehaviour
     public bool visible;
 
     [SerializeField]
-    Sprite visibleSprite;
+    Material visibleMat;
     [SerializeField]
-    Sprite invisibleSprite;
+    Material invisibleMat;
 
-    SpriteRenderer spriteRenderer;
+    MeshRenderer meshRenderer;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = (visible ? visibleSprite : invisibleSprite);
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.material = (visible ? visibleMat : invisibleMat);
     }
 
     public void Discover()
     {
         visible = true;
-        spriteRenderer.sprite = visibleSprite;
+        meshRenderer.material = visibleMat;
     }
 }
