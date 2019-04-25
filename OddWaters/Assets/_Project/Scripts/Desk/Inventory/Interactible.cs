@@ -9,7 +9,6 @@ public class Interactible : MonoBehaviour
     [SerializeField]
     TextAsset transcriptJSON;
     Transcript transcript;
-
     [SerializeField]
     [Range(1, 4)]
     float rotationSpeed = 3f;
@@ -32,13 +31,15 @@ public class Interactible : MonoBehaviour
     Vector3 beforeZoomPosition;
     Vector3 zoomPosition;
 
+    [SerializeField]
+    AK.Wwise.Switch soundMaterial;
+
     void Start()
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
         rotating = false;
         currentRotationSpeed = rotationSpeed;
-
         if (transcriptJSON != null)
             transcript = JsonUtility.FromJson<Transcript>(transcriptJSON.text);
     }
@@ -50,6 +51,7 @@ public class Interactible : MonoBehaviour
 
     public void Grab()
     {
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = false;
         if (rigidBody.velocity == Vector3.zero)
         {
@@ -67,11 +69,13 @@ public class Interactible : MonoBehaviour
 
     public void Drop()
     {
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = true;
     }
 
     public void Rotate(int axis, int direction)
     {
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         inspectionInterface.SetButtonsActive(false);
 
         rotating = true;

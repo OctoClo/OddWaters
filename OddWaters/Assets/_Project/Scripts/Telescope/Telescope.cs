@@ -118,6 +118,7 @@ public class Telescope : MonoBehaviour
             colliderZoom.SetActive(true);
             scaleMaskTarget = scaleMaskZoom;
             scaleContainerTarget = scaleContainerZoom;
+            AkSoundEngine.PostEvent("Play_Telescope_Open", gameObject);
         }
         else
         {
@@ -125,6 +126,7 @@ public class Telescope : MonoBehaviour
             colliderZoom.SetActive(false);
             scaleMaskTarget = scaleMaskNormal;
             scaleContainerTarget = scaleContainerNormal;
+            AkSoundEngine.PostEvent("Play_Telescope_Close", gameObject);
         }
     }
 
