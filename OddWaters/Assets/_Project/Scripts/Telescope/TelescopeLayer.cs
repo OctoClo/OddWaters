@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class TelescopeLayer : MonoBehaviour
 {
-    public float layerSize;
+    public float layerSize = 90;
 
     [SerializeField]
     bool parallax;
-    [SerializeField]
-    float parallaxSpeed = 1;
+    public float parallaxSpeed = 1;
     Transform randomChild;
     float lastX;
 
@@ -22,8 +21,10 @@ public class TelescopeLayer : MonoBehaviour
     void Start()
     {
         children = new Transform[2];
-        for (int i = 0; i < transform.childCount; i++)
-            children[i] = transform.GetChild(i);
+        children[0] = transform.GetChild(0);
+        GameObject element2 = Instantiate(children[0].gameObject, transform);
+        element2.name = "Element2";
+        children[1] = element2.transform;
 
         children[0].localPosition = new Vector3(0, 0, 0);
         children[1].localPosition = new Vector3(parallaxSpeed * layerSize, 0, 0);

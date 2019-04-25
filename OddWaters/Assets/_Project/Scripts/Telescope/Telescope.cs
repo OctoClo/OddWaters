@@ -27,9 +27,8 @@ public class Telescope : MonoBehaviour
     [Range(0.01f, 1)]
     float dragSpeedZoom = 0.3f;
     [SerializeField]
-    Sprite backgroundSprite;
-    [SerializeField]
     Transform layersContainer;
+    float islandsLayerWidth;
     TelescopeLayer[] layers;
     float currentDragSpeed;
     float telescopePosMax;
@@ -76,6 +75,7 @@ public class Telescope : MonoBehaviour
         currentDragSpeed = 0;
         cursorScale = new Vector3(1f, 1f, 0);
         telescopePosMax = layers[(int)ELayer.BACKGROUND].layerSize / 2f;
+        islandsLayerWidth = layers[(int)ELayer.HORIZON].layerSize * layers[(int)ELayer.HORIZON].parallaxSpeed;
 
         // Initialize zoom values
         zoom = false;
@@ -250,8 +250,7 @@ public class Telescope : MonoBehaviour
             // Place islands in 0-360°
             float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
             angle = 360 - angle;
-            float offset = angle * (backgroundSprite.texture.width / 360f) - (backgroundSprite.texture.width / 2f);
-            offset /= backgroundSprite.pixelsPerUnit;
+            float offset = angle * (islandsLayerWidth / 360f) - (islandsLayerWidth / 2f);
             island1.transform.localPosition = new Vector3(offset, 0, 0);
             island2.transform.localPosition = new Vector3(offset, 0, 0);
 
