@@ -118,6 +118,7 @@ public class NavigationManager : MonoBehaviour
                 // Near the end of journey
                 if (journey.sqrMagnitude <= 0.1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting) && !navigatingToTyphoon)
                 {
+                    AkSoundEngine.PostEvent("Play_Arrival", gameObject);
                     hasPlayedAnim = true;
                     telescope.PlayAnimation(false, true);
                     telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());

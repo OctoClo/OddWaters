@@ -124,5 +124,10 @@ MonoBehaviour:
   transcriptJSON: {fileID: 4900000, guid: 83e6714e8e1e49146acc9dc45b44a07b, type: 3}
   rotationSpeed: 3
   rotationsAmount: 010000000100000002000000
-  rotationInterface: {fileID: 0}
+  inspectionInterface: {fileID: 0}
   rotating: 0
+  soundMaterial:
+    ID: -1168280295
+    valueGuid: 317c3670be4eae44b6e7e4d528a2c0cd
+    groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
+    groupID: -429652670

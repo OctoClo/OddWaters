@@ -121,4 +121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d57ccc45b2454b83434e11eaacd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transcriptJSON: {fileID: 0}
+  rotationSpeed: 3
   rotationsAmount: 000000000100000002000000
+  inspectionInterface: {fileID: 0}
+  rotating: 0
+  soundMaterial:
+    ID: -1168280295
+    valueGuid: 317c3670be4eae44b6e7e4d528a2c0cd
+    groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
+    groupID: -429652670
