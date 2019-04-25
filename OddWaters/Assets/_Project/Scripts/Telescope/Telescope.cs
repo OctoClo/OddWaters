@@ -14,6 +14,7 @@ public class Telescope : MonoBehaviour
 {
     [SerializeField]
     Animator fadeAnimator;
+    SpriteRenderer animationSprite;
 
     [SerializeField]
     Boat boat;
@@ -83,29 +84,9 @@ public class Telescope : MonoBehaviour
         scaleMaskZoom = new Vector3(1, 1, 1);
         scaleContainerNormal = new Vector3(1, 1, 1);
         scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);
+        animationSprite = fadeAnimator.gameObject.GetComponent<SpriteRenderer>();
     }
-
-    public void SetImageAlpha(bool dark)
-    {
-        /*float alpha = (dark ? 0.5f : 1);
-
-        // Set all panorama sprites alpha
-        int panoramaChildCount = telescopesPanoramaFolder[0].transform.childCount;
-        for (int i = 0; i < panoramaChildCount; i++)
-        {
-            telescopesPanoramaFolder[0].transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
-            telescopesPanoramaFolder[1].transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
-        }
-
-        // Set all elements sprites alpha
-        int elementsChildCount = telescopesElementsFolder[0].transform.childCount;
-        for (int i = 0; i < elementsChildCount; i++)
-        {
-            telescopesElementsFolder[0].transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
-            telescopesElementsFolder[1].transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
-        }*/
-    }
-
+    
     public void ResetZoom()
     {
         wheelZoomLevel = 0;
@@ -251,7 +232,7 @@ public class Telescope : MonoBehaviour
             GameObject island1 = new GameObject("Island" + island.islandNumber);
             SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = island.islandSprite;
-            spriteRenderer.sortingOrder = 3;
+            spriteRenderer.sortingOrder = 4;
             island1.AddComponent<BoxCollider>();
             island1.transform.parent = layers[(int)ELayer.HORIZON].children[0];
             island1.transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -260,7 +241,7 @@ public class Telescope : MonoBehaviour
             GameObject island2 = new GameObject("Island" + island.islandNumber);
             spriteRenderer = island2.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = island.islandSprite;
-            spriteRenderer.sortingOrder = 3;
+            spriteRenderer.sortingOrder = 4;
             island2.AddComponent<BoxCollider>();
             island2.transform.parent = layers[(int)ELayer.HORIZON].children[1];
             island2.transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -296,6 +277,15 @@ public class Telescope : MonoBehaviour
 
     public void ResetAnimation()
     {
-        fadeAnimator.Play("Base Layer.Default");
+        fadeAnimator.Play("Base Layer.TelescopeLight");
     }
+
+    public void SetImageAlpha(bool dark)
+    {
+        if (dark)
+            fadeAnimator.Play("Base Layer.TelescopeDark");
+        else
+            fadeAnimator.Play("Base Layer.TelescopeLight");
+    }
+
 }

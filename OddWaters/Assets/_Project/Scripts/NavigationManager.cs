@@ -99,7 +99,7 @@ public class NavigationManager : MonoBehaviour
 
                     if (islandTarget.firstTimeVisiting)
                     {
-                        ResetTelescopeAnimation();
+                        telescope.ResetAnimation();
                         screenManager.Berth(islandTarget);
                     }
 
@@ -267,11 +267,6 @@ public class NavigationManager : MonoBehaviour
             navigatingToTyphoon = true;
             initialPos = boat.transform.position;
         }
-    }
-
-    void ResetTelescopeAnimation()
-    {
-        telescope.ResetAnimation();
     }
 
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
