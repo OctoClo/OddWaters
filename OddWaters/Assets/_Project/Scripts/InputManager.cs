@@ -174,7 +174,7 @@ public class InputManager : MonoBehaviour
         if (telescopeDrag)
         {
             Vector3 dragCurrentPos = Input.mousePosition;
-            telescope.UpdateSpeed(-(dragCurrentPos - dragBeginPos).x);
+            telescope.UpdateSpeed(-(dragCurrentPos - dragBeginPos).x * Time.deltaTime);
         }
 
         // Navigation
