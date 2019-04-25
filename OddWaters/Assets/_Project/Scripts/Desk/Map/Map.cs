@@ -6,21 +6,40 @@ public class Map : MonoBehaviour
 {
     [SerializeField]
     GameObject zonesFolder;
-    MapZone[] mapZones;
-    int nbZones;
-
-    [SerializeField]
-    Island[] islands;
+    public MapZone[] mapZones;
+    
+    public Island[] islands;
 
     [HideInInspector]
     public int currentZone;
 
+    [HideInInspector]
+    public GameObject currentPanorama;
+
     void Start()
     {
-        nbZones = zonesFolder.transform.childCount;
-        mapZones = new MapZone[nbZones];
-        for (int i = 0; i < nbZones; i++)
-            mapZones[i] = zonesFolder.transform.GetChild(i).GetComponent<MapZone>();
+        mapZones = new MapZone[5];
+        islands = new Island[4];
+
+        int mapCounter = 0;
+        int islandCounter = 0;
+
+        Transform[] allChildren = transform.GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            MapZone mapZone = child.gameObject.GetComponent<MapZone>();
+            Island island = child.gameObject.GetComponent<Island>();
+            if (mapZone)
+            {
+                mapZones[mapCounter] = mapZone;
+                mapCounter++;
+            }
+            else if (island)
+            {
+                islands[islandCounter] = island;
+                islandCounter++;
+            }
+        }
     }
 
     void OnEnable()
@@ -35,9 +54,22 @@ public class Map : MonoBehaviour
         EventManager.Instance.RemoveListener<DiscoverIslandEvent>(OnDiscoverIslandEvent);
     }
 
-    public Sprite GetCurrentZoneSprite()
+    public void ChangeZone(int newZone)
     {
-        return mapZones[currentZone].telescopeSprite;
+        currentZone = newZone;
+        currentPanorama = mapZones[currentZone].telescopePanorama;
+    }
+
+    public GameObject GetCurrentPanorama()
+    {
+        if (currentPanorama)
+        {
+            GameObject panorama = currentPanorama;
+            currentPanorama = null;
+            return panorama;
+        }
+
+        return null;
     }
 
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)
@@ -48,9 +80,13 @@ public class Map : MonoBehaviour
 
     void OnDiscoverIslandEvent(DiscoverIslandEvent e)
     {
-        Debug.Log("Discovered island n°" + e.islandNumber);
-        islands[e.islandNumber].Discover();
-        AkSoundEngine.PostEvent("Play_Note",gameObject);
-        AkSoundEngine.PostEvent("Play_Discovery_Acte1",gameObject);
+        Island island = islands[e.islandNumber];
+        if (!island.visible)
+        {
+            Debug.Log("Discovered island n°" + e.islandNumber);
+            island.visible = true;
+            StartCoroutine(islands[e.islandNumber].Discover());
+        }
+        
     }
 }

@@ -174,7 +174,7 @@ public class InputManager : MonoBehaviour
         if (telescopeDrag)
         {
             Vector3 dragCurrentPos = Input.mousePosition;
-            telescope.UpdateSpeed(-(dragCurrentPos - dragBeginPos).x);
+            telescope.UpdateSpeed(-(dragCurrentPos - dragBeginPos).x * Time.deltaTime);
         }
 
         // Navigation
@@ -203,8 +203,11 @@ public class InputManager : MonoBehaviour
                     if (hitInfo.collider)
                     {
                         Island island = hitInfo.collider.GetComponent<Island>();
-                        StopNavigation();
-                        navigationManager.NavigateToIsland(island);
+                        if (island.islandNumber != screenManager.currentIslandNumber)
+                        {
+                            StopNavigation();
+                            navigationManager.NavigateToIsland(island);
+                        }
                     }
                     else
                     {
@@ -309,15 +312,13 @@ public class InputManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Interactible drag and drop
-        if (interactible && interactibleState == EInteractibleState.DRAGNDROP)
+        // Interactible drag and drop - Check desk borders before moving
+        if (interactible && interactibleState == EInteractibleState.DRAGNDROP && !mouseProjectionOutOfDesk)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z);
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos) + interactibleOffset;
-
-            // Check desk borders before moving
-            if (!mouseProjectionOutOfDesk)
-                interactible.MoveTo(mouseWorldPos);
+            interactible.MoveTo(mouseWorldPos);
+                
         }
     }
 

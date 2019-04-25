@@ -17,12 +17,12 @@ public class Island : MonoBehaviour
     [HideInInspector]
     public bool firstTimeVisiting = true;
 
-    SpriteRenderer spriteRenderer;
+    MeshRenderer meshRenderer;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.enabled = visible;
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.enabled = visible;
     }
 
     public void Berth()
@@ -31,10 +31,12 @@ public class Island : MonoBehaviour
         firstTimeVisiting = false;
     }
 
-    public void Discover()
+    public IEnumerator Discover()
     {
-        visible = true;
-        spriteRenderer.enabled = true;
+        AkSoundEngine.PostEvent("Play_Discovery_Acte1", gameObject);
+        yield return new WaitForSeconds(1.5f);
+        AkSoundEngine.PostEvent("Play_Note", gameObject);
+        meshRenderer.enabled = true;
     }
 
     void OnTriggerEnter(Collider other)

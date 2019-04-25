@@ -12,8 +12,10 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     Vector3 targetPos = new Vector3(6.25f, 1.95f, -1.2f);
 
+    GameObject newObject;
+    BoxCollider boxCollider;
     Rigidbody rb;
-    Vector3 rbPos;
+    Vector3 currentPos;
    
     bool moving;
     bool waiting;
@@ -30,11 +32,17 @@ public class Inventory : MonoBehaviour
 
     public void AddToInventory(GameObject prefab)
     {
-        GameObject newObject = Instantiate(prefab, transform);
-        newObject.transform.position = spawnPos;
+        newObject = Instantiate(prefab, transform);
+
+        boxCollider = newObject.GetComponent<BoxCollider>();
+        boxCollider.isTrigger = true;
+
         rb = newObject.GetComponent<Rigidbody>();
-        rbPos = newObject.transform.position;
         rb.useGravity = false;
+
+        newObject.transform.localPosition = spawnPos;
+        currentPos = spawnPos;
+
         Interactible interactible = newObject.GetComponent<Interactible>();
         interactible.inspectionInterface = inspectionInterface;
 
@@ -54,12 +62,13 @@ public class Inventory : MonoBehaviour
         }
         if (moving)
         {
-            rbPos.z -= 0.03f;
-            rb.position = rbPos;
+            currentPos.z -= 0.03f;
+            newObject.transform.localPosition = currentPos;
 
-            if ((rb.position - targetPos).sqrMagnitude <= 0.01f)
+            if ((currentPos - targetPos).sqrMagnitude <= 0.01f)
             {
                 rb.useGravity = true;
+                boxCollider.isTrigger = false;
                 moving = false;
                 waiting = true;
             }
