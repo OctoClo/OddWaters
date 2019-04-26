@@ -100,7 +100,7 @@ public class Telescope : MonoBehaviour
         wheelZoomLevel = Mathf.Clamp(wheelZoomLevel, 0f, wheelZoomThreshold);
         if (wheelZoomLevel < 0.1f)
             wheelZoomLevel = 0;
-        if (wheelZoomLevel == 0 || wheelZoomLevel == wheelZoomThreshold)
+        if ((wheelZoomLevel == 0 && zoom) || (wheelZoomLevel == wheelZoomThreshold && !zoom))
         {
             zoom = (zoomAmount > 0);
             SetZoom();
