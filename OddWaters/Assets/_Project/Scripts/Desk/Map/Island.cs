@@ -38,20 +38,4 @@ public class Island : MonoBehaviour
         AkSoundEngine.PostEvent("Play_Note", gameObject);
         meshRenderer.enabled = true;
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("ViewZone"))
-        {
-            other.transform.parent.GetComponent<Boat>().IslandInSight(this);
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("ViewZone"))
-        {
-            other.transform.parent.GetComponent<Boat>().IslandNoMoreInSight(this);
-        }
-    }
 }

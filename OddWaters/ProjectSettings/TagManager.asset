@@ -8,7 +8,6 @@ TagManager:
   - MouseProjection
   - TelescopeCollider
   - Typhoon
-  - ViewZone
   layers:
   - Default
   - TransparentFX

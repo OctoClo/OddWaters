@@ -290,6 +290,7 @@ public class NavigationManager : MonoBehaviour
 
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
+        Debug.Log("Boat in typhoon!");
         journeyLength = (boat.transform.position - initialPos).sqrMagnitude;
         journeyTarget = initialPos;
         journeyBeginTime = Time.time;
