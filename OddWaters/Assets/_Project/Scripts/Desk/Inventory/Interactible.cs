@@ -123,6 +123,7 @@ public class Interactible : MonoBehaviour
 
     public void EnterRotationInterface()
     {
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = true;
         rigidBody.useGravity = false;
         if (rigidBody.velocity == Vector3.zero)
@@ -143,6 +144,7 @@ public class Interactible : MonoBehaviour
 
     public void ExitRotationInterface()
     {
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         if (rotating)
         {
             rotating = false;
