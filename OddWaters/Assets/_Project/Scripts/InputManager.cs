@@ -106,16 +106,7 @@ public class InputManager : MonoBehaviour
                 if (navigation)
                     StopNavigation();
                 else if (interactibleState == EInteractibleState.CLICKED)
-                {
-                    interactibleState = EInteractibleState.UNKNOWN;
-                    inspectionInterface.gameObject.SetActive(false);
-                    rotationPanel.SetActive(false);
-                    telescope.SetImageAlpha(false);
-                    interactible.ExitRotationInterface();
-                    panZones[0].gameObject.SetActive(true);
-                    panZones[1].gameObject.SetActive(true);
-                    interactible = null;
-                }
+                    ExitInterfaceRotation();
             }
 
             // Mouse wheel
@@ -274,6 +265,11 @@ public class InputManager : MonoBehaviour
 
                 }
             }
+            else
+            {
+                if (!hits.Any(hit => hit.collider.gameObject.name == interactible.name))
+                    ExitInterfaceRotation();
+            }
         }
     }
 
@@ -317,6 +313,18 @@ public class InputManager : MonoBehaviour
             interactible.MoveTo(mouseWorldPos);
                 
         }
+    }
+
+    void ExitInterfaceRotation()
+    {
+        interactibleState = EInteractibleState.UNKNOWN;
+        inspectionInterface.gameObject.SetActive(false);
+        rotationPanel.SetActive(false);
+        telescope.SetImageAlpha(false);
+        interactible.ExitRotationInterface();
+        panZones[0].gameObject.SetActive(true);
+        panZones[1].gameObject.SetActive(true);
+        interactible = null;
     }
 
     void StopNavigation()
