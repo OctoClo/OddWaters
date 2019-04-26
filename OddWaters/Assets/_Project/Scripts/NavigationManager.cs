@@ -211,7 +211,7 @@ public class NavigationManager : MonoBehaviour
             obstaclePos = new Vector3(x, y, z);
 
             // No map (ko)
-            if (endOfMap && mapEnd.collider && (mapEnd.point - boat.transform.position).sqrMagnitude < (obstaclePos - boat.transform.position).sqrMagnitude)
+            if (mapEnd.collider && (mapEnd.point - boat.transform.position).sqrMagnitude < (obstaclePos - boat.transform.position).sqrMagnitude)
             {
                 obstaclePos = mapEnd.point;
                 return ENavigationResult.KO;

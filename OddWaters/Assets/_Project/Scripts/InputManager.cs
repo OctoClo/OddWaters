@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     GameObject rotationPanel;
 
     Camera mainCamera;
+    Vector3 mouseWorldPos;
     GameObject mouseProjection;
 
     // Desk
@@ -83,6 +84,9 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - boat.transform.position.y));
+        mouseProjection.transform.position = mouseWorldPos;
+
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
 
@@ -177,9 +181,6 @@ public class InputManager : MonoBehaviour
             telescope.UpdateSpeed(-(dragCurrentPos - dragBeginPos).x * Time.deltaTime);
         }
 
-        Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - boat.transform.position.y));
-        mouseProjection.transform.position = mouseWorldPos;
-
         // Navigation
         if (navigation)
             navigationManager.UpdateNavigation(mouseWorldPos);
@@ -215,17 +216,16 @@ public class InputManager : MonoBehaviour
                             MapZone mapZone = hitInfo.collider.transform.GetComponentInParent<MapZone>();
                             if (mapZone.visible)
                             {
-                                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                                ENavigationResult result = navigationManager.GetNavigationResult(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                                ENavigationResult result = navigationManager.GetNavigationResult(mouseWorldPos);
                                 if (result == ENavigationResult.SEA)
                                 {
                                     StopNavigation();
-                                    navigationManager.NavigateToPosition(mainCamera.ScreenToWorldPoint(mouseScreenPos), mapZone.zoneNumber);
+                                    navigationManager.NavigateToPosition(mouseWorldPos, mapZone.zoneNumber);
                                 }
                                 else if (result == ENavigationResult.TYPHOON)
                                 {
                                     StopNavigation();
-                                    navigationManager.NavigateToTyphoon(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                                    navigationManager.NavigateToTyphoon(mouseWorldPos);
                                 }
                             }
                             else
