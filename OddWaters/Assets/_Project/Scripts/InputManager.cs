@@ -177,15 +177,12 @@ public class InputManager : MonoBehaviour
             telescope.UpdateSpeed(-(dragCurrentPos - dragBeginPos).x * Time.deltaTime);
         }
 
+        Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - boat.transform.position.y));
+        mouseProjection.transform.position = mouseWorldPos;
+
         // Navigation
         if (navigation)
-        {
-            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
             navigationManager.UpdateNavigation(mouseWorldPos);
-        }
-
-        mouseProjection.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - 0.3f));
     }
 
     void HandleMouseLeftButtonDown()

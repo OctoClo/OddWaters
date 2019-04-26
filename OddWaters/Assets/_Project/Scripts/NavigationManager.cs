@@ -158,41 +158,48 @@ public class NavigationManager : MonoBehaviour
     {
         obstaclePos = Vector3.zero;
 
+        targetPos.y = boat.transform.position.y;
         Vector3 journey = targetPos - boat.transform.position;
         float distance = journey.magnitude;
 
         Vector3 rayOrigin = targetPos;
         rayOrigin.y += 1;
-
         RaycastHit[] hitsAtTarget = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
-        // Visible island at target position (ok)
-        if (hitsAtTarget.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible) && distance <= maxDistance)
-            return ENavigationResult.ISLAND;
-        
-        RaycastHit[] hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, distance);
-        RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => (hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber) || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
-        // Visible island or invisible map zone on trajectory (ko)
-        if (obstacle.collider)
+
+        bool endOfMap = !hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>());
+        RaycastHit[] hitsOnJourney = Physics.RaycastAll(targetPos, -journey, distance);
+        RaycastHit mapEnd = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == map.currentZone);
+        hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, distance);
+
+        if (distance <= maxDistance)
         {
-            obstaclePos = obstacle.point;
-            return ENavigationResult.KO;
-        }
-        else if (distance <= maxDistance)
-        {
+            RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => (hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber) || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
+            
+            // Visible island or invisible map zone on trajectory (ko)
+            if (obstacle.collider)
+            {
+                obstaclePos = obstacle.point;
+                return ENavigationResult.KO;
+            }
+
+            // No map (ko)
+            if (endOfMap && mapEnd.collider)
+            {
+                obstaclePos = mapEnd.point;
+                return ENavigationResult.KO;
+            }
+
+            // Visible island at target position (ok)
+            if (hitsAtTarget.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible) && distance <= maxDistance)
+                return ENavigationResult.ISLAND;
+
             // Typhoon (ok)
             if (hitsOnJourney.Any(hit => hit.collider.CompareTag("Typhoon")))
                 return ENavigationResult.TYPHOON;
+
             // Visible map zone (ok)
-            else if (hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible))
+            if (hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible))
                 return ENavigationResult.SEA;
-            // No map (ko)
-            else
-            {
-                hitsOnJourney = Physics.RaycastAll(targetPos, -journey, distance);
-                RaycastHit endOfMap = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == map.currentZone);
-                obstaclePos = endOfMap.point;
-                return ENavigationResult.KO;
-            }
         }
         else
         {
@@ -202,8 +209,19 @@ public class NavigationManager : MonoBehaviour
             float y = (targetPos.y - boat.transform.position.y) * factor + boat.transform.position.y;
             float z = (targetPos.z - boat.transform.position.z) * factor + boat.transform.position.z;
             obstaclePos = new Vector3(x, y, z);
+
+            // No map (ko)
+            if (endOfMap && mapEnd.collider && (mapEnd.point - boat.transform.position).sqrMagnitude < (obstaclePos - boat.transform.position).sqrMagnitude)
+            {
+                obstaclePos = mapEnd.point;
+                return ENavigationResult.KO;
+            }
+            
             return ENavigationResult.KO;
         }
+
+        Debug.Log("???");
+        return ENavigationResult.KO;
     }
 
     void LaunchNavigation(Vector3 target)
