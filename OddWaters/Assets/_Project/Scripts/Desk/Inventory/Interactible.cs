@@ -31,6 +31,7 @@ public class Interactible : MonoBehaviour
     bool zoom;
     Vector3 beforeZoomPosition;
     Vector3 zoomPosition;
+    Transform inventory;
 
     [SerializeField]
     AK.Wwise.Switch soundMaterial;
@@ -42,6 +43,7 @@ public class Interactible : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
         rotating = false;
         currentRotationSpeed = rotationSpeed;
+        inventory = transform.parent;
         if (transcriptJSON != null)
             transcript = JsonUtility.FromJson<Transcript>(transcriptJSON.text);
     }
@@ -146,6 +148,7 @@ public class Interactible : MonoBehaviour
                 inspectionInterface.DeactivateAxis(i);
         }
         inspectionInterface.SetButtonsActive(true);
+        transform.SetParent(null);
     }
 
     public void ExitRotationInterface()
@@ -161,5 +164,6 @@ public class Interactible : MonoBehaviour
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
         zoom = false;
+        transform.parent = inventory;
     }
 }
