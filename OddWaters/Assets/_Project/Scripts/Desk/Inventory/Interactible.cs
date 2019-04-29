@@ -60,10 +60,15 @@ public class Interactible : MonoBehaviour
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = false;
+        transform.position = GetGrabbedPosition();
+    }
+
+    public Vector3 GetGrabbedPosition()
+    {
         Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
         verticalGrabOffset.Normalize();
         verticalGrabOffset.y *= 2;
-        gameObject.transform.position += verticalGrabOffset;
+        return transform.position + verticalGrabOffset;
     }
 
     public void MoveTo(Vector3 newPosition)

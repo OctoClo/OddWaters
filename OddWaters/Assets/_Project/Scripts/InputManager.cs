@@ -130,24 +130,22 @@ public class InputManager : MonoBehaviour
                     interactibleState = EInteractibleState.DRAGNDROP;
                     CursorManager.Instance.SetCursor(ECursor.DRAG);
                     interactible.Grab();
-                    interactibleScreenPos = mainCamera.WorldToScreenPoint(interactible.gameObject.transform.position);
-                    interactibleOffset = interactible.gameObject.transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
                 }
 
                 if (interactibleState == EInteractibleState.DRAGNDROP && !interactible.rotating)
                 {
                     if (Input.GetKeyDown(KeyCode.S))
-                        interactible.Rotate(0, 1);
-                    else if (Input.GetKeyDown(KeyCode.Z))
                         interactible.Rotate(0, -1);
+                    else if (Input.GetKeyDown(KeyCode.Z))
+                        interactible.Rotate(0, 1);
                     else if (Input.GetKeyDown(KeyCode.E))
                         interactible.Rotate(1, 1);
                     else if (Input.GetKeyDown(KeyCode.A))
                         interactible.Rotate(1, -1);
                     else if (Input.GetKeyDown(KeyCode.D))
-                        interactible.Rotate(2, -1);
-                    else if (Input.GetKeyDown(KeyCode.Q))
                         interactible.Rotate(2, 1);
+                    else if (Input.GetKeyDown(KeyCode.Q))
+                        interactible.Rotate(2, -1);
                 }
             }
 
@@ -243,6 +241,9 @@ public class InputManager : MonoBehaviour
                             interactiblePressTime = Time.time;
                             interactibleState = EInteractibleState.UNKNOWN;
                             interactiblePressTime = 0;
+                            Vector3 interactibleGrabbedPos = interactible.GetGrabbedPosition();
+                            interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
+                            interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
                         }
                         else
                         {
@@ -305,7 +306,6 @@ public class InputManager : MonoBehaviour
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z);
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos) + interactibleOffset;
             interactible.MoveTo(mouseWorldPos);
-                
         }
     }
 
