@@ -27,7 +27,6 @@ public class NavigationManager : MonoBehaviour
 
     [SerializeField]
     GameObject boat;
-    float boatPosY;
     SpriteRenderer boatRenderer;
     [SerializeField]
     Sprite[] boatSprites;
@@ -60,7 +59,6 @@ public class NavigationManager : MonoBehaviour
     {
         boatRenderer = boat.GetComponent<SpriteRenderer>();
         initialPos = boat.transform.position;
-        boatPosY = initialPos.y;
         navigating = false;
         hasPlayedArrivalTransition = false;
         islandTarget = null;
@@ -80,6 +78,7 @@ public class NavigationManager : MonoBehaviour
     {
         if (navigating)
         {
+            journeyTarget.y = boat.transform.position.y;
             Vector3 journey = journeyTarget - boat.transform.position;
 
             // End of journey
@@ -196,7 +195,6 @@ public class NavigationManager : MonoBehaviour
             if (obstacle.collider)
             {
                 obstaclePos = obstacle.point;
-                Debug.Log("Obstacle pos: " + obstaclePos);
                 return ENavigationResult.KO;
             }
 
@@ -204,7 +202,6 @@ public class NavigationManager : MonoBehaviour
             if (endOfMap && mapEnd.collider)
             {
                 obstaclePos = mapEnd.point;
-                Debug.Log("Obstacle pos: " + obstaclePos);
                 return ENavigationResult.KO;
             }
             
@@ -224,13 +221,11 @@ public class NavigationManager : MonoBehaviour
             float y = (targetPos.y - boat.transform.position.y) * factor + boat.transform.position.y;
             float z = (targetPos.z - boat.transform.position.z) * factor + boat.transform.position.z;
             obstaclePos = new Vector3(x, y, z);
-            Debug.Log("Obstacle pos: " + obstaclePos);
 
             // No map (ko)
             if (mapEnd.collider && (mapEnd.point - boat.transform.position).sqrMagnitude < (obstaclePos - boat.transform.position).sqrMagnitude)
             {
                 obstaclePos = mapEnd.point;
-                Debug.Log("Obstacle pos: " + obstaclePos);
                 return ENavigationResult.KO;
             }
             
@@ -264,7 +259,7 @@ public class NavigationManager : MonoBehaviour
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         journeyLength = (target - boat.transform.position).sqrMagnitude;
         journeyTarget = target;
-        journeyTarget.y = boatPosY;
+        journeyTarget.y = boat.transform.position.y;
         journeyBeginTime = Time.time;
 
         // Dezoom and fade out
@@ -310,8 +305,9 @@ public class NavigationManager : MonoBehaviour
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
         Debug.Log("Boat in typhoon!");
-        journeyLength = (boat.transform.position - initialPos).sqrMagnitude;
         journeyTarget = initialPos;
+        journeyTarget.y = boat.transform.position.y;
+        journeyLength = (boat.transform.position - journeyTarget).sqrMagnitude;
         journeyBeginTime = Time.time;
     }
 }
