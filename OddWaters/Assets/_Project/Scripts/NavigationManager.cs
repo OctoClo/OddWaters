@@ -170,12 +170,8 @@ public class NavigationManager : MonoBehaviour
     public ENavigationResult GetNavigationResult(Vector3 targetPos)
     {
         obstaclePos = Vector3.zero;
-
-        Debug.Log("Target pos: " + targetPos + " and boat y: " + boat.transform.localPosition.y);
-
+        
         targetPos.y += boat.transform.localPosition.y;
-
-        Debug.Log("Translated target pos: " + targetPos);
         Vector3 journey = targetPos - boat.transform.position;
         float distance = journey.magnitude;
 

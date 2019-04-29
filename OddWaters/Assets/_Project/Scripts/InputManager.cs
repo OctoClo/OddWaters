@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BlockInputEvent : GameEvent { public bool block; }
 
@@ -9,20 +11,10 @@ enum EInteractibleState { UNKNOWN, CLICKED, DRAGNDROP };
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField]
-    NavigationManager navigationManager;
-
+    // General
     [SerializeField]
     ScreenManager screenManager;
-
-    [SerializeField]
-    InspectionInterface inspectionInterface;
-
-    [SerializeField]
-    GameObject rotationPanel;
-
     Camera mainCamera;
-    Vector3 mouseWorldPos;
     GameObject mouseProjection;
     RaycastHit[] hitsOnRayToMouse;
 
@@ -33,6 +25,11 @@ public class InputManager : MonoBehaviour
     public bool mouseProjectionOutOfDesk;
 
     // Interactible
+    [SerializeField]
+    InspectionInterface inspectionInterface;
+    [SerializeField]
+    GameObject rotationPanel;
+    EventSystem eventSystem;
     Interactible interactible;
     Vector3 interactibleScreenPos;
     Vector3 interactibleOffset;
@@ -48,6 +45,8 @@ public class InputManager : MonoBehaviour
     bool telescopeDrag;
 
     // Map
+    [SerializeField]
+    NavigationManager navigationManager;
     [SerializeField]
     Boat boat;
     bool navigation;
@@ -65,9 +64,10 @@ public class InputManager : MonoBehaviour
 
         mainCamera = Camera.main;
         blockInput = false;
-
+        
         interactiblePressTime = 0;
         interactibleClickTime = 0.15f;
+        eventSystem = EventSystem.current;
 
         telescopeDrag = false;
         navigation = false;
@@ -90,13 +90,7 @@ public class InputManager : MonoBehaviour
 
         RaycastHit desk = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.CompareTag("Desk"));
         if (desk.collider)
-        {
-            mouseWorldPos = desk.point;
-            mouseProjection.transform.position = mouseWorldPos;
-        }
-
-        //mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - boat.transform.position.y));
-        //mouseProjection.transform.position = mouseWorldPos;
+            mouseProjection.transform.position = desk.point;
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
@@ -175,7 +169,7 @@ public class InputManager : MonoBehaviour
 
         // Navigation
         if (navigation)
-            navigationManager.UpdateNavigation(mouseWorldPos);
+            navigationManager.UpdateNavigation(mouseProjection.transform.position);
     }
 
     void HandleMouseLeftButtonDown()
@@ -207,16 +201,16 @@ public class InputManager : MonoBehaviour
                             MapZone mapZone = hitInfo.collider.transform.GetComponentInParent<MapZone>();
                             if (mapZone.visible)
                             {
-                                ENavigationResult result = navigationManager.GetNavigationResult(mouseWorldPos);
+                                ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
                                 if (result == ENavigationResult.SEA)
                                 {
                                     StopNavigation();
-                                    navigationManager.NavigateToPosition(mouseWorldPos, mapZone.zoneNumber);
+                                    navigationManager.NavigateToPosition(mouseProjection.transform.position, mapZone.zoneNumber);
                                 }
                                 else if (result == ENavigationResult.TYPHOON)
                                 {
                                     StopNavigation();
-                                    navigationManager.NavigateToTyphoon(mouseWorldPos);
+                                    navigationManager.NavigateToTyphoon(mouseProjection.transform.position);
                                 }
                             }
                             else
@@ -267,7 +261,7 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                if (!hitsOnRayToMouse.Any(hit => hit.collider.gameObject.name == interactible.name))
+                if (!eventSystem.IsPointerOverGameObject() && !hitsOnRayToMouse.Any(hit => hit.collider.gameObject.name == interactible.name))
                     ExitInterfaceRotation();
             }
         }
