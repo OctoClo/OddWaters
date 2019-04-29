@@ -24,6 +24,7 @@ public class InputManager : MonoBehaviour
     Camera mainCamera;
     Vector3 mouseWorldPos;
     GameObject mouseProjection;
+    RaycastHit[] hitsOnRayToMouse;
 
     // Desk
     [SerializeField]
@@ -84,8 +85,18 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - boat.transform.position.y));
-        mouseProjection.transform.position = mouseWorldPos;
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
+        hitsOnRayToMouse = Physics.RaycastAll(ray);
+
+        RaycastHit desk = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.CompareTag("Desk"));
+        if (desk.collider)
+        {
+            mouseWorldPos = desk.point;
+            mouseProjection.transform.position = mouseWorldPos;
+        }
+
+        //mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y - boat.transform.position.y));
+        //mouseProjection.transform.position = mouseWorldPos;
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
@@ -112,13 +123,8 @@ public class InputManager : MonoBehaviour
             // Mouse wheel
             if (!navigation && interactibleState != EInteractibleState.CLICKED && Input.GetAxis("Mouse ScrollWheel") != 0)
             {
-                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit[] hits = Physics.RaycastAll(ray);
-                if (hits.Length > 0)
-                {
-                    if (hits.Any(hit => hit.collider.CompareTag("TelescopeCollider") || hit.collider.GetComponent<TelescopeElement>()))
-                        telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
-                }
+                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider") || hit.collider.GetComponent<TelescopeElement>()))
+                    telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
             }
 
             // Interactible grab / rotate
@@ -153,15 +159,10 @@ public class InputManager : MonoBehaviour
 
             if (!interactible && !telescopeDrag && !navigation)
             {
-                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit[] hits = Physics.RaycastAll(ray);
-                if (hits.Length > 0)
-                {
-                    if (hits.Any(hit => hit.collider.CompareTag("Boat") || hit.collider.GetComponent<Interactible>()))
-                        CursorManager.Instance.SetCursor(ECursor.HOVER);
-                    else
-                        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                }
+                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat") || hit.collider.GetComponent<Interactible>()))
+                    CursorManager.Instance.SetCursor(ECursor.HOVER);
+                else
+                    CursorManager.Instance.SetCursor(ECursor.DEFAULT);
             }
         }
 
@@ -179,16 +180,15 @@ public class InputManager : MonoBehaviour
 
     void HandleMouseLeftButtonDown()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray).OrderBy(hit => Vector3.SqrMagnitude(hit.point - mainCamera.transform.position)).ToArray(); ;
-        if (hits.Length > 0)
+        hitsOnRayToMouse.OrderBy(hit => Vector3.SqrMagnitude(hit.point - mainCamera.transform.position)).ToArray(); ;
+        if (hitsOnRayToMouse.Length > 0)
         {
             if (interactibleState != EInteractibleState.CLICKED)
             {
                 if (navigation)
                 {
                     // Island navigation
-                    RaycastHit hitInfo = hits.FirstOrDefault(hit => hit.collider.GetComponent<Island>() != null);
+                    RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Island>() != null);
                     if (hitInfo.collider)
                     {
                         Island island = hitInfo.collider.GetComponent<Island>();
@@ -201,7 +201,7 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         // Sea navigation
-                        hitInfo = hits.FirstOrDefault(hit => hit.collider.transform.GetComponentInParent<MapZone>() != null);
+                        hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.transform.GetComponentInParent<MapZone>() != null);
                         if (hitInfo.collider)
                         {
                             MapZone mapZone = hitInfo.collider.transform.GetComponentInParent<MapZone>();
@@ -234,7 +234,7 @@ public class InputManager : MonoBehaviour
                 else
                 {
                     // Launch navigation
-                    if (hits.Any(hit => hit.collider.CompareTag("Boat")))
+                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
                     {
                         navigation = true;
                         boat.StartTargeting();
@@ -242,7 +242,7 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         // Interactible
-                        RaycastHit hitInfo = hits.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
+                        RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
                         if (hitInfo.collider && hitInfo.collider.GetComponent<Rigidbody>().velocity == Vector3.zero)
                         {
                             interactible = hitInfo.collider.GetComponent<Interactible>();
@@ -253,7 +253,7 @@ public class InputManager : MonoBehaviour
                         else
                         {
                             // Telescope
-                            telescopeDrag = hits.Any(hit => hit.collider.CompareTag("TelescopeCollider"));
+                            telescopeDrag = hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider"));
                             if (telescopeDrag)
                             {
                                 dragBeginPos = Input.mousePosition;
@@ -267,7 +267,7 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                if (!hits.Any(hit => hit.collider.gameObject.name == interactible.name))
+                if (!hitsOnRayToMouse.Any(hit => hit.collider.gameObject.name == interactible.name))
                     ExitInterfaceRotation();
             }
         }

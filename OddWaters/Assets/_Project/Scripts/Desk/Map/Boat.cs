@@ -16,9 +16,6 @@ public class Boat : MonoBehaviour
     [HideInInspector]
     public GameObject mouseProjection;
 
-    [HideInInspector]
-    public float lineY;
-
     List<Island> islandsInSight;
 
     void Start()
@@ -41,7 +38,6 @@ public class Boat : MonoBehaviour
     {
         if (line.enabled)
         {
-
             line.SetPosition(0, transform.position);
             Vector3 obstacle = navigationManager.obstaclePos;
             if (obstacle != Vector3.zero)
@@ -52,7 +48,9 @@ public class Boat : MonoBehaviour
             else
             {
                 line.colorGradient = colorGradients[0];
-                line.SetPosition(1, mouseProjection.transform.position);
+                Vector3 endPos = mouseProjection.transform.position;
+                endPos.y += transform.localPosition.y;
+                line.SetPosition(1, endPos);
             }
         }
     }

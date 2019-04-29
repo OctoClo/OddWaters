@@ -42,7 +42,7 @@ public class NavigationManager : MonoBehaviour
     Vector3 journeyTarget;
     float journeyBeginTime;
     float journeyLength;
-    bool hasPlayedAnim;
+    bool hasPlayedArrivalTransition;
     Island islandTarget;
     bool navigatingToTyphoon;
     Vector3 initialPos;
@@ -62,7 +62,7 @@ public class NavigationManager : MonoBehaviour
         initialPos = boat.transform.position;
         boatPosY = initialPos.y;
         navigating = false;
-        hasPlayedAnim = false;
+        hasPlayedArrivalTransition = false;
         islandTarget = null;
     }
 
@@ -83,14 +83,20 @@ public class NavigationManager : MonoBehaviour
             Vector3 journey = journeyTarget - boat.transform.position;
 
             // End of journey
-            if (journey.sqrMagnitude <= 0.001f)
+            if (journey.sqrMagnitude <= 0.01f)
             {
                 navigating = false;
-                lightScript.rotateDegreesPerSecond.value.y = 0;
                 if (islandTarget)
                 {
                     onIsland = true;
                     boatRenderer.sprite = boatSprites[1];
+
+                    if (!hasPlayedArrivalTransition)
+                    {
+                        hasPlayedArrivalTransition = true;
+                        AkSoundEngine.PostEvent("Play_Arrival", gameObject);
+                        lightScript.rotateDegreesPerSecond.value.y = 0;
+                    }
 
                     // Reset rotations
                     boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
@@ -116,12 +122,19 @@ public class NavigationManager : MonoBehaviour
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
                 // Near the end of journey
-                if (journey.sqrMagnitude <= 0.1f && !hasPlayedAnim && (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting) && !navigatingToTyphoon)
+                if (journey.sqrMagnitude <= 0.1f && !hasPlayedArrivalTransition && !navigatingToTyphoon)
                 {
+                    hasPlayedArrivalTransition = true;
+
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
-                    hasPlayedAnim = true;
-                    telescope.PlayAnimation(false, true);
-                    telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
+                    lightScript.rotateDegreesPerSecond.value.y = 0;
+
+                    if (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting)
+                    {
+                        telescope.PlayAnimation(false, true);
+                        telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
+                    }
+
                     if (islandTarget && !islandTarget.firstTimeVisiting)
                         screenManager.Berth(islandTarget);
                     if (onIsland)
@@ -158,7 +171,11 @@ public class NavigationManager : MonoBehaviour
     {
         obstaclePos = Vector3.zero;
 
-        targetPos.y = boat.transform.position.y;
+        Debug.Log("Target pos: " + targetPos + " and boat y: " + boat.transform.localPosition.y);
+
+        targetPos.y += boat.transform.localPosition.y;
+
+        Debug.Log("Translated target pos: " + targetPos);
         Vector3 journey = targetPos - boat.transform.position;
         float distance = journey.magnitude;
 
@@ -173,12 +190,17 @@ public class NavigationManager : MonoBehaviour
 
         if (distance <= maxDistance)
         {
+            // Visible island at target position (ok)
+            if (hitsAtTarget.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible))
+                return ENavigationResult.ISLAND;
+
             RaycastHit obstacle = hitsOnJourney.FirstOrDefault(hit => (hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber) || (hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible));
             
             // Visible island or invisible map zone on trajectory (ko)
             if (obstacle.collider)
             {
                 obstaclePos = obstacle.point;
+                Debug.Log("Obstacle pos: " + obstaclePos);
                 return ENavigationResult.KO;
             }
 
@@ -186,13 +208,10 @@ public class NavigationManager : MonoBehaviour
             if (endOfMap && mapEnd.collider)
             {
                 obstaclePos = mapEnd.point;
+                Debug.Log("Obstacle pos: " + obstaclePos);
                 return ENavigationResult.KO;
             }
-
-            // Visible island at target position (ok)
-            if (hitsAtTarget.Any(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible) && distance <= maxDistance)
-                return ENavigationResult.ISLAND;
-
+            
             // Typhoon (ok)
             if (hitsOnJourney.Any(hit => hit.collider.CompareTag("Typhoon")))
                 return ENavigationResult.TYPHOON;
@@ -209,11 +228,13 @@ public class NavigationManager : MonoBehaviour
             float y = (targetPos.y - boat.transform.position.y) * factor + boat.transform.position.y;
             float z = (targetPos.z - boat.transform.position.z) * factor + boat.transform.position.z;
             obstaclePos = new Vector3(x, y, z);
+            Debug.Log("Obstacle pos: " + obstaclePos);
 
             // No map (ko)
             if (mapEnd.collider && (mapEnd.point - boat.transform.position).sqrMagnitude < (obstaclePos - boat.transform.position).sqrMagnitude)
             {
                 obstaclePos = mapEnd.point;
+                Debug.Log("Obstacle pos: " + obstaclePos);
                 return ENavigationResult.KO;
             }
             
@@ -253,7 +274,7 @@ public class NavigationManager : MonoBehaviour
         // Dezoom and fade out
         telescope.PlayAnimation(true, false);
         telescope.ResetZoom();
-        hasPlayedAnim = false;
+        hasPlayedArrivalTransition = false;
     }
 
     public void NavigateToPosition(Vector3 targetPos, int zoneNumber)
@@ -270,7 +291,9 @@ public class NavigationManager : MonoBehaviour
 
     public void NavigateToIsland(Island island)
     {
-        LaunchNavigation(island.transform.position);
+        Vector3 target = island.transform.position;
+        target.y = boat.transform.position.y;
+        LaunchNavigation(target);
         islandTarget = island;
 
         if (island.islandNumber != map.currentZone)
