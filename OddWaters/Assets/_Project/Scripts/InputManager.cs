@@ -174,7 +174,7 @@ public class InputManager : MonoBehaviour
 
     void HandleMouseLeftButtonDown()
     {
-        hitsOnRayToMouse.OrderBy(hit => Vector3.SqrMagnitude(hit.point - mainCamera.transform.position)).ToArray(); ;
+        hitsOnRayToMouse = hitsOnRayToMouse.OrderBy(hit => Vector3.SqrMagnitude(mainCamera.transform.position - hit.point)).ToArray(); ;
         if (hitsOnRayToMouse.Length > 0)
         {
             if (interactibleState != EInteractibleState.CLICKED)
@@ -237,7 +237,7 @@ public class InputManager : MonoBehaviour
                     {
                         // Interactible
                         RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
-                        if (hitInfo.collider && hitInfo.collider.GetComponent<Rigidbody>().velocity == Vector3.zero)
+                        if (hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
                         {
                             interactible = hitInfo.collider.GetComponent<Interactible>();
                             interactiblePressTime = Time.time;
