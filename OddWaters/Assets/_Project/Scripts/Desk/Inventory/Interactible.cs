@@ -26,10 +26,12 @@ public class Interactible : MonoBehaviour
 
     Camera mainCamera;
     Rigidbody rigidBody;
+    BoxCollider boxCollider;
 
     bool zoom;
     Vector3 beforeZoomPosition;
     Vector3 zoomPosition;
+    Transform inventory;
 
     [SerializeField]
     AK.Wwise.Switch soundMaterial;
@@ -38,8 +40,10 @@ public class Interactible : MonoBehaviour
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
+        boxCollider = GetComponent<BoxCollider>();
         rotating = false;
         currentRotationSpeed = rotationSpeed;
+        inventory = transform.parent;
         if (transcriptJSON != null)
             transcript = JsonUtility.FromJson<Transcript>(transcriptJSON.text);
     }
@@ -49,17 +53,24 @@ public class Interactible : MonoBehaviour
 
     }
 
+    public bool IsGrabbable()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, boxCollider.bounds.extents.y + 0.1f);
+    }
+
     public void Grab()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = false;
-        if (rigidBody.velocity == Vector3.zero)
-        {
-            Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
-            verticalGrabOffset.Normalize();
-            verticalGrabOffset.y *= 2;
-            gameObject.transform.position += verticalGrabOffset;
-        }
+        transform.position = GetGrabbedPosition();
+    }
+
+    public Vector3 GetGrabbedPosition()
+    {
+        Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
+        verticalGrabOffset.Normalize();
+        verticalGrabOffset.y *= 2;
+        return transform.position + verticalGrabOffset;
     }
 
     public void MoveTo(Vector3 newPosition)
@@ -123,14 +134,12 @@ public class Interactible : MonoBehaviour
 
     public void EnterRotationInterface()
     {
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = true;
         rigidBody.useGravity = false;
-        if (rigidBody.velocity == Vector3.zero)
-        {
-            beforeZoomPosition = gameObject.transform.position;
-            zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
-            gameObject.transform.position = zoomPosition;
-        }
+        beforeZoomPosition = gameObject.transform.position;
+        zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
+        gameObject.transform.position = zoomPosition;
 
         inspectionInterface.InitializeInterface(transcript);
         for (int i = 0; i < 3; i++)
@@ -139,18 +148,22 @@ public class Interactible : MonoBehaviour
                 inspectionInterface.DeactivateAxis(i);
         }
         inspectionInterface.SetButtonsActive(true);
+        transform.SetParent(null);
     }
 
     public void ExitRotationInterface()
     {
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         if (rotating)
         {
             rotating = false;
             currentRotationSpeed = rotationSpeed;
             transform.rotation = rotationAfter;
         }
+        beforeZoomPosition.y += 1f;
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
         zoom = false;
+        transform.parent = inventory;
     }
 }

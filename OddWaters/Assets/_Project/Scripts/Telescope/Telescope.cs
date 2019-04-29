@@ -100,7 +100,7 @@ public class Telescope : MonoBehaviour
         wheelZoomLevel = Mathf.Clamp(wheelZoomLevel, 0f, wheelZoomThreshold);
         if (wheelZoomLevel < 0.1f)
             wheelZoomLevel = 0;
-        if (wheelZoomLevel == 0 || wheelZoomLevel == wheelZoomThreshold)
+        if ((wheelZoomLevel == 0 && zoom) || (wheelZoomLevel == wheelZoomThreshold && !zoom))
         {
             zoom = (zoomAmount > 0);
             SetZoom();
@@ -235,19 +235,14 @@ public class Telescope : MonoBehaviour
             SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = island.islandSprite;
             spriteRenderer.sortingOrder = 4;
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             island1.AddComponent<BoxCollider>();
             island1.transform.parent = layers[(int)ELayer.HORIZON].children[0];
             island1.transform.rotation = Quaternion.Euler(90, 0, 0);
             island1.transform.localScale = new Vector3(1, 1, 1);
 
-            GameObject island2 = new GameObject("Island" + island.islandNumber);
-            spriteRenderer = island2.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = island.islandSprite;
-            spriteRenderer.sortingOrder = 4;
-            island2.AddComponent<BoxCollider>();
-            island2.transform.parent = layers[(int)ELayer.HORIZON].children[1];
-            island2.transform.rotation = Quaternion.Euler(90, 0, 0);
-            island2.transform.localScale = new Vector3(1, 1, 1);
+            GameObject island2 = Instantiate(island1, layers[(int)ELayer.HORIZON].children[1]);
+            island2.name = "Island" + island.islandNumber;
 
             // Place islands in 0-360°
             float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
