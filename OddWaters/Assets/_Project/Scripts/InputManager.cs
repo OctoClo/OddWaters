@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -190,19 +190,14 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         // Sea navigation
-                        hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.transform.GetComponentInParent<MapZone>() != null);
+                        hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapZone>() != null);
                         if (hitInfo.collider)
                         {
                             ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
                             if (result == ENavigationResult.SEA)
                             {
                                 StopNavigation();
-                                navigationManager.NavigateToPosition(mouseProjection.transform.position);
-                            }
-                            else if (result == ENavigationResult.TYPHOON)
-                            {
-                                StopNavigation();
-                                navigationManager.NavigateToTyphoon(mouseProjection.transform.position);
+                                navigationManager.NavigateToPosition(mouseProjection.transform.position, hitInfo.collider.GetComponentInParent<MapZone>().zoneNumber);
                             }
                         }
                         else
