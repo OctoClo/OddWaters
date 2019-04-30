@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -91,9 +91,6 @@ public class InputManager : MonoBehaviour
         RaycastHit desk = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.CompareTag("Desk"));
         if (desk.collider)
             mouseProjection.transform.position = desk.point;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
 
         if (!blockInput)
         {
