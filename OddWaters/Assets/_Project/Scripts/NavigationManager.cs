@@ -51,6 +51,7 @@ public class NavigationManager : MonoBehaviour
     
     bool onIsland = false;
     int currentZone = -1;
+    int targetZone;
 
     [HideInInspector]
     public Vector3 obstaclePos;
@@ -218,8 +219,13 @@ public class NavigationManager : MonoBehaviour
                 return ENavigationResult.TYPHOON;
 
             // Visible map zone (ok)
-            if (hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible))
+            RaycastHit mapZone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible);
+            if (mapZone.collider)
+            {
+                targetZone = mapZone.collider.GetComponent<MapZone>().zoneNumber;
                 return ENavigationResult.SEA;
+            }
+                
         }
         else
         {
@@ -276,15 +282,15 @@ public class NavigationManager : MonoBehaviour
         hasPlayedArrivalTransition = false;
     }
 
-    public void NavigateToPosition(Vector3 targetPos, int zoneNumber)
+    public void NavigateToPosition(Vector3 targetPos)
     {
         Vector3 journey = targetPos - boat.transform.position;
         if (journey.sqrMagnitude >= minDistance * minDistance)
         {
             LaunchNavigation(targetPos);
 
-            if (zoneNumber != map.currentZone)
-                map.ChangeZone(zoneNumber);
+            if (targetZone != map.currentZone)
+                map.ChangeZone(targetZone);
         }
     }
 

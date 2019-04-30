@@ -193,31 +193,21 @@ public class InputManager : MonoBehaviour
                         hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.transform.GetComponentInParent<MapZone>() != null);
                         if (hitInfo.collider)
                         {
-                            MapZone mapZone = hitInfo.collider.transform.GetComponentInParent<MapZone>();
-                            if (mapZone.visible)
+                            ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
+                            Debug.Log(result);
+                            if (result == ENavigationResult.SEA)
                             {
-                                ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
-                                if (result == ENavigationResult.SEA)
-                                {
-                                    StopNavigation();
-                                    navigationManager.NavigateToPosition(mouseProjection.transform.position, mapZone.zoneNumber);
-                                }
-                                else if (result == ENavigationResult.TYPHOON)
-                                {
-                                    StopNavigation();
-                                    navigationManager.NavigateToTyphoon(mouseProjection.transform.position);
-                                }
+                                StopNavigation();
+                                navigationManager.NavigateToPosition(mouseProjection.transform.position);
                             }
-                            else
+                            else if (result == ENavigationResult.TYPHOON)
                             {
-                                Debug.Log("Zone not yet available");
+                                StopNavigation();
+                                navigationManager.NavigateToTyphoon(mouseProjection.transform.position);
                             }
                         }
                         else
-                        {
-                            Debug.Log("Navigation is possible on map only");
                             StopNavigation();
-                        }
                     }
                 }
                 else
