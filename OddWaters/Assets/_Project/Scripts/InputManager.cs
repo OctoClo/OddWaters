@@ -112,7 +112,7 @@ public class InputManager : MonoBehaviour
             }
 
             // Mouse wheel
-            if (!navigation && interactibleState != EInteractibleState.CLICKED && Input.GetAxis("Mouse ScrollWheel") != 0)
+            if (!navigation && !telescopeDrag && interactibleState != EInteractibleState.CLICKED && Input.GetAxis("Mouse ScrollWheel") != 0)
             {
                 if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider") || hit.collider.GetComponent<TelescopeElement>()))
                     telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
@@ -226,6 +226,7 @@ public class InputManager : MonoBehaviour
                     if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
                     {
                         navigation = true;
+                        ActivatePanZones(false);
                         boat.StartTargeting();
                     }
                     else
@@ -251,6 +252,7 @@ public class InputManager : MonoBehaviour
                                 dragBeginPos = Input.mousePosition;
                                 Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
                                 telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                                ActivatePanZones(false);
                             }
                         }
                     }
@@ -284,14 +286,14 @@ public class InputManager : MonoBehaviour
                 inspectionInterface.gameObject.SetActive(true);
                 rotationPanel.SetActive(true);
                 telescope.SetImageAlpha(true);
-                panZones[0].gameObject.SetActive(false);
-                panZones[1].gameObject.SetActive(false);
+                ActivatePanZones(false);
             }
         }
         else if (telescopeDrag)
         {
             telescopeDrag = false;
             telescope.EndDrag();
+            ActivatePanZones(true);
         }
     }
 
@@ -313,16 +315,22 @@ public class InputManager : MonoBehaviour
         rotationPanel.SetActive(false);
         telescope.SetImageAlpha(false);
         interactible.ExitRotationInterface();
-        panZones[0].gameObject.SetActive(true);
-        panZones[1].gameObject.SetActive(true);
+        ActivatePanZones(true);
         interactible = null;
     }
 
     void StopNavigation()
     {
         navigation = false;
+        ActivatePanZones(true);
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         boat.StopTargeting();
+    }
+
+    void ActivatePanZones(bool active)
+    {
+        panZones[0].gameObject.SetActive(active);
+        panZones[1].gameObject.SetActive(active);
     }
 
     void OnBlockInputEvent(BlockInputEvent e)
