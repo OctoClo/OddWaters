@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +22,10 @@ public class Interactible : MonoBehaviour
     public ERotation[] rotationsAmount = new ERotation[3];
 
     public InspectionInterface inspectionInterface;
+
+    List<GameObject> groundCollisions;
+    [HideInInspector]
+    public bool grabbable = false;
 
     [HideInInspector]
     public bool rotating;
@@ -58,6 +62,8 @@ public class Interactible : MonoBehaviour
 
         switchTranscriptSide = false;
         side = 0;
+
+        groundCollisions = new List<GameObject>();
     }
 
     public virtual void Trigger()
@@ -67,7 +73,7 @@ public class Interactible : MonoBehaviour
 
     public bool IsGrabbable()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, boxCollider.bounds.extents.y + 0.1f);
+        return (groundCollisions.Count > 0);
     }
 
     public void Grab()
@@ -192,5 +198,17 @@ public class Interactible : MonoBehaviour
         rigidBody.useGravity = true;
         zoom = false;
         transform.parent = inventory;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if ((collision.gameObject.CompareTag("Desk") || collision.gameObject.GetComponent<Map>() || collision.gameObject.GetComponent<Interactible>()) && !groundCollisions.Contains(collision.gameObject))
+            groundCollisions.Add(collision.gameObject);
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if ((collision.gameObject.CompareTag("Desk") || collision.gameObject.GetComponent<Map>() || collision.gameObject.GetComponent<Interactible>()) && groundCollisions.Contains(collision.gameObject))
+            groundCollisions.Remove(collision.gameObject);
     }
 }
