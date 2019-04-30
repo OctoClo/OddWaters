@@ -86,22 +86,27 @@ public class Interactible : MonoBehaviour
 
     public void Rotate(int axis, int direction)
     {
-        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
-        inspectionInterface.SetButtonsActive(false);
+        int angle = getRotation(axis);
 
-        rotating = true;
-        rotationTime = 0;
-        rotationBefore = transform.rotation;
+        if (angle != 0)
+        {
+            AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
+            inspectionInterface.SetButtonsActive(false);
 
-        Vector3 axisVec = Vector3.zero;
-        if (axis == 0)
-            axisVec = Vector3.right;
-        else if (axis == 1)
-            axisVec = Vector3.up;
-        else if (axis == 2)
-            axisVec = Vector3.forward;
+            rotating = true;
+            rotationTime = 0;
+            rotationBefore = transform.rotation;
 
-        rotationAfter = Quaternion.AngleAxis(getRotation(axis) * direction, axisVec) * rotationBefore;
+            Vector3 axisVec = Vector3.zero;
+            if (axis == 0)
+                axisVec = Vector3.right;
+            else if (axis == 1)
+                axisVec = Vector3.up;
+            else if (axis == 2)
+                axisVec = Vector3.forward;
+
+            rotationAfter = Quaternion.AngleAxis(getRotation(axis) * direction, axisVec) * rotationBefore;
+        }
     }
 
     void Update()

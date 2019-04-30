@@ -194,7 +194,6 @@ public class InputManager : MonoBehaviour
                         if (hitInfo.collider)
                         {
                             ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
-                            Debug.Log(result);
                             if (result == ENavigationResult.SEA)
                             {
                                 StopNavigation();
