@@ -7,8 +7,14 @@ public enum ERotation { R0, R90, R180 };
 public class Interactible : MonoBehaviour
 {
     [SerializeField]
-    TextAsset transcriptJSON;
-    Transcript transcript;
+    TextAsset transcriptJSONRecto;
+    [SerializeField]
+    TextAsset transcriptJSONVerso;
+    Transcript transcriptRecto;
+    Transcript transcriptVerso;
+    bool switchTranscriptSide;
+    int side;
+
     [SerializeField]
     [Range(1, 4)]
     float rotationSpeed = 3f;
@@ -44,8 +50,14 @@ public class Interactible : MonoBehaviour
         rotating = false;
         currentRotationSpeed = rotationSpeed;
         inventory = transform.parent;
-        if (transcriptJSON != null)
-            transcript = JsonUtility.FromJson<Transcript>(transcriptJSON.text);
+
+        if (transcriptJSONRecto != null)
+            transcriptRecto = JsonUtility.FromJson<Transcript>(transcriptJSONRecto.text);
+        if (transcriptJSONVerso != null)
+            transcriptVerso = JsonUtility.FromJson<Transcript>(transcriptJSONVerso.text);
+
+        switchTranscriptSide = false;
+        side = 0;
     }
 
     public virtual void Trigger()
@@ -105,7 +117,10 @@ public class Interactible : MonoBehaviour
             else if (axis == 2)
                 axisVec = Vector3.forward;
 
-            rotationAfter = Quaternion.AngleAxis(getRotation(axis) * direction, axisVec) * rotationBefore;
+            rotationAfter = Quaternion.AngleAxis(angle * direction, axisVec) * rotationBefore;
+
+            if (axis == 2 && angle == 180)
+                switchTranscriptSide = true;
         }
     }
 
@@ -124,6 +139,13 @@ public class Interactible : MonoBehaviour
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
                 inspectionInterface.SetButtonsActive(true);
+
+                if (switchTranscriptSide)
+                {
+                    switchTranscriptSide = false;
+                    side = (side + 1) % 2;
+                    inspectionInterface.DisplayTranscriptSide(side);
+                }
             }
         }
     }
@@ -146,7 +168,7 @@ public class Interactible : MonoBehaviour
         zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
         gameObject.transform.position = zoomPosition;
 
-        inspectionInterface.InitializeInterface(transcript);
+        inspectionInterface.InitializeInterface(transcriptRecto, transcriptVerso, side);
         for (int i = 0; i < 3; i++)
         {
             if (rotationsAmount[i] == ERotation.R0)
