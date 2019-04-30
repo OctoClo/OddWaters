@@ -62,6 +62,7 @@ public class NavigationManager : MonoBehaviour
         navigating = false;
         hasPlayedArrivalTransition = false;
         islandTarget = null;
+        StartCoroutine(LaunchFirstAnimation());        
     }
 
     void OnEnable()
@@ -72,6 +73,13 @@ public class NavigationManager : MonoBehaviour
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
+    }
+
+    IEnumerator LaunchFirstAnimation()
+    {
+        yield return new WaitForSeconds(0.05f);
+        telescope.PlayAnimation(false, true);
+        telescope.RefreshElements(boat.transform.up, boat.transform.position, boat.transform.right, map.GetCurrentPanorama());
     }
 
     void Update()
