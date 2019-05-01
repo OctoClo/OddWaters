@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoatInTyphoonEvent : GameEvent { };
-
 public class Boat : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +15,9 @@ public class Boat : MonoBehaviour
     public GameObject mouseProjection;
 
     List<Island> islandsInSight;
+
+    [HideInInspector]
+    public bool inATyphoon;
 
     void Start()
     {
@@ -70,11 +71,5 @@ public class Boat : MonoBehaviour
     public List<Island> GetIslandsInSight()
     {
         return islandsInSight;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Typhoon"))
-            EventManager.Instance.Raise(new BoatInTyphoonEvent());
     }
 }

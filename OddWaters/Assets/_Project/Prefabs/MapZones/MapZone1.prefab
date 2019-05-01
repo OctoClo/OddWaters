@@ -416,7 +416,7 @@ MonoBehaviour:
   islandNumber: 1
   nextZone: 2
   visible: 0
-  illustration: {fileID: 21300000, guid: 9b94edee40395114cb1a4e0b2ad9d916, type: 3}
+  illustration: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
   character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
   objectToGive: {fileID: 787944874, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
   islandSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}

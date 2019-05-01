@@ -13,24 +13,25 @@ public class InspectionInterface : MonoBehaviour
     GameObject transcriptZone;
 
     [SerializeField]
-    TextMeshProUGUI transcriptText;
-    Transcript currentTranscript;
+    TextMeshProUGUI transcriptField;
+    string[] transcriptTexts;
 
     [SerializeField]
     Button[] rotateButtons;
 
     bool[] axisActive = new bool[3];
 
-    public void InitializeInterface(Transcript transcript)
+    public void InitializeInterface(Transcript transcriptRecto, Transcript transcriptVerso, int side)
     {
-        currentTranscript = transcript;
-        if (transcript != null)
-        {
-            transcriptButton.gameObject.SetActive(true);
-            transcriptText.text = currentTranscript.textFrench;
-        }
-        else
-            transcriptButton.gameObject.SetActive(false);
+        transcriptTexts = new string[2];
+
+        if (transcriptRecto != null)
+            transcriptTexts[0] = transcriptRecto.textFrench;
+
+        if (transcriptVerso != null)
+            transcriptTexts[1] = transcriptVerso.textFrench;
+
+        DisplayTranscriptSide(side);
 
         for (int i = 0; i < 3; i++)
             axisActive[i] = true;
@@ -58,5 +59,17 @@ public class InspectionInterface : MonoBehaviour
         bool transcriptActive = !transcriptZone.activeSelf;
         SetButtonsActive(!transcriptActive);
         transcriptZone.SetActive(transcriptActive);
+    }
+
+    public void DisplayTranscriptSide(int side)
+    {
+        string newTranscript = transcriptTexts[side];
+        if (newTranscript != null)
+        {
+            transcriptField.text = newTranscript;
+            transcriptButton.gameObject.SetActive(true);
+        }
+        else
+            transcriptButton.gameObject.SetActive(false);
     }
 }

@@ -6,9 +6,9 @@ public class Map : MonoBehaviour
 {
     [SerializeField]
     GameObject zonesFolder;
-    public MapZone[] mapZones;
+    MapZone[] mapZones;
     
-    public Island[] islands;
+    Island[] islands;
 
     [HideInInspector]
     public int currentZone;

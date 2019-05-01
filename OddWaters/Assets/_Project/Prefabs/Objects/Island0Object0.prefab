@@ -77,5 +77,20 @@ PrefabInstance:
       propertyPath: rotationsAmount.Array.data[1]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5828078540333372146, guid: 424a6eb1cf8a98540a455dda2a651793,
+        type: 3}
+      propertyPath: transcriptJSON
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5828078540333372146, guid: 424a6eb1cf8a98540a455dda2a651793,
+        type: 3}
+      propertyPath: transcriptJSONRecto
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5828078540333372146, guid: 424a6eb1cf8a98540a455dda2a651793,
+        type: 3}
+      propertyPath: transcriptJSONVerso
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
