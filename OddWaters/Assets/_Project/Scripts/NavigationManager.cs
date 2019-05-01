@@ -52,6 +52,10 @@ public class NavigationManager : MonoBehaviour
     bool onIsland = false;
     int targetZone;
 
+    Vector3 boatColliderLeft;
+    Vector3 boatColliderRight;
+    bool goingIntoTyphoon = false;
+
     [HideInInspector]
     public Vector3 obstaclePos;
 
@@ -62,9 +66,16 @@ public class NavigationManager : MonoBehaviour
         navigating = false;
         hasPlayedArrivalTransition = false;
         islandTarget = null;
+
         lastValidPosition = new GameObject("BoatGhost");
         lastValidPosition.transform.parent = map.gameObject.transform;
         lastValidPosition.transform.position = boat.transform.position;
+
+        CapsuleCollider capsuleCollider = boat.transform.GetComponentInChildren<BoatTyphoonCollider>().GetComponent<CapsuleCollider>();
+        Vector3 extent = boat.transform.right * capsuleCollider.radius;
+        boatColliderLeft = boat.transform.position - extent;
+        boatColliderRight = boat.transform.position + extent;
+
         StartCoroutine(LaunchFirstAnimation());
     }
 
@@ -137,7 +148,7 @@ public class NavigationManager : MonoBehaviour
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
 
                 // Near the end of journey
-                if (journey.sqrMagnitude <= 0.1f && !hasPlayedArrivalTransition)
+                if (journey.sqrMagnitude <= 0.1f && !goingIntoTyphoon && !hasPlayedArrivalTransition)
                     PlayEndAnimation();
             }
         }
@@ -292,6 +303,18 @@ public class NavigationManager : MonoBehaviour
             // Dezoom and fade out
             telescope.PlayAnimation(true, false);
             telescope.ResetZoom();
+
+            // Check if typhoon on journey
+            bool typhoonOnRight = false;
+            Vector3 raycastDir = journeyTarget - boatColliderLeft;
+            bool typhoonOnLeft = Physics.RaycastAll(boatColliderLeft, raycastDir, 20).Any(hit => hit.collider.CompareTag("Typhoon"));
+            if (!typhoonOnLeft)
+            {
+                raycastDir = journeyTarget - boatColliderRight;
+                typhoonOnRight = Physics.RaycastAll(boatColliderRight, raycastDir, 20).Any(hit => hit.collider.CompareTag("Typhoon"));
+            }
+            goingIntoTyphoon = (typhoonOnLeft || typhoonOnRight);
+            Debug.Log("Going into a typhoon? " + goingIntoTyphoon);
         }
     }
 
