@@ -307,11 +307,12 @@ public class NavigationManager : MonoBehaviour
             // Check if typhoon on journey
             bool typhoonOnRight = false;
             Vector3 raycastDir = journeyTarget - boatColliderLeft;
-            bool typhoonOnLeft = Physics.RaycastAll(boatColliderLeft, raycastDir, 20).Any(hit => hit.collider.CompareTag("Typhoon"));
+            float raycastLenght = raycastDir.magnitude;
+            bool typhoonOnLeft = Physics.RaycastAll(boatColliderLeft, raycastDir, raycastLenght).Any(hit => hit.collider.CompareTag("Typhoon"));
             if (!typhoonOnLeft)
             {
                 raycastDir = journeyTarget - boatColliderRight;
-                typhoonOnRight = Physics.RaycastAll(boatColliderRight, raycastDir, 20).Any(hit => hit.collider.CompareTag("Typhoon"));
+                typhoonOnRight = Physics.RaycastAll(boatColliderRight, raycastDir, raycastLenght).Any(hit => hit.collider.CompareTag("Typhoon"));
             }
             goingIntoTyphoon = (typhoonOnLeft || typhoonOnRight);
             Debug.Log("Going into a typhoon? " + goingIntoTyphoon);
