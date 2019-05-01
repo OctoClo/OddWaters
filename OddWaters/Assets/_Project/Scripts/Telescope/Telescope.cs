@@ -230,38 +230,41 @@ public class Telescope : MonoBehaviour
 
         foreach (Island island in boat.GetIslandsInSight())
         {
-            // Create islands
-            GameObject island1 = new GameObject("Island" + island.islandNumber);
-            SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = island.islandSprite;
-            spriteRenderer.sortingOrder = 4;
-            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            island1.AddComponent<BoxCollider>();
-            island1.transform.parent = layers[(int)ELayer.HORIZON].children[0];
-            island1.transform.rotation = Quaternion.Euler(90, 0, 0);
-            island1.transform.localScale = new Vector3(1, 1, 1);
+            if (island != boat.currentIsland)
+            {
+                // Create islands
+                GameObject island1 = new GameObject("Island" + island.islandNumber);
+                SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = island.islandSprite;
+                spriteRenderer.sortingOrder = 4;
+                spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                island1.AddComponent<BoxCollider>();
+                island1.transform.parent = layers[(int)ELayer.HORIZON].children[0];
+                island1.transform.rotation = Quaternion.Euler(90, 0, 0);
+                island1.transform.localScale = new Vector3(1, 1, 1);
 
-            GameObject island2 = Instantiate(island1, layers[(int)ELayer.HORIZON].children[1]);
-            island2.name = "Island" + island.islandNumber;
+                GameObject island2 = Instantiate(island1, layers[(int)ELayer.HORIZON].children[1]);
+                island2.name = "Island" + island.islandNumber;
 
-            // Place islands in 0-360°
-            float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
-            angle = 360 - angle;
-            float offset = angle * (islandsLayerWidth / 360f) - (islandsLayerWidth / 2f);
-            island1.transform.localPosition = new Vector3(offset, 0, 0);
-            island2.transform.localPosition = new Vector3(offset, 0, 0);
+                // Place islands in 0-360°
+                float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
+                angle = 360 - angle;
+                float offset = angle * (islandsLayerWidth / 360f) - (islandsLayerWidth / 2f);
+                island1.transform.localPosition = new Vector3(offset, 0, 0);
+                island2.transform.localPosition = new Vector3(offset, 0, 0);
 
-            // Initialize telescope elements
-            TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
-            TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
-            island3D1Element.cloneElement = island2;
-            island3D2Element.cloneElement = island1;
-            island3D1Element.islandDiscover = island;
-            island3D2Element.islandDiscover = island;
-            island3D1Element.islandDiscoverNumber = island.islandNumber;
-            island3D2Element.islandDiscoverNumber = island.islandNumber;
+                // Initialize telescope elements
+                TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
+                TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
+                island3D1Element.cloneElement = island2;
+                island3D2Element.cloneElement = island1;
+                island3D1Element.islandDiscover = island;
+                island3D2Element.islandDiscover = island;
+                island3D1Element.islandDiscoverNumber = island.islandNumber;
+                island3D2Element.islandDiscoverNumber = island.islandNumber;
 
-            islandInSight = island.gameObject;
+                islandInSight = island.gameObject;
+            }
         }
     }
 

@@ -45,8 +45,14 @@ public class ScreenManager : MonoBehaviour
         currentIslandNumber = -1;
     }
 
-    public void Berth(Island island)
+    public IEnumerator Berth(Island island)
     {
+        if (!island.discovered)
+        {
+            yield return StartCoroutine(island.Discover());
+            yield return new WaitForSeconds(1);
+        }
+
         for (int i = 0; i < (int)EIslandIlluType.COUNT; i++)
         {
             islandIllustrations[i].GetComponent<SpriteRenderer>().sprite = island.illustration;
@@ -55,6 +61,8 @@ public class ScreenManager : MonoBehaviour
 
         currentIslandNumber = island.islandNumber;
         firstVisit = island.firstTimeVisiting;
+        island.Berth();
+
         if (firstVisit)
         {
             objectToGive = island.objectToGive;

@@ -17,6 +17,9 @@ public class Island : MonoBehaviour
     [HideInInspector]
     public bool firstTimeVisiting = true;
 
+    [HideInInspector]
+    public bool discovered = false;
+
     MeshRenderer meshRenderer;
 
     void Start()
@@ -37,5 +40,6 @@ public class Island : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         AkSoundEngine.PostEvent("Play_Note", gameObject);
         meshRenderer.enabled = true;
+        discovered = true;
     }
 }
