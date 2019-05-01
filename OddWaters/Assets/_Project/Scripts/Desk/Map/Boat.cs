@@ -19,10 +19,17 @@ public class Boat : MonoBehaviour
     [HideInInspector]
     public bool inATyphoon;
 
+    [HideInInspector]
+    public bool onAnIsland;
+    [HideInInspector]
+    public Island currentIsland;
+
     void Start()
     {
         line.enabled = false;
         islandsInSight = new List<Island>();
+        inATyphoon = false;
+        onAnIsland = false;
     }
 
     public void StartTargeting()

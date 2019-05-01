@@ -42,7 +42,6 @@ public class NavigationManager : MonoBehaviour
     float journeyBeginTime;
     float journeyLength;
     bool hasPlayedArrivalTransition;
-    Island islandTarget;
     GameObject lastValidPosition;
     int lastValidZone;
 
@@ -65,13 +64,12 @@ public class NavigationManager : MonoBehaviour
         boatScript = boat.GetComponent<Boat>();
         navigating = false;
         hasPlayedArrivalTransition = false;
-        islandTarget = null;
 
         lastValidPosition = new GameObject("BoatGhost");
         lastValidPosition.transform.parent = map.gameObject.transform;
         lastValidPosition.transform.position = boat.transform.position;
 
-        CapsuleCollider capsuleCollider = boat.transform.GetComponentInChildren<BoatTyphoonCollider>().GetComponent<CapsuleCollider>();
+        CapsuleCollider capsuleCollider = boat.transform.GetComponentInChildren<BoatWorldCollider>().GetComponent<CapsuleCollider>();
         Vector3 extent = boat.transform.right * capsuleCollider.radius;
         boatColliderLeft = boat.transform.position - extent;
         boatColliderRight = boat.transform.position + extent;
@@ -111,34 +109,33 @@ public class NavigationManager : MonoBehaviour
                 if (!hasPlayedArrivalTransition)
                     PlayEndAnimation();
 
-                // Saving position if correct
+                // If correct position
                 if (!boatScript.inATyphoon)
                 {
+                    // Save position
                     lastValidPosition.transform.position = boat.transform.position;
                     lastValidZone = map.currentZone;
-                }
 
-                if (islandTarget)
-                {
-                    onIsland = true;
-                    boatRenderer.sprite = boatSprites[1];
-
-                    // Reset rotations
-                    boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
-                    boat.transform.GetChild(0).gameObject.SetActive(false);
-                    boat.transform.localRotation = Quaternion.Euler(90, 0, 0);
-
-                    if (islandTarget.firstTimeVisiting)
+                    // Berth on island if needed
+                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber)
                     {
-                        telescope.ResetAnimation();
-                        screenManager.Berth(islandTarget);
-                    }
+                        onIsland = true;
+                        boatRenderer.sprite = boatSprites[1];
 
-                    islandTarget.Berth();
-                    islandTarget = null;
+                        // Reset rotations
+                        boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
+                        boat.transform.GetChild(0).gameObject.SetActive(false);
+                        boat.transform.localRotation = Quaternion.Euler(90, 0, 0);
+
+                        if (boatScript.currentIsland.firstTimeVisiting)
+                            telescope.ResetAnimation();
+
+                        screenManager.Berth(boatScript.currentIsland);
+                        boatScript.currentIsland.Berth();
+                    }
+                    else
+                        EventManager.Instance.Raise(new BlockInputEvent() { block = false });
                 }
-                else
-                    EventManager.Instance.Raise(new BlockInputEvent() { block = false });
             }
             // Still journeying
             else
@@ -160,15 +157,10 @@ public class NavigationManager : MonoBehaviour
 
         AkSoundEngine.PostEvent("Play_Arrival", gameObject);
         lightScript.rotateDegreesPerSecond.value.y = 0;
-
-        if (!islandTarget || islandTarget && !islandTarget.firstTimeVisiting)
-        {
-            telescope.PlayAnimation(false, true);
-            telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
-        }
-
-        if (islandTarget && !islandTarget.firstTimeVisiting)
-            screenManager.Berth(islandTarget);
+        
+        telescope.PlayAnimation(false, true);
+        telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
+        
         if (onIsland)
         {
             screenManager.LeaveIsland();
@@ -324,12 +316,6 @@ public class NavigationManager : MonoBehaviour
         Vector3 journey = targetPos - boat.transform.position;
         if (journey.sqrMagnitude >= minDistance * minDistance)
             LaunchNavigation(targetPos, zoneNumber);
-    }
-
-    public void NavigateToIsland(Island island)
-    {
-        islandTarget = island;
-        LaunchNavigation(island.transform.position, island.islandNumber);
     }
 
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)

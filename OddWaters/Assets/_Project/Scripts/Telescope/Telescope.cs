@@ -258,6 +258,8 @@ public class Telescope : MonoBehaviour
             island3D2Element.cloneElement = island1;
             island3D1Element.islandDiscover = island;
             island3D2Element.islandDiscover = island;
+            island3D1Element.islandDiscoverNumber = island.islandNumber;
+            island3D2Element.islandDiscoverNumber = island.islandNumber;
 
             islandInSight = island.gameObject;
         }

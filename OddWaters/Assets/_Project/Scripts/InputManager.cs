@@ -176,32 +176,14 @@ public class InputManager : MonoBehaviour
             {
                 if (navigation)
                 {
-                    // Island navigation
+                    StopNavigation();
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Island>() != null);
+                    hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapZone>() != null);
                     if (hitInfo.collider)
                     {
-                        Island island = hitInfo.collider.GetComponent<Island>();
-                        if (island.islandNumber != screenManager.currentIslandNumber)
-                        {
-                            StopNavigation();
-                            navigationManager.NavigateToIsland(island);
-                        }
-                    }
-                    else
-                    {
-                        // Sea navigation
-                        hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapZone>() != null);
-                        if (hitInfo.collider)
-                        {
-                            ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
-                            if (result == ENavigationResult.SEA)
-                            {
-                                StopNavigation();
-                                navigationManager.NavigateToPosition(mouseProjection.transform.position, hitInfo.collider.GetComponentInParent<MapZone>().zoneNumber);
-                            }
-                        }
-                        else
-                            StopNavigation();
+                        ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
+                        if (result != ENavigationResult.KO)
+                            navigationManager.NavigateToPosition(mouseProjection.transform.position, hitInfo.collider.GetComponentInParent<MapZone>().zoneNumber);
                     }
                 }
                 else
