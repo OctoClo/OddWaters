@@ -83,7 +83,7 @@ public class ScreenManager : MonoBehaviour
             island.SetActive(true);
             islandIlluType = EIslandIlluType.FULLSCREEN;
             ChangeIslandIlluType();
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
             StartCoroutine(ChangeScreenType(EScreenType.ISLAND_SMALL));
         }
         else if (screenType == EScreenType.ISLAND_SMALL)

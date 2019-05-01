@@ -11,6 +11,9 @@ public class Inventory : MonoBehaviour
     Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
     [SerializeField]
     Vector3 targetPos = new Vector3(6.25f, 1.95f, -1.2f);
+    [SerializeField]
+    [Range(0.01f, 0.2f)]
+    float objectSpeed = 0.1f;
 
     GameObject newObject;
     BoxCollider boxCollider;
@@ -62,7 +65,7 @@ public class Inventory : MonoBehaviour
         }
         if (moving)
         {
-            currentPos.z -= 0.03f;
+            currentPos.z -= objectSpeed;
             newObject.transform.localPosition = currentPos;
 
             if ((currentPos - targetPos).sqrMagnitude <= 0.01f)
