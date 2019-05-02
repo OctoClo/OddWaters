@@ -72,7 +72,7 @@ public class ScreenManager : MonoBehaviour
 
         if (firstVisit)
         {
-            upPartAnimator.SetTrigger("Discover");
+            upPartAnimator.SetTrigger("FirstBerth");
             
             // Add object to inventory
             yield return new WaitForSeconds(7);
@@ -94,6 +94,7 @@ public class ScreenManager : MonoBehaviour
     public void LeaveIsland()
     {
         upPartAnimator.ResetTrigger("Berth");
+        upPartAnimator.ResetTrigger("FirstBerth");
         AkSoundEngine.PostEvent("Stop_AMB_Island" + currentIslandNumber, gameObject);
         upPartAnimator.SetTrigger("LeaveIsland");
         currentIslandNumber = -1;
