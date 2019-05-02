@@ -90,7 +90,7 @@ public class NavigationManager : MonoBehaviour
     IEnumerator LaunchFirstAnimation()
     {
         yield return new WaitForSeconds(0.05f);
-        telescope.PlayAnimation(false, true);
+        //telescope.PlayAnimation(false, true);
         telescope.RefreshElements(boat.transform.up, boat.transform.position, boat.transform.right, map.GetCurrentPanorama());
     }
 
@@ -118,9 +118,16 @@ public class NavigationManager : MonoBehaviour
 
                     // Berth on island if needed
                     if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber)
+                    {
                         StartCoroutine(BerthOnIsland());
+                    }
                     else
+                    {
+                        //EndJourneyAtSea
+                        screenManager.EndNavigationAtSea();
                         EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+                    }
+                        
                 }
             }
             // Still journeying
@@ -191,8 +198,18 @@ public class NavigationManager : MonoBehaviour
             boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
 
             // Dezoom and fade out
-            telescope.PlayAnimation(true, false);
+            //telescope.PlayAnimation(true, false);
             telescope.ResetZoom();
+
+            if (onIsland)
+            {
+                screenManager.LeaveIsland();
+            } 
+            else
+            {
+                screenManager.BeginNavigation();
+            }
+            
 
             // Check if typhoon on journey
             bool typhoonOnRight = false;
@@ -216,7 +233,7 @@ public class NavigationManager : MonoBehaviour
         AkSoundEngine.PostEvent("Play_Arrival", gameObject);
         lightScript.rotateDegreesPerSecond.value.y = 0;
 
-        telescope.PlayAnimation(false, true);
+        //telescope.PlayAnimation(false, true);
         telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
 
         if (onIsland)
