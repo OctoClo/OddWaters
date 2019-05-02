@@ -13,11 +13,9 @@ public enum ELayer
 public class Telescope : MonoBehaviour
 {
     [SerializeField]
-    Animator fadeAnimator;
-    SpriteRenderer animationSprite;
-
-    [SerializeField]
     Boat boat;
+
+    SpriteRenderer[] spriteRenderers;
 
     // Drag
     [SerializeField]
@@ -83,8 +81,7 @@ public class Telescope : MonoBehaviour
         scaleMaskNormal = maskZoom.transform.localScale;
         scaleMaskZoom = new Vector3(1, 1, 1);
         scaleContainerNormal = new Vector3(1, 1, 1);
-        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);
-        animationSprite = fadeAnimator.gameObject.GetComponent<SpriteRenderer>();
+        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);       
     }
     
     public void ResetZoom()
@@ -265,10 +262,12 @@ public class Telescope : MonoBehaviour
 
     public void SetImageAlpha(bool dark)
     {
-        if (dark)
-            fadeAnimator.Play("Base Layer.TelescopeDark");
-        else
-            fadeAnimator.Play("Base Layer.TelescopeLight");
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        float alpha = dark ? 0.3f : 1;
+        Color color = new Color(alpha, alpha, alpha, 1);
+
+        foreach (SpriteRenderer sprite in spriteRenderers)
+            sprite.color = color;
     }
 
 }

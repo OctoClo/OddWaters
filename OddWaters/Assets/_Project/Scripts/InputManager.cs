@@ -252,6 +252,7 @@ public class InputManager : MonoBehaviour
                 inspectionInterface.gameObject.SetActive(true);
                 rotationPanel.SetActive(true);
                 telescope.SetImageAlpha(true);
+                boat.SetImageAlpha(true);
                 ActivatePanZones(false);
             }
         }
@@ -280,6 +281,7 @@ public class InputManager : MonoBehaviour
         inspectionInterface.gameObject.SetActive(false);
         rotationPanel.SetActive(false);
         telescope.SetImageAlpha(false);
+        boat.SetImageAlpha(false);
         interactible.ExitRotationInterface();
         ActivatePanZones(true);
         interactible = null;
