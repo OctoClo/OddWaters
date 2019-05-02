@@ -460,7 +460,7 @@ MonoBehaviour:
   islandNumber: 1
   nextZone: 2
   visible: 0
-  illustration: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
+  background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
   character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
   objectToGive: {fileID: 787944874, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
   islandSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
@@ -566,7 +566,7 @@ Transform:
   - {fileID: 989681347503621925}
   - {fileID: 989681347420203528}
   - {fileID: 2921636734560906227}
-  - {fileID: 7762556384307766524}
+  - {fileID: 7040003903478744981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -877,7 +877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97eebb436ca629642a9649afe354f579, type: 3}
---- !u!4 &7762556384307766524 stripped
+--- !u!4 &7040003903478744981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
     type: 3}

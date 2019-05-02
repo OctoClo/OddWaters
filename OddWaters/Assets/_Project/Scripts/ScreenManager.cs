@@ -4,8 +4,6 @@ using UnityEngine;
 
 public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 
-public enum EIslandIlluType { FULLSCREEN, SMALL, COUNT }
-
 public class ScreenManager : MonoBehaviour
 {
     [SerializeField]
@@ -23,11 +21,9 @@ public class ScreenManager : MonoBehaviour
     [SerializeField]
     GameObject islandScreen;
     [SerializeField]
-    GameObject[] islandFolders;
+    GameObject islandBackground;
     [SerializeField]
-    GameObject[] islandIllustrations;
-    [SerializeField]
-    GameObject[] islandCharacters;
+    GameObject islandCharacter;
 
     [HideInInspector]
     public EScreenType screenType = EScreenType.SEA;
@@ -67,11 +63,8 @@ public class ScreenManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        for (int i = 0; i < (int)EIslandIlluType.COUNT; i++)
-        {
-            islandIllustrations[i].GetComponent<SpriteRenderer>().sprite = island.illustration;
-            islandCharacters[i].GetComponent<SpriteRenderer>().sprite = island.character;
-        }
+        islandBackground.GetComponent<SpriteRenderer>().sprite = island.background;
+        islandCharacter.GetComponent<SpriteRenderer>().sprite = island.character;
 
         currentIslandNumber = island.islandNumber;
         firstVisit = island.firstTimeVisiting;
@@ -79,68 +72,48 @@ public class ScreenManager : MonoBehaviour
 
         if (firstVisit)
         {
-            objectToGive = island.objectToGive;
-            nextZone = island.nextZone;
-
-            //Play arrival animation
             upPartAnimator.SetTrigger("Discover");
-
-            //islandScreen.SetActive(true);
             
+            // Add object to inventory
             yield return new WaitForSeconds(7);
+            objectToGive = island.objectToGive;
             inventory.AddToInventory(objectToGive);
             AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
-            yield return new WaitForSeconds(2.5f);
-            EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
-            
 
-            //StartCoroutine(ChangeScreenType(EScreenType.ISLAND_FULLSCREEN));
+            // Discover new zone
+            yield return new WaitForSeconds(2.5f);
+            nextZone = island.nextZone;
+            EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
         }
         else
-        {
-            //Play Berth Animation
             upPartAnimator.SetTrigger("Berth");
-            //StartCoroutine(ChangeScreenType(EScreenType.ISLAND_SMALL));
-        }
-            
+
+        EventManager.Instance.Raise(new BlockInputEvent() { block = false });
     }
 
     public void LeaveIsland()
     {
         upPartAnimator.ResetTrigger("Berth");
         AkSoundEngine.PostEvent("Stop_AMB_Island" + currentIslandNumber, gameObject);
-        //StartCoroutine(ChangeScreenType(EScreenType.SEA));
         upPartAnimator.SetTrigger("LeaveIsland");
         currentIslandNumber = -1;
     }
 
-    IEnumerator ChangeScreenType(EScreenType newType)
+    void ChangeScreenType(EScreenType newType)
     {
         screenType = newType;
 
         if (screenType == EScreenType.ISLAND_FULLSCREEN)
         {
-            upPartAnimator.SetTrigger("Discover");
-            //desk.SetActive(false);
-            //telescope.SetActive(false);
-            //islandScreen.SetActive(true);
-            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_SMALL));
+            desk.SetActive(false);
+            telescopeScreen.SetActive(false);
+            islandScreen.SetActive(true);
         }
         else if (screenType == EScreenType.ISLAND_SMALL)
         {
-            //desk.SetActive(true);
-            //telescope.SetActive(false);
-            //islandScreen.SetActive(true);
-            if (firstVisit)
-            {
-                yield return new WaitForSeconds(7);
-                inventory.AddToInventory(objectToGive);
-                AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
-                yield return new WaitForSeconds(2.5f);
-                EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
-            }
-            else
-                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+            desk.SetActive(true);
+            telescopeScreen.SetActive(false);
+            islandScreen.SetActive(true);
         }
         else
         {

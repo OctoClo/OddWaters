@@ -9,7 +9,7 @@ public class Island : MonoBehaviour
     public int islandNumber;
     public int nextZone;
     public bool visible;
-    public Sprite illustration;
+    public Sprite background;
     public Sprite character;
     public GameObject objectToGive;
     public Sprite islandSprite;

@@ -196,19 +196,6 @@ public class Telescope : MonoBehaviour
             layers[i].ResetPosition();
     }
 
-    public void PlayAnimation(bool fadeIn, bool fadeOut)
-    {
-        if (fadeIn && fadeOut)
-            fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
-        else
-        {
-            if (fadeIn)
-                fadeAnimator.Play("Base Layer.TelescopeFadeIn");
-            else if (fadeOut)
-                fadeAnimator.Play("Base Layer.TelescopeFadeOut");
-        }
-    }
-
     public void RefreshElements(Vector3 boatUp, Vector3 target, Vector3 boatRight, GameObject panorama)
     {
         if (panorama != null)
@@ -274,11 +261,6 @@ public class Telescope : MonoBehaviour
         to.y = 0;
         float angle = Vector3.Angle(from, to);
         return (Vector3.Angle(right, to) > 90f) ? 360f - angle : angle;
-    }
-
-    public void ResetAnimation()
-    {
-        fadeAnimator.Play("Base Layer.TelescopeLight");
     }
 
     public void SetImageAlpha(bool dark)

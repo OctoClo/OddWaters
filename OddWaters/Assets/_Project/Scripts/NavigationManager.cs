@@ -74,7 +74,7 @@ public class NavigationManager : MonoBehaviour
         boatColliderLeft = boat.transform.position - extent;
         boatColliderRight = boat.transform.position + extent;
 
-        StartCoroutine(LaunchFirstAnimation());
+        telescope.RefreshElements(boat.transform.up, boat.transform.position, boat.transform.right, map.GetCurrentPanorama());
     }
 
     void OnEnable()
@@ -85,13 +85,6 @@ public class NavigationManager : MonoBehaviour
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
-    }
-
-    IEnumerator LaunchFirstAnimation()
-    {
-        yield return new WaitForSeconds(0.05f);
-        //telescope.PlayAnimation(false, true);
-        telescope.RefreshElements(boat.transform.up, boat.transform.position, boat.transform.right, map.GetCurrentPanorama());
     }
 
     void Update()
@@ -119,7 +112,7 @@ public class NavigationManager : MonoBehaviour
                     // Berth on island if needed
                     if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber)
                     {
-                        StartCoroutine(BerthOnIsland());
+                        BerthOnIsland();
                     }
                     else
                     {
@@ -197,19 +190,16 @@ public class NavigationManager : MonoBehaviour
             // Reset field of view rotation
             boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
 
-            // Dezoom and fade out
-            //telescope.PlayAnimation(true, false);
+            // Dezoom
             telescope.ResetZoom();
 
             if (onIsland)
             {
+                onIsland = false;
                 screenManager.LeaveIsland();
             } 
             else
-            {
                 screenManager.BeginNavigation();
-            }
-            
 
             // Check if typhoon on journey
             bool typhoonOnRight = false;
@@ -232,32 +222,21 @@ public class NavigationManager : MonoBehaviour
 
         AkSoundEngine.PostEvent("Play_Arrival", gameObject);
         lightScript.rotateDegreesPerSecond.value.y = 0;
-
-        //telescope.PlayAnimation(false, true);
+        
         telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
-
-        if (onIsland)
-        {
-            screenManager.LeaveIsland();
-            onIsland = false;
-        }
     }
 
-    IEnumerator BerthOnIsland()
+    void BerthOnIsland()
     {
         onIsland = true;
-
-        yield return StartCoroutine(screenManager.Berth(boatScript.currentIsland));
-
         boatRenderer.sprite = boatSprites[1];
-        
+
         // Reset rotations
         boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
         boat.transform.GetChild(0).gameObject.SetActive(false);
         boat.transform.localRotation = Quaternion.Euler(90, 0, 0);
 
-        if (boatScript.currentIsland.firstTimeVisiting)
-            telescope.ResetAnimation();
+        StartCoroutine(screenManager.Berth(boatScript.currentIsland));
     }
 
     public void UpdateNavigation(Vector3 targetPos)
