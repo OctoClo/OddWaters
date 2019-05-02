@@ -104,22 +104,22 @@ public class NavigationManager : MonoBehaviour
             if (journey.sqrMagnitude <= 0.0005f)
             {
                 navigating = false;
-
-                if (!hasPlayedArrivalTransition)
-                    PlayEndAnimation();
-
+                
                 // If correct position
                 if (!boatScript.inATyphoon)
                 {
+                    AkSoundEngine.PostEvent("Play_Arrival", gameObject);
+                    lightScript.rotateDegreesPerSecond.value.y = 0;
+
+                    telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
+
                     // Save position
                     lastValidPosition.transform.position = boat.transform.position;
                     lastValidZone = map.currentZone;
 
                     // Berth on island if needed
                     if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber)
-                    {
                         BerthOnIsland();
-                    }
                     else
                     {
                         //EndJourneyAtSea
@@ -135,10 +135,6 @@ public class NavigationManager : MonoBehaviour
                 float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
-
-                // Near the end of journey
-                if (journey.sqrMagnitude <= 0.1f && !goingIntoTyphoon && !hasPlayedArrivalTransition)
-                    PlayEndAnimation();
             }
         }
     }
@@ -220,16 +216,6 @@ public class NavigationManager : MonoBehaviour
             goingIntoTyphoon = (typhoonOnLeft || typhoonOnRight);
             Debug.Log("Going into a typhoon? " + goingIntoTyphoon);
         }
-    }
-
-    void PlayEndAnimation()
-    {
-        hasPlayedArrivalTransition = true;
-
-        AkSoundEngine.PostEvent("Play_Arrival", gameObject);
-        lightScript.rotateDegreesPerSecond.value.y = 0;
-        
-        telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
     }
 
     void BerthOnIsland()
