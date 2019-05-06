@@ -39,6 +39,11 @@ public class NavigationManager : MonoBehaviour
     LineRenderer boatTrail;
     int linePoints = 0;
 
+    [SerializeField]
+    Transform typhoonIconsFolder;
+    [SerializeField]
+    GameObject typhoonIconPrefab;
+
     bool navigating;
     Vector3 journeyTarget;
     float journeyBeginTime;
@@ -165,6 +170,11 @@ public class NavigationManager : MonoBehaviour
     IEnumerator WaitBeforeGoingToInitialPos()
     {
         yield return new WaitForSeconds(0.5f);
+
+        // Create typhoon icon
+        GameObject typhoonIcon = Instantiate(typhoonIconPrefab, typhoonIconsFolder);
+        typhoonIcon.transform.position = boat.transform.position;
+
         LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, true);
     }
 
