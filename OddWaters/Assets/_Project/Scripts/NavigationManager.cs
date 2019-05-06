@@ -115,6 +115,7 @@ public class NavigationManager : MonoBehaviour
                 if (!boatScript.inATyphoon)
                 {
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
+                    AkSoundEngine.SetState("SeaIntensity", "CalmSea");
                     lightScript.rotateDegreesPerSecond.value.y = 0;
 
                     telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
@@ -164,12 +165,13 @@ public class NavigationManager : MonoBehaviour
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
         Debug.Log("Boat in typhoon!");
+        AkSoundEngine.SetState("SeaIntensity", "RoughSea");
         StartCoroutine(WaitBeforeGoingToInitialPos());
     }
 
     IEnumerator WaitBeforeGoingToInitialPos()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
 
         // Create typhoon icon
         GameObject typhoonIcon = Instantiate(typhoonIconPrefab, typhoonIconsFolder);
@@ -181,6 +183,7 @@ public class NavigationManager : MonoBehaviour
     void LaunchNavigation(Vector3 target, int newZoneNumber, bool fromTyphoon = false)
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        AkSoundEngine.PostEvent("Stop_SoundClue", gameObject);
 
         // Initialize navigation values
         navigating = true;

@@ -105,6 +105,7 @@ public class InputManager : MonoBehaviour
             // Right button down
             if (Input.GetMouseButtonDown(1))
             {
+                AkSoundEngine.PostEvent("Play_Click", gameObject);
                 if (navigation)
                     StopNavigation();
                 else if (interactibleState == EInteractibleState.CLICKED)
@@ -169,6 +170,7 @@ public class InputManager : MonoBehaviour
 
     void HandleMouseLeftButtonDown()
     {
+        AkSoundEngine.PostEvent("Play_Click", gameObject);
         hitsOnRayToMouse = hitsOnRayToMouse.OrderBy(hit => Vector3.SqrMagnitude(mainCamera.transform.position - hit.point)).ToArray();
         if (hitsOnRayToMouse.Length > 0)
         {

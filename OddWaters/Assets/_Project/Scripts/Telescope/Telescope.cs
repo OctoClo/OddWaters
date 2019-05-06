@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -248,6 +248,8 @@ public class Telescope : MonoBehaviour
                 island3D2Element.islandDiscoverNumber = island.islandNumber;
 
                 islandInSight = island.gameObject;
+
+                AkSoundEngine.PostEvent("Play_Clue_Island" + island.islandNumber, gameObject);
             }
         }
     }
