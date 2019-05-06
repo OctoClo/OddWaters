@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiscoverIslandEvent : GameEvent { public int islandNumber; }
-
 public class TelescopeElement : MonoBehaviour
 {
     [HideInInspector]
-    public int islandDiscoverNumber;
+    public bool triggerActive = true;
 
     [HideInInspector]
-    public Island islandDiscover;
+    public bool needZoom = false;
 
     [HideInInspector]
-    public GameObject cloneElement;
+    public MapElement elementDiscover;
+
+    [HideInInspector]
+    public TelescopeElement cloneElement;
 
     public void Trigger()
     {
-        cloneElement.GetComponent<TelescopeElement>().enabled = false;
-        EventManager.Instance.Raise(new DiscoverIslandEvent() { islandNumber = islandDiscoverNumber });
+        triggerActive = false;
+        cloneElement.triggerActive = false;
+        StartCoroutine(elementDiscover.Discover());
     }
 }

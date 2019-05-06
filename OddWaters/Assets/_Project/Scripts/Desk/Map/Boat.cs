@@ -13,7 +13,7 @@ public class Boat : MonoBehaviour
     public GameObject mouseProjection;
     SpriteRenderer[] spriteRenderers;
 
-    List<Island> islandsInSight;
+    List<MapElement> elementsInSight;
 
     [HideInInspector]
     public bool inATyphoon;
@@ -26,7 +26,7 @@ public class Boat : MonoBehaviour
     void Start()
     {
         line.enabled = false;
-        islandsInSight = new List<Island>();
+        elementsInSight = new List<MapElement>();
         inATyphoon = false;
         onAnIsland = false;
 
@@ -52,21 +52,21 @@ public class Boat : MonoBehaviour
         }
     }
 
-    public void IslandInSight(Island island)
+    public void ElementInSight(MapElement element)
     {
-        if (!islandsInSight.Contains(island))
-            islandsInSight.Add(island);
+        if (!elementsInSight.Contains(element))
+            elementsInSight.Add(element);
     }
 
-    public void IslandNoMoreInSight(Island island)
+    public void ElementNoMoreInSight(MapElement element)
     {
-        if (islandsInSight.Contains(island))
-            islandsInSight.Remove(island);
+        if (elementsInSight.Contains(element))
+            elementsInSight.Remove(element);
     }
 
-    public List<Island> GetIslandsInSight()
+    public List<MapElement> GetElementsInSight()
     {
-        return islandsInSight;
+        return elementsInSight;
     }
 
     public void SetImageAlpha(bool dark)
