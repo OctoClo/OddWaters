@@ -35,6 +35,9 @@ public class NavigationManager : MonoBehaviour
     [SerializeField]
     float maxDistance = 3f;
     float minDistance = 0.3f;
+    [SerializeField]
+    LineRenderer boatTrail;
+    int linePoints = 0;
 
     bool navigating;
     Vector3 journeyTarget;
@@ -70,6 +73,7 @@ public class NavigationManager : MonoBehaviour
         Vector3 extent = boat.transform.right * capsuleCollider.radius;
         boatColliderLeft = boat.transform.position - extent;
         boatColliderRight = boat.transform.position + extent;
+        boatTrail.SetPosition(0, boat.transform.position);
 
         StartCoroutine(InitializeTelescopeElements());
     }
@@ -132,7 +136,16 @@ public class NavigationManager : MonoBehaviour
                 float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
+                boatTrail.SetPosition(linePoints, boat.transform.position);
             }
+        }
+
+        Vector3 pos;
+        for (int i = 0; i <= linePoints; i++)
+        {
+            pos = boatTrail.GetPosition(i);
+            pos.y = boat.transform.position.y;
+            boatTrail.SetPosition(i, pos);
         }
     }
 
@@ -168,6 +181,11 @@ public class NavigationManager : MonoBehaviour
         journeyLength = (target - boat.transform.position).sqrMagnitude;
         journeyTarget = target;
         journeyBeginTime = Time.time;
+
+        // Update boat trail
+        linePoints++;
+        boatTrail.positionCount = linePoints + 1;
+        boatTrail.SetPosition(linePoints, boat.transform.position);
 
         // Update map zone
         if (newZoneNumber != map.currentZone)
