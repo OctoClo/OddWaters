@@ -169,60 +169,44 @@ public class InputManager : MonoBehaviour
 
     void HandleMouseLeftButtonDown()
     {
-        hitsOnRayToMouse = hitsOnRayToMouse.OrderBy(hit => Vector3.SqrMagnitude(mainCamera.transform.position - hit.point)).ToArray(); ;
+        hitsOnRayToMouse = hitsOnRayToMouse.OrderBy(hit => Vector3.SqrMagnitude(mainCamera.transform.position - hit.point)).ToArray();
         if (hitsOnRayToMouse.Length > 0)
         {
             if (interactibleState != EInteractibleState.CLICKED)
             {
-                if (navigation)
+                // Launch navigation
+                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
                 {
-                    StopNavigation();
-                    RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Island>() != null);
-                    hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapZone>() != null);
-                    if (hitInfo.collider)
-                    {
-                        ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
-                        if (result != ENavigationResult.KO)
-                            navigationManager.NavigateToPosition(mouseProjection.transform.position, hitInfo.collider.GetComponentInParent<MapZone>().zoneNumber);
-                    }
+                    navigation = true;
+                    ActivatePanZones(false);
+                    boat.StartTargeting();
                 }
                 else
                 {
-                    // Launch navigation
-                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
+                    // Interactible
+                    RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
+                    if (hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
                     {
-                        navigation = true;
-                        ActivatePanZones(false);
-                        boat.StartTargeting();
+                        interactible = hitInfo.collider.GetComponent<Interactible>();
+                        interactiblePressTime = Time.time;
+                        interactibleState = EInteractibleState.UNKNOWN;
+                        interactiblePressTime = 0;
+                        Vector3 interactibleGrabbedPos = interactible.GetGrabbedPosition();
+                        interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
+                        interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
                     }
                     else
                     {
-                        // Interactible
-                        RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
-                        if (hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
+                        // Telescope
+                        telescopeDrag = hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider"));
+                        if (telescopeDrag)
                         {
-                            interactible = hitInfo.collider.GetComponent<Interactible>();
-                            interactiblePressTime = Time.time;
-                            interactibleState = EInteractibleState.UNKNOWN;
-                            interactiblePressTime = 0;
-                            Vector3 interactibleGrabbedPos = interactible.GetGrabbedPosition();
-                            interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
-                            interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
-                        }
-                        else
-                        {
-                            // Telescope
-                            telescopeDrag = hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider"));
-                            if (telescopeDrag)
-                            {
-                                dragBeginPos = Input.mousePosition;
-                                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-                                ActivatePanZones(false);
-                            }
+                            dragBeginPos = Input.mousePosition;
+                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                            telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                            ActivatePanZones(false);
                         }
                     }
-
                 }
             }
             else
@@ -261,6 +245,11 @@ public class InputManager : MonoBehaviour
             telescopeDrag = false;
             telescope.EndDrag();
             ActivatePanZones(true);
+        }
+        else if (navigation)
+        {
+            navigationManager.Navigate();
+            StopNavigation();
         }
     }
 

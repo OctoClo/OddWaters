@@ -9,8 +9,6 @@ public class Boat : MonoBehaviour
 
     [SerializeField]
     LineRenderer line;
-    [SerializeField]
-    Gradient[] colorGradients;
     [HideInInspector]
     public GameObject mouseProjection;
     SpriteRenderer[] spriteRenderers;
@@ -50,19 +48,7 @@ public class Boat : MonoBehaviour
         if (line.enabled)
         {
             line.SetPosition(0, transform.position);
-            Vector3 obstacle = navigationManager.obstaclePos;
-            if (obstacle != Vector3.zero)
-            {
-                line.colorGradient = colorGradients[1];
-                line.SetPosition(1, obstacle);
-            }
-            else
-            {
-                line.colorGradient = colorGradients[0];
-                Vector3 endPos = mouseProjection.transform.position;
-                endPos.y += transform.localPosition.y;
-                line.SetPosition(1, endPos);
-            }
+            line.SetPosition(1, navigationManager.lastValidTarget);
         }
     }
 
