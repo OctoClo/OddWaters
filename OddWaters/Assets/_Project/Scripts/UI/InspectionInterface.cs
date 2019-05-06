@@ -45,7 +45,18 @@ public class InspectionInterface : MonoBehaviour
         axisActive[axis] = false;
     }
 
-    public void SetButtonsActive(bool active)
+    public void InitializeButtons()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            rotateButtons[(i * 2)].gameObject.SetActive(axisActive[i]);
+            rotateButtons[(i * 2)].interactable = (axisActive[i]);
+            rotateButtons[(i * 2) + 1].gameObject.SetActive(axisActive[i]);
+            rotateButtons[(i * 2) + 1].interactable = (axisActive[i]);
+        }
+    }
+
+    public void SetButtonsInteractable(bool active)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -57,7 +68,7 @@ public class InspectionInterface : MonoBehaviour
     public void ToggleTranscript()
     {
         bool transcriptActive = !transcriptZone.activeSelf;
-        SetButtonsActive(!transcriptActive);
+        SetButtonsInteractable(!transcriptActive);
         transcriptZone.SetActive(transcriptActive);
     }
 

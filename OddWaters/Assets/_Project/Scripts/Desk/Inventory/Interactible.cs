@@ -109,7 +109,7 @@ public class Interactible : MonoBehaviour
         if (angle != 0)
         {
             AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
-            inspectionInterface.SetButtonsActive(false);
+            inspectionInterface.SetButtonsInteractable(false);
 
             rotating = true;
             rotationTime = 0;
@@ -144,7 +144,7 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
-                inspectionInterface.SetButtonsActive(true);
+                inspectionInterface.SetButtonsInteractable(true);
 
                 if (switchTranscriptSide)
                 {
@@ -180,7 +180,7 @@ public class Interactible : MonoBehaviour
             if (rotationsAmount[i] == ERotation.R0)
                 inspectionInterface.DeactivateAxis(i);
         }
-        inspectionInterface.SetButtonsActive(true);
+        inspectionInterface.InitializeButtons();
         transform.SetParent(null);
     }
 
