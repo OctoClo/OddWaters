@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace /*UnityStandardAssets.Utility*/Aura2API //Original from Unity, changed namespace to avoid conflicts when importing official packages
+namespace /*UnityStandardAssets.Utility*/Aura2API // Original from Unity, changed namespace to avoid conflicts when importing official packages
 {
     public class AutoMoveAndRotate : MonoBehaviour
     {
@@ -30,8 +30,8 @@ namespace /*UnityStandardAssets.Utility*/Aura2API //Original from Unity, changed
                 deltaTime = (Time.realtimeSinceStartup - m_LastRealTime);
                 m_LastRealTime = Time.realtimeSinceStartup;
             }
-            transform.Translate(moveUnitsPerSecond.value*deltaTime, moveUnitsPerSecond.space);
-            transform.Rotate(rotateDegreesPerSecond.value*deltaTime, rotateDegreesPerSecond.space);
+            transform.Translate(moveUnitsPerSecond.value * deltaTime, moveUnitsPerSecond.space);
+            transform.Rotate(rotateDegreesPerSecond.value * deltaTime, rotateDegreesPerSecond.space);
         }
 
 

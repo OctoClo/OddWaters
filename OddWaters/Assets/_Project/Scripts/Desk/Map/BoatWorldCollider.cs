@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoatInTyphoonEvent : GameEvent { };
 
-public class BoatTyphoonCollider : MonoBehaviour
+public class BoatWorldCollider : MonoBehaviour
 {
     Boat boat;
 
@@ -15,7 +15,13 @@ public class BoatTyphoonCollider : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Typhoon"))
+        Island island = other.GetComponent<Island>();
+        if (island)
+        {
+            boat.onAnIsland = true;
+            boat.currentIsland = island;
+        }
+        else if (other.CompareTag("Typhoon"))
         {
             boat.inATyphoon = true;
             EventManager.Instance.Raise(new BoatInTyphoonEvent());
@@ -24,7 +30,13 @@ public class BoatTyphoonCollider : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Typhoon"))
+        Island island = other.GetComponent<Island>();
+        if (island)
+        {
+            boat.onAnIsland = false;
+            boat.currentIsland = null;
+        }
+        else if (other.CompareTag("Typhoon"))
             boat.inATyphoon = false;
     }
 }

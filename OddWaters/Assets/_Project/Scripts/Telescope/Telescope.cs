@@ -13,11 +13,9 @@ public enum ELayer
 public class Telescope : MonoBehaviour
 {
     [SerializeField]
-    Animator fadeAnimator;
-    SpriteRenderer animationSprite;
-
-    [SerializeField]
     Boat boat;
+
+    SpriteRenderer[] spriteRenderers;
 
     // Drag
     [SerializeField]
@@ -83,8 +81,7 @@ public class Telescope : MonoBehaviour
         scaleMaskNormal = maskZoom.transform.localScale;
         scaleMaskZoom = new Vector3(1, 1, 1);
         scaleContainerNormal = new Vector3(1, 1, 1);
-        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);
-        animationSprite = fadeAnimator.gameObject.GetComponent<SpriteRenderer>();
+        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);       
     }
     
     public void ResetZoom()
@@ -196,19 +193,6 @@ public class Telescope : MonoBehaviour
             layers[i].ResetPosition();
     }
 
-    public void PlayAnimation(bool fadeIn, bool fadeOut)
-    {
-        if (fadeIn && fadeOut)
-            fadeAnimator.Play("Base Layer.TelescopeFadeInOut");
-        else
-        {
-            if (fadeIn)
-                fadeAnimator.Play("Base Layer.TelescopeFadeIn");
-            else if (fadeOut)
-                fadeAnimator.Play("Base Layer.TelescopeFadeOut");
-        }
-    }
-
     public void RefreshElements(Vector3 boatUp, Vector3 target, Vector3 boatRight, GameObject panorama)
     {
         if (panorama != null)
@@ -230,36 +214,41 @@ public class Telescope : MonoBehaviour
 
         foreach (Island island in boat.GetIslandsInSight())
         {
-            // Create islands
-            GameObject island1 = new GameObject("Island" + island.islandNumber);
-            SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = island.islandSprite;
-            spriteRenderer.sortingOrder = 4;
-            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            island1.AddComponent<BoxCollider>();
-            island1.transform.parent = layers[(int)ELayer.HORIZON].children[0];
-            island1.transform.rotation = Quaternion.Euler(90, 0, 0);
-            island1.transform.localScale = new Vector3(1, 1, 1);
+            if (island != boat.currentIsland)
+            {
+                // Create islands
+                GameObject island1 = new GameObject("Island" + island.islandNumber);
+                SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = island.islandSprite;
+                spriteRenderer.sortingOrder = 4;
+                spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                island1.AddComponent<BoxCollider>();
+                island1.transform.parent = layers[(int)ELayer.HORIZON].children[0];
+                island1.transform.rotation = Quaternion.Euler(90, 0, 0);
+                island1.transform.localScale = new Vector3(1, 1, 1);
 
-            GameObject island2 = Instantiate(island1, layers[(int)ELayer.HORIZON].children[1]);
-            island2.name = "Island" + island.islandNumber;
+                GameObject island2 = Instantiate(island1, layers[(int)ELayer.HORIZON].children[1]);
+                island2.name = "Island" + island.islandNumber;
 
-            // Place islands in 0-360°
-            float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
-            angle = 360 - angle;
-            float offset = angle * (islandsLayerWidth / 360f) - (islandsLayerWidth / 2f);
-            island1.transform.localPosition = new Vector3(offset, 0, 0);
-            island2.transform.localPosition = new Vector3(offset, 0, 0);
+                // Place islands in 0-360°
+                float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
+                angle = 360 - angle;
+                float offset = angle * (islandsLayerWidth / 360f) - (islandsLayerWidth / 2f);
+                island1.transform.localPosition = new Vector3(offset, 0, 0);
+                island2.transform.localPosition = new Vector3(offset, 0, 0);
 
-            // Initialize telescope elements
-            TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
-            TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
-            island3D1Element.cloneElement = island2;
-            island3D2Element.cloneElement = island1;
-            island3D1Element.islandDiscover = island;
-            island3D2Element.islandDiscover = island;
+                // Initialize telescope elements
+                TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
+                TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
+                island3D1Element.cloneElement = island2;
+                island3D2Element.cloneElement = island1;
+                island3D1Element.islandDiscover = island;
+                island3D2Element.islandDiscover = island;
+                island3D1Element.islandDiscoverNumber = island.islandNumber;
+                island3D2Element.islandDiscoverNumber = island.islandNumber;
 
-            islandInSight = island.gameObject;
+                islandInSight = island.gameObject;
+            }
         }
     }
 
@@ -271,17 +260,14 @@ public class Telescope : MonoBehaviour
         return (Vector3.Angle(right, to) > 90f) ? 360f - angle : angle;
     }
 
-    public void ResetAnimation()
-    {
-        fadeAnimator.Play("Base Layer.TelescopeLight");
-    }
-
     public void SetImageAlpha(bool dark)
     {
-        if (dark)
-            fadeAnimator.Play("Base Layer.TelescopeDark");
-        else
-            fadeAnimator.Play("Base Layer.TelescopeLight");
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        float alpha = dark ? 0.3f : 1;
+        Color color = new Color(alpha, alpha, alpha, 1);
+
+        foreach (SpriteRenderer sprite in spriteRenderers)
+            sprite.color = color;
     }
 
 }

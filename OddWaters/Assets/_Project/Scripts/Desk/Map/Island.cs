@@ -9,13 +9,16 @@ public class Island : MonoBehaviour
     public int islandNumber;
     public int nextZone;
     public bool visible;
-    public Sprite illustration;
+    public Sprite background;
     public Sprite character;
     public GameObject objectToGive;
     public Sprite islandSprite;
 
     [HideInInspector]
     public bool firstTimeVisiting = true;
+
+    [HideInInspector]
+    public bool discovered = false;
 
     MeshRenderer meshRenderer;
 
@@ -37,5 +40,6 @@ public class Island : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         AkSoundEngine.PostEvent("Play_Note", gameObject);
         meshRenderer.enabled = true;
+        discovered = true;
     }
 }

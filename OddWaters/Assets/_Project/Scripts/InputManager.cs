@@ -176,32 +176,14 @@ public class InputManager : MonoBehaviour
             {
                 if (navigation)
                 {
-                    // Island navigation
+                    StopNavigation();
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Island>() != null);
+                    hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapZone>() != null);
                     if (hitInfo.collider)
                     {
-                        Island island = hitInfo.collider.GetComponent<Island>();
-                        if (island.islandNumber != screenManager.currentIslandNumber)
-                        {
-                            StopNavigation();
-                            navigationManager.NavigateToIsland(island);
-                        }
-                    }
-                    else
-                    {
-                        // Sea navigation
-                        hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapZone>() != null);
-                        if (hitInfo.collider)
-                        {
-                            ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
-                            if (result == ENavigationResult.SEA)
-                            {
-                                StopNavigation();
-                                navigationManager.NavigateToPosition(mouseProjection.transform.position, hitInfo.collider.GetComponentInParent<MapZone>().zoneNumber);
-                            }
-                        }
-                        else
-                            StopNavigation();
+                        ENavigationResult result = navigationManager.GetNavigationResult(mouseProjection.transform.position);
+                        if (result != ENavigationResult.KO)
+                            navigationManager.NavigateToPosition(mouseProjection.transform.position, hitInfo.collider.GetComponentInParent<MapZone>().zoneNumber);
                     }
                 }
                 else
@@ -270,6 +252,7 @@ public class InputManager : MonoBehaviour
                 inspectionInterface.gameObject.SetActive(true);
                 rotationPanel.SetActive(true);
                 telescope.SetImageAlpha(true);
+                boat.SetImageAlpha(true);
                 ActivatePanZones(false);
             }
         }
@@ -298,6 +281,7 @@ public class InputManager : MonoBehaviour
         inspectionInterface.gameObject.SetActive(false);
         rotationPanel.SetActive(false);
         telescope.SetImageAlpha(false);
+        boat.SetImageAlpha(false);
         interactible.ExitRotationInterface();
         ActivatePanZones(true);
         interactible = null;

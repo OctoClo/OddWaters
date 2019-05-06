@@ -6,6 +6,7 @@ public class DiscoverIslandEvent : GameEvent { public int islandNumber; }
 
 public class TelescopeElement : MonoBehaviour
 {
+    [HideInInspector]
     public int islandDiscoverNumber;
 
     [HideInInspector]
