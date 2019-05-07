@@ -169,7 +169,7 @@ public class Telescope : MonoBehaviour
                 if (element.triggerActive)
                 {
                     float distanceElement = Mathf.Abs(element.transform.position.x - maskZoom.transform.position.x);
-                    if (!element.needZoom || (zoom && distanceElement <= elementDetectionSensitivity))
+                    if ((!element.needZoom && element.inSight) || (zoom && distanceElement <= elementDetectionSensitivity))
                         element.Trigger();
                 }
             }
@@ -222,8 +222,9 @@ public class Telescope : MonoBehaviour
                 SpriteRenderer spriteRenderer = telescopeElementObject1.AddComponent<SpriteRenderer>();
                 spriteRenderer.sprite = element.elementSprite;
                 spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-                telescopeElementObject1.AddComponent<BoxCollider>();
-                
+                BoxCollider collider = telescopeElementObject1.AddComponent<BoxCollider>();
+                collider.isTrigger = true;
+
                 if (element.layer == ELayer.HORIZON)
                     spriteRenderer.sortingOrder = 4;
                 else
@@ -276,5 +277,4 @@ public class Telescope : MonoBehaviour
         foreach (SpriteRenderer sprite in spriteRenderers)
             sprite.color = color;
     }
-
 }

@@ -9,6 +9,9 @@ public class MapElement : MonoBehaviour
     public Sprite elementSprite;
     public ELayer layer;
 
+    [SerializeField]
+    string discoverySound;
+
     [HideInInspector]
     public bool discovered = false;
 
@@ -22,8 +25,12 @@ public class MapElement : MonoBehaviour
 
     public IEnumerator Discover()
     {
-        AkSoundEngine.PostEvent("Play_Discovery_Acte1", gameObject);
-        yield return new WaitForSeconds(1.5f);
+        if (discoverySound.Length > 0)
+        {
+            AkSoundEngine.PostEvent(discoverySound, gameObject);
+            yield return new WaitForSeconds(1.5f);
+        }
+        
         AkSoundEngine.PostEvent("Play_Note", gameObject);
         meshRenderer.enabled = true;
         visible = true;

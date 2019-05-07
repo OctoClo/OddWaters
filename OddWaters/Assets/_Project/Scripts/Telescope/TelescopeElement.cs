@@ -10,6 +10,9 @@ public class TelescopeElement : MonoBehaviour
     [HideInInspector]
     public bool needZoom = false;
 
+
+    public bool inSight = false;
+
     [HideInInspector]
     public MapElement elementDiscover;
 
@@ -21,5 +24,16 @@ public class TelescopeElement : MonoBehaviour
         triggerActive = false;
         cloneElement.triggerActive = false;
         StartCoroutine(elementDiscover.Discover());
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("TelescopeCollider"))
+            inSight = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("TelescopeCollider"))
+            inSight = false;
     }
 }
