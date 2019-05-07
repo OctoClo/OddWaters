@@ -19,8 +19,6 @@ public class InputManager : MonoBehaviour
     RaycastHit[] hitsOnRayToMouse;
 
     // Desk
-    [SerializeField]
-    PanZone[] panZones;
     [HideInInspector]
     public bool mouseProjectionOutOfDesk;
 
@@ -180,7 +178,6 @@ public class InputManager : MonoBehaviour
                 if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
                 {
                     navigation = true;
-                    ActivatePanZones(false);
                     boat.StartTargeting();
                 }
                 else
@@ -206,7 +203,6 @@ public class InputManager : MonoBehaviour
                             dragBeginPos = Input.mousePosition;
                             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
                             telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-                            ActivatePanZones(false);
                         }
                     }
                 }
@@ -239,14 +235,12 @@ public class InputManager : MonoBehaviour
                 rotationPanel.SetActive(true);
                 telescope.SetImageAlpha(true);
                 boat.SetImageAlpha(true);
-                ActivatePanZones(false);
             }
         }
         else if (telescopeDrag)
         {
             telescopeDrag = false;
             telescope.EndDrag();
-            ActivatePanZones(true);
         }
         else if (navigation)
         {
@@ -274,22 +268,14 @@ public class InputManager : MonoBehaviour
         telescope.SetImageAlpha(false);
         boat.SetImageAlpha(false);
         interactible.ExitRotationInterface();
-        ActivatePanZones(true);
         interactible = null;
     }
 
     void StopNavigation()
     {
         navigation = false;
-        ActivatePanZones(true);
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         boat.StopTargeting();
-    }
-
-    void ActivatePanZones(bool active)
-    {
-        panZones[0].gameObject.SetActive(active);
-        panZones[1].gameObject.SetActive(active);
     }
 
     void OnBlockInputEvent(BlockInputEvent e)
