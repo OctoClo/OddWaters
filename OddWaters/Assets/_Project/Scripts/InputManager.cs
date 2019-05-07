@@ -47,6 +47,8 @@ public class InputManager : MonoBehaviour
     NavigationManager navigationManager;
     [SerializeField]
     Boat boat;
+    [SerializeField]
+    Animator boatAnimator;
     bool navigation;
     
     void Start()
@@ -145,12 +147,22 @@ public class InputManager : MonoBehaviour
                 }
             }
 
+            // Hover things
             if (!interactible && !telescopeDrag && !navigation)
             {
-                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat") || hit.collider.GetComponent<Interactible>()))
+                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
+                {
                     CursorManager.Instance.SetCursor(ECursor.HOVER);
+                    boatAnimator.SetBool("Hover", true);
+                }
                 else
-                    CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                {
+                    boatAnimator.SetBool("Hover", false);
+                    if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()))
+                        CursorManager.Instance.SetCursor(ECursor.HOVER);
+                    else
+                        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                }
             }
         }
 
@@ -178,6 +190,7 @@ public class InputManager : MonoBehaviour
                 if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
                 {
                     navigation = true;
+                    boatAnimator.SetBool("Hold", true);
                     boat.StartTargeting();
                 }
                 else
@@ -274,6 +287,7 @@ public class InputManager : MonoBehaviour
     void StopNavigation()
     {
         navigation = false;
+        boatAnimator.SetBool("Hold", false);
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         boat.StopTargeting();
     }
