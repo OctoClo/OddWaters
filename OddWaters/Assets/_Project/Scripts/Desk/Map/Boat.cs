@@ -9,6 +9,8 @@ public class Boat : MonoBehaviour
 
     [SerializeField]
     LineRenderer line;
+    [SerializeField]
+    GameObject endOfLine;
     [HideInInspector]
     public GameObject mouseProjection;
     SpriteRenderer[] spriteRenderers;
@@ -26,6 +28,7 @@ public class Boat : MonoBehaviour
     void Start()
     {
         line.enabled = false;
+        endOfLine.SetActive(false);
         elementsInSight = new List<MapElement>();
         inATyphoon = false;
         onAnIsland = false;
@@ -36,11 +39,13 @@ public class Boat : MonoBehaviour
     public void StartTargeting()
     {
         line.enabled = true;
+        endOfLine.SetActive(true);
     }
 
     public void StopTargeting()
     {
         line.enabled = false;
+        endOfLine.SetActive(false);
     }
 
     void Update()
@@ -49,6 +54,7 @@ public class Boat : MonoBehaviour
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, navigationManager.lastValidTarget);
+            endOfLine.transform.position = navigationManager.lastValidTarget;
         }
     }
 
