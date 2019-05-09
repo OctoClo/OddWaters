@@ -270,11 +270,17 @@ public class Telescope : MonoBehaviour
 
     public void SetImageAlpha(bool dark)
     {
-        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        float alpha = dark ? 0.3f : 1;
-        Color color = new Color(alpha, alpha, alpha, 1);
+        float colorChange = dark ? -0.4f : 0.4f;
+        Color color;
 
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            color = sprite.color;
+            color.r += colorChange;
+            color.g += colorChange;
+            color.b += colorChange;
             sprite.color = color;
+        }
     }
 }
