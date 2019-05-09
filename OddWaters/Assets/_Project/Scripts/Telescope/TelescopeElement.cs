@@ -10,7 +10,6 @@ public class TelescopeElement : MonoBehaviour
     [HideInInspector]
     public bool needZoom = false;
 
-
     public bool inSight = false;
 
     [HideInInspector]
@@ -23,6 +22,8 @@ public class TelescopeElement : MonoBehaviour
     {
         triggerActive = false;
         cloneElement.triggerActive = false;
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+        cloneElement.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
         StartCoroutine(elementDiscover.Discover());
     }
     void OnTriggerEnter(Collider other)
