@@ -123,9 +123,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transcriptJSONRecto: {fileID: 4900000, guid: 83e6714e8e1e49146acc9dc45b44a07b, type: 3}
   transcriptJSONVerso: {fileID: 4900000, guid: b4ea6ae330bc8294e9de19292399554f, type: 3}
+  zoomOffset: 4
+  grabOffset: 0.01
   rotationSpeed: 3
   rotationsAmount: 000000000000000002000000
   inspectionInterface: {fileID: 0}
+  grabbable: 0
   rotating: 0
   soundMaterial:
     ID: -1168280295
