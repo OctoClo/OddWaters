@@ -112,13 +112,6 @@ public class InputManager : MonoBehaviour
                     ExitInterfaceRotation();
             }
 
-            // Mouse wheel
-            if (!navigation && !telescopeDrag && interactibleState != EInteractibleState.CLICKED && Input.GetAxis("Mouse ScrollWheel") != 0)
-            {
-                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider") || hit.collider.GetComponent<TelescopeElement>()))
-                    telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
-            }
-
             // Interactible grab / rotate
             if (interactible)
             {
@@ -155,10 +148,17 @@ public class InputManager : MonoBehaviour
                     CursorManager.Instance.SetCursor(ECursor.HOVER);
                     boatAnimator.SetBool("Hover", true);
                 }
-                else
+                else 
                 {
                     boatAnimator.SetBool("Hover", false);
-                    if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()))
+
+                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")))
+                    {
+                        CursorManager.Instance.SetCursor(ECursor.HOVER);
+                        if (Input.GetAxis("Mouse ScrollWheel") != 0) // Telescope zoom
+                            telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
+                    }
+                    else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()))
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
                     else
                         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
