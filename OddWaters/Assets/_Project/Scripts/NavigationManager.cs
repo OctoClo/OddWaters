@@ -272,9 +272,9 @@ public class NavigationManager : MonoBehaviour
                 CursorManager.Instance.SetCursor(ECursor.NAVIGATION_ISLAND);
                 break;
 
-            case ENavigationResult.KO:
+            /*case ENavigationResult.KO:
                 CursorManager.Instance.SetCursor(ECursor.NAVIGATION_KO);
-                break;
+                break;*/
         }
     }
 
@@ -317,7 +317,7 @@ public class NavigationManager : MonoBehaviour
             else
             {
                 lastValidTarget = FindMaxDistanceOnTrajectory(journey, targetPos);
-                return ENavigationResult.KO;
+                return ENavigationResult.SEA;
             }
         }
         else
@@ -329,12 +329,12 @@ public class NavigationManager : MonoBehaviour
             if (distanceToTarget <= maxDistance * maxDistance || maxDistance > distanceToBorder)
             {
                 lastValidTarget = mapZone.point;
-                return ENavigationResult.KO;
+                return ENavigationResult.SEA;
             }
             else
             {
                 lastValidTarget = FindMaxDistanceOnTrajectory(journey, targetPos);
-                return ENavigationResult.KO;
+                return ENavigationResult.SEA;
             }
         }
     }
