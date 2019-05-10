@@ -109,7 +109,7 @@ public class Interactible : MonoBehaviour
         if (angle != 0)
         {
             AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
-            inspectionInterface.SetButtonsInteractable(false);
+            boxCollider.enabled = false;
 
             rotating = true;
             rotationTime = 0;
@@ -125,8 +125,12 @@ public class Interactible : MonoBehaviour
 
             rotationAfter = Quaternion.AngleAxis(angle * direction, axisVec) * rotationBefore;
 
-            if (axis == 2 && angle == 180)
-                switchTranscriptSide = true;
+            if (zoom)
+            {
+                inspectionInterface.SetButtonsInteractable(false);
+                if (axis == 2 && angle == 180)
+                    switchTranscriptSide = true;
+            }
         }
     }
 
@@ -144,6 +148,7 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
+                boxCollider.enabled = true;
                 inspectionInterface.SetButtonsInteractable(true);
 
                 if (switchTranscriptSide)
