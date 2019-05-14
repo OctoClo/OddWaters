@@ -10,12 +10,12 @@ public class Boat : MonoBehaviour
     [SerializeField]
     LineRenderer line;
     [SerializeField]
-    Gradient[] colorGradients;
+    GameObject endOfLine;
     [HideInInspector]
     public GameObject mouseProjection;
     SpriteRenderer[] spriteRenderers;
 
-    List<Island> islandsInSight;
+    List<MapElement> elementsInSight;
 
     [HideInInspector]
     public bool inATyphoon;
@@ -28,7 +28,8 @@ public class Boat : MonoBehaviour
     void Start()
     {
         line.enabled = false;
-        islandsInSight = new List<Island>();
+        endOfLine.SetActive(false);
+        elementsInSight = new List<MapElement>();
         inATyphoon = false;
         onAnIsland = false;
 
@@ -38,11 +39,13 @@ public class Boat : MonoBehaviour
     public void StartTargeting()
     {
         line.enabled = true;
+        endOfLine.SetActive(true);
     }
 
     public void StopTargeting()
     {
         line.enabled = false;
+        endOfLine.SetActive(false);
     }
 
     void Update()
@@ -50,45 +53,40 @@ public class Boat : MonoBehaviour
         if (line.enabled)
         {
             line.SetPosition(0, transform.position);
-            Vector3 obstacle = navigationManager.obstaclePos;
-            if (obstacle != Vector3.zero)
-            {
-                line.colorGradient = colorGradients[1];
-                line.SetPosition(1, obstacle);
-            }
-            else
-            {
-                line.colorGradient = colorGradients[0];
-                Vector3 endPos = mouseProjection.transform.position;
-                endPos.y += transform.localPosition.y;
-                line.SetPosition(1, endPos);
-            }
+            line.SetPosition(1, navigationManager.lastValidTarget);
+            endOfLine.transform.position = navigationManager.lastValidTarget;
         }
     }
 
-    public void IslandInSight(Island island)
+    public void ElementInSight(MapElement element)
     {
-        if (!islandsInSight.Contains(island))
-            islandsInSight.Add(island);
+        if (!elementsInSight.Contains(element))
+            elementsInSight.Add(element);
     }
 
-    public void IslandNoMoreInSight(Island island)
+    public void ElementNoMoreInSight(MapElement element)
     {
-        if (islandsInSight.Contains(island))
-            islandsInSight.Remove(island);
+        if (elementsInSight.Contains(element))
+            elementsInSight.Remove(element);
     }
 
-    public List<Island> GetIslandsInSight()
+    public List<MapElement> GetElementsInSight()
     {
-        return islandsInSight;
+        return elementsInSight;
     }
 
     public void SetImageAlpha(bool dark)
     {
-        float alpha = dark ? 0.3f : 1;
-        Color color = new Color(alpha, alpha, alpha, 1);
+        float colorChange = dark ? -0.4f : 0.4f;
+        Color color;
 
         foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            color = sprite.color;
+            color.r += colorChange; 
+            color.g += colorChange; 
+            color.b += colorChange;
             sprite.color = color;
+        }
     }
 }

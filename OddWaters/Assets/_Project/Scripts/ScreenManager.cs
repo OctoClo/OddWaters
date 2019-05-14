@@ -7,7 +7,7 @@ public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 public class ScreenManager : MonoBehaviour
 {
     [SerializeField]
-    Animator upPartAnimator; 
+    Animator upPartAnimator;
 
     [SerializeField]
     GameObject telescopeScreen;

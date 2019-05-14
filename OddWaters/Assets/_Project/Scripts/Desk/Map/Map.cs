@@ -8,7 +8,7 @@ public class Map : MonoBehaviour
     GameObject zonesFolder;
     MapZone[] mapZones;
     
-    Island[] islands;
+    Island[] elements;
 
     [HideInInspector]
     public int currentZone;
@@ -19,7 +19,7 @@ public class Map : MonoBehaviour
     void Start()
     {
         mapZones = new MapZone[5];
-        islands = new Island[4];
+        elements = new Island[4];
 
         int mapCounter = 0;
         int islandCounter = 0;
@@ -36,7 +36,7 @@ public class Map : MonoBehaviour
             }
             else if (island)
             {
-                islands[islandCounter] = island;
+                elements[islandCounter] = island;
                 islandCounter++;
             }
         }
@@ -45,13 +45,11 @@ public class Map : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.AddListener<DiscoverIslandEvent>(OnDiscoverIslandEvent);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.RemoveListener<DiscoverIslandEvent>(OnDiscoverIslandEvent);
     }
 
     public void ChangeZone(int newZone)
@@ -76,17 +74,5 @@ public class Map : MonoBehaviour
     {
         Debug.Log("Discovered zone n°" + e.zoneNumber);
         mapZones[e.zoneNumber].Discover();
-    }
-
-    void OnDiscoverIslandEvent(DiscoverIslandEvent e)
-    {
-        Island island = islands[e.islandNumber];
-        if (!island.visible)
-        {
-            Debug.Log("Discovered island n°" + e.islandNumber);
-            island.visible = true;
-            StartCoroutine(islands[e.islandNumber].Discover());
-        }
-        
     }
 }

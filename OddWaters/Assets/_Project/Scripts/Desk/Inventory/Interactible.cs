@@ -16,6 +16,13 @@ public class Interactible : MonoBehaviour
     int side;
 
     [SerializeField]
+    [Range(2, 8)]
+    int zoomOffset = 4;
+    [SerializeField]
+    [Range(0.01f, 0.5f)]
+    float grabOffset = 0.1f;
+
+    [SerializeField]
     [Range(1, 4)]
     float rotationSpeed = 3f;
     [Tooltip("Ordre X - Y - Z")]
@@ -85,10 +92,11 @@ public class Interactible : MonoBehaviour
 
     public Vector3 GetGrabbedPosition()
     {
-        Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
-        verticalGrabOffset.Normalize();
-        verticalGrabOffset.y *= 2;
-        return transform.position + verticalGrabOffset;
+        Vector3 position = mainCamera.transform.position - gameObject.transform.position;
+        position.Normalize();
+        position += transform.position;
+        position.y = grabOffset;
+        return position;
     }
 
     public void MoveTo(Vector3 newPosition)
@@ -109,7 +117,7 @@ public class Interactible : MonoBehaviour
         if (angle != 0)
         {
             AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
-            inspectionInterface.SetButtonsActive(false);
+            boxCollider.enabled = false;
 
             rotating = true;
             rotationTime = 0;
@@ -125,8 +133,12 @@ public class Interactible : MonoBehaviour
 
             rotationAfter = Quaternion.AngleAxis(angle * direction, axisVec) * rotationBefore;
 
-            if (axis == 2 && angle == 180)
-                switchTranscriptSide = true;
+            if (zoom)
+            {
+                inspectionInterface.SetButtonsInteractable(false);
+                if (axis == 2 && angle == 180)
+                    switchTranscriptSide = true;
+            }
         }
     }
 
@@ -144,7 +156,8 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
-                inspectionInterface.SetButtonsActive(true);
+                boxCollider.enabled = true;
+                inspectionInterface.SetButtonsInteractable(true);
 
                 if (switchTranscriptSide)
                 {
@@ -171,7 +184,7 @@ public class Interactible : MonoBehaviour
         zoom = true;
         rigidBody.useGravity = false;
         beforeZoomPosition = gameObject.transform.position;
-        zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
+        zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + zoomOffset, 0);
         gameObject.transform.position = zoomPosition;
 
         inspectionInterface.InitializeInterface(transcriptRecto, transcriptVerso, side);
@@ -180,7 +193,7 @@ public class Interactible : MonoBehaviour
             if (rotationsAmount[i] == ERotation.R0)
                 inspectionInterface.DeactivateAxis(i);
         }
-        inspectionInterface.SetButtonsActive(true);
+        inspectionInterface.InitializeButtons();
         transform.SetParent(null);
     }
 

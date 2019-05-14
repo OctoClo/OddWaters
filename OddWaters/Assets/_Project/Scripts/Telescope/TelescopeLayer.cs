@@ -5,6 +5,7 @@ using UnityEngine;
 public class TelescopeLayer : MonoBehaviour
 {
     public float layerSize = 90;
+    Vector3 initialPos;
 
     [SerializeField]
     bool parallax;
@@ -26,8 +27,10 @@ public class TelescopeLayer : MonoBehaviour
         element2.name = "Element2";
         children[1] = element2.transform;
 
-        children[0].localPosition = new Vector3(0, 0, 0);
-        children[1].localPosition = new Vector3(parallaxSpeed * layerSize, 0, 0);
+        initialPos = children[0].localPosition;
+        Vector3 newPos = initialPos;
+        newPos.x += parallaxSpeed * layerSize;
+        children[1].localPosition = newPos;
 
         randomChild = children[0];
         lastX = randomChild.localPosition.x;
@@ -45,10 +48,10 @@ public class TelescopeLayer : MonoBehaviour
 
     public void ResetPosition()
     {
-        children[0].localPosition = Vector3.zero;
-        Vector3 newPosition = children[0].localPosition;
-        newPosition.x += parallaxSpeed * layerSize;
-        children[1].localPosition = newPosition;
+        children[0].localPosition = initialPos;
+        Vector3 newPos = initialPos;
+        newPos.x += parallaxSpeed * layerSize;
+        children[1].localPosition = newPos;
     }
 
     void Update()

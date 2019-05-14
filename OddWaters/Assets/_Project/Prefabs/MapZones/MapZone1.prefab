@@ -1,49 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &99371393735749374
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3075943140194796779}
-  - component: {fileID: 2682579366634514047}
-  m_Layer: 0
-  m_Name: Tyhpoon (8)
-  m_TagString: Typhoon
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3075943140194796779
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99371393735749374}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.235, y: 0.053, z: 0}
-  m_LocalScale: {x: 0.2026397, y: 0.31460065, z: 1.0000005}
-  m_Children: []
-  m_Father: {fileID: 989681348783808233}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2682579366634514047
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99371393735749374}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.13
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &989681346921631971
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681346921631971}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.131, y: -0.247, z: -0}
+  m_LocalPosition: {x: 0.112, y: -0.211, z: -0}
   m_LocalScale: {x: 0.20263927, y: 0.3146022, z: 1}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
@@ -86,7 +42,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.53
+  m_Radius: 0.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &989681347158541496
 GameObject:
@@ -113,7 +69,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681347158541496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.214, y: 0.07, z: 0}
+  m_LocalPosition: {x: -0.262, y: 0.165, z: -0}
   m_LocalScale: {x: 0.20264, y: 0.31460127, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
@@ -157,7 +113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681347344783392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.126, y: 0.111, z: -0}
+  m_LocalPosition: {x: 0.13, y: 0.055, z: 0}
   m_LocalScale: {x: 0.20264, y: 0.31460127, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
@@ -201,7 +157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681347406774145}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.269, y: -0.25, z: 0}
+  m_LocalPosition: {x: -0.352, y: -0.171, z: 0}
   m_LocalScale: {x: 0.20264, y: 0.31460127, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
@@ -218,7 +174,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.42
+  m_Radius: 0.51
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &989681347420203527
 GameObject:
@@ -245,11 +201,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681347420203527}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.155, y: 0.465, z: -0}
+  m_LocalPosition: {x: 0.139, y: 0.409, z: 0}
   m_LocalScale: {x: 0.20264, y: 0.31460127, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &989681347420203529
 SphereCollider:
@@ -262,7 +218,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.26
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &989681347503621924
 GameObject:
@@ -289,11 +245,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681347503621924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.476, y: 0.411, z: 0}
+  m_LocalPosition: {x: 0.472, y: 0.34, z: 0}
   m_LocalScale: {x: 0.20264, y: 0.31460127, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &989681347503621926
 SphereCollider:
@@ -306,7 +262,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.39
+  m_Radius: 0.33
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &989681348018090450
 GameObject:
@@ -333,11 +289,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681348018090450}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.392, y: -0.061, z: -0}
+  m_LocalPosition: {x: 0.35, y: -0.362, z: 0}
   m_LocalScale: {x: 0.20264, y: 0.31460127, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &989681348018090452
 SphereCollider:
@@ -380,8 +336,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989681348406941267}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.252, y: 0.1878, z: -0.05}
-  m_LocalScale: {x: 0.17879027, y: 0.17879038, z: 0.91302264}
+  m_LocalPosition: {x: 0.343, y: 0.104, z: -0.1}
+  m_LocalScale: {x: 0.2539032, y: 0.25390336, z: 1.2965994}
   m_Children:
   - {fileID: 989681348544395770}
   m_Father: {fileID: 989681348783808233}
@@ -457,15 +413,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45384d2e211b8f4793955f5416c7d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Island1
+  visible: 0
+  elementSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
+  layer: 1
+  discoverySound: Play_Discovery_Acte1
+  discovered: 0
   islandNumber: 1
   nextZone: 2
-  visible: 0
   background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
   character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
-  objectToGive: {fileID: 787944874, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
-  islandSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
+  objectToGive: {fileID: 1295717815572833368, guid: be58f5442f9ca7240a08e3608acff117,
+    type: 3}
   firstTimeVisiting: 1
-  discovered: 0
 --- !u!1 &989681348544395769
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,14 +519,9 @@ Transform:
   - {fileID: 989681347406774146}
   - {fileID: 989681347158541497}
   - {fileID: 989681347344783393}
-  - {fileID: 4542385156463580455}
   - {fileID: 989681348018090451}
-  - {fileID: 3075943140194796779}
-  - {fileID: 4211969720599590916}
   - {fileID: 989681347503621925}
   - {fileID: 989681347420203528}
-  - {fileID: 2921636734560906227}
-  - {fileID: 7040003903478744981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -646,240 +601,3 @@ MonoBehaviour:
   visible: 0
   visibleMat: {fileID: 2100000, guid: 5fd5a9e07e5f1a64bbbbfb7337695d3a, type: 2}
   invisibleMat: {fileID: 2100000, guid: 68fe5b64abd97c346ba6194cf3f50e6e, type: 2}
---- !u!1 &4454830138600751826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4542385156463580455}
-  - component: {fileID: 2061819819061479776}
-  m_Layer: 0
-  m_Name: Tyhpoon (7)
-  m_TagString: Typhoon
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4542385156463580455
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4454830138600751826}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13, y: 0.199, z: -0}
-  m_LocalScale: {x: 0.2026397, y: 0.31460065, z: 1.0000005}
-  m_Children: []
-  m_Father: {fileID: 989681348783808233}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2061819819061479776
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4454830138600751826}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.13
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &7678469118666718970
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2921636734560906227}
-  - component: {fileID: 9157261089956448519}
-  m_Layer: 0
-  m_Name: Tyhpoon (10)
-  m_TagString: Typhoon
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2921636734560906227
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7678469118666718970}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.135, y: 0.373, z: 0}
-  m_LocalScale: {x: 0.2026397, y: 0.31460065, z: 1.0000005}
-  m_Children: []
-  m_Father: {fileID: 989681348783808233}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &9157261089956448519
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7678469118666718970}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.35
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &8461976130389458108
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4211969720599590916}
-  - component: {fileID: 1996735117203266708}
-  m_Layer: 0
-  m_Name: Tyhpoon (9)
-  m_TagString: Typhoon
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4211969720599590916
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8461976130389458108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.349, y: 0.234, z: 0}
-  m_LocalScale: {x: 0.2026397, y: 0.31460065, z: 1.0000005}
-  m_Children: []
-  m_Father: {fileID: 989681348783808233}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1996735117203266708
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8461976130389458108}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &7762556384307766766
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 989681348783808233}
-    m_Modifications:
-    - target: {fileID: 723177004646277754, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_Name
-      value: Island0Object0
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277754, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.032
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.128
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.083
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.00000005960465
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.00000005960465
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -89.99399
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90.006
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.31118017
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.31118017
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.31118017
-      objectReference: {fileID: 0}
-    - target: {fileID: 6550559508211361058, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 723177004646277728, guid: 97eebb436ca629642a9649afe354f579,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 97eebb436ca629642a9649afe354f579, type: 3}
---- !u!4 &7040003903478744981 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 723177004646277755, guid: 97eebb436ca629642a9649afe354f579,
-    type: 3}
-  m_PrefabInstance: {fileID: 7762556384307766766}
-  m_PrefabAsset: {fileID: 0}

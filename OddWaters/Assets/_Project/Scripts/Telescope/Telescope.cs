@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,9 @@ public enum ELayer
     BACKGROUND,
     HORIZON,
     SEA,
-    FOREGROUND
+    WATER3,
+    WATER2,
+    WATER1
 };
 
 public class Telescope : MonoBehaviour
@@ -26,11 +28,9 @@ public class Telescope : MonoBehaviour
     float dragSpeedZoom = 0.3f;
     [SerializeField]
     Transform layersContainer;
-    float islandsLayerWidth;
     TelescopeLayer[] layers;
     float currentDragSpeed;
     float telescopePosMax;
-    Vector3 cursorScale;
 
     // Zoom
     bool zoom;
@@ -57,8 +57,10 @@ public class Telescope : MonoBehaviour
     float zoomAnimationAlpha;
 
     [SerializeField]
-    float islandDetectionSensitivity = 0.5f;
-    GameObject islandInSight = null;
+    float elementDetectionSensitivity = 0.5f;
+
+    [SerializeField]
+    Color fogFilter;
 
     void Start()
     {
@@ -71,9 +73,7 @@ public class Telescope : MonoBehaviour
         dragSpeedNormal /= 100f;
         dragSpeedZoom /= 100f;
         currentDragSpeed = 0;
-        cursorScale = new Vector3(1f, 1f, 0);
         telescopePosMax = layers[(int)ELayer.BACKGROUND].layerSize / 2f;
-        islandsLayerWidth = layers[(int)ELayer.HORIZON].layerSize * layers[(int)ELayer.HORIZON].parallaxSpeed;
 
         // Initialize zoom values
         zoom = false;
@@ -165,13 +165,16 @@ public class Telescope : MonoBehaviour
             boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
         }
         // Element identification on zoom
-        else if (zoom)
+        else
         {
             foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
             {
-                float distanceElement = (element.transform.position - maskZoom.transform.position).sqrMagnitude;
-                if (!element.islandDiscover.visible && element.gameObject.activeInHierarchy && distanceElement <= islandDetectionSensitivity * islandDetectionSensitivity)
-                    element.Trigger();
+                if (element.triggerActive)
+                {
+                    float distanceElement = Mathf.Abs(element.transform.position.x - maskZoom.transform.position.x);
+                    if ((!element.needZoom && element.inSight) || (zoom && distanceElement <= elementDetectionSensitivity))
+                        element.Trigger();
+                }
             }
         }
 
@@ -212,42 +215,52 @@ public class Telescope : MonoBehaviour
             Destroy(element.gameObject);
         }
 
-        foreach (Island island in boat.GetIslandsInSight())
+        foreach (MapElement element in boat.GetElementsInSight())
         {
-            if (island != boat.currentIsland)
+            Island island = element.GetComponent<Island>();
+            if (!island || island != boat.currentIsland)
             {
-                // Create islands
-                GameObject island1 = new GameObject("Island" + island.islandNumber);
-                SpriteRenderer spriteRenderer = island1.AddComponent<SpriteRenderer>();
-                spriteRenderer.sprite = island.islandSprite;
-                spriteRenderer.sortingOrder = 4;
+                // Create first telescope element
+                GameObject telescopeElementObject1 = new GameObject(element.name);
+                SpriteRenderer spriteRenderer = telescopeElementObject1.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = element.elementSprite;
                 spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-                island1.AddComponent<BoxCollider>();
-                island1.transform.parent = layers[(int)ELayer.HORIZON].children[0];
-                island1.transform.rotation = Quaternion.Euler(90, 0, 0);
-                island1.transform.localScale = new Vector3(1, 1, 1);
+                if (element.layer == ELayer.HORIZON && !element.visible)
+                    spriteRenderer.color = fogFilter;
+                BoxCollider collider = telescopeElementObject1.AddComponent<BoxCollider>();
+                collider.isTrigger = true;
 
-                GameObject island2 = Instantiate(island1, layers[(int)ELayer.HORIZON].children[1]);
-                island2.name = "Island" + island.islandNumber;
+                if (element.layer == ELayer.HORIZON)
+                    spriteRenderer.sortingOrder = 4;
+                else
+                    spriteRenderer.sortingOrder = 6;
 
-                // Place islands in 0-360°
-                float angle = Angle360(-boatUp, island.transform.position - target, boatRight);
+                telescopeElementObject1.transform.parent = layers[(int)element.layer].children[0];
+                telescopeElementObject1.transform.rotation = Quaternion.Euler(90, 0, 0);
+                telescopeElementObject1.transform.localScale = new Vector3(1, 1, 1);
+
+                TelescopeElement telescopeElement1 = telescopeElementObject1.AddComponent<TelescopeElement>();
+                telescopeElement1.elementDiscover = element;
+                telescopeElement1.triggerActive = !element.visible;
+                telescopeElement1.needZoom = (island != null);
+
+                // Clone it
+                GameObject telescopeElementObject2 = Instantiate(telescopeElementObject1, layers[(int)element.layer].children[1]);
+
+                // Place them on telescope in 0-360°
+                float angle = Angle360(-boatUp, element.transform.position - target, boatRight);
                 angle = 360 - angle;
-                float offset = angle * (islandsLayerWidth / 360f) - (islandsLayerWidth / 2f);
-                island1.transform.localPosition = new Vector3(offset, 0, 0);
-                island2.transform.localPosition = new Vector3(offset, 0, 0);
+                float layerWidth = layers[(int)element.layer].layerSize * layers[(int)element.layer].parallaxSpeed;
+                float offset = angle * (layerWidth / 360f) - (layerWidth / 2f);
+                telescopeElementObject1.transform.localPosition = new Vector3(offset, 0, 0);
+                telescopeElementObject2.transform.localPosition = new Vector3(offset, 0, 0);
 
                 // Initialize telescope elements
-                TelescopeElement island3D1Element = island1.AddComponent<TelescopeElement>();
-                TelescopeElement island3D2Element = island2.AddComponent<TelescopeElement>();
-                island3D1Element.cloneElement = island2;
-                island3D2Element.cloneElement = island1;
-                island3D1Element.islandDiscover = island;
-                island3D2Element.islandDiscover = island;
-                island3D1Element.islandDiscoverNumber = island.islandNumber;
-                island3D2Element.islandDiscoverNumber = island.islandNumber;
-
-                islandInSight = island.gameObject;
+                TelescopeElement telescopeElement2 = telescopeElementObject2.GetComponent<TelescopeElement>();
+                telescopeElement1.cloneElement = telescopeElement2;
+                telescopeElement2.cloneElement = telescopeElement1;
+                
+                AkSoundEngine.PostEvent("Play_Clue_" + element.name, gameObject);
             }
         }
     }
@@ -262,12 +275,17 @@ public class Telescope : MonoBehaviour
 
     public void SetImageAlpha(bool dark)
     {
+        float colorChange = dark ? -0.4f : 0.4f;
+        Color color;
+
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        float alpha = dark ? 0.3f : 1;
-        Color color = new Color(alpha, alpha, alpha, 1);
-
         foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            color = sprite.color;
+            color.r += colorChange;
+            color.g += colorChange;
+            color.b += colorChange;
             sprite.color = color;
+        }
     }
-
 }
