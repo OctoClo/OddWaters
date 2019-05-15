@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
     // General
     [SerializeField]
     ScreenManager screenManager;
+    [SerializeField]
+    DialogueManager dialogueManager;
     Camera mainCamera;
     GameObject mouseProjection;
     RaycastHit[] hitsOnRayToMouse;
@@ -35,6 +37,7 @@ public class InputManager : MonoBehaviour
     float interactiblePressTime;
     float interactibleClickTime;
     bool blockInput;
+    bool dialogueOngoing;
 
     // Telescope
     [SerializeField]
@@ -64,7 +67,8 @@ public class InputManager : MonoBehaviour
 
         mainCamera = Camera.main;
         blockInput = false;
-        
+        dialogueOngoing = false;
+
         interactiblePressTime = 0;
         interactibleClickTime = 0.15f;
         eventSystem = EventSystem.current;
@@ -76,11 +80,13 @@ public class InputManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<BlockInputEvent>(OnBlockInputEvent);
+        EventManager.Instance.AddListener<DialogueEvent>(OnDialogueEvent);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<BlockInputEvent>(OnBlockInputEvent);
+        EventManager.Instance.RemoveListener<DialogueEvent>(OnDialogueEvent);
     }
 
     void Update()
@@ -165,6 +171,10 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
+
+        // Dialogue
+        if (dialogueOngoing && Input.GetMouseButtonDown(0))
+            dialogueManager.NextLine();
 
         // Telescope drag
         if (telescopeDrag)
@@ -295,6 +305,11 @@ public class InputManager : MonoBehaviour
     void OnBlockInputEvent(BlockInputEvent e)
     {
         blockInput = e.block;
+    }
+
+    void OnDialogueEvent(DialogueEvent e)
+    {
+        dialogueOngoing = e.ongoing;
     }
 
     public void RotateButtonPositive(int axis)

@@ -17,7 +17,7 @@ public class MapElement : MonoBehaviour
 
     MeshRenderer meshRenderer;
 
-    void Start()
+    virtual protected void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.enabled = visible;

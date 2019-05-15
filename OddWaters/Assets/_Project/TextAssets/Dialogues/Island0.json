@@ -1,0 +1,21 @@
+{
+  "languages" :
+  [
+    {
+      "name" : "Serge",
+      "lines" :
+      [
+        "Bonjour petit voyageur :3",
+        "Je suis Serge, le pêcheur."
+      ]
+    },
+    {
+      "name" : "Serge",
+      "lines" :
+      [
+        "Line 1",
+        "Line 2"
+      ]
+    }
+  ]
+}

@@ -11,9 +11,20 @@ public class Island : MapElement
     public Sprite background;
     public Sprite character;
     public GameObject objectToGive;
+    public TextAsset speech;
+
+    [HideInInspector]
+    public Dialogue dialogue;
 
     [HideInInspector]
     public bool firstTimeVisiting = true;
+
+    override protected void Start()
+    {
+        base.Start();
+        dialogue = JsonUtility.FromJson<Dialogue>(speech.text);
+        firstTimeVisiting = true;
+    }
 
     public void Berth()
     {

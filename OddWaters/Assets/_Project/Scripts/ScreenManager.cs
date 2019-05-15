@@ -17,6 +17,8 @@ public class ScreenManager : MonoBehaviour
 
     [SerializeField]
     Inventory inventory;
+    [SerializeField]
+    DialogueManager dialogueManager;
 
     [SerializeField]
     GameObject islandScreen;
@@ -30,6 +32,7 @@ public class ScreenManager : MonoBehaviour
 
     [HideInInspector]
     public int currentIslandNumber;
+    Island currentIsland;
     bool firstVisit;
     GameObject objectToGive;
     int nextZone;
@@ -40,6 +43,16 @@ public class ScreenManager : MonoBehaviour
         AkSoundEngine.SetState("Weather", "Fine");
         AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
         currentIslandNumber = -1;
+    }
+
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<DialogueEvent>(OnDialogueEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<DialogueEvent>(OnDialogueEvent);
     }
 
     public void BeginNavigation()
@@ -57,6 +70,8 @@ public class ScreenManager : MonoBehaviour
 
     public IEnumerator Berth(Island island)
     {
+        currentIsland = island;
+
         if (!island.discovered)
         {
             yield return StartCoroutine(island.Discover());
@@ -73,20 +88,30 @@ public class ScreenManager : MonoBehaviour
         if (firstVisit)
         {
             upPartAnimator.SetTrigger("FirstBerth");
-            
-            // Add object to inventory
-            yield return new WaitForSeconds(7);
-            objectToGive = island.objectToGive;
-            inventory.AddToInventory(objectToGive);
-            AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
-
-            // Discover new zone
-            yield return new WaitForSeconds(2.5f);
-            nextZone = island.nextZone;
-            EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
+            yield return new WaitForSeconds(5);
+            dialogueManager.StartDialogue(island.dialogue);
         }
         else
+        {
             upPartAnimator.SetTrigger("Berth");
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+        }
+    }
+
+    public IEnumerator TransitionAfterFirstBerth()
+    {
+        upPartAnimator.SetTrigger("EndDialogue");
+        yield return new WaitForSeconds(2.5f);
+
+        // Add object to inventory
+        objectToGive = currentIsland.objectToGive;
+        inventory.AddToInventory(objectToGive);
+        AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
+
+        // Discover new zone
+        yield return new WaitForSeconds(2.5f);
+        nextZone = currentIsland.nextZone;
+        EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
 
         EventManager.Instance.Raise(new BlockInputEvent() { block = false });
     }
@@ -98,6 +123,12 @@ public class ScreenManager : MonoBehaviour
         AkSoundEngine.PostEvent("Stop_AMB_Island" + currentIslandNumber, gameObject);
         upPartAnimator.SetTrigger("LeaveIsland");
         currentIslandNumber = -1;
+    }
+
+    void OnDialogueEvent(DialogueEvent e)
+    {
+        if (!e.ongoing)
+            StartCoroutine(TransitionAfterFirstBerth());
     }
 
     void ChangeScreenType(EScreenType newType)

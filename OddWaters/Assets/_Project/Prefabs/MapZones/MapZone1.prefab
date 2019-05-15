@@ -419,12 +419,14 @@ MonoBehaviour:
   layer: 1
   discoverySound: Play_Discovery_Acte1
   discovered: 0
+  dialogueManager: {fileID: 0}
   islandNumber: 1
   nextZone: 2
   background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
   character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
   objectToGive: {fileID: 1295717815572833368, guid: be58f5442f9ca7240a08e3608acff117,
     type: 3}
+  speech: {fileID: 4900000, guid: 4d553299aa7cf924eace2f7b907f4b01, type: 3}
   firstTimeVisiting: 1
 --- !u!1 &989681348544395769
 GameObject:

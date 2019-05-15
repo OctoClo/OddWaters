@@ -6,6 +6,5 @@ using System;
 [Serializable]
 public class Transcript
 {
-    public string textFrench;
-    public string textEnglish;
+    public string[] languages;
 }
