@@ -24,12 +24,12 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         EventManager.Instance.Raise(new DialogueEvent() { ongoing = true });
-        nameField.text = dialogue.languages[0].name;
-        lines.Clear();
 
+        lines.Clear();
         foreach (string line in dialogue.languages[0].lines)
             lines.Enqueue(line);
 
+        nameField.text = dialogue.languages[0].name;
         NextLine();
     }
 
@@ -42,7 +42,15 @@ public class DialogueManager : MonoBehaviour
         }
 
         string line = lines.Dequeue();
-        //textField.text = line;
+
+        if (line[0] == '*')
+        {
+            textField.fontStyle = FontStyles.Italic;
+            line = line.Substring(1);
+        }
+        else
+            textField.fontStyle = FontStyles.Normal;
+
         StopAllCoroutines();
         StartCoroutine(TypeLine(line));
     }
