@@ -39,9 +39,6 @@ public class ScreenManager : MonoBehaviour
 
     private void Start()
     {
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
         currentIslandNumber = -1;
     }
 

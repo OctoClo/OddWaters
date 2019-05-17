@@ -79,8 +79,6 @@ public class NavigationManager : MonoBehaviour
         boatColliderLeft = boat.transform.position - extent;
         boatColliderRight = boat.transform.position + extent;
         boatTrail.SetPosition(0, boat.transform.position);
-
-        StartCoroutine(InitializeTelescopeElements());
     }
 
     void OnEnable()
@@ -93,9 +91,8 @@ public class NavigationManager : MonoBehaviour
         EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
     }
 
-    IEnumerator InitializeTelescopeElements()
+    public void InitializeTelescopeElements()
     {
-        yield return new WaitForSeconds(0.05f);
         telescope.RefreshElements(boat.transform.up, boat.transform.position, boat.transform.right, map.GetCurrentPanorama());
     }
 

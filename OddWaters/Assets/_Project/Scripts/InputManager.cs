@@ -13,12 +13,22 @@ public class InputManager : MonoBehaviour
 {
     // General
     [SerializeField]
+    TutorialManager tutorialManager;
+    [SerializeField]
     ScreenManager screenManager;
     [SerializeField]
     DialogueManager dialogueManager;
     Camera mainCamera;
     GameObject mouseProjection;
     RaycastHit[] hitsOnRayToMouse;
+    bool blockInput;
+    bool dialogueOngoing;
+
+    // Tutorial
+    [HideInInspector]
+    public bool tutorial;
+    [HideInInspector]
+    public ETutorialStep tutorialStep;
 
     // Desk
     [HideInInspector]
@@ -36,14 +46,14 @@ public class InputManager : MonoBehaviour
     EInteractibleState interactibleState;
     float interactiblePressTime;
     float interactibleClickTime;
-    bool blockInput;
-    bool dialogueOngoing;
-
+    
     // Telescope
     [SerializeField]
     Telescope telescope;
-    Vector3 dragBeginPos;
     bool telescopeDrag;
+    Vector3 dragBeginPos;
+    Vector3 dragCurrentPos;
+    float dragSpeed;
 
     // Map
     [SerializeField]
@@ -122,7 +132,7 @@ public class InputManager : MonoBehaviour
             if (interactible)
             {
                 interactiblePressTime += Time.deltaTime;
-                if (interactibleState == EInteractibleState.UNKNOWN && interactiblePressTime > interactibleClickTime)
+                if (interactibleState == EInteractibleState.UNKNOWN && interactiblePressTime > interactibleClickTime && (!tutorial || tutorialStep >= ETutorialStep.OBJECT_MOVE))
                 {
                     interactibleState = EInteractibleState.DRAGNDROP;
                     CursorManager.Instance.SetCursor(ECursor.DRAG);
@@ -149,22 +159,28 @@ public class InputManager : MonoBehaviour
             // Hover things
             if (!interactible && !telescopeDrag && !navigation)
             {
-                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
+                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialStep == ETutorialStep.BOAT_MOVE || tutorialStep == ETutorialStep.GO_TO_ISLAND))
                 {
                     CursorManager.Instance.SetCursor(ECursor.HOVER);
                     boatAnimator.SetBool("Hover", true);
                 }
-                else 
+                else
                 {
                     boatAnimator.SetBool("Hover", false);
 
-                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")))
+                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")) && (!tutorial || tutorialStep == ETutorialStep.TELESCOPE_MOVE || tutorialStep == ETutorialStep.TELESCOPE_ZOOM))
                     {
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
-                        if (Input.GetAxis("Mouse ScrollWheel") != 0) // Telescope zoom
+
+                        // Telescope zoom
+                        if (Input.GetAxis("Mouse ScrollWheel") != 0 && (!tutorial || tutorialStep == ETutorialStep.TELESCOPE_ZOOM))
+                        {
                             telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
+                            if (tutorialStep == ETutorialStep.TELESCOPE_ZOOM)
+                                tutorialManager.NextStep();
+                        }
                     }
-                    else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()))
+                    else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialStep >= ETutorialStep.OBJECT_ZOOM))
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
                     else
                         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
@@ -179,8 +195,9 @@ public class InputManager : MonoBehaviour
         // Telescope drag
         if (telescopeDrag)
         {
-            Vector3 dragCurrentPos = Input.mousePosition;
-            telescope.UpdateSpeed(-(dragCurrentPos - dragBeginPos).x * Time.deltaTime);
+            dragCurrentPos = Input.mousePosition;
+            dragSpeed = -(dragCurrentPos - dragBeginPos).x * Time.deltaTime;
+            telescope.UpdateSpeed(dragSpeed);
         }
 
         // Navigation
@@ -197,7 +214,7 @@ public class InputManager : MonoBehaviour
             if (interactibleState != EInteractibleState.CLICKED)
             {
                 // Launch navigation
-                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
+                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialStep == ETutorialStep.BOAT_MOVE || tutorialStep == ETutorialStep.GO_TO_ISLAND))
                 {
                     navigation = true;
                     boatAnimator.SetBool("Hold", true);
@@ -207,7 +224,7 @@ public class InputManager : MonoBehaviour
                 {
                     // Interactible
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
-                    if (hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
+                    if (hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable() && (!tutorial || tutorialStep >= ETutorialStep.OBJECT_ZOOM))
                     {
                         interactible = hitInfo.collider.GetComponent<Interactible>();
                         interactiblePressTime = Time.time;
@@ -220,7 +237,7 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         // Telescope
-                        telescopeDrag = hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider"));
+                        telescopeDrag = (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")) && (!tutorial || tutorialStep == ETutorialStep.TELESCOPE_MOVE || tutorialStep == ETutorialStep.TELESCOPE_ZOOM));
                         if (telescopeDrag)
                         {
                             dragBeginPos = Input.mousePosition;
@@ -264,6 +281,8 @@ public class InputManager : MonoBehaviour
         {
             telescopeDrag = false;
             telescope.EndDrag();
+            if (tutorialStep == ETutorialStep.TELESCOPE_MOVE)
+                tutorialManager.NextStep();
         }
         else if (navigation)
         {
