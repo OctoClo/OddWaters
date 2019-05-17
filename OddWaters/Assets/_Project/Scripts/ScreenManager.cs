@@ -37,9 +37,14 @@ public class ScreenManager : MonoBehaviour
     GameObject objectToGive;
     int nextZone;
 
+    [SerializeField]
+    TutorialManager tutorialManager;
+    bool tutorial;
+
     private void Start()
     {
         currentIslandNumber = -1;
+        tutorial = false;
     }
 
     void OnEnable()
@@ -65,13 +70,14 @@ public class ScreenManager : MonoBehaviour
         Debug.Log("EndNavigationAtSea");
     }
 
-    public IEnumerator Berth(Island island)
+    public IEnumerator Berth(Island island, bool tutorialNow)
     {
         currentIsland = island;
+        tutorial = tutorialNow;
 
         if (!island.discovered)
         {
-            yield return StartCoroutine(island.Discover());
+            yield return StartCoroutine(island.Discover(tutorialNow, tutorialManager));
             yield return new WaitForSeconds(1);
         }
 
@@ -109,6 +115,13 @@ public class ScreenManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         nextZone = currentIsland.nextZone;
         EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
+
+        // Tutorial
+        if (tutorial)
+        {
+            tutorial = false;
+            tutorialManager.NextStep();
+        }
 
         EventManager.Instance.Raise(new BlockInputEvent() { block = false });
     }

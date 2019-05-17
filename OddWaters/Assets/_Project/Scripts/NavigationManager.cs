@@ -64,11 +64,18 @@ public class NavigationManager : MonoBehaviour
     public Vector3 lastValidTarget;
     int lastValidTargetZone;
 
+    [SerializeField]
+    TutorialManager tutorialManager;
+    [HideInInspector]
+    public Collider goalCollider;
+    bool insideGoal;
+
     void Start()
     {
         boatRenderer = boat.GetComponent<SpriteRenderer>();
         boatScript = boat.GetComponent<Boat>();
         navigating = false;
+        insideGoal = false;
 
         lastValidPosition = new GameObject("BoatGhost");
         lastValidPosition.transform.parent = map.gameObject.transform;
@@ -123,14 +130,22 @@ public class NavigationManager : MonoBehaviour
 
                     // Berth on island if needed
                     if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber)
-                        BerthOnIsland();
+                        BerthOnIsland((goalCollider != null));
                     else
                     {
                         //EndJourneyAtSea
                         screenManager.EndNavigationAtSea();
                         EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+
+                        if (goalCollider && insideGoal)
+                            tutorialManager.NextStep();
                     }
-                        
+
+                    if (goalCollider && insideGoal)
+                    {
+                        goalCollider = null;
+                        insideGoal = false;
+                    }
                 }
             }
             // Still journeying
@@ -156,7 +171,9 @@ public class NavigationManager : MonoBehaviour
     {
         Vector3 journey = lastValidTarget - boat.transform.position;
         if (journey.sqrMagnitude >= minDistance * minDistance)
+        {
             LaunchNavigation(lastValidTarget, lastValidTargetZone);
+        }
     }
 
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
@@ -242,7 +259,7 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    void BerthOnIsland()
+    void BerthOnIsland(bool tutorial)
     {
         onIsland = true;
         boatRenderer.sprite = boatSprites[1];
@@ -252,7 +269,7 @@ public class NavigationManager : MonoBehaviour
         boat.transform.GetChild(0).gameObject.SetActive(false);
         boat.transform.localRotation = Quaternion.Euler(90, 0, 0);
 
-        StartCoroutine(screenManager.Berth(boatScript.currentIsland));
+        StartCoroutine(screenManager.Berth(boatScript.currentIsland, tutorial));
     }
 
     public void UpdateNavigation(Vector3 targetPos)
@@ -283,6 +300,9 @@ public class NavigationManager : MonoBehaviour
         Vector3 rayOrigin = targetPos;
         rayOrigin.y += 1;
         RaycastHit[] hitsAtTarget = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
+
+        if (goalCollider && hitsAtTarget.Any(hit => ReferenceEquals(hit.collider.gameObject, goalCollider.gameObject)))
+            insideGoal = true;
 
         // Visible island at target position or on trajectory (ok)
         RaycastHit island = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);

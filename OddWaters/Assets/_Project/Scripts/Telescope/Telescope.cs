@@ -62,6 +62,11 @@ public class Telescope : MonoBehaviour
     [SerializeField]
     Color fogFilter;
 
+    [SerializeField]
+    TutorialManager tutorialManager;
+    [HideInInspector]
+    public bool tutorial;
+
     void Start()
     {
         // Find layers
@@ -173,7 +178,7 @@ public class Telescope : MonoBehaviour
                 {
                     float distanceElement = Mathf.Abs(element.transform.position.x - maskZoom.transform.position.x);
                     if ((!element.needZoom && element.inSight) || (zoom && distanceElement <= elementDetectionSensitivity))
-                        element.Trigger();
+                        element.Trigger(tutorial, tutorialManager);
                 }
             }
         }

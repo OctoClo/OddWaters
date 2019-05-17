@@ -18,13 +18,13 @@ public class TelescopeElement : MonoBehaviour
     [HideInInspector]
     public TelescopeElement cloneElement;
 
-    public void Trigger()
+    public void Trigger(bool tutorial, TutorialManager tutorialManager)
     {
         triggerActive = false;
         cloneElement.triggerActive = false;
         GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
         cloneElement.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-        StartCoroutine(elementDiscover.Discover());
+        StartCoroutine(elementDiscover.Discover(tutorial, tutorialManager));
     }
     void OnTriggerEnter(Collider other)
     {

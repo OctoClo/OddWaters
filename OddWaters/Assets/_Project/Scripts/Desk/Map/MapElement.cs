@@ -23,7 +23,7 @@ public class MapElement : MonoBehaviour
         meshRenderer.enabled = visible;
     }
 
-    public IEnumerator Discover()
+    public IEnumerator Discover(bool tutorial, TutorialManager tutorialManager)
     {
         if (discoverySound.Length > 0)
         {
@@ -35,5 +35,8 @@ public class MapElement : MonoBehaviour
         meshRenderer.enabled = true;
         visible = true;
         discovered = true;
+
+        if (tutorial)
+            tutorialManager.NextStep();
     }
 }

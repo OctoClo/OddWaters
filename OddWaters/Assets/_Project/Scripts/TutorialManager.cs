@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -32,13 +32,21 @@ public class TutorialManager : MonoBehaviour
     NavigationManager navigationManager;
 
     [SerializeField]
+    GameObject panelUI;
+    [SerializeField]
     GameObject maskingCube;
     [SerializeField]
     GameObject upMaskingCube;
     [SerializeField]
+    Telescope telescope;
+    [SerializeField]
     GameObject deskMaskingCube;
     [SerializeField]
     Roll rollingDesk;
+    [SerializeField]
+    Collider boatGoalCollider;
+    [SerializeField]
+    Collider firstIslandCollider;
 
     void Start()
     {
@@ -75,23 +83,25 @@ public class TutorialManager : MonoBehaviour
             case ETutorialStep.BOAT_MOVE:
                 yield return new WaitForSeconds(telescopeDragWait);
                 Debug.Log(step);
-                upMaskingCube.SetActive(true);
                 deskMaskingCube.SetActive(false);
                 rollingDesk.enabled = true;
+                navigationManager.goalCollider = boatGoalCollider;
                 break;
 
             case ETutorialStep.TELESCOPE_ZOOM:
                 Debug.Log(step);
-                upMaskingCube.SetActive(false);
-                deskMaskingCube.SetActive(true);
+                telescope.SetImageAlpha(false);
+                panelUI.SetActive(true);
+                telescope.tutorial = true;
                 rollingDesk.enabled = false;
                 break;
 
             case ETutorialStep.GO_TO_ISLAND:
                 Debug.Log(step);
-                upMaskingCube.SetActive(true);
-                deskMaskingCube.SetActive(false);
+                panelUI.SetActive(false);
+                telescope.tutorial = false;
                 rollingDesk.enabled = true;
+                navigationManager.goalCollider = firstIslandCollider;
                 break;
 
             case ETutorialStep.OBJECT_ZOOM:
