@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -23,8 +23,7 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField]
     float stormDuration = 2;
-    [SerializeField]
-    float telescopeDragWait = 2;
+    public float telescopeDragWait = 2;
 
     [SerializeField]
     InputManager inputManager;
@@ -55,12 +54,12 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator UpdateStep()
     {
+        Debug.Log(step);
         inputManager.tutorialStep = step;
 
         switch (step)
         {
             case ETutorialStep.STORM:
-                Debug.Log(step);
                 upMaskingCube.SetActive(true);
                 deskMaskingCube.SetActive(true);
                 maskingCube.SetActive(true);
@@ -71,7 +70,6 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ETutorialStep.TELESCOPE_MOVE:
-                Debug.Log(step);
                 AkSoundEngine.SetState("SeaIntensity", "CalmSea");
                 AkSoundEngine.SetState("Weather", "Fine");
                 AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
@@ -81,15 +79,14 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ETutorialStep.BOAT_MOVE:
-                yield return new WaitForSeconds(telescopeDragWait);
-                Debug.Log(step);
+                telescope.SetImageAlpha(true);
                 deskMaskingCube.SetActive(false);
                 rollingDesk.enabled = true;
                 navigationManager.goalCollider = boatGoalCollider;
                 break;
 
             case ETutorialStep.TELESCOPE_ZOOM:
-                Debug.Log(step);
+                boatGoalCollider.gameObject.SetActive(false);
                 telescope.SetImageAlpha(false);
                 panelUI.SetActive(true);
                 telescope.tutorial = true;
@@ -97,7 +94,7 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ETutorialStep.GO_TO_ISLAND:
-                Debug.Log(step);
+                telescope.SetImageAlpha(true);
                 panelUI.SetActive(false);
                 telescope.tutorial = false;
                 rollingDesk.enabled = true;
@@ -105,19 +102,15 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ETutorialStep.OBJECT_ZOOM:
-                Debug.Log(step);
                 break;
 
             case ETutorialStep.OBJECT_ROTATE:
-                Debug.Log(step);
                 break;
 
             case ETutorialStep.OBJECT_MOVE:
-                Debug.Log(step);
                 break;
 
             case ETutorialStep.NO_TUTORIAL:
-                Debug.Log(step);
                 upMaskingCube.SetActive(false);
                 inputManager.tutorial = false;
                 break;

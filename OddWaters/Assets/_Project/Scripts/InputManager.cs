@@ -29,6 +29,7 @@ public class InputManager : MonoBehaviour
     public bool tutorial;
     [HideInInspector]
     public ETutorialStep tutorialStep;
+    bool firstTelescopeMove;
 
     // Desk
     [HideInInspector]
@@ -85,6 +86,7 @@ public class InputManager : MonoBehaviour
 
         telescopeDrag = false;
         navigation = false;
+        firstTelescopeMove = true;
     }
 
     void OnEnable()
@@ -176,8 +178,6 @@ public class InputManager : MonoBehaviour
                         if (Input.GetAxis("Mouse ScrollWheel") != 0 && (!tutorial || tutorialStep == ETutorialStep.TELESCOPE_ZOOM))
                         {
                             telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
-                            if (tutorialStep == ETutorialStep.TELESCOPE_ZOOM)
-                                tutorialManager.NextStep();
                         }
                     }
                     else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialStep >= ETutorialStep.OBJECT_ZOOM))
@@ -281,14 +281,24 @@ public class InputManager : MonoBehaviour
         {
             telescopeDrag = false;
             telescope.EndDrag();
-            if (tutorialStep == ETutorialStep.TELESCOPE_MOVE)
-                tutorialManager.NextStep();
+            if (tutorialStep == ETutorialStep.TELESCOPE_MOVE && firstTelescopeMove)
+                StartCoroutine(WaitBeforeTutorialGoOn());
         }
         else if (navigation)
         {
             navigationManager.Navigate();
             StopNavigation();
         }
+    }
+
+    IEnumerator WaitBeforeTutorialGoOn()
+    {
+        firstTelescopeMove = false;
+        yield return new WaitForSeconds(tutorialManager.telescopeDragWait);
+        if (!telescopeDrag)
+            tutorialManager.NextStep();
+        else
+            firstTelescopeMove = true;
     }
 
     void FixedUpdate()
