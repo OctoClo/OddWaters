@@ -49,6 +49,9 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        if (step != ETutorialStep.NO_TUTORIAL)
+            LaunchAmbiance();
+
         StartCoroutine(UpdateStep());
     }
 
@@ -70,9 +73,7 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ETutorialStep.TELESCOPE_MOVE:
-                AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-                AkSoundEngine.SetState("Weather", "Fine");
-                AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
+                LaunchAmbiance();
                 upMaskingCube.SetActive(false);
                 maskingCube.SetActive(false);
                 navigationManager.InitializeTelescopeElements();
@@ -121,5 +122,12 @@ public class TutorialManager : MonoBehaviour
     {
         step++;
         StartCoroutine(UpdateStep());
+    }
+
+    void LaunchAmbiance()
+    {
+        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
+        AkSoundEngine.SetState("Weather", "Fine");
+        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
     }
 }
