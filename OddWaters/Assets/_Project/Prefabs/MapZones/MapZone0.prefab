@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359006014877531841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.049999945, y: 0.319, z: -0.1}
-  m_LocalScale: {x: 0.18719599, y: 0.28415045, z: 0.9509565}
+  m_LocalPosition: {x: 0.02, y: -0.323, z: -0.1}
+  m_LocalScale: {x: 0.31881347, y: 0.48393664, z: 1.6195741}
   m_Children:
   - {fileID: 359006014965957679}
   m_Father: {fileID: 359006016548906844}
@@ -91,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.41, y: 0.44, z: 0.3}
-  m_Center: {x: -0.0000009536743, y: 0, z: -0.12}
+  m_Size: {x: 0.41, y: 0.35, z: 0.3}
+  m_Center: {x: 0.02, y: 0.01, z: -0.12}
 --- !u!114 &359006014877531844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +111,6 @@ MonoBehaviour:
   layer: 1
   discoverySound: Play_Discovery_Acte1
   discovered: 0
-  dialogueManager: {fileID: 0}
   islandNumber: 0
   nextZone: 1
   background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
@@ -119,6 +118,8 @@ MonoBehaviour:
   objectToGive: {fileID: 723177004646277754, guid: 97eebb436ca629642a9649afe354f579,
     type: 3}
   speech: {fileID: 4900000, guid: 4d553299aa7cf924eace2f7b907f4b01, type: 3}
+  dialogue:
+    languages: []
   firstTimeVisiting: 1
 --- !u!1 &359006014965957672
 GameObject:
@@ -163,7 +164,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &359006014965957678
 MonoBehaviour:
@@ -206,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 359006016548906845}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.68, y: 0, z: -2.04}
-  m_LocalScale: {x: 3.81, y: 2.51, z: 1}
+  m_LocalScale: {x: 3.87, y: 2.51, z: 1}
   m_Children:
   - {fileID: 359006014877531840}
   m_Father: {fileID: 0}
