@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoatInTyphoonEvent : GameEvent { };
+public class BoatInTyphoonEvent : GameEvent { public GameObject typhoon; };
 
 public class BoatWorldCollider : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class BoatWorldCollider : MonoBehaviour
         else if (other.CompareTag("Typhoon"))
         {
             boat.inATyphoon = true;
-            EventManager.Instance.Raise(new BoatInTyphoonEvent());
+            EventManager.Instance.Raise(new BoatInTyphoonEvent() { typhoon = other.gameObject });
         }
     }
 

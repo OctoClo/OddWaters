@@ -180,17 +180,13 @@ public class NavigationManager : MonoBehaviour
     {
         Debug.Log("Boat in typhoon!");
         AkSoundEngine.SetState("SeaIntensity", "RoughSea");
-        StartCoroutine(WaitBeforeGoingToInitialPos());
+        StartCoroutine(WaitBeforeGoingToInitialPos(e.typhoon));
     }
 
-    IEnumerator WaitBeforeGoingToInitialPos()
+    IEnumerator WaitBeforeGoingToInitialPos(GameObject typhoon)
     {
         yield return new WaitForSeconds(1.5f);
-
-        // Create typhoon icon
-        GameObject typhoonIcon = Instantiate(typhoonIconPrefab, typhoonIconsFolder);
-        typhoonIcon.transform.position = boat.transform.position;
-
+        typhoon.GetComponent<SpriteRenderer>().enabled = true;
         LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, true);
     }
 
