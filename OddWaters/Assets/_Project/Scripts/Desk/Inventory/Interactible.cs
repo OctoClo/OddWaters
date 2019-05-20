@@ -31,7 +31,6 @@ public class Interactible : MonoBehaviour
     public InspectionInterface inspectionInterface;
     public TutorialManager tutorialManager;
 
-    List<GameObject> groundCollisions;
     [HideInInspector]
     public bool grabbable = false;
 
@@ -70,8 +69,6 @@ public class Interactible : MonoBehaviour
 
         switchTranscriptSide = false;
         side = 0;
-
-        groundCollisions = new List<GameObject>();
     }
 
     public virtual void Trigger()
@@ -81,7 +78,7 @@ public class Interactible : MonoBehaviour
 
     public bool IsGrabbable()
     {
-        return (groundCollisions.Count > 0);
+        return (rigidBody.velocity == Vector3.zero);
     }
 
     public void Grab()
@@ -102,7 +99,7 @@ public class Interactible : MonoBehaviour
 
     public void MoveTo(Vector3 newPosition)
     {
-        rigidBody.MovePosition(newPosition);
+        rigidBody.velocity = (newPosition - transform.position) * 15;
     }
 
     public void Drop()
@@ -215,17 +212,5 @@ public class Interactible : MonoBehaviour
         rigidBody.useGravity = true;
         zoom = false;
         transform.parent = inventory;
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if ((collision.gameObject.CompareTag("Desk") || collision.gameObject.GetComponent<Map>() || collision.gameObject.GetComponent<Interactible>()) && !groundCollisions.Contains(collision.gameObject))
-            groundCollisions.Add(collision.gameObject);
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if ((collision.gameObject.CompareTag("Desk") || collision.gameObject.GetComponent<Map>() || collision.gameObject.GetComponent<Interactible>()) && groundCollisions.Contains(collision.gameObject))
-            groundCollisions.Remove(collision.gameObject);
     }
 }

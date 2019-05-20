@@ -29,10 +29,6 @@ public class InputManager : MonoBehaviour
     public bool tutorial;
     bool firstTelescopeMove;
 
-    // Desk
-    [HideInInspector]
-    public bool mouseProjectionOutOfDesk;
-
     // Interactible
     [SerializeField]
     InspectionInterface inspectionInterface;
@@ -71,8 +67,6 @@ public class InputManager : MonoBehaviour
         mouseCollider.isTrigger = true;
         mouseCollider.size = new Vector3(0.5f, 1, 0.5f);
         boat.mouseProjection = mouseProjection;
-
-        mouseProjectionOutOfDesk = false;
 
         mainCamera = Camera.main;
         blockInput = false;
@@ -308,7 +302,7 @@ public class InputManager : MonoBehaviour
     void FixedUpdate()
     {
         // Interactible drag and drop - Check desk borders before moving
-        if (interactible && interactibleState == EInteractibleState.DRAGNDROP && !mouseProjectionOutOfDesk)
+        if (interactible && interactibleState == EInteractibleState.DRAGNDROP)
         {
             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z);
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos) + interactibleOffset;
