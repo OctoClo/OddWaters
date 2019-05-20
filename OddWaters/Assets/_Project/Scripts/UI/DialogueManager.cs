@@ -68,7 +68,6 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        Debug.Log("End of conversation");
         EventManager.Instance.Raise(new DialogueEvent() { ongoing = false });
     }
 }

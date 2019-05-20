@@ -29,6 +29,7 @@ public class Interactible : MonoBehaviour
     public ERotation[] rotationsAmount = new ERotation[3];
 
     public InspectionInterface inspectionInterface;
+    public TutorialManager tutorialManager;
 
     List<GameObject> groundCollisions;
     [HideInInspector]
@@ -139,6 +140,9 @@ public class Interactible : MonoBehaviour
                 if (axis == 2 && angle == 180)
                     switchTranscriptSide = true;
             }
+
+            if (tutorialManager.step == ETutorialStep.OBJECT_ROTATE)
+                tutorialManager.NextStep();
         }
     }
 

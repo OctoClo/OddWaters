@@ -18,8 +18,7 @@ public enum ETutorialStep
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField]
-    ETutorialStep step = ETutorialStep.STORM;
+    public ETutorialStep step = ETutorialStep.STORM;
 
     [SerializeField]
     float stormDuration = 2;
@@ -49,7 +48,7 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        if (step != ETutorialStep.NO_TUTORIAL)
+        if (step == ETutorialStep.NO_TUTORIAL)
             LaunchAmbiance();
 
         StartCoroutine(UpdateStep());
@@ -58,7 +57,6 @@ public class TutorialManager : MonoBehaviour
     IEnumerator UpdateStep()
     {
         Debug.Log(step);
-        inputManager.tutorialStep = step;
 
         switch (step)
         {

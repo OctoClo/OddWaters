@@ -6,6 +6,8 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField]
     InspectionInterface inspectionInterface;
+    [SerializeField]
+    TutorialManager tutorialManager;
 
     [SerializeField]
     Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
@@ -48,6 +50,7 @@ public class Inventory : MonoBehaviour
 
         Interactible interactible = newObject.GetComponent<Interactible>();
         interactible.inspectionInterface = inspectionInterface;
+        interactible.tutorialManager = tutorialManager;
 
         moving = true;
     }

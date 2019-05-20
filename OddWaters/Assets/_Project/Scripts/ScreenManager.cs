@@ -67,7 +67,6 @@ public class ScreenManager : MonoBehaviour
     {
         upPartAnimator.ResetTrigger("LeaveIsland");
         upPartAnimator.SetTrigger("EndNavigationAtSea");
-        Debug.Log("EndNavigationAtSea");
     }
 
     public IEnumerator Berth(Island island, bool tutorialNow)
