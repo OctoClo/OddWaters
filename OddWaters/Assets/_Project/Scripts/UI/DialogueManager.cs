@@ -51,8 +51,9 @@ public class DialogueManager : MonoBehaviour
         else
             textField.fontStyle = FontStyles.Normal;
 
-        StopAllCoroutines();
-        StartCoroutine(TypeLine(line));
+        textField.text = line;
+        //StopAllCoroutines();
+        //StartCoroutine(TypeLine(line));
     }
 
     IEnumerator TypeLine(string line)
