@@ -1,7 +1,37 @@
 {
   "languages" :
   [
-    "Elie,\nJ'ai fait naufrage sur une île perdue au fin fond de la mer du typhon après qu'une tempête ait soudainement frappé mon navire.\nSi tu décides de partir à ma recherche, prends garde : cette mer est tout aussi fascinante qu'elle est dangereuse. J'y ai vu des choses extraordinaires et des phénomènes qui dépassent ma compréhension du monde.\nSeraient-ce mes derniers mots, je te souhaite bon vent et je remercie les eaux d'avoir croisé ta route, mon amie.\nR.B.",
-    "Elie,\nBlah blah blah."
+    {
+      "lines":
+      [
+        "Elie,",
+        "",
+        "We are writing to you because we need your help.",
+        "",
+        "A year ago, Anna Perdric was sent out with the mission to map what is still called \u201Cthe endless sea\u201D. As her return was planned several months from now, and contact with her was broken, we assumed she was lost, or wrecked at sea.",
+        "",
+        "A few weeks ago, a fisherman brought us a journal he dragged out of the sea. Even though it was badly damaged, we managed to transcript some of the writings, only to find out it was Anna’s travel notes.",
+        "",
+        "You’ll find contained in this letter these notes, which remain incomplete and cryptic. It is not much, unfortunately, but that is the only lead we have for now.",
+        "",
+        "We don’t know of any navigator who have even the slightest knowledge of these waters. But you, among all others, are able to sail on that sea."
+      ]
+    },
+    {
+      "lines":
+      [
+        "FR:Elie,",
+        "",
+        "FR:We are writing to you because we need your help.",
+        "",
+        "FR:A year ago, Anna Perdric was sent out with the mission to map what is still called \u201Cthe endless sea\u201D. As her return was planned several months from now, and contact with her was broken, we assumed she was lost, or wrecked at sea.",
+        "",
+        "FR:A few weeks ago, a fisherman brought us a journal he dragged out of the sea. Even though it was badly damaged, we managed to transcript some of the writings, only to find out it was Anna’s travel notes.",
+        "",
+        "FR:You’ ll find contained in this letter these notes, which remain incomplete and cryptic. It is not much, unfortunately, but that is the only lead we have for now.",
+        "",
+        "FR:We don’ t know of any navigator who have even the slightest knowledge of these waters. But you, among all others, are able to sail on that sea."
+      ]
+    }
   ]
 }

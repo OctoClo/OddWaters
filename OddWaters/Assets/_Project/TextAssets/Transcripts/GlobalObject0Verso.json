@@ -1,7 +1,37 @@
 {
   "languages" :
   [
-    "Mining\nBlack cristal\nTraders?",
-    "Mining\nBlack cristal\nTraders?"
+    {
+      "lines":
+      [
+        "We hope you’ll find out what happened to her, and what lies in this mysterious place.",
+        "",
+        "Transcripted notes of Anna Perdric - Mapping of unnamed sea",
+        "",
+        "Day 67: Got out of that neverending storm - Arrived on an island of fishermen - Locals don’t have much information about the sea",
+        "",
+        "Day 70: Strange streams - Unpredictable navigating conditions - Cannot locate myself easily - backtrack when ship caught in currents - Need to be careful - locals mentionned island up north",
+        "",
+        "Day 89: Travel was long - Managed to get out of this maze - No substantial help from locals - Talk in riddles - Don’t seem to understand what I want to achieve - Won’t extend my stay too much - It seems I’m on my own now - But not far from finding something",
+        "",
+        "Day ? : Lost - Can’t backtrack - NOTES END HERE"
+      ]
+    },
+    {
+      "lines":
+      [
+        "We hope you’ll find out what happened to her, and what lies in this mysterious place.",
+        "",
+        "Transcripted notes of Anna Perdric - Mapping of unnamed sea",
+        "",
+        "Day 67: Got out of that neverending storm - Arrived on an island of fishermen - Locals don’t have much information about the sea",
+        "",
+        "Day 70: Strange streams - Unpredictable navigating conditions - Cannot locate myself easily - backtrack when ship caught in currents - Need to be careful - locals mentionned island up north",
+        "",
+        "Day 89: Travel was long - Managed to get out of this maze - No substantial help from locals - Talk in riddles - Don’ t seem to understand what I want to achieve - Won’ t extend my stay too much - It seems I’ m on my own now - But not far from finding something",
+        "",
+        "Day ? : Lost - Can’ t backtrack - NOTES END HERE"
+      ]
+    }
   ]
 }

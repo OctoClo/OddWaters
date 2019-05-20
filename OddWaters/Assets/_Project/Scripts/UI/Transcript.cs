@@ -6,5 +6,11 @@ using System;
 [Serializable]
 public class Transcript
 {
-    public string[] languages;
+    public TranscriptText[] languages;
+}
+
+[Serializable]
+public class TranscriptText
+{
+    public string[] lines;
 }
