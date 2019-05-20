@@ -40,6 +40,8 @@ public class ScreenManager : MonoBehaviour
     [SerializeField]
     TutorialManager tutorialManager;
     bool tutorial;
+    [SerializeField]
+    GameObject tutorialPanel;
 
     private void Start()
     {
@@ -90,6 +92,7 @@ public class ScreenManager : MonoBehaviour
         if (firstVisit)
         {
             upPartAnimator.SetTrigger("FirstBerth");
+            tutorialPanel.SetActive(false);
             yield return new WaitForSeconds(5);
             dialogueManager.StartDialogue(island.dialogue);
         }
@@ -119,6 +122,7 @@ public class ScreenManager : MonoBehaviour
         if (tutorial)
         {
             tutorial = false;
+            tutorialPanel.SetActive(true);
             tutorialManager.NextStep();
         }
 

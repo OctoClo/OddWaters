@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using TMPro;
 
 public enum ETutorialStep
 {
@@ -18,11 +18,16 @@ public enum ETutorialStep
 
 public class TutorialManager : MonoBehaviour
 {
+    [SerializeField]
+    bool tutorial = true;
+    [HideInInspector]
     public ETutorialStep step = ETutorialStep.STORM;
 
     [SerializeField]
     float stormDuration = 2;
     public float telescopeDragWait = 2;
+    [SerializeField]
+    float lastSentenceDuration = 4;
 
     [SerializeField]
     InputManager inputManager;
@@ -46,12 +51,26 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     Collider firstIslandCollider;
 
+    [SerializeField]
+    TextMeshProUGUI tutorialField;
+    [SerializeField]
+    TextAsset tutorialJSON;
+    TutorialText tutorialText;
+
     void Start()
     {
-        if (step == ETutorialStep.NO_TUTORIAL)
-            LaunchAmbiance();
+        inputManager.tutorial = tutorial;
 
-        StartCoroutine(UpdateStep());
+        if (!tutorial)
+        {
+            step = ETutorialStep.NO_TUTORIAL;
+            LaunchAmbiance();
+        }
+        else
+        {
+            tutorialText = JsonUtility.FromJson<TutorialText>(tutorialJSON.text);
+            StartCoroutine(UpdateStep());
+        }        
     }
 
     IEnumerator UpdateStep()
@@ -65,7 +84,6 @@ public class TutorialManager : MonoBehaviour
                 deskMaskingCube.SetActive(true);
                 maskingCube.SetActive(true);
                 rollingDesk.enabled = false;
-                inputManager.tutorial = true;
                 yield return new WaitForSeconds(stormDuration);
                 NextStep();
                 break;
@@ -74,6 +92,8 @@ public class TutorialManager : MonoBehaviour
                 LaunchAmbiance();
                 upMaskingCube.SetActive(false);
                 maskingCube.SetActive(false);
+                tutorialField.transform.parent.gameObject.SetActive(true);
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
                 navigationManager.InitializeTelescopeElements();
                 break;
 
@@ -82,6 +102,7 @@ public class TutorialManager : MonoBehaviour
                 deskMaskingCube.SetActive(false);
                 rollingDesk.enabled = true;
                 navigationManager.goalCollider = boatGoalCollider;
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
                 break;
 
             case ETutorialStep.TELESCOPE_ZOOM:
@@ -90,6 +111,7 @@ public class TutorialManager : MonoBehaviour
                 panelUI.SetActive(true);
                 telescope.tutorial = true;
                 rollingDesk.enabled = false;
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
                 break;
 
             case ETutorialStep.GO_TO_ISLAND:
@@ -98,20 +120,27 @@ public class TutorialManager : MonoBehaviour
                 telescope.tutorial = false;
                 rollingDesk.enabled = true;
                 navigationManager.goalCollider = firstIslandCollider;
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
                 break;
 
             case ETutorialStep.OBJECT_ZOOM:
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
                 break;
 
             case ETutorialStep.OBJECT_ROTATE:
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
                 break;
 
             case ETutorialStep.OBJECT_MOVE:
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
                 break;
 
             case ETutorialStep.NO_TUTORIAL:
                 upMaskingCube.SetActive(false);
                 inputManager.tutorial = false;
+                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                yield return new WaitForSeconds(lastSentenceDuration);
+                tutorialField.transform.parent.gameObject.SetActive(false);
                 break;
         }
     }
