@@ -93,7 +93,7 @@ public class TutorialManager : MonoBehaviour
                 upMaskingCube.SetActive(false);
                 maskingCube.SetActive(false);
                 tutorialField.transform.parent.gameObject.SetActive(true);
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 navigationManager.InitializeTelescopeElements();
                 break;
 
@@ -102,7 +102,7 @@ public class TutorialManager : MonoBehaviour
                 deskMaskingCube.SetActive(false);
                 rollingDesk.enabled = true;
                 navigationManager.goalCollider = boatGoalCollider;
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 break;
 
             case ETutorialStep.TELESCOPE_ZOOM:
@@ -111,7 +111,7 @@ public class TutorialManager : MonoBehaviour
                 panelUI.SetActive(true);
                 telescope.tutorial = true;
                 rollingDesk.enabled = false;
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 break;
 
             case ETutorialStep.GO_TO_ISLAND:
@@ -120,25 +120,25 @@ public class TutorialManager : MonoBehaviour
                 telescope.tutorial = false;
                 rollingDesk.enabled = true;
                 navigationManager.goalCollider = firstIslandCollider;
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 break;
 
             case ETutorialStep.OBJECT_ZOOM:
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 break;
 
             case ETutorialStep.OBJECT_ROTATE:
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 break;
 
             case ETutorialStep.OBJECT_MOVE:
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 break;
 
             case ETutorialStep.NO_TUTORIAL:
                 upMaskingCube.SetActive(false);
                 inputManager.tutorial = false;
-                tutorialField.text = tutorialText.languages[0].steps[(int)step - 1];
+                UpdateTutorialText();
                 yield return new WaitForSeconds(lastSentenceDuration);
                 tutorialField.transform.parent.gameObject.SetActive(false);
                 break;
@@ -149,6 +149,11 @@ public class TutorialManager : MonoBehaviour
     {
         step++;
         StartCoroutine(UpdateStep());
+    }
+
+    void UpdateTutorialText()
+    {
+        tutorialField.text = tutorialText.languages[(int)LanguageManager.Instance.language].steps[(int)step - 1];
     }
 
     void LaunchAmbiance()

@@ -26,10 +26,10 @@ public class DialogueManager : MonoBehaviour
         EventManager.Instance.Raise(new DialogueEvent() { ongoing = true });
 
         lines.Clear();
-        foreach (string line in dialogue.languages[0].lines)
+        foreach (string line in dialogue.languages[(int)LanguageManager.Instance.language].lines)
             lines.Enqueue(line);
 
-        nameField.text = dialogue.languages[0].name;
+        nameField.text = dialogue.languages[(int)LanguageManager.Instance.language].name;
         NextLine();
     }
 

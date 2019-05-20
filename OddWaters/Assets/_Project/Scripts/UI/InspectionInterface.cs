@@ -26,10 +26,10 @@ public class InspectionInterface : MonoBehaviour
         transcriptTexts = new string[2];
 
         if (transcriptRecto != null)
-            transcriptTexts[0] = transcriptRecto.languages[0];
+            transcriptTexts[0] = transcriptRecto.languages[(int)LanguageManager.Instance.language];
 
         if (transcriptVerso != null)
-            transcriptTexts[1] = transcriptVerso.languages[0];
+            transcriptTexts[1] = transcriptVerso.languages[(int)LanguageManager.Instance.language];
 
         DisplayTranscriptSide(side);
 

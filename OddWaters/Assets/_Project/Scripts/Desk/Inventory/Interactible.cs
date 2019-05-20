@@ -78,7 +78,7 @@ public class Interactible : MonoBehaviour
 
     public bool IsGrabbable()
     {
-        return (rigidBody.velocity == Vector3.zero);
+        return (rigidBody.velocity.sqrMagnitude <= 0.5f);
     }
 
     public void Grab()
