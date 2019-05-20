@@ -312,7 +312,7 @@ public class NavigationManager : MonoBehaviour
             return ENavigationResult.ISLAND;
         }
 
-        RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>());
+        RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<Island>() == null);
         distanceToTarget = (stone.point - boat.transform.position).sqrMagnitude;
         if (stone.collider && distanceToTarget <= maxDistance * maxDistance)
         {
