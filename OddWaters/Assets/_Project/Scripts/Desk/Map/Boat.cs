@@ -53,8 +53,8 @@ public class Boat : MonoBehaviour
         if (line.enabled)
         {
             line.SetPosition(0, transform.position);
-            line.SetPosition(1, navigationManager.lastValidTarget);
-            endOfLine.transform.position = navigationManager.lastValidTarget;
+            line.SetPosition(1, navigationManager.lastValidCursorPos);
+            endOfLine.transform.position = navigationManager.lastValidCursorPos;
         }
     }
 

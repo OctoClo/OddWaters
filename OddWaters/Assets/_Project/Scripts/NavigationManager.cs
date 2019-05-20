@@ -60,7 +60,8 @@ public class NavigationManager : MonoBehaviour
     bool goingIntoTyphoon = false;
 
     [HideInInspector]
-    public Vector3 lastValidTarget;
+    public Vector3 lastValidCursorPos;
+    Vector3 lastValidTarget;
     int lastValidTargetZone;
 
     [SerializeField]
@@ -168,7 +169,6 @@ public class NavigationManager : MonoBehaviour
 
     public void Navigate()
     {
-        Vector3 journey = lastValidTarget - boat.transform.position;
         LaunchNavigation(lastValidTarget, lastValidTargetZone);
     }
 
@@ -306,9 +306,19 @@ public class NavigationManager : MonoBehaviour
         float distanceToTarget = (island.point - boat.transform.position).sqrMagnitude;
         if (island.collider && distanceToTarget <= maxDistance * maxDistance)
         {
-            lastValidTarget = island.point;
+            lastValidCursorPos = targetPos;
+            lastValidTarget = island.transform.position;
             lastValidTargetZone = island.collider.GetComponent<Island>().islandNumber;
             return ENavigationResult.ISLAND;
+        }
+
+        RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>());
+        distanceToTarget = (stone.point - boat.transform.position).sqrMagnitude;
+        if (stone.collider && distanceToTarget <= maxDistance * maxDistance)
+        {
+            lastValidCursorPos = targetPos;
+            lastValidTarget = stone.transform.position;
+            return ENavigationResult.SEA;
         }
 
         // Visible map zone
@@ -320,12 +330,14 @@ public class NavigationManager : MonoBehaviour
 
             if (distanceToTarget <= maxDistance * maxDistance)
             {
+                lastValidCursorPos = targetPos;
                 lastValidTarget = targetPos;
                 return ENavigationResult.SEA;
             }
             else
             {
-                lastValidTarget = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
         }
@@ -337,12 +349,14 @@ public class NavigationManager : MonoBehaviour
             float distanceToBorder = (mapZone.point - boat.transform.position).sqrMagnitude;
             if (distanceToTarget <= maxDistance * maxDistance || maxDistance > distanceToBorder)
             {
+                lastValidCursorPos = mapZone.point;
                 lastValidTarget = mapZone.point;
                 return ENavigationResult.SEA;
             }
             else
             {
-                lastValidTarget = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
         }
