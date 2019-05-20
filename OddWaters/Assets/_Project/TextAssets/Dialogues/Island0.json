@@ -1,22 +1,29 @@
 {
-  "languages" :
-  [
-    {
-      "name" : "Serge",
-      "lines" :
-      [
-        "Bonjour petit voyageur :3",
-        "*Je suis Serge, le pêcheur.",
-        "Comment vas-tu ?"
-      ]
-    },
-    {
-      "name" : "Serge",
-      "lines" :
-      [
-        "Line 1",
-        "Line 2"
-      ]
-    }
-  ]
+    "languages":
+    [
+      {
+            "name": "Fisherman",
+            "lines":
+            [
+                "Uh… hello.",
+                "It’s been a long time since we’ve seen a new face around here.",
+                "*He listens to you closely.",
+                "Want a map to the nearest island? I wouldn’t go there if I were you.",
+                "Odd currents on the way, and a bunch of strange lads, mining some black rock like mads.",
+                "And it’s no better anywhere else on that sea.",
+                "All you’ll find is either plain water and no wind, or hazardous currents and treatrous reefs.",
+                "And I don’t talk about the \u201Cpeople\u201D...",
+                "Anyway, it’s not much to help, but here you go."
+
+            ]
+        },
+        {
+            "name": "Serge",
+            "lines":
+            [
+                "Line 1",
+                "Line 2"
+            ]
+        }
+    ]
 }
