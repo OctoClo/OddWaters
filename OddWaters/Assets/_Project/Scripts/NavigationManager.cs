@@ -34,7 +34,6 @@ public class NavigationManager : MonoBehaviour
     float boatSpeed;
     [SerializeField]
     float maxDistance = 3f;
-    float minDistance = 0.3f;
     [SerializeField]
     LineRenderer boatTrail;
     int linePoints = 0;
@@ -170,10 +169,7 @@ public class NavigationManager : MonoBehaviour
     public void Navigate()
     {
         Vector3 journey = lastValidTarget - boat.transform.position;
-        if (journey.sqrMagnitude >= minDistance * minDistance)
-        {
-            LaunchNavigation(lastValidTarget, lastValidTargetZone);
-        }
+        LaunchNavigation(lastValidTarget, lastValidTargetZone);
     }
 
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
