@@ -107,6 +107,14 @@ MonoBehaviour:
   zoneNumber: 3
   telescopePanoramas:
   - {fileID: 1685283963969913422, guid: b502dfc583894c348869f80a04f91bdb, type: 3}
+  - {fileID: 1200601180746373304, guid: a8ace38d712a2db42a3e4c42d627933a, type: 3}
+  - {fileID: 8645388241208057303, guid: 7756a65467b03f74cbcbba5fe1db717e, type: 3}
+  - {fileID: 616820891629500227, guid: 19f5ba4a85668c6439019cf7eea96f27, type: 3}
+  - {fileID: 8157804394212938158, guid: efdc25a6c521fed48b4ce4c66facf1cc, type: 3}
+  - {fileID: 77495867985966049, guid: 7cf96afc79defd844a5399991b3fc6f4, type: 3}
+  - {fileID: 2398998879646468237, guid: 9604f1aa03c0ed94c959f0cac16d24a6, type: 3}
+  - {fileID: 3353761379007792927, guid: 0db0c913e52f6d841badc13db508e1aa, type: 3}
+  - {fileID: 2229159857197820432, guid: d833fd2ee2875c1428bff3b0d8743763, type: 3}
   visible: 0
   visibleMat: {fileID: 2100000, guid: 9e96b32ec89410744b99882581f4e511, type: 2}
   invisibleMat: {fileID: 2100000, guid: 848d76fe8e1417843a6765683f8ecaa3, type: 2}
