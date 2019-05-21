@@ -14,6 +14,8 @@ public class TelescopeElement : MonoBehaviour
     [HideInInspector]
     public int startAngle;
     public int angleToBoat;
+    [HideInInspector]
+    public bool audio = false;
 
     [HideInInspector]
     public MapElement elementDiscover;
@@ -27,6 +29,19 @@ public class TelescopeElement : MonoBehaviour
         cloneElement.triggerActive = false;
         StartCoroutine(elementDiscover.Discover(tutorial, tutorialManager));
     }
+
+    void Start()
+    {
+        if (audio)
+            AkSoundEngine.PostEvent("Play_Clue_" + name, gameObject);
+    }
+
+    void Update()
+    {
+        if (audio)
+            AkSoundEngine.SetRTPCValue("Angle", angleToBoat, gameObject);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("TelescopeCollider"))

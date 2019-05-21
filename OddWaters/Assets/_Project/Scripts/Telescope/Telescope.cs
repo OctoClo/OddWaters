@@ -266,8 +266,7 @@ public class Telescope : MonoBehaviour
                 int elementCurrentAngle = (elementAngle + boatRotation) % 360;
                 telescopeElement1.angleToBoat = elementCurrentAngle;
                 telescopeElement2.angleToBoat = elementCurrentAngle;
-
-                AkSoundEngine.PostEvent("Play_Clue_" + element.name, gameObject);
+                telescopeElement1.audio = true;
             }
         }
     }
