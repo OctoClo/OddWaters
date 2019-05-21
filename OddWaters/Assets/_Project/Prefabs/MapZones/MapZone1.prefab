@@ -292,9 +292,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneNumber: 1
   telescopePanoramas:
-  - {fileID: 77726808190436554, guid: e0a646ef115c6164bb2d67fc711898ac, type: 3}
-  - {fileID: 1170303900744049333, guid: 69f51b6aa67cd9d45a3c648991c40d6a, type: 3}
-  - {fileID: 3972710701361684246, guid: 9fd211cb6962a324dad3dce62bec0816, type: 3}
+  - {fileID: 77726808190436554, guid: 69f51b6aa67cd9d45a3c648991c40d6a, type: 3}
+  - {fileID: 8215899232302559255, guid: 44c6ff4f9347f60499272e92f232b31f, type: 3}
+  - {fileID: 7890556623104699994, guid: 9fd211cb6962a324dad3dce62bec0816, type: 3}
+  - {fileID: 4083354596042245482, guid: 7799e8aa544c9594b9476ebe37dc7ce6, type: 3}
+  - {fileID: 6852383446488908534, guid: abe3562711ae60e4fbd7b7fc4a726016, type: 3}
+  - {fileID: 7946758883831839148, guid: 265190a127583c34a8425a48b8d38a33, type: 3}
+  - {fileID: 6666070330913199084, guid: f1dce08868ede96409c1dbc596a0aef3, type: 3}
+  - {fileID: 8768198119488476961, guid: 310603aac3650d04ca5ad1c32f6b47a9, type: 3}
   visible: 0
   visibleMat: {fileID: 2100000, guid: 5fd5a9e07e5f1a64bbbbfb7337695d3a, type: 2}
   invisibleMat: {fileID: 2100000, guid: 68fe5b64abd97c346ba6194cf3f50e6e, type: 2}
