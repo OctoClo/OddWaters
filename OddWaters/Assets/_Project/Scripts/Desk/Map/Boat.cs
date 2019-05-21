@@ -40,6 +40,7 @@ public class Boat : MonoBehaviour
     {
         line.enabled = true;
         endOfLine.SetActive(true);
+        AkSoundEngine.PostEvent("Play_Sailing", gameObject);
     }
 
     public void StopTargeting()
