@@ -59,10 +59,6 @@ public class Telescope : MonoBehaviour
 
     [SerializeField]
     float elementDetectionSensitivity = 0.5f;
-    int elementAngle = -1;
-
-    [SerializeField]
-    Color fogFilter;
 
     [SerializeField]
     TutorialManager tutorialManager;
@@ -236,8 +232,6 @@ public class Telescope : MonoBehaviour
                 SpriteRenderer spriteRenderer = telescopeElementObject1.AddComponent<SpriteRenderer>();
                 spriteRenderer.sprite = element.elementSprite;
                 spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-                if (element.layer == ELayer.HORIZON && !element.visible)
-                    spriteRenderer.color = fogFilter;
                 BoxCollider collider = telescopeElementObject1.AddComponent<BoxCollider>();
                 collider.isTrigger = true;
 
