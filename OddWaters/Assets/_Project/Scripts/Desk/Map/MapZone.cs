@@ -5,7 +5,9 @@ using UnityEngine;
 public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
-    public GameObject telescopePanorama;
+    [SerializeField]
+    GameObject[] telescopePanoramas;
+    int currentPanoramaIndex = -1;
     
     public bool visible;
 
@@ -26,5 +28,11 @@ public class MapZone : MonoBehaviour
     {
         visible = true;
         meshRenderer.material = visibleMat;
+    }
+
+    public GameObject GetPanorama()
+    {
+        currentPanoramaIndex = (currentPanoramaIndex + 1) % telescopePanoramas.Length;
+        return telescopePanoramas[currentPanoramaIndex];
     }
 }

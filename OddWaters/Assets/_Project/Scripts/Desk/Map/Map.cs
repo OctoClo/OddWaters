@@ -13,9 +13,6 @@ public class Map : MonoBehaviour
     [HideInInspector]
     public int currentZone;
 
-    [HideInInspector]
-    public GameObject currentPanorama;
-
     void Start()
     {
         mapZones = new MapZone[5];
@@ -42,7 +39,6 @@ public class Map : MonoBehaviour
         }
 
         currentZone = 0;
-        currentPanorama = mapZones[0].telescopePanorama;
     }
 
     void OnEnable()
@@ -58,19 +54,11 @@ public class Map : MonoBehaviour
     public void ChangeZone(int newZone)
     {
         currentZone = newZone;
-        currentPanorama = mapZones[currentZone].telescopePanorama;
     }
 
     public GameObject GetCurrentPanorama()
     {
-        if (currentPanorama)
-        {
-            GameObject panorama = currentPanorama;
-            currentPanorama = null;
-            return panorama;
-        }
-
-        return null;
+        return mapZones[currentZone].GetPanorama();
     }
 
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)

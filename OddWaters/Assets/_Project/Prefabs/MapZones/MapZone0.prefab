@@ -380,8 +380,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 0
-  telescopePanorama: {fileID: 7127492151962068300, guid: 663873821be5da9498ed694614a80653,
-    type: 3}
+  telescopePanoramas:
+  - {fileID: 7127492151962068300, guid: 663873821be5da9498ed694614a80653, type: 3}
   visible: 1
   visibleMat: {fileID: 2100000, guid: 74bfdb2effe061148905932bbc990737, type: 2}
   invisibleMat: {fileID: 2100000, guid: b546ef9e2e445c448bf28610455f6cae, type: 2}

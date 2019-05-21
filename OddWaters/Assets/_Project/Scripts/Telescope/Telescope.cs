@@ -204,24 +204,20 @@ public class Telescope : MonoBehaviour
 
     public void RefreshElements(Vector3 boatUp, Vector3 target, Vector3 boatRight, GameObject panorama)
     {
-        if (panorama != null)
-        {
-            foreach (Transform child in layersContainer)
-                Destroy(child.gameObject);
+        // Update panorama
+        foreach (Transform child in layersContainer)
+            Destroy(child.gameObject);
 
-            GameObject layer;
-            for (int i = 0; i < panorama.transform.childCount; i++)
-            {
-                layer = Instantiate(panorama.transform.GetChild(i).gameObject, layersContainer);
-                layers[i] = layer.GetComponent<TelescopeLayer>();
-            }
+        GameObject layer;
+        for (int i = 0; i < panorama.transform.childCount; i++)
+        {
+            layer = Instantiate(panorama.transform.GetChild(i).gameObject, layersContainer);
+            layers[i] = layer.GetComponent<TelescopeLayer>();
         }
 
         ResetPosition();
 
-        foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
-            Destroy(element.gameObject);
-
+        // Spwan map elements in sight
         foreach (MapElement element in boat.GetElementsInSight())
         {
             Island island = element.GetComponent<Island>();
