@@ -11,6 +11,9 @@ public class TelescopeElement : MonoBehaviour
     public bool needZoom = false;
 
     public bool inSight = false;
+    [HideInInspector]
+    public int startAngle;
+    public int angleToBoat;
 
     [HideInInspector]
     public MapElement elementDiscover;

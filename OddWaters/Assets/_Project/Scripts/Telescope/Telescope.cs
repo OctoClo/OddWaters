@@ -16,6 +16,7 @@ public class Telescope : MonoBehaviour
 {
     [SerializeField]
     Boat boat;
+    int boatRotation;
 
     SpriteRenderer[] spriteRenderers;
 
@@ -58,6 +59,7 @@ public class Telescope : MonoBehaviour
 
     [SerializeField]
     float elementDetectionSensitivity = 0.5f;
+    int elementAngle = -1;
 
     [SerializeField]
     Color fogFilter;
@@ -168,6 +170,9 @@ public class Telescope : MonoBehaviour
         {
             float telescopeRotation = layers[(int)ELayer.BACKGROUND].children[0].localPosition.x * (360f / (telescopePosMax * 2)) - telescopePosMax * (360f / (telescopePosMax * 2)) + 180;
             boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
+            boatRotation = Mathf.RoundToInt(telescopeRotation + 360);
+            foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
+                element.angleToBoat = (element.startAngle + boatRotation) % 360;
         }
         // Element identification on zoom
         else
@@ -216,9 +221,7 @@ public class Telescope : MonoBehaviour
         ResetPosition();
 
         foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
-        {
             Destroy(element.gameObject);
-        }
 
         foreach (MapElement element in boat.GetElementsInSight())
         {
@@ -264,7 +267,13 @@ public class Telescope : MonoBehaviour
                 TelescopeElement telescopeElement2 = telescopeElementObject2.GetComponent<TelescopeElement>();
                 telescopeElement1.cloneElement = telescopeElement2;
                 telescopeElement2.cloneElement = telescopeElement1;
-                
+                int elementAngle = Mathf.RoundToInt(angle + 180) % 360;
+                telescopeElement1.startAngle = elementAngle;
+                telescopeElement2.startAngle = elementAngle;
+                int elementCurrentAngle = (elementAngle + boatRotation) % 360;
+                telescopeElement1.angleToBoat = elementCurrentAngle;
+                telescopeElement2.angleToBoat = elementCurrentAngle;
+
                 AkSoundEngine.PostEvent("Play_Clue_" + element.name, gameObject);
             }
         }
