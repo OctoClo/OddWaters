@@ -61,6 +61,7 @@ public class Interactible : MonoBehaviour
         rotating = false;
         currentRotationSpeed = rotationSpeed;
         inventory = transform.parent;
+        soundMaterial.SetValue(gameObject);
 
         if (transcriptJSONRecto != null)
             transcriptRecto = JsonUtility.FromJson<Transcript>(transcriptJSONRecto.text);
