@@ -81,6 +81,10 @@ public class NavigationManager : MonoBehaviour
         boatTrail.SetPosition(0, boat.transform.position);
 
         StartCoroutine(InitializeTelescopeElements());
+
+        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
+        AkSoundEngine.SetState("Weather", "Fine");
+        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
     }
 
     void OnEnable()
@@ -115,7 +119,7 @@ public class NavigationManager : MonoBehaviour
                 if (!boatScript.inATyphoon)
                 {
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
-                    AkSoundEngine.SetState("SeaIntensity", "CalmSea");
+                    AkSoundEngine.PostEvent("Stop_Typhon", gameObject);
                     lightScript.rotateDegreesPerSecond.value.y = 0;
 
                     telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
@@ -165,7 +169,7 @@ public class NavigationManager : MonoBehaviour
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
         Debug.Log("Boat in typhoon!");
-        AkSoundEngine.SetState("SeaIntensity", "RoughSea");
+        AkSoundEngine.PostEvent("Play_Typhon", gameObject);
         StartCoroutine(WaitBeforeGoingToInitialPos());
     }
 
@@ -206,7 +210,7 @@ public class NavigationManager : MonoBehaviour
 
         if (!fromTyphoon)
         {
-            AkSoundEngine.PostEvent("Play_Departure", gameObject);
+            AkSoundEngine.PostEvent("Play_Travel", gameObject);
 
             // Rotate boat
             boat.transform.LookAt(target);
