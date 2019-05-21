@@ -109,7 +109,9 @@ MonoBehaviour:
   visible: 0
   elementSprite: {fileID: 21300000, guid: a6faa92ca1ac1394dae1dcbebf5669d4, type: 3}
   layer: 0
-  discoverySound: 
+  discoverySound:
+    ID: 0
+    valueGuid: 00000000000000000000000000000000
   discovered: 0
   islandNumber: 2
   nextZone: 3
@@ -294,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 2
-  telescopePanorama: {fileID: 7308930576676425548, guid: ffc9c7e0d7050844fa97e0826c795488,
+  telescopePanorama: {fileID: 6183476819901974328, guid: 8ec60c1e80443514aa2065085a2c655d,
     type: 3}
   visible: 0
   visibleMat: {fileID: 2100000, guid: 7d0fb5b215f382744b45158bfef63fe7, type: 2}
@@ -306,6 +308,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -371,11 +378,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.025
       objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon
-      objectReference: {fileID: 0}
     - target: {fileID: 3023871009052721722, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_Radius
@@ -396,6 +398,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -461,11 +468,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.026
       objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 3023871009052721722, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_Radius
@@ -486,6 +488,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon (5)
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -550,11 +557,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon (5)
       objectReference: {fileID: 0}
     - target: {fileID: 3023871009052721722, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
@@ -667,6 +669,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -732,11 +739,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.021
       objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c0e61b651d4bb049803bd83b39b8e2b, type: 3}
 --- !u!4 &6395220458262147976 stripped
@@ -752,6 +754,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon (6)
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -817,11 +824,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.013
       objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon (6)
-      objectReference: {fileID: 0}
     - target: {fileID: 3023871009052721722, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_Radius
@@ -842,6 +844,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon (7)
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -906,11 +913,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.018
-      objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon (7)
       objectReference: {fileID: 0}
     - target: {fileID: 3023871009052721722, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
@@ -1109,6 +1111,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1174,11 +1181,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.017
       objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3023871009052721722, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_Radius
@@ -1199,6 +1201,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Tyhpoon (4)
+      objectReference: {fileID: 0}
     - target: {fileID: 1890705281370411832, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1263,11 +1270,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4255672644703338728, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Tyhpoon (4)
       objectReference: {fileID: 0}
     - target: {fileID: 3023871009052721722, guid: 7c0e61b651d4bb049803bd83b39b8e2b,
         type: 3}

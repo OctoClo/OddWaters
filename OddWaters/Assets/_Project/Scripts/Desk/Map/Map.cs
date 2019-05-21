@@ -40,6 +40,9 @@ public class Map : MonoBehaviour
                 islandCounter++;
             }
         }
+
+        currentZone = 0;
+        currentPanorama = mapZones[0].telescopePanorama;
     }
 
     void OnEnable()

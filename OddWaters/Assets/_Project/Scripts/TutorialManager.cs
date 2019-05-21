@@ -65,6 +65,7 @@ public class TutorialManager : MonoBehaviour
         {
             step = ETutorialStep.NO_TUTORIAL;
             LaunchAmbiance();
+            StartCoroutine(navigationManager.InitializeTelescopeElements());
         }
         else
         {
@@ -94,7 +95,7 @@ public class TutorialManager : MonoBehaviour
                 maskingCube.SetActive(false);
                 tutorialField.transform.parent.gameObject.SetActive(true);
                 UpdateTutorialText();
-                navigationManager.InitializeTelescopeElements();
+                StartCoroutine(navigationManager.InitializeTelescopeElements());
                 break;
 
             case ETutorialStep.BOAT_MOVE:

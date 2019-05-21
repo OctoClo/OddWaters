@@ -109,7 +109,9 @@ MonoBehaviour:
   visible: 0
   elementSprite: {fileID: 21300000, guid: 52e32de1caeff86429d66ed81922eec4, type: 3}
   layer: 1
-  discoverySound: Play_Discovery_Acte1
+  discoverySound:
+    ID: 0
+    valueGuid: 00000000000000000000000000000000
   discovered: 0
   islandNumber: 1
   nextZone: 2
@@ -289,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 1
-  telescopePanorama: {fileID: 7308930576676425548, guid: ffc9c7e0d7050844fa97e0826c795488,
+  telescopePanorama: {fileID: 77726808190436554, guid: e0a646ef115c6164bb2d67fc711898ac,
     type: 3}
   visible: 0
   visibleMat: {fileID: 2100000, guid: 5fd5a9e07e5f1a64bbbbfb7337695d3a, type: 2}

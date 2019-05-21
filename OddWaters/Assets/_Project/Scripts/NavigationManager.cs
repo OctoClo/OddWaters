@@ -102,8 +102,9 @@ public class NavigationManager : MonoBehaviour
         EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
     }
 
-    public void InitializeTelescopeElements()
+    public IEnumerator InitializeTelescopeElements()
     {
+        yield return new WaitForSeconds(0.1f);
         telescope.RefreshElements(boat.transform.up, boat.transform.position, boat.transform.right, map.GetCurrentPanorama());
     }
 

@@ -210,12 +210,15 @@ public class Telescope : MonoBehaviour
     {
         if (panorama != null)
         {
-            /*Destroy(telescopesPanoramaFolder[0]);
-            Destroy(telescopesPanoramaFolder[1]);
-            GameObject newPanorama1 = Instantiate(panorama, telescopes[0].transform);
-            GameObject newPanorama2 = Instantiate(panorama, telescopes[1].transform);
-            telescopesPanoramaFolder[0] = newPanorama1;
-            telescopesPanoramaFolder[1] = newPanorama2;*/
+            foreach (Transform child in layersContainer)
+                Destroy(child.gameObject);
+
+            GameObject layer;
+            for (int i = 0; i < panorama.transform.childCount; i++)
+            {
+                layer = Instantiate(panorama.transform.GetChild(i).gameObject, layersContainer);
+                layers[i] = layer.GetComponent<TelescopeLayer>();
+            }
         }
 
         ResetPosition();
@@ -239,9 +242,9 @@ public class Telescope : MonoBehaviour
                 collider.isTrigger = true;
 
                 if (element.layer == ELayer.HORIZON)
-                    spriteRenderer.sortingOrder = 4;
+                    spriteRenderer.sortingOrder = 3;
                 else
-                    spriteRenderer.sortingOrder = 6;
+                    spriteRenderer.sortingOrder = 5;
 
                 telescopeElementObject1.transform.parent = layers[(int)element.layer].children[0];
                 telescopeElementObject1.transform.rotation = Quaternion.Euler(90, 0, 0);
