@@ -81,10 +81,6 @@ public class NavigationManager : MonoBehaviour
         boatTrail.SetPosition(0, boat.transform.position);
 
         StartCoroutine(InitializeTelescopeElements());
-
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
     }
 
     void OnEnable()

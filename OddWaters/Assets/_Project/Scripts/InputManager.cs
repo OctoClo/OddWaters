@@ -85,6 +85,9 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log("Left Ctrl: " + Input.GetKey(KeyCode.LeftControl));
+        //Debug.Log("Right Ctrl: " + Input.GetKey(KeyCode.RightControl));
+
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y));
         hitsOnRayToMouse = Physics.RaycastAll(ray);
 
