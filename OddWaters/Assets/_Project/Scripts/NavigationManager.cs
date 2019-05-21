@@ -34,6 +34,7 @@ public class NavigationManager : MonoBehaviour
     float boatSpeed;
     [SerializeField]
     float maxDistance = 3f;
+    float maxDistanceSqr;
     [SerializeField]
     LineRenderer boatTrail;
     int linePoints = 0;
@@ -86,6 +87,9 @@ public class NavigationManager : MonoBehaviour
         boatColliderLeft = boat.transform.position - extent;
         boatColliderRight = boat.transform.position + extent;
         boatTrail.SetPosition(0, boat.transform.position);
+
+        maxDistanceSqr = maxDistance * maxDistance;
+        boatScript.lineMaxLenght = maxDistanceSqr;
     }
 
     void OnEnable()
@@ -304,7 +308,7 @@ public class NavigationManager : MonoBehaviour
             island = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);
         }  
         float distanceToTarget = (island.point - boat.transform.position).sqrMagnitude;
-        if (island.collider && distanceToTarget <= maxDistance * maxDistance)
+        if (island.collider && distanceToTarget <= maxDistanceSqr)
         {
             lastValidCursorPos = targetPos;
             lastValidTarget = island.transform.position;
@@ -314,7 +318,7 @@ public class NavigationManager : MonoBehaviour
 
         RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<Island>() == null);
         distanceToTarget = (stone.point - boat.transform.position).sqrMagnitude;
-        if (stone.collider && distanceToTarget <= maxDistance * maxDistance)
+        if (stone.collider && distanceToTarget <= maxDistanceSqr)
         {
             lastValidCursorPos = targetPos;
             lastValidTarget = stone.transform.position;
@@ -328,7 +332,7 @@ public class NavigationManager : MonoBehaviour
             lastValidTargetZone = mapZone.collider.GetComponent<MapZone>().zoneNumber;
             distanceToTarget = (mapZone.point - boat.transform.position).sqrMagnitude;
 
-            if (distanceToTarget <= maxDistance * maxDistance)
+            if (distanceToTarget <= maxDistanceSqr)
             {
                 lastValidCursorPos = targetPos;
                 lastValidTarget = targetPos;
@@ -347,7 +351,7 @@ public class NavigationManager : MonoBehaviour
             RaycastHit[] hitsOnReverseJourney = Physics.RaycastAll(targetPos, -journey, distance);
             mapZone = hitsOnReverseJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == lastValidPositionZone);
             float distanceToBorder = (mapZone.point - boat.transform.position).sqrMagnitude;
-            if (distanceToTarget <= maxDistance * maxDistance || maxDistance > distanceToBorder)
+            if (distanceToTarget <= maxDistanceSqr || maxDistanceSqr > distanceToBorder)
             {
                 lastValidCursorPos = mapZone.point;
                 lastValidTarget = mapZone.point;

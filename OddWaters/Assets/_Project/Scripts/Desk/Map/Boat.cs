@@ -12,14 +12,20 @@ public class Boat : MonoBehaviour
     [SerializeField]
     GameObject endOfLine;
     [HideInInspector]
+    public float lineMaxLenght;
+    float lastDotPercentageSound;
+    float currentDotPercentage;
+    [SerializeField]
+    [Range(0.01f, 0.2f)]
+    float dotsSoundInterval = 0.1f;
+
+    [HideInInspector]
     public GameObject mouseProjection;
     SpriteRenderer[] spriteRenderers;
-
     List<MapElement> elementsInSight;
 
     [HideInInspector]
     public bool inATyphoon;
-
     [HideInInspector]
     public bool onAnIsland;
     [HideInInspector]
@@ -41,6 +47,8 @@ public class Boat : MonoBehaviour
         line.enabled = true;
         endOfLine.SetActive(true);
         AkSoundEngine.PostEvent("Play_Sailing", gameObject);
+        currentDotPercentage = 0;
+        PlayDotsSound();
     }
 
     public void StopTargeting()
@@ -56,7 +64,17 @@ public class Boat : MonoBehaviour
             line.SetPosition(0, transform.position);
             line.SetPosition(1, navigationManager.lastValidCursorPos);
             endOfLine.transform.position = navigationManager.lastValidCursorPos;
+            currentDotPercentage = (navigationManager.lastValidCursorPos - transform.position).sqrMagnitude / lineMaxLenght;
+            if (Mathf.Abs(lastDotPercentageSound - currentDotPercentage) >= dotsSoundInterval)
+                PlayDotsSound();
         }
+    }
+
+    void PlayDotsSound()
+    {
+        AkSoundEngine.SetRTPCValue("Navigation_Distance", currentDotPercentage);
+        AkSoundEngine.PostEvent("Play_Dots", gameObject);
+        lastDotPercentageSound = currentDotPercentage;
     }
 
     public void ElementInSight(MapElement element)
