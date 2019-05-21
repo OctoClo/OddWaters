@@ -202,7 +202,9 @@ MonoBehaviour:
   visible: 0
   elementSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
   layer: 1
-  discoverySound: Play_Discovery_Acte1
+  discoverySound:
+    ID: -1078966765
+    valueGuid: e704cb5658159a46a3c77fc5590c163f
   discovered: 0
   islandNumber: 0
   nextZone: 1

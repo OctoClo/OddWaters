@@ -10,7 +10,7 @@ public class MapElement : MonoBehaviour
     public ELayer layer;
 
     [SerializeField]
-    string discoverySound;
+    AK.Wwise.Event discoverySound;
 
     [HideInInspector]
     public bool discovered = false;
@@ -25,9 +25,9 @@ public class MapElement : MonoBehaviour
 
     public IEnumerator Discover(bool tutorial, TutorialManager tutorialManager)
     {
-        if (discoverySound.Length > 0)
+        if (discoverySound != null)
         {
-            AkSoundEngine.PostEvent(discoverySound, gameObject);
+            discoverySound.Post(gameObject);
             yield return new WaitForSeconds(1.5f);
         }
         

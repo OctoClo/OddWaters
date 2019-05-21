@@ -164,11 +164,12 @@ MonoBehaviour:
   rotationSpeed: 3
   rotationsAmount: 000000000100000002000000
   inspectionInterface: {fileID: 0}
+  tutorialManager: {fileID: 0}
   grabbable: 0
   rotating: 0
   soundMaterial:
-    ID: -1168280295
-    valueGuid: 317c3670be4eae44b6e7e4d528a2c0cd
+    ID: 1974580389
+    valueGuid: dadd2c7c3ccf0c41b38ecd9073917372
     groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
     groupID: -429652670
 --- !u!1 &1295717815572833370

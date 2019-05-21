@@ -334,6 +334,8 @@ public class InputManager : MonoBehaviour
 
     void OnBlockInputEvent(BlockInputEvent e)
     {
+        if (e.block)
+            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         blockInput = e.block;
     }
 
