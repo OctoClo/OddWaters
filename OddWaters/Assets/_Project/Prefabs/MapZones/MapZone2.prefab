@@ -298,6 +298,15 @@ MonoBehaviour:
   zoneNumber: 2
   telescopePanoramas:
   - {fileID: 6183476819901974328, guid: 8ec60c1e80443514aa2065085a2c655d, type: 3}
+  - {fileID: 4519537138940371358, guid: 5b9bd77c36106fe40b2976ab2813277b, type: 3}
+  - {fileID: 5580499464330553438, guid: f90e1011d5dcc4947b211402ad34e18f, type: 3}
+  - {fileID: 6127306021992701050, guid: b7e345e9a8b388342bf2055c08f32c48, type: 3}
+  - {fileID: 9212659505706623799, guid: d6ef51a5cc70610479ef02db72735c76, type: 3}
+  - {fileID: 5230853226014012893, guid: dbc73dd9475bb4d4989b4fc1c7b643a1, type: 3}
+  - {fileID: 251184684331987500, guid: cd7557d17c075e7429baaa61de5621e9, type: 3}
+  - {fileID: 3687238321577612547, guid: 948ed90cd9b1ae4479edc8ebe8640831, type: 3}
+  - {fileID: 7864211357198424669, guid: 5e19956d5d7a4cb4c8e7f019d10af175, type: 3}
+  - {fileID: 2922078873119544339, guid: d1704408a39f5e64a92b56c4de74e04f, type: 3}
   visible: 0
   visibleMat: {fileID: 2100000, guid: 7d0fb5b215f382744b45158bfef63fe7, type: 2}
   invisibleMat: {fileID: 2100000, guid: a886dc6f348a14d42aa6cbfaf66e414b, type: 2}
@@ -652,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 3755590695050293610, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}
       propertyPath: name
-      value: Stele1
+      value: Stele
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aac8779a0f9f1145998bdd782df9cb6, type: 3}
@@ -1008,7 +1017,7 @@ PrefabInstance:
     - target: {fileID: 3755590695050293610, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}
       propertyPath: name
-      value: Stele2
+      value: Stele
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aac8779a0f9f1145998bdd782df9cb6, type: 3}
@@ -1096,6 +1105,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: cedcde13e45539644a70cc6d5b08ddb1,
         type: 3}
+    - target: {fileID: 3755590695050293610, guid: 5aac8779a0f9f1145998bdd782df9cb6,
+        type: 3}
+      propertyPath: name
+      value: Stele
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aac8779a0f9f1145998bdd782df9cb6, type: 3}
 --- !u!4 &8106627025687842991 stripped
