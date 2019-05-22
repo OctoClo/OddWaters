@@ -129,7 +129,7 @@ public class NavigationManager : MonoBehaviour
                     lastValidPositionZone = map.currentZone;
 
                     // Berth on island if needed
-                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber)
+                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber && tutorialManager.step == ETutorialStep.GO_TO_ISLAND)
                         BerthOnIsland((goalCollider != null));
                     else
                     {
@@ -286,6 +286,7 @@ public class NavigationManager : MonoBehaviour
 
     ENavigationResult GetNavigationResult(Vector3 targetPos)
     {
+        insideGoal = false;
         Vector3 journey = targetPos - boat.transform.position;
         float distance = journey.magnitude;
 
