@@ -129,7 +129,7 @@ public class NavigationManager : MonoBehaviour
                     lastValidPositionZone = map.currentZone;
 
                     // Berth on island if needed
-                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber && tutorialManager.step == ETutorialStep.GO_TO_ISLAND)
+                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber && (tutorialManager.step == ETutorialStep.NO_TUTORIAL || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
                         BerthOnIsland((goalCollider != null));
                     else
                     {
