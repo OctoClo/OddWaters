@@ -6,7 +6,7 @@ public class MapZone : MonoBehaviour
 {
     public int zoneNumber;
     [SerializeField]
-    GameObject[] telescopePanoramas;
+    List<GameObject> telescopePanoramas;
     int currentPanoramaIndex = -1;
     
     public bool visible;
@@ -18,10 +18,14 @@ public class MapZone : MonoBehaviour
 
     MeshRenderer meshRenderer;
 
+    
+    
+
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = (visible ? visibleMat : invisibleMat);
+        ListExtensions.Shuffle(telescopePanoramas);
     }
 
     public void Discover()
@@ -32,7 +36,13 @@ public class MapZone : MonoBehaviour
 
     public GameObject GetPanorama()
     {
-        currentPanoramaIndex = (currentPanoramaIndex + 1) % telescopePanoramas.Length;
+        currentPanoramaIndex++;
+        if (currentPanoramaIndex >= telescopePanoramas.Count)
+        {
+            currentPanoramaIndex = 0;
+            ListExtensions.Shuffle(telescopePanoramas);
+        }
+
         return telescopePanoramas[currentPanoramaIndex];
     }
 }
