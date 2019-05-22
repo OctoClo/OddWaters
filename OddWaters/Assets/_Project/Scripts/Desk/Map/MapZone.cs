@@ -18,20 +18,25 @@ public class MapZone : MonoBehaviour
 
     MeshRenderer meshRenderer;
 
-    
-    
+    [SerializeField]
+    List<GameObject> elementsToHide = new List<GameObject>();
 
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = (visible ? visibleMat : invisibleMat);
         ListExtensions.Shuffle(telescopePanoramas);
+
+        foreach (GameObject element in elementsToHide)
+            element.SetActive(false);
     }
 
     public void Discover()
     {
         visible = true;
         meshRenderer.material = visibleMat;
+        foreach (GameObject element in elementsToHide)
+            element.SetActive(true);
     }
 
     public GameObject GetPanorama()

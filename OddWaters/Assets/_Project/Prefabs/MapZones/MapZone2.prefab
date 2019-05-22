@@ -490,6 +490,8 @@ MonoBehaviour:
   visible: 0
   visibleMat: {fileID: 2100000, guid: 7d0fb5b215f382744b45158bfef63fe7, type: 2}
   invisibleMat: {fileID: 2100000, guid: a886dc6f348a14d42aa6cbfaf66e414b, type: 2}
+  elementsToHide:
+  - {fileID: 3845129463227889837}
 --- !u!1001 &1099166597699700426
 PrefabInstance:
   m_ObjectHideFlags: 0
