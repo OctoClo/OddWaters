@@ -343,10 +343,10 @@ public class NavigationManager : MonoBehaviour
         }
         else
         {
-            distanceToTarget = (targetPos - boat.transform.position).sqrMagnitude;
             RaycastHit[] hitsOnReverseJourney = Physics.RaycastAll(targetPos, -journey, distance);
-            mapZone = hitsOnReverseJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == lastValidPositionZone);
+            mapZone = hitsOnReverseJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible);
             float distanceToBorder = (mapZone.point - boat.transform.position).sqrMagnitude;
+            distanceToTarget = (targetPos - boat.transform.position).sqrMagnitude;
             if (distanceToTarget <= maxDistanceSqr || maxDistanceSqr > distanceToBorder)
             {
                 lastValidCursorPos = mapZone.point;
