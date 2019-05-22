@@ -171,7 +171,7 @@ public class InputManager : MonoBehaviour
                     if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
                     {
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
-                        //upPartAnimator.SetBool("Hover", true);
+                        upPartAnimator.SetBool("Hover", true);
 
                         // Telescope zoom
                         if (Input.GetAxis("Mouse ScrollWheel") != 0 && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
@@ -187,7 +187,7 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                        //upPartAnimator.SetBool("Hover", false);
+                        upPartAnimator.SetBool("Hover", false);
                     }
                         
                 }

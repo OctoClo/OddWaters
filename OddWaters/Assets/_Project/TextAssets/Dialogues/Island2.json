@@ -1,0 +1,37 @@
+{
+    "languages":
+    [
+      {
+            "name": "Monk",
+            "lines":
+            [
+                "*The monk gazes at you quietly",
+                "Another one of them making it to our island. Unusual.",
+                "Maybe this time they will listen.",
+                "Maybe this time, they will understand that the sea is to be respected.",
+                "*He talks in a tongue you don’t understand",
+                "Some of you want to control it, and make it your own. Some of you exploit it, extract its essence.",
+                "Most of them don’t know. How many times must we explain?",
+                "*He talks in incomprehensible language",
+				"Take this if you want a chance to understand this sea.",
+				"Listen to its roars and complaints, and perhaps you’ll sea its true form."
+            ]
+        },
+        {
+            "name": "Monk",
+            "lines":
+            [
+                "*The monk gazes at you quietly",
+                "Another one of them making it to our island. Unusual.",
+                "Maybe this time they will listen.",
+                "Maybe this time, they will understand that the sea is to be respected.",
+                "*He talks in a tongue you don’t understand",
+                "Some of you want to control it, and make it your own. Some of you exploit it, extract its essence.",
+                "Most of them don’t know. How many times must we explain?",
+                "*He talks in incomprehensible language",
+				"Take this if you want a chance to understand this sea.",
+				"Listen to its roars and complaints, and perhaps you’ll sea its true form."
+            ]
+        }
+    ]
+}
