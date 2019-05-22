@@ -49,6 +49,8 @@ public class InputManager : MonoBehaviour
     Vector3 dragBeginPos;
     Vector3 dragCurrentPos;
     float dragSpeed;
+    [SerializeField]
+    Animator upPartAnimator;
 
     // Map
     [SerializeField]
@@ -58,6 +60,7 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Animator boatAnimator;
     bool navigation;
+
     
     void Start()
     {
@@ -168,6 +171,7 @@ public class InputManager : MonoBehaviour
                     if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
                     {
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
+                        //upPartAnimator.SetBool("Hover", true);
 
                         // Telescope zoom
                         if (Input.GetAxis("Mouse ScrollWheel") != 0 && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
@@ -176,9 +180,16 @@ public class InputManager : MonoBehaviour
                         }
                     }
                     else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
+                    {
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
+                    }
+                        
                     else
+                    {
                         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                        //upPartAnimator.SetBool("Hover", false);
+                    }
+                        
                 }
             }
         }
