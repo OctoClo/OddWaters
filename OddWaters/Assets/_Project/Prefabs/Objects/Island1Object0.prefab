@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transcriptJSONRecto: {fileID: 0}
   transcriptJSONVerso: {fileID: 0}
-  zoomOffset: 8
+  zoomOffset: 12
   grabOffset: 0.07
   rotationSpeed: 3
   rotationsAmount: 000000000100000002000000

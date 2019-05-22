@@ -16,7 +16,7 @@ public class Interactible : MonoBehaviour
     int side;
 
     [SerializeField]
-    [Range(2, 8)]
+    [Range(2, 20)]
     int zoomOffset = 4;
     [SerializeField]
     [Range(0.01f, 0.5f)]

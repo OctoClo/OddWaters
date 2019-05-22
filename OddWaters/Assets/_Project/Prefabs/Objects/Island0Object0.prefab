@@ -87,6 +87,11 @@ PrefabInstance:
       propertyPath: transcriptJSONVerso
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5828078540333372146, guid: 424a6eb1cf8a98540a455dda2a651793,
+        type: 3}
+      propertyPath: zoomOffset
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 711236726655482523, guid: 424a6eb1cf8a98540a455dda2a651793,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
