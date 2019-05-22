@@ -10,6 +10,7 @@
         "Go to island",
         "Click on an object to inspect it",
         "Rotate the object with the buttons",
+        "",
         "Drag and drop an object to move it around",
         "Now you're on your own..."
       ]
@@ -23,6 +24,7 @@
         "FR:Go to island",
         "FR:Click on an object to inspect it",
         "FR:Rotate the object with the buttons",
+        "",
         "FR:Drag and drop an object to move it around",
         "FR:Now you're on your own..."
       ]

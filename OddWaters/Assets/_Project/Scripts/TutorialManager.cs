@@ -12,6 +12,7 @@ public enum ETutorialStep
     GO_TO_ISLAND,
     OBJECT_ZOOM,
     OBJECT_ROTATE,
+    WAITING,
     OBJECT_MOVE,
     NO_TUTORIAL
 }
@@ -81,7 +82,6 @@ public class TutorialManager : MonoBehaviour
         switch (step)
         {
             case ETutorialStep.STORM:
-                upMaskingCube.SetActive(true);
                 deskMaskingCube.SetActive(true);
                 maskingCube.SetActive(true);
                 rollingDesk.enabled = false;
@@ -90,12 +90,11 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ETutorialStep.TELESCOPE_MOVE:
+                yield return StartCoroutine(navigationManager.InitializeTelescopeElements());
                 LaunchAmbiance();
-                upMaskingCube.SetActive(false);
                 maskingCube.SetActive(false);
                 tutorialField.transform.parent.gameObject.SetActive(true);
                 UpdateTutorialText();
-                StartCoroutine(navigationManager.InitializeTelescopeElements());
                 break;
 
             case ETutorialStep.BOAT_MOVE:
@@ -132,7 +131,14 @@ public class TutorialManager : MonoBehaviour
                 UpdateTutorialText();
                 break;
 
+            case ETutorialStep.WAITING:
+                yield return new WaitForSeconds(2);
+                tutorialField.transform.parent.gameObject.SetActive(false);
+                break;
+
             case ETutorialStep.OBJECT_MOVE:
+                yield return new WaitForSeconds(0.5f);
+                tutorialField.transform.parent.gameObject.SetActive(true);
                 UpdateTutorialText();
                 break;
 
