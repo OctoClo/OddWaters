@@ -110,7 +110,7 @@ public class ScreenManager : MonoBehaviour
 
         // Add object to inventory
         objectToGive = currentIsland.objectToGive;
-        inventory.AddToInventory(objectToGive);
+        inventory.TradeObjects(objectToGive);
         AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
 
         // Discover new zone
