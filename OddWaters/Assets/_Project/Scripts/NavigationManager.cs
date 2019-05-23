@@ -181,7 +181,7 @@ public class NavigationManager : MonoBehaviour
 
     IEnumerator WaitBeforeGoingToInitialPos(GameObject typhoon)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         typhoon.GetComponent<SpriteRenderer>().enabled = true;
         LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, true);
     }
