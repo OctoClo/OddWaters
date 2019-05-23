@@ -54,6 +54,7 @@ public class NavigationManager : MonoBehaviour
     Vector3 boatColliderLeft;
     Vector3 boatColliderRight;
     bool goingIntoTyphoon = false;
+    bool fromTyphoon = false;
 
     [HideInInspector]
     public Vector3 lastValidCursorPos;
@@ -121,7 +122,6 @@ public class NavigationManager : MonoBehaviour
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
                     AkSoundEngine.PostEvent("Stop_Typhon", gameObject);
                     lightScript.rotateDegreesPerSecond.value.y = 0;
-
                     telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
 
                     // Save position
@@ -129,7 +129,8 @@ public class NavigationManager : MonoBehaviour
                     lastValidPositionZone = map.currentZone;
 
                     // Berth on island if needed
-                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber && (tutorialManager.step == ETutorialStep.NO_TUTORIAL || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
+                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber && !fromTyphoon &&
+                        (tutorialManager.step == ETutorialStep.NO_TUTORIAL || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
                         BerthOnIsland((goalCollider != null));
                     else
                     {
@@ -141,6 +142,7 @@ public class NavigationManager : MonoBehaviour
                             tutorialManager.NextStep();
                     }
 
+                    fromTyphoon = false;
                     if (goalCollider && insideGoal)
                     {
                         goalCollider = null;
@@ -183,10 +185,11 @@ public class NavigationManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         typhoon.GetComponent<SpriteRenderer>().enabled = true;
-        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, true);
+        fromTyphoon = true;
+        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone);
     }
 
-    void LaunchNavigation(Vector3 target, int newZoneNumber, bool fromTyphoon = false)
+    void LaunchNavigation(Vector3 target, int newZoneNumber)
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
         AkSoundEngine.PostEvent("Stop_SoundClue", gameObject);
