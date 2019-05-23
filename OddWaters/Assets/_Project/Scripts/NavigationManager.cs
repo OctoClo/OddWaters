@@ -197,7 +197,6 @@ public class NavigationManager : MonoBehaviour
         // Initialize navigation values
         navigating = true;
         boatRenderer.sprite = boatSprites[0];
-        boat.transform.GetChild(0).gameObject.SetActive(true);
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         target.y = boat.transform.position.y;
         journeyLength = (target - boat.transform.position).sqrMagnitude;
@@ -261,7 +260,6 @@ public class NavigationManager : MonoBehaviour
 
         // Reset rotations
         boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
-        boat.transform.GetChild(0).gameObject.SetActive(false);
         boat.transform.localRotation = Quaternion.Euler(90, 0, 0);
 
         StartCoroutine(screenManager.Berth(boatScript.currentIsland, tutorial));

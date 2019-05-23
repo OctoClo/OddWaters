@@ -85,7 +85,9 @@ public class Telescope : MonoBehaviour
         scaleMaskNormal = maskZoom.transform.localScale;
         scaleMaskZoom = new Vector3(1, 1, 1);
         scaleContainerNormal = new Vector3(1, 1, 1);
-        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);       
+        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);
+
+        boat.transform.GetChild(0).gameObject.SetActive(false);
     }
     
     public void ResetZoom()
@@ -146,10 +148,13 @@ public class Telescope : MonoBehaviour
         Color color = renderer.color;
         color.a = 0.5f;
         renderer.color = color;
+
+        boat.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public void EndDrag()
     {
+        boat.transform.GetChild(0).gameObject.SetActive(false);
         Destroy(indicatorDrag);
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         currentDragSpeed = 0;
