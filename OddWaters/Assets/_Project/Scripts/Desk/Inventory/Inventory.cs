@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
 
             targetPos = previousObject.transform.position;
             targetPos.y += 1;
-            rb.velocity = (targetPos - previousObject.transform.position) * 0.5f;
+            rb.velocity = (targetPos - previousObject.transform.position);
         }
         else
             AddObjectToInventory();
@@ -88,7 +88,7 @@ public class Inventory : MonoBehaviour
 
         newObject.transform.localPosition = spawnPos;
         targetPos = receiveEndPos;
-        rb.velocity = (targetPos - spawnPos) * 0.5f;
+        rb.velocity = (targetPos - spawnPos);
 
         Interactible interactible = newObject.GetComponent<Interactible>();
         interactible.inspectionInterface = inspectionInterface;
@@ -124,7 +124,7 @@ public class Inventory : MonoBehaviour
 
                 targetPos = spawnPos;
                 targetPos.x = previousObject.transform.localPosition.x;
-                rb.velocity = (targetPos - previousObject.transform.localPosition) * 0.5f;
+                rb.velocity = (targetPos - previousObject.transform.localPosition);
             }
             else if (move == EMoveType.GIVE_SECOND_STEP && previousObject.transform.localPosition.z >= targetPos.z)
             {
