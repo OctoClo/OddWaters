@@ -54,6 +54,7 @@ public class NavigationManager : MonoBehaviour
     Vector3 boatColliderLeft;
     Vector3 boatColliderRight;
     bool goingIntoTyphoon = false;
+    bool fromTyphoon = false;
 
     [HideInInspector]
     public Vector3 lastValidCursorPos;
@@ -121,7 +122,6 @@ public class NavigationManager : MonoBehaviour
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
                     AkSoundEngine.PostEvent("Stop_Typhon", gameObject);
                     lightScript.rotateDegreesPerSecond.value.y = 0;
-
                     telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
 
                     // Save position
@@ -129,7 +129,8 @@ public class NavigationManager : MonoBehaviour
                     lastValidPositionZone = map.currentZone;
 
                     // Berth on island if needed
-                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber && (tutorialManager.step == ETutorialStep.NO_TUTORIAL || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
+                    if (boatScript.onAnIsland && boatScript.currentIsland.islandNumber != screenManager.currentIslandNumber && !fromTyphoon &&
+                        (tutorialManager.step == ETutorialStep.NO_TUTORIAL || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
                         BerthOnIsland((goalCollider != null));
                     else
                     {
@@ -141,6 +142,7 @@ public class NavigationManager : MonoBehaviour
                             tutorialManager.NextStep();
                     }
 
+                    fromTyphoon = false;
                     if (goalCollider && insideGoal)
                     {
                         goalCollider = null;
@@ -181,12 +183,13 @@ public class NavigationManager : MonoBehaviour
 
     IEnumerator WaitBeforeGoingToInitialPos(GameObject typhoon)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         typhoon.GetComponent<SpriteRenderer>().enabled = true;
-        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, true);
+        fromTyphoon = true;
+        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone);
     }
 
-    void LaunchNavigation(Vector3 target, int newZoneNumber, bool fromTyphoon = false)
+    void LaunchNavigation(Vector3 target, int newZoneNumber)
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
         AkSoundEngine.PostEvent("Stop_SoundClue", gameObject);
@@ -194,7 +197,6 @@ public class NavigationManager : MonoBehaviour
         // Initialize navigation values
         navigating = true;
         boatRenderer.sprite = boatSprites[0];
-        boat.transform.GetChild(0).gameObject.SetActive(true);
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         target.y = boat.transform.position.y;
         journeyLength = (target - boat.transform.position).sqrMagnitude;
@@ -258,7 +260,6 @@ public class NavigationManager : MonoBehaviour
 
         // Reset rotations
         boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
-        boat.transform.GetChild(0).gameObject.SetActive(false);
         boat.transform.localRotation = Quaternion.Euler(90, 0, 0);
 
         StartCoroutine(screenManager.Berth(boatScript.currentIsland, tutorial));

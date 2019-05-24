@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum EMoveType
+{
+    GIVE_FIRST_STEP,
+    GIVE_SECOND_STEP,
+    RECEIVE
+}
+
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
@@ -12,17 +19,19 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
     [SerializeField]
-    Vector3 targetPos = new Vector3(6.25f, 1.95f, -1.2f);
+    Vector3 receiveEndPos = new Vector3(6.25f, 1.95f, -1.2f);
+    Vector3 targetPos;
     [SerializeField]
-    [Range(0.01f, 0.2f)]
-    float objectSpeed = 0.1f;
+    float drag = 7.37f;
 
+    GameObject prefabToGive;
     GameObject newObject;
     BoxCollider boxCollider;
     Rigidbody rb;
-    Vector3 currentPos;
+    GameObject previousObject;
    
     bool moving;
+    EMoveType move;
     bool waiting;
     float waitTime;
     float currentTime;
@@ -33,26 +42,57 @@ public class Inventory : MonoBehaviour
         waiting = false;
         waitTime = 0.7f;
         currentTime = 0;
+
+        if (previousObject)
+        {
+            boxCollider = previousObject.GetComponent<BoxCollider>();
+            rb = previousObject.GetComponent<Rigidbody>();
+        }
     }
 
-    public void AddToInventory(GameObject prefab)
+    public void TradeObjects(GameObject prefab)
     {
-        newObject = Instantiate(prefab, transform);
+        prefabToGive = prefab;
+
+        if (previousObject)
+        {
+            moving = true;
+            move = EMoveType.GIVE_FIRST_STEP;
+
+            boxCollider.isTrigger = true;
+            rb.useGravity = false;
+            rb.drag = 0;
+
+            targetPos = previousObject.transform.position;
+            targetPos.y += 1;
+            rb.velocity = (targetPos - previousObject.transform.position) * 0.5f;
+        }
+        else
+            AddObjectToInventory();
+    }
+
+    void AddObjectToInventory()
+    {
+        moving = true;
+        move = EMoveType.RECEIVE;
+
+        newObject = Instantiate(prefabToGive, transform);
+        previousObject = newObject;
 
         boxCollider = newObject.GetComponent<BoxCollider>();
         boxCollider.isTrigger = true;
 
         rb = newObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
+        rb.drag = 0;
 
         newObject.transform.localPosition = spawnPos;
-        currentPos = spawnPos;
+        targetPos = receiveEndPos;
+        rb.velocity = (targetPos - spawnPos) * 0.5f;
 
         Interactible interactible = newObject.GetComponent<Interactible>();
         interactible.inspectionInterface = inspectionInterface;
         interactible.tutorialManager = tutorialManager;
-
-        moving = true;
     }
 
     void Update()
@@ -63,20 +103,33 @@ public class Inventory : MonoBehaviour
             if (currentTime >= waitTime)
             {
                 waiting = false;
+                currentTime = 0;
                 EventManager.Instance.Raise(new BlockInputEvent() { block = false });
             }
         }
         if (moving)
         {
-            currentPos.z -= objectSpeed;
-            newObject.transform.localPosition = currentPos;
-
-            if ((currentPos - targetPos).sqrMagnitude <= 0.01f)
+            if (move == EMoveType.RECEIVE && newObject.transform.localPosition.z <= targetPos.z)
             {
+                rb.velocity = Vector3.zero;
                 rb.useGravity = true;
+                rb.drag = drag;
                 boxCollider.isTrigger = false;
                 moving = false;
                 waiting = true;
+            }
+            else if (move == EMoveType.GIVE_FIRST_STEP && previousObject.transform.localPosition.y >= targetPos.y)
+            {
+                move = EMoveType.GIVE_SECOND_STEP;
+
+                targetPos = spawnPos;
+                targetPos.x = previousObject.transform.localPosition.x;
+                rb.velocity = (targetPos - previousObject.transform.localPosition) * 0.5f;
+            }
+            else if (move == EMoveType.GIVE_SECOND_STEP && previousObject.transform.localPosition.z >= targetPos.z)
+            {
+                Destroy(previousObject);
+                AddObjectToInventory();
             }
         }
     }

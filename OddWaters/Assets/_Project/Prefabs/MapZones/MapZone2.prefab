@@ -91,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.41, y: 0.44, z: 0.3}
-  m_Center: {x: -0.0000009536743, y: 0, z: -0.12}
+  m_Size: {x: 0.85, y: 0.56, z: 0.3}
+  m_Center: {x: 0, y: 0, z: -0.12}
 --- !u!114 &9012280719168846208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,8 +110,8 @@ MonoBehaviour:
   elementSprite: {fileID: 21300000, guid: a6faa92ca1ac1394dae1dcbebf5669d4, type: 3}
   layer: 0
   discoverySound:
-    ID: 0
-    valueGuid: 00000000000000000000000000000000
+    ID: -1078966767
+    valueGuid: 5200304d512ab14ba0df9279c78113b0
   discovered: 0
   islandNumber: 2
   nextZone: 3

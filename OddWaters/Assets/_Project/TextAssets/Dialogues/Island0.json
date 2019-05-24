@@ -3,7 +3,7 @@
     [
       {
             "name": "Fisherman",
-            "lines":
+            "firstDialogue":
             [
                 "Uh… hello.",
                 "It’s been a long time since we’ve seen a new face around here.",
@@ -15,14 +15,24 @@
                 "And I don’t talk about the \u201Cpeople\u201D...",
                 "Anyway, it’s not much to help, but here you go."
 
+            ],
+            "secondDialogue":
+            [
+                "2nd dialogue",
+                "blah blah blah"
             ]
         },
         {
             "name": "Serge",
-            "lines":
+            "firstDialogue":
             [
                 "Line 1",
                 "Line 2"
+            ],
+            "secondDialogue":
+            [
+                "2nd dialogue",
+                "blah blah blah"
             ]
         }
     ]

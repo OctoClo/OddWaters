@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DialogueEvent : GameEvent { public bool ongoing; }
+public class DialogueEvent : GameEvent { public bool ongoing; public bool firstEncounter; }
 
 public class DialogueManager : MonoBehaviour
 {
@@ -15,19 +15,30 @@ public class DialogueManager : MonoBehaviour
     TextMeshProUGUI textField;
 
     Queue<string> lines;
+    bool firstEncounter;
 
     void Start()
     {
         lines = new Queue<string>();    
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, bool first)
     {
-        EventManager.Instance.Raise(new DialogueEvent() { ongoing = true });
+        EventManager.Instance.Raise(new DialogueEvent() { ongoing = true, firstEncounter = first });
+        firstEncounter = first;
 
         lines.Clear();
-        foreach (string line in dialogue.languages[(int)LanguageManager.Instance.language].lines)
-            lines.Enqueue(line);
+
+        if (firstEncounter)
+        {
+            foreach (string line in dialogue.languages[(int)LanguageManager.Instance.language].firstDialogue)
+                lines.Enqueue(line);
+        }
+        else
+        {
+            foreach (string line in dialogue.languages[(int)LanguageManager.Instance.language].secondDialogue)
+                lines.Enqueue(line);
+        }
 
         nameField.text = dialogue.languages[(int)LanguageManager.Instance.language].name;
         NextLine();
@@ -68,6 +79,6 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        EventManager.Instance.Raise(new DialogueEvent() { ongoing = false });
+        EventManager.Instance.Raise(new DialogueEvent() { ongoing = false, firstEncounter = firstEncounter });
     }
 }

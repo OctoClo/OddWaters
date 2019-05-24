@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ELayer
@@ -32,6 +30,9 @@ public class Telescope : MonoBehaviour
     TelescopeLayer[] layers;
     float currentDragSpeed;
     float telescopePosMax;
+    [SerializeField]
+    Sprite indicatorDragSprite;
+    GameObject indicatorDrag;
 
     // Zoom
     bool zoom;
@@ -84,7 +85,9 @@ public class Telescope : MonoBehaviour
         scaleMaskNormal = maskZoom.transform.localScale;
         scaleMaskZoom = new Vector3(1, 1, 1);
         scaleContainerNormal = new Vector3(1, 1, 1);
-        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);       
+        scaleContainerZoom = new Vector3(zoomPower, zoomPower, zoomPower);
+
+        boat.transform.GetChild(0).gameObject.SetActive(false);
     }
     
     public void ResetZoom()
@@ -134,10 +137,25 @@ public class Telescope : MonoBehaviour
     {
         for (int i = 0; i < layers.Length; i++)
             layers[i].BeginDrag();
+
+        indicatorDrag = new GameObject("CursorBegin");
+        indicatorDrag.transform.position = beginPos;
+        indicatorDrag.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        indicatorDrag.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+        SpriteRenderer renderer = indicatorDrag.AddComponent<SpriteRenderer>();
+        renderer.sortingOrder = 10;
+        renderer.sprite = indicatorDragSprite;
+        Color color = renderer.color;
+        color.a = 0.5f;
+        renderer.color = color;
+
+        boat.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public void EndDrag()
     {
+        boat.transform.GetChild(0).gameObject.SetActive(false);
+        Destroy(indicatorDrag);
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         currentDragSpeed = 0;
         for (int i = 0; i < layers.Length; i++)

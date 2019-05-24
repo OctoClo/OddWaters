@@ -13,5 +13,6 @@ public class Dialogue
 public class DialogueLanguage
 {
     public string name;
-    public string[] lines;
+    public string[] firstDialogue;
+    public string[] secondDialogue;
 }

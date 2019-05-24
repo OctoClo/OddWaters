@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235202461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.062, y: -0.105, z: -0}
+  m_LocalPosition: {x: 0.038, y: -0.043, z: -0}
   m_LocalScale: {x: 0.1, y: 0.13, z: 1}
   m_Children: []
   m_Father: {fileID: 359006016548906844}
@@ -121,8 +121,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359006014877531841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.079, y: -0.192, z: -0}
-  m_LocalScale: {x: 0.31881347, y: 0.48393664, z: 1.6195741}
+  m_LocalPosition: {x: 0.1278, y: -0.192, z: -0}
+  m_LocalScale: {x: 0.31881347, y: 0.48393664, z: 1}
   m_Children:
   - {fileID: 359006014965957679}
   m_Father: {fileID: 359006016548906844}
@@ -184,8 +184,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.41, y: 0.35, z: 0.3}
-  m_Center: {x: 0.02, y: 0.01, z: -0.12}
+  m_Size: {x: 0.65, y: 0.32, z: 0.3}
+  m_Center: {x: 0, y: -0.01, z: -0.12}
 --- !u!114 &359006014877531844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.58
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &359006014965957678
 MonoBehaviour:
@@ -385,3 +385,4 @@ MonoBehaviour:
   visible: 1
   visibleMat: {fileID: 2100000, guid: 74bfdb2effe061148905932bbc990737, type: 2}
   invisibleMat: {fileID: 2100000, guid: b546ef9e2e445c448bf28610455f6cae, type: 2}
+  elementsToHide: []
