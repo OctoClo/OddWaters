@@ -208,7 +208,7 @@ public class Interactible : MonoBehaviour
             currentRotationSpeed = rotationSpeed;
             transform.rotation = rotationAfter;
         }
-        beforeZoomPosition.y += 1f;
+        beforeZoomPosition.y += 0.5f;
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
         zoom = false;
