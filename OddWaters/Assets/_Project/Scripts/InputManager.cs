@@ -365,11 +365,9 @@ public class InputManager : MonoBehaviour
 
     void OnBlockInputEvent(BlockInputEvent e)
     {
+        blockInput = e.block;
         if (e.block)
             CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-
-        Debug.Log("Blocking input? " + e.block);
-        blockInput = e.block;
     }
 
     void OnDialogueEvent(DialogueEvent e)
