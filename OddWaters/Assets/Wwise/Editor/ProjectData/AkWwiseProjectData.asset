@@ -18,14 +18,14 @@ MonoBehaviour:
   m_lastPopulateTimePsrt1: 0
   AcousticTextureWwu:
   - Guid: '{2945C4A8-0B89-4ABB-BD41-1DE197A95098}'
-    m_lastTimePart2: -1999197858
-    m_lastTimePsrt1: 1664583220
+    m_lastTimePart2: -1999189609
+    m_lastTimePsrt1: 453430475
     ParentPhysicalPath: 
     PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
     List: []
   - Guid: '{463D666B-3CA8-4FA5-8B4A-5FEF12B883F6}'
-    m_lastTimePart2: -1999197860
-    m_lastTimePsrt1: 1834391291
+    m_lastTimePart2: -1999189609
+    m_lastTimePsrt1: 453450426
     ParentPhysicalPath: 
     PhysicalPath: Virtual Acoustics\Factory Reflect Acoustic Textures.wwu
     List:
@@ -185,21 +185,34 @@ MonoBehaviour:
         ObjectType: 15
   AuxBusWwu:
   - Guid: '{D9786E67-0C05-4EC6-9575-00A71ACF3534}'
-    m_lastTimePart2: -1999185247
-    m_lastTimePsrt1: -153315458
+    m_lastTimePart2: -1999183984
+    m_lastTimePsrt1: -1477401308
     ParentPhysicalPath: 
     PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
-    List: []
+    List:
+    - Guid: d47cb1f47fff754c8cc3010cc647ee3f
+      ID: 231770747
+      Name: RevFar
+      Path: Default Work Unit\Master Audio Bus\World\RevFar
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      - ElementName: World
+        ObjectType: 2
+      - ElementName: RevFar
+        ObjectType: 1
   BankWwu:
   - Guid: '{CC7CA5C4-FFAB-40AF-8343-94D3F2E68D56}'
-    m_lastTimePart2: -1999190816
-    m_lastTimePsrt1: -1623418612
+    m_lastTimePart2: -1999189609
+    m_lastTimePsrt1: 453390582
     ParentPhysicalPath: 
     PhysicalPath: SoundBanks\Default Work Unit.wwu
     List: []
   - Guid: '{F161DE3A-6B2A-4BFF-AEE2-065DBFF23778}'
-    m_lastTimePart2: -1999186047
-    m_lastTimePsrt1: 1519297663
+    m_lastTimePart2: -1999183984
+    m_lastTimePsrt1: -1477102108
     ParentPhysicalPath: 
     PhysicalPath: SoundBanks\OddWaters.wwu
     List:
@@ -220,8 +233,8 @@ MonoBehaviour:
     PhysicalPath: Events\Default Work Unit.wwu
     List: []
   - Guid: '{9D43C336-125E-4D10-AAA8-59C4E9B43494}'
-    m_lastTimePart2: -1999185247
-    m_lastTimePsrt1: -153245917
+    m_lastTimePart2: -1999183811
+    m_lastTimePsrt1: -880406244
     ParentPhysicalPath: 
     PhysicalPath: Events\OddWaters.wwu
     List:
@@ -245,6 +258,18 @@ MonoBehaviour:
       - ElementName: OddWaters
         ObjectType: 12
       - ElementName: Play_AMB_Island1
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 8dc7b962362d3644b9ac88db09aaf6c4
+      ID: -1588967736
+      Name: Play_AMB_Island2
+      Path: OddWaters\Play_AMB_Island2
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Play_AMB_Island2
         ObjectType: 3
       maxAttenuation: 0
       maxDuration: 0
@@ -297,26 +322,38 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 8a00a0d910149c42b10b68f6d0834547
-      ID: -1087035401
-      Name: Play_Clue_Stelle
-      Path: OddWaters\Play_Clue_Stelle
+    - Guid: c2d0f62c5d640e448b797efbeea4fb29
+      ID: -1412989752
+      Name: Play_Clue_Island1
+      Path: OddWaters\Play_Clue_Island1
       PathAndIcons:
       - ElementName: OddWaters
         ObjectType: 12
-      - ElementName: Play_Clue_Stelle
+      - ElementName: Play_Clue_Island1
         ObjectType: 3
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 2b4c726ea4e66b45aa340840c2d74cea
-      ID: 784147234
-      Name: Play_Departure
-      Path: OddWaters\Play_Departure
+    - Guid: 57ae9e48006cf642952f1a925bfb5979
+      ID: -1412989749
+      Name: Play_Clue_Island2
+      Path: OddWaters\Play_Clue_Island2
       PathAndIcons:
       - ElementName: OddWaters
         ObjectType: 12
-      - ElementName: Play_Departure
+      - ElementName: Play_Clue_Island2
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 8a00a0d910149c42b10b68f6d0834547
+      ID: 984202607
+      Name: Play_Clue_Stele
+      Path: OddWaters\Play_Clue_Stele
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Play_Clue_Stele
         ObjectType: 3
       maxAttenuation: 0
       maxDuration: 0
@@ -329,6 +366,30 @@ MonoBehaviour:
       - ElementName: OddWaters
         ObjectType: 12
       - ElementName: Play_Discovery_Acte1
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 7625cdbea0162841ada4d80ad4651037
+      ID: -1078966768
+      Name: Play_Discovery_Acte2
+      Path: OddWaters\Play_Discovery_Acte2
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Play_Discovery_Acte2
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 5200304d512ab14ba0df9279c78113b0
+      ID: -1078966767
+      Name: Play_Discovery_Acte3
+      Path: OddWaters\Play_Discovery_Acte3
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Play_Discovery_Acte3
         ObjectType: 3
       maxAttenuation: 0
       maxDuration: 0
@@ -353,6 +414,18 @@ MonoBehaviour:
       - ElementName: OddWaters
         ObjectType: 12
       - ElementName: Play_Island0_Object0
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: d239e5cb8408534f9ab73c122d55bba9
+      ID: -514599472
+      Name: Play_Island1_Object0
+      Path: OddWaters\Play_Island1_Object0
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Play_Island1_Object0
         ObjectType: 3
       maxAttenuation: 0
       maxDuration: 0
@@ -417,6 +490,18 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
+    - Guid: 2b4c726ea4e66b45aa340840c2d74cea
+      ID: -1036669378
+      Name: Play_Travel
+      Path: OddWaters\Play_Travel
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Play_Travel
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
     - Guid: f58b8b350eff0c44913af5c9ed86578f
       ID: -2082020680
       Name: Play_Typhon
@@ -449,6 +534,18 @@ MonoBehaviour:
       - ElementName: OddWaters
         ObjectType: 12
       - ElementName: Stop_AMB_Island1
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 11520f142fa27748b76ffeb59f069998
+      ID: -2014766330
+      Name: Stop_AMB_Island2
+      Path: OddWaters\Stop_AMB_Island2
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Stop_AMB_Island2
         ObjectType: 3
       maxAttenuation: 0
       maxDuration: 0
@@ -498,17 +595,26 @@ MonoBehaviour:
   - /OddWatersWwise/Switches/OddWaters/Material
   RtpcWwu:
   - Guid: '{A54DBF65-8D9D-4AA2-ABA9-FC900E45AD2E}'
-    m_lastTimePart2: -1999197858
-    m_lastTimePsrt1: 1665451101
+    m_lastTimePart2: -1999189609
+    m_lastTimePsrt1: 385783296
     ParentPhysicalPath: 
     PhysicalPath: Game Parameters\Default Work Unit.wwu
     List: []
   - Guid: '{00709781-A0CF-435A-91C4-77B45499F7AD}'
-    m_lastTimePart2: -1999186408
-    m_lastTimePsrt1: -316409899
+    m_lastTimePart2: -1999183811
+    m_lastTimePsrt1: -880456097
     ParentPhysicalPath: 
     PhysicalPath: Game Parameters\OddWaters.wwu
     List:
+    - Guid: f84fc92f1c4f5745a2a4728e6e20021b
+      ID: 1105939986
+      Name: Angle
+      Path: OddWaters\Angle
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Angle
+        ObjectType: 13
     - Guid: 61ef02e7b4f5814290bdbe68417c4484
       ID: 671444909
       Name: Day_Night_Cycle
@@ -527,16 +633,34 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Navigation_Distance
         ObjectType: 13
+    - Guid: 727f53d140d1ff43aa276a948bebd749
+      ID: 1316273048
+      Name: Pulse
+      Path: OddWaters\Pulse
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Pulse
+        ObjectType: 13
+    - Guid: ee8f84172a59844f9c88ff67a64e6f40
+      ID: 1614617910
+      Name: ZoomedIn
+      Path: OddWaters\ZoomedIn
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: ZoomedIn
+        ObjectType: 13
   StateWwu:
   - Guid: '{900318D7-4DCB-46B6-943C-3FADF6C9687E}'
-    m_lastTimePart2: -1999195639
-    m_lastTimePsrt1: 769054000
+    m_lastTimePart2: -1999189609
+    m_lastTimePsrt1: 453420500
     ParentPhysicalPath: 
     PhysicalPath: States\Default Work Unit.wwu
     List: []
   - Guid: '{12782BDB-46CD-4C89-A94B-BBDC3468D454}'
-    m_lastTimePart2: -1999186402
-    m_lastTimePsrt1: 2045024656
+    m_lastTimePart2: -1999184431
+    m_lastTimePsrt1: -1039992733
     ParentPhysicalPath: 
     PhysicalPath: States\OddWaters.wwu
     List:
@@ -554,6 +678,7 @@ MonoBehaviour:
       - bytes: 53ac9951f16eae45bb9c9c0552b7ea53
       - bytes: f873358722124e438777de05e9f3ac45
       - bytes: 5e211d8e3faa1940aa205cd1eb434618
+      - bytes: 73aa8728585a564ba9ac913919174641
       ValueIcons:
       - ElementName: ExitFishersRock
         ObjectType: 8
@@ -563,12 +688,15 @@ MonoBehaviour:
         ObjectType: 8
       - ElementName: None
         ObjectType: 8
-      valueIDs: 6ad2d5f7ea19ff401fb15798db3ba32c
+      - ElementName: SparrowsPeak
+        ObjectType: 8
+      valueIDs: 6ad2d5f7ea19ff401fb15798db3ba32c5b8328af
       values:
       - ExitFishersRock
       - FishersRock
       - MinersBay
       - None
+      - SparrowsPeak
     - Guid: 2903329c32b5b54dbdad7b4b6b661c9c
       ID: 1729344733
       Name: SeaIntensity
@@ -633,14 +761,14 @@ MonoBehaviour:
       - Storm
   SwitchWwu:
   - Guid: '{80CB78CD-33F3-4F0B-ADA5-32911C3E9696}'
-    m_lastTimePart2: -1999197858
-    m_lastTimePsrt1: 1665306580
+    m_lastTimePart2: -1999189609
+    m_lastTimePsrt1: 453420500
     ParentPhysicalPath: 
     PhysicalPath: Switches\Default Work Unit.wwu
     List: []
   - Guid: '{4ECDCB98-2AED-4500-A11B-AC9A8EBF85C3}'
-    m_lastTimePart2: -1999186606
-    m_lastTimePsrt1: -2011294630
+    m_lastTimePart2: -1999184431
+    m_lastTimePsrt1: -1039902971
     ParentPhysicalPath: 
     PhysicalPath: Switches\OddWaters.wwu
     List:
@@ -675,17 +803,21 @@ MonoBehaviour:
       - ElementName: Material
         ObjectType: 11
       ValueGuids:
+      - bytes: dadd2c7c3ccf0c41b38ecd9073917372
       - bytes: 317c3670be4eae44b6e7e4d528a2c0cd
       ValueIcons:
+      - ElementName: HandSpinner
+        ObjectType: 10
       - ElementName: Paper
         ObjectType: 10
-      valueIDs: 19755dba
+      valueIDs: a5b4b17519755dba
       values:
+      - HandSpinner
       - Paper
   TriggerWwu:
   - Guid: '{6D094795-8685-4FBA-823A-D7704B439AC2}'
-    m_lastTimePart2: -1999197858
-    m_lastTimePsrt1: 1664633088
+    m_lastTimePart2: -1999189609
+    m_lastTimePsrt1: 453430475
     ParentPhysicalPath: 
     PhysicalPath: Triggers\Default Work Unit.wwu
     List: []
