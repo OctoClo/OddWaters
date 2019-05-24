@@ -115,11 +115,11 @@ public class InputManager : MonoBehaviour
                 HandleMouseLeftButtonDown();
 
             // Left button up
-            if (Input.GetMouseButtonUp(0))
+            if (!blockInput && Input.GetMouseButtonUp(0))
                 HandleMouseLeftButtonUp();
 
             // Right button down
-            if (Input.GetMouseButtonDown(1))
+            if (!blockInput && Input.GetMouseButtonDown(1))
             {
                 AkSoundEngine.PostEvent("Play_Click", gameObject);
                 if (navigation)
@@ -129,7 +129,7 @@ public class InputManager : MonoBehaviour
             }
 
             // Interactible grab / rotate
-            if (interactible)
+            if (!blockInput && interactible)
             {
                 interactiblePressTime += Time.deltaTime;
                 if (interactibleState == EInteractibleState.UNKNOWN && interactiblePressTime > interactibleClickTime && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_MOVE))
@@ -157,7 +157,7 @@ public class InputManager : MonoBehaviour
             }
 
             // Hover things
-            if (!interactible && !telescopeDrag && !navigation)
+            if (!blockInput && !interactible && !telescopeDrag && !navigation)
             {
                 if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
                 {
@@ -168,27 +168,30 @@ public class InputManager : MonoBehaviour
                 {
                     boatAnimator.SetBool("Hover", false);
 
-                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
+                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
                     {
-                        CursorManager.Instance.SetCursor(ECursor.HOVER);
                         upPartAnimator.SetBool("Hover", true);
 
-                        // Telescope zoom
-                        if (Input.GetAxis("Mouse ScrollWheel") != 0 && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
+                        if (telescope.gameObject.activeInHierarchy)
                         {
-                            telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
+                            CursorManager.Instance.SetCursor(ECursor.HOVER);
+
+                            // Telescope zoom
+                            if (Input.GetAxis("Mouse ScrollWheel") != 0 && telescope.gameObject.activeInHierarchy && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
+                                telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
                         }
+                        else if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
+                            CursorManager.Instance.SetCursor(ECursor.HOVER);
+                        else
+                            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
                     }
-                    else if ((hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM)) ||
-                        hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
+                    else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
-                        
                     else
                     {
                         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
                         upPartAnimator.SetBool("Hover", false);
                     }
-                        
                 }
             }
         }
@@ -242,7 +245,7 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         // Telescope
-                        telescopeDrag = (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("TelescopeCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM));
+                        telescopeDrag = (telescope.gameObject.activeInHierarchy && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM));
                         if (telescopeDrag)
                         {
                             dragBeginPos = Input.mousePosition;
@@ -253,7 +256,10 @@ public class InputManager : MonoBehaviour
                         {
                             // Character
                             if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
+                            {
                                 StartCoroutine(screenManager.RelaunchDialogue());
+                                StartCoroutine(WaitBeforeResettingHoverTrigger());
+                            }
                         }
                     }
                 }
@@ -264,6 +270,12 @@ public class InputManager : MonoBehaviour
                     ExitInterfaceRotation();
             }
         }
+    }
+
+    IEnumerator WaitBeforeResettingHoverTrigger()
+    {
+        yield return new WaitForSeconds(0.2f);
+        upPartAnimator.SetBool("Hover", false);
     }
 
     void HandleMouseLeftButtonUp()
@@ -355,6 +367,8 @@ public class InputManager : MonoBehaviour
     {
         if (e.block)
             CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+
+        Debug.Log("Blocking input? " + e.block);
         blockInput = e.block;
     }
 

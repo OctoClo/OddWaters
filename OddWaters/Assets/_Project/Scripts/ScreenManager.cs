@@ -100,10 +100,10 @@ public class ScreenManager : MonoBehaviour
 
     public IEnumerator RelaunchDialogue()
     {
-        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
         Debug.Log("Retalk animation");
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
         upPartAnimator.SetTrigger("Retalk");
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.9f);
         Debug.Log("Starting dialogue");
         dialogueManager.StartDialogue(currentIsland.dialogue, false);
     }
@@ -112,7 +112,7 @@ public class ScreenManager : MonoBehaviour
     {
         upPartAnimator.SetTrigger("EndDialogue");
         yield return new WaitForSeconds(1.5f);
-
+        Debug.Log("End of animations");
         if (firstEncounter)
         {
             // Add object to inventory
@@ -134,9 +134,8 @@ public class ScreenManager : MonoBehaviour
                 tutorialManager.NextStep();
             }
         }
-
-        Debug.Log("End of animations");
-        EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+        else
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false });
     }
 
     public void LeaveIsland()

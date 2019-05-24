@@ -10,6 +10,7 @@ TagManager:
   - Typhoon
   - Desk
   - Character
+  - UpPartCollider
   layers:
   - Default
   - TransparentFX
