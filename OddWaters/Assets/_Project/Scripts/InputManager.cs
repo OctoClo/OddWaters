@@ -179,10 +179,9 @@ public class InputManager : MonoBehaviour
                             telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
                         }
                     }
-                    else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
-                    {
+                    else if ((hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM)) ||
+                        hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
                         CursorManager.Instance.SetCursor(ECursor.HOVER);
-                    }
                         
                     else
                     {
@@ -249,6 +248,12 @@ public class InputManager : MonoBehaviour
                             dragBeginPos = Input.mousePosition;
                             Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
                             telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                        }
+                        else
+                        {
+                            // Character
+                            if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
+                                screenManager.RelaunchDialogue();
                         }
                     }
                 }

@@ -94,7 +94,7 @@ public class ScreenManager : MonoBehaviour
             upPartAnimator.SetTrigger("FirstBerth");
             tutorialPanel.SetActive(false);
             yield return new WaitForSeconds(5);
-            dialogueManager.StartDialogue(island.dialogue);
+            dialogueManager.StartDialogue(island.dialogue, true);
         }
         else
         {
@@ -103,29 +103,41 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
-    public IEnumerator TransitionAfterFirstBerth()
+    public IEnumerator RelaunchDialogue()
+    {
+        Debug.Log("Dialogue relaunched");
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        upPartAnimator.SetTrigger("FirstBerth");
+        yield return new WaitForSeconds(5);
+        dialogueManager.StartDialogue(currentIsland.dialogue, false);
+    }
+
+    public IEnumerator TransitionAfterFirstBerth(bool firstEncounter)
     {
         upPartAnimator.SetTrigger("EndDialogue");
         yield return new WaitForSeconds(2.5f);
 
-        // Add object to inventory
-        objectToGive = currentIsland.objectToGive;
-        inventory.TradeObjects(objectToGive);
-        AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
-
-        // Discover new zone
-        yield return new WaitForSeconds(2.5f);
-        nextZone = currentIsland.nextZone;
-        EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
-
-        // Tutorial
-        if (tutorial)
+        if (firstEncounter)
         {
-            tutorial = false;
-            tutorialPanel.SetActive(true);
-            tutorialManager.NextStep();
-        }
+            // Add object to inventory
+            objectToGive = currentIsland.objectToGive;
+            inventory.TradeObjects(objectToGive);
+            AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
 
+            // Discover new zone
+            yield return new WaitForSeconds(2.5f);
+            nextZone = currentIsland.nextZone;
+            EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
+
+            // Tutorial
+            if (tutorial)
+            {
+                tutorial = false;
+                tutorialPanel.SetActive(true);
+                tutorialManager.NextStep();
+            }
+        }
+        
         EventManager.Instance.Raise(new BlockInputEvent() { block = false });
     }
 
@@ -141,7 +153,7 @@ public class ScreenManager : MonoBehaviour
     void OnDialogueEvent(DialogueEvent e)
     {
         if (!e.ongoing)
-            StartCoroutine(TransitionAfterFirstBerth());
+            StartCoroutine(TransitionAfterFirstBerth(e.firstEncounter));
     }
 
     void ChangeScreenType(EScreenType newType)

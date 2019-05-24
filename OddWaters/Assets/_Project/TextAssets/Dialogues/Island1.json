@@ -3,7 +3,7 @@
     [
       {
             "name": "Chief Miner",
-            "lines":
+            "firstDialogue":
             [
                 "Greetings stranger!",
                 "What brings you on our humble island? Interested in trading something against typhoon rock?",
@@ -13,14 +13,24 @@
                 "They are out of reality, if you ask me.",
                 "Anyway. We’ve had this... thing. Looks like it comes from there. You’ll certainly find a use for it.",
                 "There's a strange rock to the east. You might want to begin there."
+            ],
+            "secondDialogue":
+            [
+                "2nd dialogue",
+                "blah blah blah"
             ]
         },
         {
             "name": "Serge",
-            "lines":
+            "firstDialogue":
             [
                 "Line 1",
                 "Line 2"
+            ],
+            "secondDialogue":
+            [
+                "2nd dialogue",
+                "blah blah blah"
             ]
         }
     ]
