@@ -110,8 +110,8 @@ MonoBehaviour:
   elementSprite: {fileID: 21300000, guid: a6faa92ca1ac1394dae1dcbebf5669d4, type: 3}
   layer: 0
   discoverySound:
-    ID: 0
-    valueGuid: 00000000000000000000000000000000
+    ID: -1078966767
+    valueGuid: 5200304d512ab14ba0df9279c78113b0
   discovered: 0
   islandNumber: 2
   nextZone: 3
@@ -955,6 +955,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 7195449985057327236, guid: 5aac8779a0f9f1145998bdd782df9cb6,
+        type: 3}
+      propertyPath: m_Name
+      value: Stone (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 1169443797256003457, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1014,11 +1019,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.27208722
-      objectReference: {fileID: 0}
-    - target: {fileID: 7195449985057327236, guid: 5aac8779a0f9f1145998bdd782df9cb6,
-        type: 3}
-      propertyPath: m_Name
-      value: Stone (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3755590695050293610, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}
@@ -2006,6 +2006,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 7195449985057327236, guid: 5aac8779a0f9f1145998bdd782df9cb6,
+        type: 3}
+      propertyPath: m_Name
+      value: Stone (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 1169443797256003457, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2066,11 +2071,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.27208722
       objectReference: {fileID: 0}
-    - target: {fileID: 7195449985057327236, guid: 5aac8779a0f9f1145998bdd782df9cb6,
-        type: 3}
-      propertyPath: m_Name
-      value: Stone (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3755590695050293610, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}
       propertyPath: name
@@ -2097,6 +2097,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626751689418047238}
     m_Modifications:
+    - target: {fileID: 7195449985057327236, guid: 5aac8779a0f9f1145998bdd782df9cb6,
+        type: 3}
+      propertyPath: m_Name
+      value: Stone
+      objectReference: {fileID: 0}
     - target: {fileID: 1169443797256003457, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2156,11 +2161,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.27208722
-      objectReference: {fileID: 0}
-    - target: {fileID: 7195449985057327236, guid: 5aac8779a0f9f1145998bdd782df9cb6,
-        type: 3}
-      propertyPath: m_Name
-      value: Stone
       objectReference: {fileID: 0}
     - target: {fileID: 3755590695050293610, guid: 5aac8779a0f9f1145998bdd782df9cb6,
         type: 3}

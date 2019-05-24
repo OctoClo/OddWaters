@@ -89,37 +89,34 @@ public class ScreenManager : MonoBehaviour
         firstVisit = island.firstTimeVisiting;
         island.Berth();
 
-        if (firstVisit)
-        {
-            upPartAnimator.SetTrigger("FirstBerth");
-            tutorialPanel.SetActive(false);
-            yield return new WaitForSeconds(5);
-            dialogueManager.StartDialogue(island.dialogue, true);
-        }
-        else
-        {
-            upPartAnimator.SetTrigger("Berth");
-            EventManager.Instance.Raise(new BlockInputEvent() { block = false });
-        }
+        if (!firstVisit)
+            EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+
+        upPartAnimator.SetTrigger("FirstBerth");
+        tutorialPanel.SetActive(false);
+        yield return new WaitForSeconds(4);
+        dialogueManager.StartDialogue(island.dialogue, firstVisit);
     }
 
     public IEnumerator RelaunchDialogue()
     {
-        Debug.Log("Dialogue relaunched");
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
-        upPartAnimator.SetTrigger("FirstBerth");
-        yield return new WaitForSeconds(5);
+        Debug.Log("Retalk animation");
+        upPartAnimator.SetTrigger("Retalk");
+        yield return new WaitForSeconds(0.8f);
+        Debug.Log("Starting dialogue");
         dialogueManager.StartDialogue(currentIsland.dialogue, false);
     }
 
     public IEnumerator TransitionAfterFirstBerth(bool firstEncounter)
     {
         upPartAnimator.SetTrigger("EndDialogue");
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
 
         if (firstEncounter)
         {
             // Add object to inventory
+            yield return new WaitForSeconds(0.5f);
             objectToGive = currentIsland.objectToGive;
             inventory.TradeObjects(objectToGive);
             AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
@@ -137,7 +134,8 @@ public class ScreenManager : MonoBehaviour
                 tutorialManager.NextStep();
             }
         }
-        
+
+        Debug.Log("End of animations");
         EventManager.Instance.Raise(new BlockInputEvent() { block = false });
     }
 
@@ -153,7 +151,10 @@ public class ScreenManager : MonoBehaviour
     void OnDialogueEvent(DialogueEvent e)
     {
         if (!e.ongoing)
+        {
+            Debug.Log("Dialogue end");
             StartCoroutine(TransitionAfterFirstBerth(e.firstEncounter));
+        }
     }
 
     void ChangeScreenType(EScreenType newType)

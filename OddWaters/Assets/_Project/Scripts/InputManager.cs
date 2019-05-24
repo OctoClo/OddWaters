@@ -253,7 +253,7 @@ public class InputManager : MonoBehaviour
                         {
                             // Character
                             if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
-                                screenManager.RelaunchDialogue();
+                                StartCoroutine(screenManager.RelaunchDialogue());
                         }
                     }
                 }
