@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BlockInputEvent : GameEvent { public bool block; }
+public class BlockInputEvent : GameEvent { public bool block; public bool navigation; }
 
 enum EInteractibleState { UNKNOWN, CLICKED, DRAGNDROP };
 
@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     GameObject mouseProjection;
     RaycastHit[] hitsOnRayToMouse;
     bool blockInput;
+    bool navigating;
     bool dialogueOngoing;
 
     // Tutorial
@@ -60,7 +61,6 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Animator boatAnimator;
     bool navigation;
-
     
     void Start()
     {
@@ -73,6 +73,7 @@ public class InputManager : MonoBehaviour
 
         mainCamera = Camera.main;
         blockInput = false;
+        navigating = false;
         dialogueOngoing = false;
 
         interactiblePressTime = 0;
@@ -108,90 +109,95 @@ public class InputManager : MonoBehaviour
         if (desk.collider)
             mouseProjection.transform.position = desk.point;
 
-        if (!blockInput)
+        // Left button down
+        if (Input.GetMouseButtonDown(0))
+            HandleMouseLeftButtonDown();
+
+        // Left button up
+        if (Input.GetMouseButtonUp(0))
+            HandleMouseLeftButtonUp();
+
+        // Right button down
+        if (Input.GetMouseButtonDown(1))
         {
-            // Left button down
-            if (Input.GetMouseButtonDown(0))
-                HandleMouseLeftButtonDown();
+            AkSoundEngine.PostEvent("Play_Click", gameObject);
+            if (navigation)
+                StopNavigation();
+            else if ((!blockInput || navigating) && interactibleState == EInteractibleState.CLICKED)
+                ExitInterfaceRotation();
+        }
 
-            // Left button up
-            if (!blockInput && Input.GetMouseButtonUp(0))
-                HandleMouseLeftButtonUp();
+        // Interactible grab / rotate
+        if ((!blockInput || navigating) && interactible)
+        {
+            interactiblePressTime += Time.deltaTime;
 
-            // Right button down
-            if (!blockInput && Input.GetMouseButtonDown(1))
+            // Grab
+            if (interactibleState == EInteractibleState.UNKNOWN && interactiblePressTime > interactibleClickTime && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_MOVE))
             {
-                AkSoundEngine.PostEvent("Play_Click", gameObject);
-                if (navigation)
-                    StopNavigation();
-                else if (interactibleState == EInteractibleState.CLICKED)
-                    ExitInterfaceRotation();
+                interactibleState = EInteractibleState.DRAGNDROP;
+                CursorManager.Instance.SetCursor(ECursor.DRAG);
+                interactible.Grab();
             }
 
-            // Interactible grab / rotate
-            if (!blockInput && interactible)
+            // Rotate
+            if (interactibleState == EInteractibleState.DRAGNDROP && !interactible.rotating)
             {
-                interactiblePressTime += Time.deltaTime;
-                if (interactibleState == EInteractibleState.UNKNOWN && interactiblePressTime > interactibleClickTime && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_MOVE))
-                {
-                    interactibleState = EInteractibleState.DRAGNDROP;
-                    CursorManager.Instance.SetCursor(ECursor.DRAG);
-                    interactible.Grab();
-                }
-
-                if (interactibleState == EInteractibleState.DRAGNDROP && !interactible.rotating)
-                {
-                    if (Input.GetKeyDown(KeyCode.S))
-                        interactible.Rotate(0, -1);
-                    else if (Input.GetKeyDown(KeyCode.Z))
-                        interactible.Rotate(0, 1);
-                    else if (Input.GetKeyDown(KeyCode.E))
-                        interactible.Rotate(1, 1);
-                    else if (Input.GetKeyDown(KeyCode.A))
-                        interactible.Rotate(1, -1);
-                    else if (Input.GetKeyDown(KeyCode.D))
-                        interactible.Rotate(2, 1);
-                    else if (Input.GetKeyDown(KeyCode.Q))
-                        interactible.Rotate(2, -1);
-                }
+                if (Input.GetKeyDown(KeyCode.S))
+                    interactible.Rotate(0, -1);
+                else if (Input.GetKeyDown(KeyCode.Z))
+                    interactible.Rotate(0, 1);
+                else if (Input.GetKeyDown(KeyCode.E))
+                    interactible.Rotate(1, 1);
+                else if (Input.GetKeyDown(KeyCode.A))
+                    interactible.Rotate(1, -1);
+                else if (Input.GetKeyDown(KeyCode.D))
+                    interactible.Rotate(2, 1);
+                else if (Input.GetKeyDown(KeyCode.Q))
+                    interactible.Rotate(2, -1);
             }
+        }
 
-            // Hover things
-            if (!blockInput && !interactible && !telescopeDrag && !navigation)
+        // Hover things
+        if (!interactible && !telescopeDrag && !navigation)
+        {
+            // Hover boat
+            if (!blockInput && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
             {
-                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
+                CursorManager.Instance.SetCursor(ECursor.HOVER);
+                boatAnimator.SetBool("Hover", true);
+            }
+            else
+            {
+                boatAnimator.SetBool("Hover", false);
+
+                // Hover up part
+                if (!blockInput && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
                 {
+                    upPartAnimator.SetBool("Hover", true);
+
+                    if (telescope.gameObject.activeInHierarchy)
+                    {
+                        CursorManager.Instance.SetCursor(ECursor.HOVER);
+
+                        // Telescope zoom
+                        if (Input.GetAxis("Mouse ScrollWheel") != 0 && telescope.gameObject.activeInHierarchy && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
+                            telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
+                    }
+                    else if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
+                        CursorManager.Instance.SetCursor(ECursor.HOVER);
+                    else
+                        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                }
+                else if ((!blockInput || navigating) && hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
+                {
+                    // Hover interactible
                     CursorManager.Instance.SetCursor(ECursor.HOVER);
-                    boatAnimator.SetBool("Hover", true);
                 }
                 else
                 {
-                    boatAnimator.SetBool("Hover", false);
-
-                    if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
-                    {
-                        upPartAnimator.SetBool("Hover", true);
-
-                        if (telescope.gameObject.activeInHierarchy)
-                        {
-                            CursorManager.Instance.SetCursor(ECursor.HOVER);
-
-                            // Telescope zoom
-                            if (Input.GetAxis("Mouse ScrollWheel") != 0 && telescope.gameObject.activeInHierarchy && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
-                                telescope.Zoom(Input.GetAxis("Mouse ScrollWheel"));
-                        }
-                        else if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
-                            CursorManager.Instance.SetCursor(ECursor.HOVER);
-                        else
-                            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                    }
-                    else if (hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
-                        CursorManager.Instance.SetCursor(ECursor.HOVER);
-                    else
-                    {
-                        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                        upPartAnimator.SetBool("Hover", false);
-                    }
+                    CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                    upPartAnimator.SetBool("Hover", false);
                 }
             }
         }
@@ -222,7 +228,7 @@ public class InputManager : MonoBehaviour
             if (interactibleState != EInteractibleState.CLICKED)
             {
                 // Launch navigation
-                if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
+                if (!blockInput && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
                 {
                     navigation = true;
                     boatAnimator.SetBool("Hold", true);
@@ -232,7 +238,7 @@ public class InputManager : MonoBehaviour
                 {
                     // Interactible
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
-                    if (hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable() && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
+                    if ((!blockInput || navigating) && hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable() && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
                     {
                         interactible = hitInfo.collider.GetComponent<Interactible>();
                         interactiblePressTime = Time.time;
@@ -242,7 +248,7 @@ public class InputManager : MonoBehaviour
                         interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
                         interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
                     }
-                    else
+                    else if (!blockInput)
                     {
                         // Telescope
                         telescopeDrag = (telescope.gameObject.activeInHierarchy && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM));
@@ -366,6 +372,7 @@ public class InputManager : MonoBehaviour
     void OnBlockInputEvent(BlockInputEvent e)
     {
         blockInput = e.block;
+        navigating = e.navigation;
         if (e.block)
             CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }

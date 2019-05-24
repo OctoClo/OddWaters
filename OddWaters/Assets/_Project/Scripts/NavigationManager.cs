@@ -136,7 +136,7 @@ public class NavigationManager : MonoBehaviour
                     {
                         //EndJourneyAtSea
                         screenManager.EndNavigationAtSea();
-                        EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+                        EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = true });
 
                         if (goalCollider && insideGoal)
                             tutorialManager.NextStep();
@@ -191,7 +191,7 @@ public class NavigationManager : MonoBehaviour
 
     void LaunchNavigation(Vector3 target, int newZoneNumber)
     {
-        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = true });
         AkSoundEngine.PostEvent("Stop_SoundClue", gameObject);
 
         // Initialize navigation values
