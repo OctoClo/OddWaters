@@ -338,6 +338,9 @@ public class InputManager : MonoBehaviour
         boat.SetImageAlpha(false);
         interactible.ExitRotationInterface();
         interactible = null;
+
+        if (tutorialManager.step == ETutorialStep.WAITING)
+            tutorialManager.NextStep();
     }
 
     void StopNavigation()
