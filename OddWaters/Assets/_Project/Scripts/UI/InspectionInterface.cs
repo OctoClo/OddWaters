@@ -7,6 +7,9 @@ using TMPro;
 public class InspectionInterface : MonoBehaviour
 {
     [SerializeField]
+    InputManager inputManager;
+
+    [SerializeField]
     Button transcriptButton;
 
     [SerializeField]
@@ -85,5 +88,10 @@ public class InspectionInterface : MonoBehaviour
         }
         else
             transcriptButton.gameObject.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        inputManager.ExitInterfaceRotation();
     }
 }

@@ -329,7 +329,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    void ExitInterfaceRotation()
+    public void ExitInterfaceRotation()
     {
         interactibleState = EInteractibleState.UNKNOWN;
         inspectionInterface.gameObject.SetActive(false);
