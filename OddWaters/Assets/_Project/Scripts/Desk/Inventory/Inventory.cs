@@ -28,6 +28,7 @@ public class Inventory : MonoBehaviour
     GameObject newObject;
     BoxCollider boxCollider;
     Rigidbody rb;
+    [SerializeField]
     GameObject previousObject;
    
     bool moving;
@@ -50,7 +51,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void TradeObjects(GameObject prefab)
+    public bool TradeObjects(GameObject prefab)
     {
         prefabToGive = prefab;
 
@@ -66,9 +67,12 @@ public class Inventory : MonoBehaviour
             targetPos = previousObject.transform.position;
             targetPos.y += 1;
             rb.velocity = (targetPos - previousObject.transform.position);
+            return true;
         }
         else
             AddObjectToInventory();
+
+        return false;
     }
 
     void AddObjectToInventory()
