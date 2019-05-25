@@ -110,6 +110,13 @@ public class Telescope : MonoBehaviour
         }
     }
 
+    public void ChangeZoom()
+    {
+        zoom = !zoom;
+        wheelZoomLevel = (zoom ? wheelZoomThreshold : 0);
+        SetZoom();
+    }
+
     void SetZoom()
     {
         zoomAnimation = true;
