@@ -33,6 +33,9 @@ public class NavigationManager : MonoBehaviour
     [SerializeField]
     float boatSpeed;
     [SerializeField]
+    float boatSpeedFromTyhpoon;
+    float currentSpeed;
+    [SerializeField]
     float maxDistance = 3f;
     float maxDistanceSqr;
     [SerializeField]
@@ -153,7 +156,7 @@ public class NavigationManager : MonoBehaviour
             // Still journeying
             else
             {
-                float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
+                float distCovered = (Time.time - journeyBeginTime) * currentSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
                 boatTrail.SetPosition(linePoints, boat.transform.position);
@@ -196,6 +199,7 @@ public class NavigationManager : MonoBehaviour
 
         // Initialize navigation values
         navigating = true;
+        currentSpeed = (fromTyphoon ? boatSpeedFromTyhpoon : boatSpeed);
         boatRenderer.sprite = boatSprites[0];
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         target.y = boat.transform.position.y;
