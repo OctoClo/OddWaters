@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ public class Boat : MonoBehaviour
     [SerializeField]
     NavigationManager navigationManager;
 
+    // Navigation line
     [SerializeField]
     LineRenderer line;
     [SerializeField]
@@ -18,6 +19,7 @@ public class Boat : MonoBehaviour
     [SerializeField]
     [Range(0.01f, 0.2f)]
     float dotsSoundInterval = 0.1f;
+    Vector3 lineEnd;
 
     [HideInInspector]
     public GameObject mouseProjection;
@@ -33,6 +35,7 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
+        line.SetPosition(0, Vector3.zero);
         line.enabled = false;
         endOfLine.SetActive(false);
         elementsInSight = new List<MapElement>();
@@ -61,9 +64,10 @@ public class Boat : MonoBehaviour
     {
         if (line.enabled)
         {
-            line.SetPosition(0, transform.position);
-            line.SetPosition(1, navigationManager.lastValidCursorPos);
-            endOfLine.transform.position = navigationManager.lastValidCursorPos;
+            lineEnd = transform.InverseTransformPoint(navigationManager.lastValidCursorPos);
+            lineEnd.z = 0;
+            line.SetPosition(1, lineEnd);
+            endOfLine.transform.localPosition = lineEnd;
             currentDotPercentage = (navigationManager.lastValidCursorPos - transform.position).sqrMagnitude / lineMaxLenght;
             if (Mathf.Abs(lastDotPercentageSound - currentDotPercentage) >= dotsSoundInterval)
                 PlayDotsSound();

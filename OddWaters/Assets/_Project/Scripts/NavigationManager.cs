@@ -271,7 +271,7 @@ public class NavigationManager : MonoBehaviour
 
     public void UpdateNavigation(Vector3 targetPos)
     {
-        targetPos.y += boat.transform.localPosition.y;
+        targetPos.y = boat.transform.position.y;
         ENavigationResult result = GetNavigationResult(targetPos);
         switch (result)
         {
@@ -282,10 +282,6 @@ public class NavigationManager : MonoBehaviour
             case ENavigationResult.ISLAND:
                 CursorManager.Instance.SetCursor(ECursor.NAVIGATION_ISLAND);
                 break;
-
-            /*case ENavigationResult.KO:
-                CursorManager.Instance.SetCursor(ECursor.NAVIGATION_KO);
-                break;*/
         }
     }
 
@@ -302,13 +298,8 @@ public class NavigationManager : MonoBehaviour
         if (goalCollider && hitsAtTarget.Any(hit => ReferenceEquals(hit.collider.gameObject, goalCollider.gameObject)))
             insideGoal = true;
 
-        // Visible island at target position or on trajectory (ok)
+        // Visible island at target position
         RaycastHit island = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);
-        if (!island.collider)
-        {
-            RaycastHit[] hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, distance);
-            island = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);
-        }  
         float distanceToTarget = (island.point - boat.transform.position).sqrMagnitude;
         if (island.collider && distanceToTarget <= maxDistanceSqr)
         {
@@ -318,6 +309,7 @@ public class NavigationManager : MonoBehaviour
             return ENavigationResult.ISLAND;
         }
 
+        // Stone magnetism
         RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<Island>() == null);
         distanceToTarget = (stone.point - boat.transform.position).sqrMagnitude;
         if (stone.collider && distanceToTarget <= maxDistanceSqr)
@@ -342,18 +334,20 @@ public class NavigationManager : MonoBehaviour
             }
             else
             {
-                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, distance, targetPos);
                 lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
         }
         else
         {
+            // No map zone visible at target pos
             RaycastHit[] hitsOnReverseJourney = Physics.RaycastAll(targetPos, -journey, distance);
+            hitsOnReverseJourney = hitsOnReverseJourney.OrderByDescending(hit => Vector3.SqrMagnitude(boat.transform.position - hit.point)).ToArray();
             mapZone = hitsOnReverseJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible);
             float distanceToBorder = (mapZone.point - boat.transform.position).sqrMagnitude;
             distanceToTarget = (targetPos - boat.transform.position).sqrMagnitude;
-            if (distanceToTarget <= maxDistanceSqr || maxDistanceSqr > distanceToBorder)
+            if (distanceToTarget <= maxDistanceSqr || distanceToBorder <= maxDistanceSqr)
             {
                 lastValidCursorPos = mapZone.point;
                 lastValidTarget = mapZone.point;
@@ -361,16 +355,16 @@ public class NavigationManager : MonoBehaviour
             }
             else
             {
-                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, distance, targetPos);
                 lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
         }
     }
 
-    Vector3 FindMaxDistanceOnTrajectory(Vector3 journey, Vector3 targetPos)
+    Vector3 FindMaxDistanceOnTrajectory(Vector3 journey, float distance, Vector3 targetPos)
     {
-        float factor = maxDistance / journey.magnitude;
+        float factor = maxDistance / distance;
         float x = (targetPos.x - boat.transform.position.x) * factor + boat.transform.position.x;
         float y = (targetPos.y - boat.transform.position.y) * factor + boat.transform.position.y;
         float z = (targetPos.z - boat.transform.position.z) * factor + boat.transform.position.z;
