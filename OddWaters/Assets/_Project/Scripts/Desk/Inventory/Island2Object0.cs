@@ -6,11 +6,13 @@ public class Island2Object0 : MonoBehaviour
 {
 
     Color inactiveColor = Color.black;
-    Color activeColor = new Color(57,191, 61);
+    Color activeColor = new Color(2, 58, 6);
 
     Color currentColor;
 
     Material mat;
+
+    public bool active = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,16 @@ public class Island2Object0 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentColor = Color.Lerp(inactiveColor, activeColor, Mathf.PingPong(Time.time, 1));
+        
+
+        if(active)
+        {
+            currentColor = Color.Lerp(inactiveColor, activeColor, Mathf.PingPong(Time.time, 1));
+        }
+        else
+        {
+            currentColor = inactiveColor;
+        }
 
         mat.SetColor("_EmissionColor", currentColor / 20.0f);
     }
