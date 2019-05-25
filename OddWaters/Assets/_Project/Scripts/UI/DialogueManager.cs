@@ -24,7 +24,6 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue, bool first)
     {
-        EventManager.Instance.Raise(new DialogueEvent() { ongoing = true, firstEncounter = first });
         firstEncounter = first;
 
         lines.Clear();
@@ -42,6 +41,8 @@ public class DialogueManager : MonoBehaviour
 
         nameField.text = dialogue.languages[(int)LanguageManager.Instance.language].name;
         NextLine();
+
+        EventManager.Instance.Raise(new DialogueEvent() { ongoing = true, firstEncounter = first });
     }
 
     public void NextLine()
