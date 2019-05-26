@@ -31,6 +31,10 @@ public class TutorialManager : MonoBehaviour
     float lastSentenceDuration = 4;
 
     [SerializeField]
+    Animator globalAnimator;
+    [SerializeField]
+    Animator tutorialUIAnimator;
+    [SerializeField]
     InputManager inputManager;
     [SerializeField]
     NavigationManager navigationManager;
@@ -60,9 +64,9 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        inputManager.tutorial = tutorial;
+        //inputManager.tutorial = tutorial;
 
-        if (!tutorial)
+        /*if (!tutorial)
         {
             step = ETutorialStep.NO_TUTORIAL;
             LaunchAmbiance();
@@ -72,7 +76,42 @@ public class TutorialManager : MonoBehaviour
         {
             tutorialText = JsonUtility.FromJson<TutorialText>(tutorialJSON.text);
             StartCoroutine(UpdateStep());
-        }        
+        }*/
+
+        if (!tutorial)
+        {
+            step = ETutorialStep.NO_TUTORIAL;
+            //LaunchAmbiance();
+            StartCoroutine(navigationManager.InitializeTelescopeElements());
+        }
+    }
+
+    public void SetActive(bool state)
+    {
+        tutorial = state;
+        inputManager.tutorial = tutorial;
+
+        if (tutorial) Setup();
+    }
+
+    public void Setup()
+    {
+
+        globalAnimator.SetTrigger("Setup Tutorial");
+
+    }
+
+    public void Launch()
+    {
+        
+        tutorialText = JsonUtility.FromJson<TutorialText>(tutorialJSON.text);
+
+        step = ETutorialStep.TELESCOPE_MOVE;
+
+        tutorialUIAnimator.SetTrigger("Start");
+
+        StartCoroutine(UpdateStep());
+        
     }
 
     IEnumerator UpdateStep()
@@ -82,27 +121,34 @@ public class TutorialManager : MonoBehaviour
         switch (step)
         {
             case ETutorialStep.STORM:
-                deskMaskingCube.SetActive(true);
-                maskingCube.SetActive(true);
-                rollingDesk.enabled = false;
+                //LaunchAmbiance();
+
+                //deskMaskingCube.SetActive(true);
+                //maskingCube.SetActive(true);
+                //rollingDesk.enabled = false;
                 yield return new WaitForSeconds(stormDuration);
                 NextStep();
                 break;
 
             case ETutorialStep.TELESCOPE_MOVE:
                 yield return StartCoroutine(navigationManager.InitializeTelescopeElements());
-                LaunchAmbiance();
-                maskingCube.SetActive(false);
-                tutorialField.transform.parent.gameObject.SetActive(true);
-                UpdateTutorialText();
+
+                globalAnimator.SetTrigger("Reveal Telescope");
+
+                PromptTooltip();
+
+                //maskingCube.SetActive(false);
+                //tutorialField.transform.parent.gameObject.SetActive(true);
                 break;
 
             case ETutorialStep.BOAT_MOVE:
+                globalAnimator.SetTrigger("Reveal Desk");
                 telescope.SetImageAlpha(true);
                 deskMaskingCube.SetActive(false);
-                rollingDesk.enabled = true;
                 navigationManager.goalCollider = boatGoalCollider;
-                UpdateTutorialText();
+
+                PromptTooltip();
+
                 break;
 
             case ETutorialStep.TELESCOPE_ZOOM:
@@ -111,7 +157,9 @@ public class TutorialManager : MonoBehaviour
                 panelUI.SetActive(true);
                 telescope.tutorial = true;
                 rollingDesk.enabled = false;
-                UpdateTutorialText();
+
+                PromptTooltip();
+
                 break;
 
             case ETutorialStep.GO_TO_ISLAND:
@@ -120,42 +168,63 @@ public class TutorialManager : MonoBehaviour
                 telescope.tutorial = false;
                 rollingDesk.enabled = true;
                 navigationManager.goalCollider = firstIslandCollider;
-                UpdateTutorialText();
+
+                PromptTooltip();
+
                 break;
 
             case ETutorialStep.OBJECT_ZOOM:
-                UpdateTutorialText();
+                PromptTooltip();
+
                 break;
 
             case ETutorialStep.OBJECT_ROTATE:
-                UpdateTutorialText();
+                PromptTooltip();
+
                 break;
 
-            case ETutorialStep.WAITING:
+            /*case ETutorialStep.WAITING:
                 yield return new WaitForSeconds(2);
-                tutorialField.transform.parent.gameObject.SetActive(false);
-                break;
+                //tutorialField.transform.parent.gameObject.SetActive(false);
+                CompleteStep();
+                break;*/
 
             case ETutorialStep.OBJECT_MOVE:
-                yield return new WaitForSeconds(0.5f);
-                tutorialField.transform.parent.gameObject.SetActive(true);
-                UpdateTutorialText();
+
+                PromptTooltip();
+
                 break;
 
             case ETutorialStep.NO_TUTORIAL:
-                upMaskingCube.SetActive(false);
+                //upMaskingCube.SetActive(false);
                 inputManager.tutorial = false;
-                UpdateTutorialText();
+
+                PromptTooltip();
+
                 yield return new WaitForSeconds(lastSentenceDuration);
-                tutorialField.transform.parent.gameObject.SetActive(false);
+
+                CompleteStep();
+
                 break;
         }
+    }
+
+    void PromptTooltip()
+    {
+        UpdateTutorialText();
+        tutorialUIAnimator.SetBool("StepCompleted", false);
+    }
+
+    public void CompleteStep()
+    {
+        tutorialUIAnimator.SetBool("StepCompleted", true);
     }
 
     public void NextStep()
     {
         step++;
         StartCoroutine(UpdateStep());
+
     }
 
     void UpdateTutorialText()
@@ -168,5 +237,15 @@ public class TutorialManager : MonoBehaviour
         AkSoundEngine.SetState("SeaIntensity", "CalmSea");
         AkSoundEngine.SetState("Weather", "Fine");
         AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
+    }
+
+    public void MaskUp()
+    {
+
+    }
+
+    public void MaskBottom()
+    {
+
     }
 }

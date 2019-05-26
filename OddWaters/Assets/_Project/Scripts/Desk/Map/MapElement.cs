@@ -37,6 +37,6 @@ public class MapElement : MonoBehaviour
         discovered = true;
 
         if (tutorial)
-            tutorialManager.NextStep();
+            tutorialManager.CompleteStep();
     }
 }

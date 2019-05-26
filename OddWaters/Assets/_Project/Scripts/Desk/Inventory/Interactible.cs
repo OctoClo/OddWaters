@@ -140,7 +140,7 @@ public class Interactible : MonoBehaviour
             }
 
             if (tutorialManager.step == ETutorialStep.OBJECT_ROTATE)
-                tutorialManager.NextStep();
+                tutorialManager.CompleteStep();
         }
     }
 
@@ -213,5 +213,8 @@ public class Interactible : MonoBehaviour
         rigidBody.useGravity = true;
         zoom = false;
         transform.parent = inventory;
+
+        if (tutorialManager.step == ETutorialStep.WAITING)
+            tutorialManager.NextStep();
     }
 }

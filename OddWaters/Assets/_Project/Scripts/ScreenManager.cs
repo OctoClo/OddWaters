@@ -7,7 +7,13 @@ public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 public class ScreenManager : MonoBehaviour
 {
     [SerializeField]
-    Animator upPartAnimator;
+    bool launchMenu = false;
+    [SerializeField]
+    bool playIntro = false;
+    [SerializeField]
+    Animator introAnimator;
+    [SerializeField]
+    Animator globalAnimator;
 
     [SerializeField]
     GameObject telescopeScreen;
@@ -61,14 +67,14 @@ public class ScreenManager : MonoBehaviour
 
     public void BeginNavigation()
     {
-        upPartAnimator.ResetTrigger("EndNavigationAtSea");
-        upPartAnimator.SetTrigger("BeginNavigation");
+        globalAnimator.ResetTrigger("EndNavigationAtSea");
+        globalAnimator.SetTrigger("BeginNavigation");
     }
 
     public void EndNavigationAtSea()
     {
-        upPartAnimator.ResetTrigger("LeaveIsland");
-        upPartAnimator.SetTrigger("EndNavigationAtSea");
+        globalAnimator.ResetTrigger("LeaveIsland");
+        globalAnimator.SetTrigger("EndNavigationAtSea");
     }
 
     public IEnumerator Berth(Island island, bool tutorialNow)
@@ -92,8 +98,8 @@ public class ScreenManager : MonoBehaviour
         if (!firstVisit)
             EventManager.Instance.Raise(new BlockInputEvent() { block = true });
 
-        upPartAnimator.SetTrigger("FirstBerth");
-        tutorialPanel.SetActive(false);
+        globalAnimator.SetTrigger("FirstBerth");
+        if (tutorialNow) tutorialManager.CompleteStep();
         yield return new WaitForSeconds(4);
         dialogueManager.StartDialogue(island.dialogue, firstVisit);
     }
@@ -101,14 +107,14 @@ public class ScreenManager : MonoBehaviour
     public IEnumerator RelaunchDialogue()
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true });
-        upPartAnimator.SetTrigger("Retalk");
+        globalAnimator.SetTrigger("Retalk");
         yield return new WaitForSeconds(1.9f);
         dialogueManager.StartDialogue(currentIsland.dialogue, false);
     }
 
     public IEnumerator TransitionAfterFirstBerth(bool firstEncounter)
     {
-        upPartAnimator.SetTrigger("EndDialogue");
+        globalAnimator.SetTrigger("EndDialogue");
         yield return new WaitForSeconds(1.5f);
         if (firstEncounter)
         {
@@ -126,8 +132,8 @@ public class ScreenManager : MonoBehaviour
             // Tutorial
             if (tutorial)
             {
-                tutorial = false;
-                tutorialPanel.SetActive(true);
+                //tutorial = false;
+                //tutorialPanel.SetActive(true);
                 tutorialManager.NextStep();
             }
         }
@@ -137,10 +143,10 @@ public class ScreenManager : MonoBehaviour
 
     public void LeaveIsland()
     {
-        upPartAnimator.ResetTrigger("Berth");
-        upPartAnimator.ResetTrigger("FirstBerth");
+        globalAnimator.ResetTrigger("Berth");
+        globalAnimator.ResetTrigger("FirstBerth");
         AkSoundEngine.PostEvent("Stop_AMB_Island" + currentIslandNumber, gameObject);
-        upPartAnimator.SetTrigger("LeaveIsland");
+        globalAnimator.SetTrigger("LeaveIsland");
         currentIslandNumber = -1;
     }
 

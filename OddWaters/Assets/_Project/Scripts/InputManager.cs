@@ -18,6 +18,8 @@ public class InputManager : MonoBehaviour
     ScreenManager screenManager;
     [SerializeField]
     DialogueManager dialogueManager;
+    [SerializeField]
+    Animator globalAnimator;
     Camera mainCamera;
     GameObject mouseProjection;
     RaycastHit[] hitsOnRayToMouse;
@@ -50,8 +52,6 @@ public class InputManager : MonoBehaviour
     Vector3 dragBeginPos;
     Vector3 dragCurrentPos;
     float dragSpeed;
-    [SerializeField]
-    Animator upPartAnimator;
 
     // Map
     [SerializeField]
@@ -174,7 +174,7 @@ public class InputManager : MonoBehaviour
                 // Hover up part
                 if (!blockInput && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
                 {
-                    upPartAnimator.SetBool("Hover", true);
+                    globalAnimator.SetBool("Hover", true);
 
                     if (telescope.gameObject.activeInHierarchy)
                     {
@@ -197,7 +197,7 @@ public class InputManager : MonoBehaviour
                 else
                 {
                     CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                    upPartAnimator.SetBool("Hover", false);
+                    globalAnimator.SetBool("Hover", false);
                 }
             }
         }
@@ -281,7 +281,7 @@ public class InputManager : MonoBehaviour
     IEnumerator WaitBeforeResettingHoverTrigger()
     {
         yield return new WaitForSeconds(0.2f);
-        upPartAnimator.SetBool("Hover", false);
+        globalAnimator.SetBool("Hover", false);
     }
 
     void HandleMouseLeftButtonUp()
@@ -296,7 +296,7 @@ public class InputManager : MonoBehaviour
                 interactible = null;
 
                 if (tutorialManager.step == ETutorialStep.OBJECT_MOVE)
-                    tutorialManager.NextStep();
+                    tutorialManager.CompleteStep();
             }
             else if (interactibleState == EInteractibleState.UNKNOWN)
             {
@@ -309,7 +309,7 @@ public class InputManager : MonoBehaviour
                 boat.SetImageAlpha(true);
 
                 if (tutorialManager.step == ETutorialStep.OBJECT_ZOOM)
-                    tutorialManager.NextStep();
+                    tutorialManager.CompleteStep();
             }
         }
         else if (telescopeDrag)
@@ -331,7 +331,7 @@ public class InputManager : MonoBehaviour
         firstTelescopeMove = false;
         yield return new WaitForSeconds(tutorialManager.telescopeDragWait);
         if (!telescopeDrag)
-            tutorialManager.NextStep();
+            tutorialManager.CompleteStep();
         else
             firstTelescopeMove = true;
     }
@@ -358,7 +358,7 @@ public class InputManager : MonoBehaviour
         interactible = null;
 
         if (tutorialManager.step == ETutorialStep.WAITING)
-            tutorialManager.NextStep();
+            tutorialManager.CompleteStep();
     }
 
     void StopNavigation()

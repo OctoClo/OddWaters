@@ -139,7 +139,7 @@ public class NavigationManager : MonoBehaviour
                         EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = true });
 
                         if (goalCollider && insideGoal)
-                            tutorialManager.NextStep();
+                            tutorialManager.CompleteStep();
                     }
 
                     fromTyphoon = false;
