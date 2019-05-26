@@ -16,19 +16,24 @@ public class Island1Object0 : MonoBehaviour
     Vector3 belowPos;
 
     [SerializeField]
-    Renderer emissionRenderer;
+    Renderer[] emissionRenderers;
     [SerializeField]
     Color inactiveColor;
     [SerializeField]
     Color activeColor;
 
     Color currentColor;
-    Material material;
+    Material[] materials;
+    int renderersCount;
 
     void Start()
     {
         distanceFactor = 1 / maxDistanceToStone;
-        material = emissionRenderer.material;
+
+        renderersCount = emissionRenderers.Length;
+        materials = new Material[renderersCount];
+        for (int i = 0; i < renderersCount; i++)
+            materials[i] = emissionRenderers[i].material;
     }
 
     void OnEnable()
@@ -53,7 +58,8 @@ public class Island1Object0 : MonoBehaviour
             AkSoundEngine.SetRTPCValue("Pulse", currentPercentage);
 
             currentColor = Color.Lerp(inactiveColor, activeColor, currentPercentage);
-            material.SetColor("_EmissionColor", currentColor);
+            for (int i = 0; i < renderersCount; i++)
+                materials[i].SetColor("_EmissionColor", currentColor);
         }
     }
 

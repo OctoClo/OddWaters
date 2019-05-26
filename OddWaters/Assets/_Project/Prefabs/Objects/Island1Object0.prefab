@@ -188,10 +188,10 @@ MonoBehaviour:
   maxDistanceToStone: 3
   currentStone: {fileID: 0}
   currentPercentage: 0
-  emissionRenderer: {fileID: 1295717815575100060}
+  emissionRenderers:
+  - {fileID: 1295717815575100060}
   inactiveColor: {r: 0, g: 0, b: 0, a: 1}
   activeColor: {r: 1, g: 1, b: 1, a: 1}
-  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1295717815572833370
 GameObject:
   m_ObjectHideFlags: 0
