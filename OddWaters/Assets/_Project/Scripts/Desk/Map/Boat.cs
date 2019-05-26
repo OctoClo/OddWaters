@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class BoatInMapElement : GameEvent { public bool exit; public ElementViewZone elementZone; }
+
 public class Boat : MonoBehaviour
 {
     [SerializeField]
@@ -85,12 +87,22 @@ public class Boat : MonoBehaviour
     {
         if (!elementsInSight.Contains(element))
             elementsInSight.Add(element);
+
+        ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
+        Island island = element.GetComponent<Island>();
+        if (!island)
+            EventManager.Instance.Raise(new BoatInMapElement() { exit = false, elementZone = viewZone });
     }
 
     public void ElementNoMoreInSight(MapElement element)
     {
         if (elementsInSight.Contains(element))
             elementsInSight.Remove(element);
+
+        ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
+        Island island = element.GetComponent<Island>();
+        if (!island)
+            EventManager.Instance.Raise(new BoatInMapElement() { exit = true, elementZone = viewZone });
     }
 
     public List<MapElement> GetElementsInSight()
