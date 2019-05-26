@@ -56,8 +56,12 @@ public class InputManager : MonoBehaviour
     Vector3 dragBeginPos;
     Vector3 dragCurrentPos;
     float dragSpeed;
+
+    // Animation
     [SerializeField]
     Animator upPartAnimator;
+    [SerializeField]
+    BoatTrailAnimation trailAnimation;
 
     // Map
     [SerializeField]
@@ -201,6 +205,8 @@ public class InputManager : MonoBehaviour
                 // Hover up part
                 if (!blockInput && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM) && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")))
                 {
+                    if (!upPartAnimator.GetBool("Hover"))
+                        trailAnimation.Hover();
                     upPartAnimator.SetBool("Hover", true);
 
                     if (telescope.gameObject.activeInHierarchy)
@@ -224,6 +230,9 @@ public class InputManager : MonoBehaviour
                 else
                 {
                     CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+
+                    if (upPartAnimator.GetBool("Hover"))
+                        trailAnimation.Hover();
                     upPartAnimator.SetBool("Hover", false);
                 }
             }
