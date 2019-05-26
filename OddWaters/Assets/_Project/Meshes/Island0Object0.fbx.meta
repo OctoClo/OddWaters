@@ -1,16 +1,14 @@
 fileFormatVersion: 2
-guid: ffe87dc27f4514b449034de0ad9fc643
+guid: 003846b26ea7ee1459ab987d510ecfad
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: initialShadingGroup1
-    2100002: lambert1
+    2100000: initialShadingGroup2
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Letter_02
-    4300002: Annas_Letter
+    4300000: Fishermens_map
     9500000: //RootNode
   externalObjects: {}
   materials:
