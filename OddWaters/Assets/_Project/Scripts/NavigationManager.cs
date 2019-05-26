@@ -191,8 +191,11 @@ public class NavigationManager : MonoBehaviour
 
     void OnBoatInMapElement(BoatInMapElement e)
     {
-        Debug.Log("Magnetiiiiism");
-        LaunchNavigation(e.newTarget, e.newMapZone, false);
+        if (!e.exit)
+        {
+            Debug.Log("Magnetiiiiism");
+            LaunchNavigation(e.elementZone.transform.position, e.elementZone.zone, false);
+        }
     }
 
     public void Navigate()
@@ -342,7 +345,7 @@ public class NavigationManager : MonoBehaviour
             }
             else
             {
-                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, distance, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(distance, targetPos);
                 lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
@@ -363,14 +366,14 @@ public class NavigationManager : MonoBehaviour
             }
             else
             {
-                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, distance, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(distance, targetPos);
                 lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
         }
     }
 
-    Vector3 FindMaxDistanceOnTrajectory(Vector3 journey, float distance, Vector3 targetPos)
+    Vector3 FindMaxDistanceOnTrajectory(float distance, Vector3 targetPos)
     {
         float factor = maxDistance / distance;
         float x = (targetPos.x - boat.transform.position.x) * factor + boat.transform.position.x;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BoatInTyphoonEvent : GameEvent { public GameObject typhoon; };
-public class BoatInMapElement : GameEvent { public Vector3 newTarget; public int newMapZone; }
+public class BoatInMapElement : GameEvent { public bool exit; public ElementViewZone elementZone; }
 
 public class BoatWorldCollider : MonoBehaviour
 {
@@ -31,7 +31,7 @@ public class BoatWorldCollider : MonoBehaviour
         {
             ElementViewZone viewZone = other.GetComponent<ElementViewZone>();
             if (viewZone && !viewZone.transform.parent.gameObject.GetComponent<Island>())
-                EventManager.Instance.Raise(new BoatInMapElement() { newTarget = other.transform.position, newMapZone = viewZone.elementZone });
+                EventManager.Instance.Raise(new BoatInMapElement() { exit = false, elementZone = viewZone });
         }
     }
 
@@ -45,5 +45,11 @@ public class BoatWorldCollider : MonoBehaviour
         }
         else if (other.CompareTag("Typhoon"))
             boat.inATyphoon = false;
+        else
+        {
+            ElementViewZone viewZone = other.GetComponent<ElementViewZone>();
+            if (viewZone && !viewZone.transform.parent.gameObject.GetComponent<Island>())
+                EventManager.Instance.Raise(new BoatInMapElement() { exit = true, elementZone = viewZone });
+        }
     }
 }
