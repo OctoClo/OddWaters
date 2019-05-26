@@ -94,11 +94,13 @@ public class NavigationManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);    
+        EventManager.Instance.AddListener<BoatInMapElement>(OnBoatInMapElement);    
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
+        EventManager.Instance.RemoveListener<BoatInMapElement>(OnBoatInMapElement);
     }
 
     public IEnumerator InitializeTelescopeElements()
@@ -172,11 +174,6 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    public void Navigate()
-    {
-        LaunchNavigation(lastValidTarget, lastValidTargetZone);
-    }
-
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
         Debug.Log("Boat in typhoon!");
@@ -189,10 +186,21 @@ public class NavigationManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         typhoon.GetComponent<SpriteRenderer>().enabled = true;
         fromTyphoon = true;
-        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone);
+        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, false);
     }
 
-    void LaunchNavigation(Vector3 target, int newZoneNumber)
+    void OnBoatInMapElement(BoatInMapElement e)
+    {
+        Debug.Log("Magnetiiiiism");
+        LaunchNavigation(e.newTarget, e.newMapZone, false);
+    }
+
+    public void Navigate()
+    {
+        LaunchNavigation(lastValidTarget, lastValidTargetZone, true);
+    }
+
+    void LaunchNavigation(Vector3 target, int newZoneNumber, bool beginJourney)
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = true });
         AkSoundEngine.PostEvent("Stop_SoundClue", gameObject);
@@ -216,7 +224,7 @@ public class NavigationManager : MonoBehaviour
         if (newZoneNumber != map.currentZone)
             map.ChangeZone(newZoneNumber);
 
-        if (!fromTyphoon)
+        if (beginJourney)
         {
             AkSoundEngine.PostEvent("Play_Travel", gameObject);
 
@@ -253,7 +261,7 @@ public class NavigationManager : MonoBehaviour
                 typhoonOnRight = Physics.RaycastAll(boatColliderRight, raycastDir, raycastLenght).Any(hit => hit.collider.CompareTag("Typhoon"));
             }
             goingIntoTyphoon = (typhoonOnLeft || typhoonOnRight);
-            Debug.Log("Going into a typhoon? " + goingIntoTyphoon);
+            //Debug.Log("Going into a typhoon? " + goingIntoTyphoon);
         }
     }
 
