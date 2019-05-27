@@ -126,7 +126,7 @@ MonoBehaviour:
   zoomOffset: 14
   grabOffset: 0.01
   rotationSpeed: 3
-  rotationsAmount: 000000000000000000000000
+  rotationsAmount: 000000000100000000000000
   inspectionInterface: {fileID: 0}
   tutorialManager: {fileID: 0}
   grabbable: 0

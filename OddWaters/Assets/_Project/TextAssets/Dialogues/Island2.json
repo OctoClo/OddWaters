@@ -5,42 +5,44 @@
             "name": "Monk",
             "firstDialogue":
             [
-                "*The monk gazes at you quietly",
+                "*The monk gazes at you quietly from a distance",
                 "Another one of them making it to our island. Unusual.",
                 "Maybe this time they will listen.",
                 "Maybe this time, they will understand that the sea is to be respected.",
                 "*He talks in a tongue you don’t understand",
-                "Some of you want to control it, and make it your own. Some of you exploit it, extract its essence.",
+                "Some of them want to control it, and make it your own.",
                 "Most of them don’t know. How many times must we explain?",
-                "*He talks in incomprehensible language",
-        		"Take this if you want a chance to understand this sea.",
+                "*He talks in an incomprehensible language",
+        		"Take this if you want a chance to understand.",
+				"Go east, and open yourself to the sea.",
         		"Listen to its roars and complaints, and perhaps you’ll sea its true form."
             ],
             "secondDialogue":
             [
                 "Listen, human.",
-                "Listen to its complaints."
+                "Find your way to the east, and listen to its complaints"
             ]
         },
         {
             "name": "Monk",
             "firstDialogue":
             [
-                "*The monk gazes at you quietly",
+                "*The monk gazes at you quietly from a distance",
                 "Another one of them making it to our island. Unusual.",
                 "Maybe this time they will listen.",
                 "Maybe this time, they will understand that the sea is to be respected.",
                 "*He talks in a tongue you don’t understand",
-                "Some of you want to control it, and make it your own. Some of you exploit it, extract its essence.",
+                "Some of them want to control it, and make it your own.",
                 "Most of them don’t know. How many times must we explain?",
-                "*He talks in incomprehensible language",
-        				"Take this if you want a chance to understand this sea.",
-        				"Listen to its roars and complaints, and perhaps you’ll sea its true form."
+                "*He talks in an incomprehensible language",
+        		"Take this if you want a chance to understand.",
+				"Go east, and open yourself to the sea.",
+        		"Listen to its roars and complaints, and perhaps you’ll sea its true form."
             ],
             "secondDialogue":
             [
-                "2nd dialogue",
-                "blah blah blah"
+                "Listen, human.",
+                "Find your way to the east, and listen to its complaints"
             ]
         }
     ]

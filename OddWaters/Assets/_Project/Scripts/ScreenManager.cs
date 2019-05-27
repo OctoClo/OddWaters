@@ -119,13 +119,12 @@ public class ScreenManager : MonoBehaviour
         if (firstEncounter)
         {
             // Add object to inventory
-            yield return new WaitForSeconds(0.5f);
             objectToGive = currentIsland.objectToGive;
-            inventory.TradeObjects(objectToGive);
+            bool waitLonger = inventory.TradeObjects(objectToGive);
             AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
+            yield return new WaitForSeconds(2.5f + (waitLonger ? 1 : 0));
 
             // Discover new zone
-            yield return new WaitForSeconds(2.5f);
             nextZone = currentIsland.nextZone;
             EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
 

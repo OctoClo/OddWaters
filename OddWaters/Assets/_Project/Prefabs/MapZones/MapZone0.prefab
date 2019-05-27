@@ -210,7 +210,7 @@ MonoBehaviour:
   nextZone: 1
   background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
   character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
-  objectToGive: {fileID: 723177004646277754, guid: 97eebb436ca629642a9649afe354f579,
+  objectToGive: {fileID: 3606113474007394133, guid: 27479f17747256044b77b1832cdd1eca,
     type: 3}
   speech: {fileID: 4900000, guid: 4d553299aa7cf924eace2f7b907f4b01, type: 3}
   dialogue:
@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82eaeb0a9a7836c4da8b41b5fbc5c3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zone: 0
 --- !u!1 &359006016548906845
 GameObject:
   m_ObjectHideFlags: 0

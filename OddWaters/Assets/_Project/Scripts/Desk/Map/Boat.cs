@@ -1,12 +1,15 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public class BoatInMapElement : GameEvent { public bool exit; public ElementViewZone elementZone; }
 
 public class Boat : MonoBehaviour
 {
     [SerializeField]
     NavigationManager navigationManager;
 
+    // Navigation line
     [SerializeField]
     LineRenderer line;
     [SerializeField]
@@ -18,6 +21,7 @@ public class Boat : MonoBehaviour
     [SerializeField]
     [Range(0.01f, 0.2f)]
     float dotsSoundInterval = 0.1f;
+    Vector3 lineEnd;
 
     [HideInInspector]
     public GameObject mouseProjection;
@@ -33,6 +37,7 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
+        line.SetPosition(0, Vector3.zero);
         line.enabled = false;
         endOfLine.SetActive(false);
         elementsInSight = new List<MapElement>();
@@ -61,9 +66,10 @@ public class Boat : MonoBehaviour
     {
         if (line.enabled)
         {
-            line.SetPosition(0, transform.position);
-            line.SetPosition(1, navigationManager.lastValidCursorPos);
-            endOfLine.transform.position = navigationManager.lastValidCursorPos;
+            lineEnd = transform.InverseTransformPoint(navigationManager.lastValidCursorPos);
+            lineEnd.z = 0;
+            line.SetPosition(1, lineEnd);
+            endOfLine.transform.localPosition = lineEnd;
             currentDotPercentage = (navigationManager.lastValidCursorPos - transform.position).sqrMagnitude / lineMaxLenght;
             if (Mathf.Abs(lastDotPercentageSound - currentDotPercentage) >= dotsSoundInterval)
                 PlayDotsSound();
@@ -81,12 +87,22 @@ public class Boat : MonoBehaviour
     {
         if (!elementsInSight.Contains(element))
             elementsInSight.Add(element);
+
+        ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
+        Island island = element.GetComponent<Island>();
+        if (!island)
+            EventManager.Instance.Raise(new BoatInMapElement() { exit = false, elementZone = viewZone });
     }
 
     public void ElementNoMoreInSight(MapElement element)
     {
         if (elementsInSight.Contains(element))
             elementsInSight.Remove(element);
+
+        ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
+        Island island = element.GetComponent<Island>();
+        if (!island)
+            EventManager.Instance.Raise(new BoatInMapElement() { exit = true, elementZone = viewZone });
     }
 
     public List<MapElement> GetElementsInSight()

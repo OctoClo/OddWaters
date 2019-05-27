@@ -147,38 +147,6 @@ Transform:
   m_Father: {fileID: 4240498592487375776}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &36975268
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &42170793
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,11 +484,13 @@ MonoBehaviour:
   tutorialManager: {fileID: 1136672030}
   screenManager: {fileID: 1974049330}
   dialogueManager: {fileID: 1303358153}
-  globalAnimator: {fileID: 1962910260}
+  delayBetweenDoubleClick: 0.2
   tutorial: 0
   inspectionInterface: {fileID: 1971627126}
   rotationPanel: {fileID: 237130663}
   telescope: {fileID: 1749075880}
+  globalAnimator: {fileID: 1962910260}
+  trailAnimation: {fileID: 123005739}
   navigationManager: {fileID: 674968308}
   boat: {fileID: 1621107813}
   boatAnimator: {fileID: 1621107815}
@@ -648,7 +618,7 @@ LineRenderer:
     textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!1 &123005736
 GameObject:
@@ -660,6 +630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 123005737}
   - component: {fileID: 123005738}
+  - component: {fileID: 123005739}
   m_Layer: 0
   m_Name: BoatTrail
   m_TagString: Untagged
@@ -775,6 +746,21 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &123005739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123005736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65337f1c003ddd54db41453d4b3554be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zOffset: 0.15
+  animDuration: 0.2
+  moveAmount: 0.02
 --- !u!1 &123719649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2219,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 309457286}
   m_CullTransparentMesh: 0
+--- !u!84 &317337252
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light 2 : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &321979371
 GameObject:
   m_ObjectHideFlags: 0
@@ -3089,13 +3107,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 1908620123}
+  shadowMapRenderTexture: {fileID: 652698068}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  shadowDataRenderTexture: {fileID: 632856566}
+  shadowDataRenderTexture: {fileID: 317337252}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -3304,6 +3322,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!84 &537993525
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &542433995
 GameObject:
   m_ObjectHideFlags: 0
@@ -3974,20 +4024,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629080152}
   m_CullTransparentMesh: 0
---- !u!84 &632856566
+--- !u!84 &652698068
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Data Render Texture'
+  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
+  m_Width: 512
+  m_Height: 256
   m_AntiAliasing: 1
   m_DepthFormat: 0
   m_ColorFormat: 11
@@ -4058,6 +4108,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0354e237badfbd242a480be71ededd55, type: 3}
   - {fileID: 21300000, guid: 93a6ffb772b5e644383b01f62c622c3f, type: 3}
   boatSpeed: 0.01
+  boatSpeedFromTyhpoon: 0.018
   maxDistance: 1.7
   boatTrail: {fileID: 123005738}
   telescope: {fileID: 1749075880}
@@ -4499,6 +4550,38 @@ BoxCollider:
     type: 3}
   m_PrefabInstance: {fileID: 359006015784811835}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &764823981
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &778700470
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,38 +5420,6 @@ Transform:
   m_Father: {fileID: 1480563025}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &942102362
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &950192694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5787,7 +5838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5799,7 +5850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_LocalRotation.z
@@ -5807,7 +5858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_RootOrder
@@ -5819,7 +5870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 787944875, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -6494,13 +6545,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 36975268}
+  shadowMapRenderTexture: {fileID: 537993525}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.25
   outOfPhaseColor: {r: 0.999999, g: 0.52962387, b: 0.16920221, a: 1}
-  shadowDataRenderTexture: {fileID: 942102362}
+  shadowDataRenderTexture: {fileID: 764823981}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -6903,6 +6954,7 @@ MonoBehaviour:
   spawnPos: {x: 7.74, y: 0.5, z: 8.74}
   receiveEndPos: {x: 7.74, y: 0.5, z: 1.74}
   drag: 7.37
+  previousObject: {fileID: 0}
 --- !u!1 &1202265808
 GameObject:
   m_ObjectHideFlags: 0
@@ -7375,6 +7427,7 @@ MonoBehaviour:
   screenManager: {fileID: 1974049330}
   nameField: {fileID: 277595179}
   textField: {fileID: 1881240128}
+  delayBetweenLetters: 0
 --- !u!1001 &1306182790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7626,8 +7679,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splashscreen: 0
   startupMenu: 0
-  intro: 1
-  tutorial: 1
+  intro: 0
+  tutorial: 0
   tutorialManager: {fileID: 1136672030}
   menusAnimator: {fileID: 1716636474}
   cutsceneAnimator: {fileID: 885479258}
@@ -10638,38 +10691,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884304572}
   m_CullTransparentMesh: 0
---- !u!84 &1908620123
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1911856205
 GameObject:
   m_ObjectHideFlags: 0
@@ -12352,25 +12373,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1298d8d7aba866b4ea8683f46011795b, type: 3}
---- !u!95 &4240498592480488512
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4240498592487743360}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 23cd7b50239080e42b7562b9b1e093da, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &4240498592487375776
 Transform:
   m_ObjectHideFlags: 0
@@ -12497,7 +12499,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4240498592487375776}
-  - component: {fileID: 4240498592480488512}
   - component: {fileID: 4240498592487743361}
   m_Layer: 0
   m_Name: Map
@@ -13553,15 +13554,15 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.21
       objectReference: {fileID: 0}
-    - target: {fileID: 5905885807048246702, guid: 8fe6e9939c6cd084289bbc1a526192ee,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 5905885806902402605, guid: 8fe6e9939c6cd084289bbc1a526192ee,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5905885807048246702, guid: 8fe6e9939c6cd084289bbc1a526192ee,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe6e9939c6cd084289bbc1a526192ee, type: 3}

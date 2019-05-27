@@ -33,6 +33,9 @@ public class NavigationManager : MonoBehaviour
     [SerializeField]
     float boatSpeed;
     [SerializeField]
+    float boatSpeedFromTyhpoon;
+    float currentSpeed;
+    [SerializeField]
     float maxDistance = 3f;
     float maxDistanceSqr;
     [SerializeField]
@@ -91,11 +94,13 @@ public class NavigationManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);    
+        EventManager.Instance.AddListener<BoatInMapElement>(OnBoatInMapElement);    
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
+        EventManager.Instance.RemoveListener<BoatInMapElement>(OnBoatInMapElement);
     }
 
     public IEnumerator InitializeTelescopeElements()
@@ -153,7 +158,7 @@ public class NavigationManager : MonoBehaviour
             // Still journeying
             else
             {
-                float distCovered = (Time.time - journeyBeginTime) * boatSpeed;
+                float distCovered = (Time.time - journeyBeginTime) * currentSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
                 boatTrail.SetPosition(linePoints, boat.transform.position);
@@ -169,11 +174,6 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    public void Navigate()
-    {
-        LaunchNavigation(lastValidTarget, lastValidTargetZone);
-    }
-
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
         Debug.Log("Boat in typhoon!");
@@ -186,16 +186,31 @@ public class NavigationManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         typhoon.GetComponent<SpriteRenderer>().enabled = true;
         fromTyphoon = true;
-        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone);
+        LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, false);
     }
 
-    void LaunchNavigation(Vector3 target, int newZoneNumber)
+    void OnBoatInMapElement(BoatInMapElement e)
+    {
+        if (!e.exit)
+        {
+            Debug.Log("Magnetiiiiism");
+            LaunchNavigation(e.elementZone.transform.position, e.elementZone.zone, false);
+        }
+    }
+
+    public void Navigate()
+    {
+        LaunchNavigation(lastValidTarget, lastValidTargetZone, true);
+    }
+
+    void LaunchNavigation(Vector3 target, int newZoneNumber, bool beginJourney)
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = true });
         AkSoundEngine.PostEvent("Stop_SoundClue", gameObject);
 
         // Initialize navigation values
         navigating = true;
+        currentSpeed = (fromTyphoon ? boatSpeedFromTyhpoon : boatSpeed);
         boatRenderer.sprite = boatSprites[0];
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         target.y = boat.transform.position.y;
@@ -212,7 +227,7 @@ public class NavigationManager : MonoBehaviour
         if (newZoneNumber != map.currentZone)
             map.ChangeZone(newZoneNumber);
 
-        if (!fromTyphoon)
+        if (beginJourney)
         {
             AkSoundEngine.PostEvent("Play_Travel", gameObject);
 
@@ -249,7 +264,7 @@ public class NavigationManager : MonoBehaviour
                 typhoonOnRight = Physics.RaycastAll(boatColliderRight, raycastDir, raycastLenght).Any(hit => hit.collider.CompareTag("Typhoon"));
             }
             goingIntoTyphoon = (typhoonOnLeft || typhoonOnRight);
-            Debug.Log("Going into a typhoon? " + goingIntoTyphoon);
+            //Debug.Log("Going into a typhoon? " + goingIntoTyphoon);
         }
     }
 
@@ -267,7 +282,7 @@ public class NavigationManager : MonoBehaviour
 
     public void UpdateNavigation(Vector3 targetPos)
     {
-        targetPos.y += boat.transform.localPosition.y;
+        targetPos.y = boat.transform.position.y;
         ENavigationResult result = GetNavigationResult(targetPos);
         switch (result)
         {
@@ -278,10 +293,6 @@ public class NavigationManager : MonoBehaviour
             case ENavigationResult.ISLAND:
                 CursorManager.Instance.SetCursor(ECursor.NAVIGATION_ISLAND);
                 break;
-
-            /*case ENavigationResult.KO:
-                CursorManager.Instance.SetCursor(ECursor.NAVIGATION_KO);
-                break;*/
         }
     }
 
@@ -298,13 +309,8 @@ public class NavigationManager : MonoBehaviour
         if (goalCollider && hitsAtTarget.Any(hit => ReferenceEquals(hit.collider.gameObject, goalCollider.gameObject)))
             insideGoal = true;
 
-        // Visible island at target position or on trajectory (ok)
+        // Visible island at target position
         RaycastHit island = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);
-        if (!island.collider)
-        {
-            RaycastHit[] hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, distance);
-            island = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);
-        }  
         float distanceToTarget = (island.point - boat.transform.position).sqrMagnitude;
         if (island.collider && distanceToTarget <= maxDistanceSqr)
         {
@@ -314,6 +320,7 @@ public class NavigationManager : MonoBehaviour
             return ENavigationResult.ISLAND;
         }
 
+        // Stone magnetism
         RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<Island>() == null);
         distanceToTarget = (stone.point - boat.transform.position).sqrMagnitude;
         if (stone.collider && distanceToTarget <= maxDistanceSqr)
@@ -338,18 +345,20 @@ public class NavigationManager : MonoBehaviour
             }
             else
             {
-                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(distance, targetPos);
                 lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
         }
         else
         {
+            // No map zone visible at target pos
             RaycastHit[] hitsOnReverseJourney = Physics.RaycastAll(targetPos, -journey, distance);
+            hitsOnReverseJourney = hitsOnReverseJourney.OrderByDescending(hit => Vector3.SqrMagnitude(boat.transform.position - hit.point)).ToArray();
             mapZone = hitsOnReverseJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible);
             float distanceToBorder = (mapZone.point - boat.transform.position).sqrMagnitude;
             distanceToTarget = (targetPos - boat.transform.position).sqrMagnitude;
-            if (distanceToTarget <= maxDistanceSqr || maxDistanceSqr > distanceToBorder)
+            if (distanceToTarget <= maxDistanceSqr || distanceToBorder <= maxDistanceSqr)
             {
                 lastValidCursorPos = mapZone.point;
                 lastValidTarget = mapZone.point;
@@ -357,16 +366,16 @@ public class NavigationManager : MonoBehaviour
             }
             else
             {
-                lastValidCursorPos = FindMaxDistanceOnTrajectory(journey, targetPos);
+                lastValidCursorPos = FindMaxDistanceOnTrajectory(distance, targetPos);
                 lastValidTarget = lastValidCursorPos;
                 return ENavigationResult.SEA;
             }
         }
     }
 
-    Vector3 FindMaxDistanceOnTrajectory(Vector3 journey, Vector3 targetPos)
+    Vector3 FindMaxDistanceOnTrajectory(float distance, Vector3 targetPos)
     {
-        float factor = maxDistance / journey.magnitude;
+        float factor = maxDistance / distance;
         float x = (targetPos.x - boat.transform.position.x) * factor + boat.transform.position.x;
         float y = (targetPos.y - boat.transform.position.y) * factor + boat.transform.position.y;
         float z = (targetPos.z - boat.transform.position.z) * factor + boat.transform.position.z;

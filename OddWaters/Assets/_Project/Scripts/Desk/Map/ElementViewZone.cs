@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ElementViewZone : MonoBehaviour
 {
+    [HideInInspector]
+    public int zone;
     MapElement element;
 
     void Start()
     {
-        element = transform.parent.GetComponent<MapElement>();    
+        element = transform.parent.GetComponent<MapElement>();
+        zone = element.transform.parent.GetComponent<MapZone>().zoneNumber;
     }
 
     void OnTriggerEnter(Collider other)

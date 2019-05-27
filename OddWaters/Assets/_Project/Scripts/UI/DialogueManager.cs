@@ -13,12 +13,20 @@ public class DialogueManager : MonoBehaviour
     TextMeshProUGUI nameField;
     [SerializeField]
     TextMeshProUGUI textField;
+    [SerializeField]
+    float delayBetweenLetters;
 
     Queue<string> lines;
+    string currentLine;
+    bool typing;
+    char[] letters;
+    int currentLetterIndex;
+
     bool firstEncounter;
 
     void Start()
     {
+        typing = false;
         lines = new Queue<string>();    
     }
 
@@ -47,35 +55,61 @@ public class DialogueManager : MonoBehaviour
 
     public void NextLine()
     {
-        if (lines.Count == 0)
+        if (typing)
         {
-            EndDialogue();
-            return;
-        }
-
-        string line = lines.Dequeue();
-
-        if (line[0] == '*')
-        {
-            textField.fontStyle = FontStyles.Italic;
-            line = line.Substring(1);
+            typing = false;
+            StopAllCoroutines();
+            textField.text = currentLine;
         }
         else
-            textField.fontStyle = FontStyles.Normal;
+        {
+            if (lines.Count == 0)
+            {
+                EndDialogue();
+                return;
+            }
 
-        textField.text = line;
-        //StopAllCoroutines();
-        //StartCoroutine(TypeLine(line));
+            currentLine = lines.Dequeue();
+
+            if (currentLine[0] == '*')
+            {
+                textField.fontStyle = FontStyles.Italic;
+                currentLine = currentLine.Substring(1);
+            }
+            else
+                textField.fontStyle = FontStyles.Normal;
+
+            /*typing = true;
+            currentLetterIndex = 0;*/
+
+            letters = currentLine.ToCharArray();
+            textField.text = "";
+
+            StopAllCoroutines();
+            StartCoroutine(TypeLine());
+        }
     }
 
-    IEnumerator TypeLine(string line)
+    /*void Update()
     {
-        textField.text = "";
-        foreach (char letter in line.ToCharArray())
+        if (typing)
+        {
+            textField.text += letters[currentLetterIndex];
+            currentLetterIndex++;
+            if (currentLetterIndex == currentLine.Length)
+                typing = false;
+        }
+    }*/
+
+    IEnumerator TypeLine()
+    {
+        typing = true;
+        foreach (char letter in letters)
         {
             textField.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(0.016f);
         }
+        typing = false;
     }
 
     void EndDialogue()

@@ -18,14 +18,20 @@ public class InputManager : MonoBehaviour
     ScreenManager screenManager;
     [SerializeField]
     DialogueManager dialogueManager;
-    [SerializeField]
-    Animator globalAnimator;
     Camera mainCamera;
     GameObject mouseProjection;
     RaycastHit[] hitsOnRayToMouse;
     bool blockInput;
     bool navigating;
     bool dialogueOngoing;
+
+    // Double click
+    [SerializeField]
+    float delayBetweenDoubleClick = 0.12f;
+    float timerDoubleClick;
+    bool firstClickTelescope;
+    bool firstClickInteractible;
+    bool interactibleAlreadyDropped;
 
     // Tutorial
     [HideInInspector]
@@ -42,8 +48,6 @@ public class InputManager : MonoBehaviour
     Vector3 interactibleScreenPos;
     Vector3 interactibleOffset;
     EInteractibleState interactibleState;
-    float interactiblePressTime;
-    float interactibleClickTime;
     
     // Telescope
     [SerializeField]
@@ -52,6 +56,12 @@ public class InputManager : MonoBehaviour
     Vector3 dragBeginPos;
     Vector3 dragCurrentPos;
     float dragSpeed;
+
+    // Animation
+    [SerializeField]
+    Animator globalAnimator;
+    [SerializeField]
+    BoatTrailAnimation trailAnimation;
 
     // Map
     [SerializeField]
@@ -72,15 +82,10 @@ public class InputManager : MonoBehaviour
         boat.mouseProjection = mouseProjection;
 
         mainCamera = Camera.main;
+        eventSystem = EventSystem.current;
         blockInput = false;
         navigating = false;
         dialogueOngoing = false;
-
-        interactiblePressTime = 0;
-        interactibleClickTime = 0.15f;
-        eventSystem = EventSystem.current;
-
-        telescopeDrag = false;
         navigation = false;
         firstTelescopeMove = true;
     }
@@ -112,6 +117,46 @@ public class InputManager : MonoBehaviour
         // Left button down
         if (Input.GetMouseButtonDown(0))
             HandleMouseLeftButtonDown();
+        
+        // Telescope single click
+        if (firstClickTelescope && (Time.time - timerDoubleClick) > delayBetweenDoubleClick)
+        {
+            firstClickTelescope = false;
+            if (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM)
+            {
+                if (telescopeDrag)
+                    EndTelescopeDrag();
+
+                telescopeDrag = true;
+                dragBeginPos = Input.mousePosition;
+                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+            }
+        }
+
+        // Interactible single click
+        if (firstClickInteractible && (Time.time - timerDoubleClick) > delayBetweenDoubleClick)
+        {
+            firstClickInteractible = false;
+            if (interactibleState == EInteractibleState.UNKNOWN &&  (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_MOVE))
+            {
+                interactibleState = EInteractibleState.DRAGNDROP;
+                CursorManager.Instance.SetCursor(ECursor.DRAG);
+                interactible.Grab();
+
+                if (interactibleAlreadyDropped)
+                {
+                    interactibleAlreadyDropped = false;
+                    DropInteractible();
+                }
+            }
+            else
+            {
+                CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                interactibleState = EInteractibleState.UNKNOWN;
+                interactible = null;
+            }
+        }
 
         // Left button up
         if (Input.GetMouseButtonUp(0))
@@ -127,42 +172,28 @@ public class InputManager : MonoBehaviour
                 ExitInterfaceRotation();
         }
 
-        // Interactible grab / rotate
-        if ((!blockInput || navigating) && interactible)
+        // Interactible rotate
+        if ((!blockInput || navigating) && interactible && interactibleState == EInteractibleState.DRAGNDROP && !interactible.rotating)
         {
-            interactiblePressTime += Time.deltaTime;
-
-            // Grab
-            if (interactibleState == EInteractibleState.UNKNOWN && interactiblePressTime > interactibleClickTime && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_MOVE))
-            {
-                interactibleState = EInteractibleState.DRAGNDROP;
-                CursorManager.Instance.SetCursor(ECursor.DRAG);
-                interactible.Grab();
-            }
-
-            // Rotate
-            if (interactibleState == EInteractibleState.DRAGNDROP && !interactible.rotating)
-            {
-                if (Input.GetKeyDown(KeyCode.S))
-                    interactible.Rotate(0, -1);
-                else if (Input.GetKeyDown(KeyCode.Z))
-                    interactible.Rotate(0, 1);
-                else if (Input.GetKeyDown(KeyCode.E))
-                    interactible.Rotate(1, 1);
-                else if (Input.GetKeyDown(KeyCode.A))
-                    interactible.Rotate(1, -1);
-                else if (Input.GetKeyDown(KeyCode.D))
-                    interactible.Rotate(2, 1);
-                else if (Input.GetKeyDown(KeyCode.Q))
-                    interactible.Rotate(2, -1);
-            }
+            if (Input.GetKeyDown(KeyCode.S))
+                interactible.Rotate(0, -1);
+            else if (Input.GetKeyDown(KeyCode.Z))
+                interactible.Rotate(0, 1);
+            else if (Input.GetKeyDown(KeyCode.E))
+                interactible.Rotate(1, 1);
+            else if (Input.GetKeyDown(KeyCode.A))
+                interactible.Rotate(1, -1);
+            else if (Input.GetKeyDown(KeyCode.D))
+                interactible.Rotate(2, 1);
+            else if (Input.GetKeyDown(KeyCode.Q))
+                interactible.Rotate(2, -1);
         }
 
         // Hover things
         if (!interactible && !telescopeDrag && !navigation)
         {
             // Hover boat
-            if (!blockInput && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
+            if (!blockInput && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND) && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
             {
                 CursorManager.Instance.SetCursor(ECursor.HOVER);
                 boatAnimator.SetBool("Hover", true);
@@ -172,8 +203,10 @@ public class InputManager : MonoBehaviour
                 boatAnimator.SetBool("Hover", false);
 
                 // Hover up part
-                if (!blockInput && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM))
+                if (!blockInput && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM) && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")))
                 {
+                    if (!globalAnimator.GetBool("Hover"))
+                        trailAnimation.Hover();
                     globalAnimator.SetBool("Hover", true);
 
                     if (telescope.gameObject.activeInHierarchy)
@@ -189,7 +222,7 @@ public class InputManager : MonoBehaviour
                     else
                         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
                 }
-                else if ((!blockInput || navigating) && hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
+                else if ((!blockInput || navigating) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM) && hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()))
                 {
                     // Hover interactible
                     CursorManager.Instance.SetCursor(ECursor.HOVER);
@@ -197,6 +230,9 @@ public class InputManager : MonoBehaviour
                 else
                 {
                     CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+
+                    if (globalAnimator.GetBool("Hover"))
+                        trailAnimation.Hover();
                     globalAnimator.SetBool("Hover", false);
                 }
             }
@@ -209,9 +245,14 @@ public class InputManager : MonoBehaviour
         // Telescope drag
         if (telescopeDrag)
         {
-            dragCurrentPos = Input.mousePosition;
-            dragSpeed = -(dragCurrentPos - dragBeginPos).x * Time.deltaTime;
-            telescope.UpdateSpeed(dragSpeed);
+            if (!Input.GetMouseButton(0))
+                EndTelescopeDrag();
+            else
+            {
+                dragCurrentPos = Input.mousePosition;
+                dragSpeed = -(dragCurrentPos - dragBeginPos).x * Time.deltaTime;
+                telescope.UpdateSpeed(dragSpeed);
+            }
         }
 
         // Navigation
@@ -228,7 +269,7 @@ public class InputManager : MonoBehaviour
             if (interactibleState != EInteractibleState.CLICKED)
             {
                 // Launch navigation
-                if (!blockInput && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")) && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND))
+                if (!blockInput && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND) && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
                 {
                     navigation = true;
                     boatAnimator.SetBool("Hold", true);
@@ -238,43 +279,64 @@ public class InputManager : MonoBehaviour
                 {
                     // Interactible
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
-                    if ((!blockInput || navigating) && hitInfo.collider && hitInfo.collider.GetComponent<Interactible>().IsGrabbable() && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM))
+                    if ((!blockInput || navigating) && hitInfo.collider && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM) && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
                     {
-                        interactible = hitInfo.collider.GetComponent<Interactible>();
-                        interactiblePressTime = Time.time;
-                        interactibleState = EInteractibleState.UNKNOWN;
-                        interactiblePressTime = 0;
-                        Vector3 interactibleGrabbedPos = interactible.GetGrabbedPosition();
-                        interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
-                        interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
+                        if (!firstClickInteractible)
+                        {
+                            firstClickInteractible = true;
+                            timerDoubleClick = Time.time;
+                            interactible = hitInfo.collider.GetComponent<Interactible>();
+                            interactibleState = EInteractibleState.UNKNOWN;
+                            Vector3 interactibleGrabbedPos = interactible.GetGrabbedPosition();
+                            interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
+                            interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
+                        }
+                        else
+                        {
+                            firstClickInteractible = false;
+                            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                            interactibleState = EInteractibleState.CLICKED;
+                            interactible.EnterRotationInterface();
+                            inspectionInterface.gameObject.SetActive(true);
+                            rotationPanel.SetActive(true);
+                            telescope.SetImageAlpha(true);
+                            boat.SetImageAlpha(true);
+
+                            if (tutorialManager.step == ETutorialStep.OBJECT_ZOOM)
+                                tutorialManager.CompleteStep();
+                        }
                     }
                     else if (!blockInput)
                     {
                         // Telescope
-                        telescopeDrag = (telescope.gameObject.activeInHierarchy && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")) && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM));
-                        if (telescopeDrag)
+                        bool telescopeClick = (telescope.gameObject.activeInHierarchy &&
+                            (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM) &&
+                            hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")));
+                        if (telescopeClick)
                         {
-                            dragBeginPos = Input.mousePosition;
-                            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                            telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+                            if (!firstClickTelescope)
+                            {
+                                firstClickTelescope = true;
+                                timerDoubleClick = Time.time;
+                            }
+                            else
+                            {
+                                firstClickTelescope = false;
+                                if (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM)
+                                    telescope.ChangeZoom();
+                            }
                         }
-                        else
+                        else if (!tutorial && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
                         {
                             // Character
-                            if (hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Character")))
-                            {
-                                StartCoroutine(screenManager.RelaunchDialogue());
-                                StartCoroutine(WaitBeforeResettingHoverTrigger());
-                            }
+                            StartCoroutine(screenManager.RelaunchDialogue());
+                            StartCoroutine(WaitBeforeResettingHoverTrigger());
                         }
                     }
                 }
             }
-            else
-            {
-                if (!eventSystem.IsPointerOverGameObject() && !hitsOnRayToMouse.Any(hit => hit.collider.gameObject.name == interactible.name))
+            else if(!eventSystem.IsPointerOverGameObject() && !hitsOnRayToMouse.Any(hit => hit.collider.gameObject.name == interactible.name))
                     ExitInterfaceRotation();
-            }
         }
     }
 
@@ -288,42 +350,38 @@ public class InputManager : MonoBehaviour
     {
         if (interactible)
         {
-            if (interactibleState == EInteractibleState.DRAGNDROP)
-            {
-                CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                interactibleState = EInteractibleState.UNKNOWN;
-                interactible.Drop();
-                interactible = null;
-
-                if (tutorialManager.step == ETutorialStep.OBJECT_MOVE)
-                    tutorialManager.CompleteStep();
-            }
-            else if (interactibleState == EInteractibleState.UNKNOWN)
-            {
-                CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                interactibleState = EInteractibleState.CLICKED;
-                interactible.EnterRotationInterface();
-                inspectionInterface.gameObject.SetActive(true);
-                rotationPanel.SetActive(true);
-                telescope.SetImageAlpha(true);
-                boat.SetImageAlpha(true);
-
-                if (tutorialManager.step == ETutorialStep.OBJECT_ZOOM)
-                    tutorialManager.CompleteStep();
-            }
+            if (interactibleState == EInteractibleState.UNKNOWN)
+                interactibleAlreadyDropped = true;
+            else if (interactibleState == EInteractibleState.DRAGNDROP)
+                DropInteractible();
         }
         else if (telescopeDrag)
-        {
-            telescopeDrag = false;
-            telescope.EndDrag();
-            if (tutorialManager.step == ETutorialStep.TELESCOPE_MOVE && firstTelescopeMove)
-                StartCoroutine(WaitBeforeTutorialGoOn());
-        }
+            EndTelescopeDrag();
         else if (navigation)
         {
             navigationManager.Navigate();
             StopNavigation();
         }
+    }
+
+    void EndTelescopeDrag()
+    {
+        firstClickTelescope = false;
+        telescopeDrag = false;
+        telescope.EndDrag();
+        if (tutorialManager.step == ETutorialStep.TELESCOPE_MOVE && firstTelescopeMove)
+            StartCoroutine(WaitBeforeTutorialGoOn());
+    }
+
+    void DropInteractible()
+    {
+        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+        interactibleState = EInteractibleState.UNKNOWN;
+        interactible.Drop();
+        interactible = null;
+
+        if (tutorialManager.step == ETutorialStep.OBJECT_MOVE)
+            tutorialManager.CompleteStep();
     }
 
     IEnumerator WaitBeforeTutorialGoOn()

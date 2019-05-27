@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapElement : MonoBehaviour
 {
-    public string name;
+    public new string name;
     public bool visible;
     public Sprite elementSprite;
     public ELayer layer;
