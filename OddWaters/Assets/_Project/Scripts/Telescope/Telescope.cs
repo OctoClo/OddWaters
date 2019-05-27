@@ -60,6 +60,8 @@ public class Telescope : MonoBehaviour
 
     [SerializeField]
     float elementDetectionSensitivity = 0.5f;
+    [SerializeField]
+    float elementSuperDetectionSensitivity = 0.5f;
 
     [SerializeField]
     TutorialManager tutorialManager;
@@ -89,7 +91,17 @@ public class Telescope : MonoBehaviour
 
         boat.transform.GetChild(0).gameObject.SetActive(false);
     }
-    
+
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<BoatAsksTelescopeRefreshEvent>(OnBoatAsksTelescopeRefreshEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<BoatAsksTelescopeRefreshEvent>(OnBoatAsksTelescopeRefreshEvent);
+    }
+
     public void ResetZoom()
     {
         wheelZoomLevel = 0;
@@ -203,8 +215,13 @@ public class Telescope : MonoBehaviour
                 if (element.triggerActive)
                 {
                     float distanceElement = Mathf.Abs(element.transform.position.x - maskZoom.transform.position.x);
-                    if ((!element.needZoom && element.inSight) || (zoom && distanceElement <= elementDetectionSensitivity))
+                    if (!element.needSight
+                        || (!element.needZoom && ((element.needSuperPrecision && distanceElement <= elementSuperDetectionSensitivity)
+                                                || (!element.needSuperPrecision && element.inSight)))
+                        || (zoom && distanceElement <= elementDetectionSensitivity))
+                    {
                         element.Trigger(tutorial, tutorialManager);
+                    }
                 }
             }
         }
@@ -227,7 +244,7 @@ public class Telescope : MonoBehaviour
             layers[i].ResetPosition();
     }
 
-    public void RefreshElements(Vector3 boatUp, Vector3 target, Vector3 boatRight, GameObject panorama)
+    public void RefreshElements(Vector3 target, GameObject panorama)
     {
         // Update panorama
         foreach (Transform child in layersContainer)
@@ -247,53 +264,66 @@ public class Telescope : MonoBehaviour
         {
             Island island = element.GetComponent<Island>();
             if (!island || island != boat.currentIsland)
-            {
-                // Create first telescope element
-                GameObject telescopeElementObject1 = new GameObject(element.name);
-                SpriteRenderer spriteRenderer = telescopeElementObject1.AddComponent<SpriteRenderer>();
-                spriteRenderer.sprite = element.elementSprite;
-                spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-                BoxCollider collider = telescopeElementObject1.AddComponent<BoxCollider>();
-                collider.isTrigger = true;
-
-                if (element.layer == ELayer.HORIZON)
-                    spriteRenderer.sortingOrder = 3;
-                else
-                    spriteRenderer.sortingOrder = 5;
-
-                telescopeElementObject1.transform.parent = layers[(int)element.layer].children[0];
-                telescopeElementObject1.transform.rotation = Quaternion.Euler(90, 0, 0);
-                telescopeElementObject1.transform.localScale = new Vector3(1, 1, 1);
-
-                TelescopeElement telescopeElement1 = telescopeElementObject1.AddComponent<TelescopeElement>();
-                telescopeElement1.elementDiscover = element;
-                telescopeElement1.triggerActive = !element.visible;
-                telescopeElement1.needZoom = (island != null);
-
-                // Clone it
-                GameObject telescopeElementObject2 = Instantiate(telescopeElementObject1, layers[(int)element.layer].children[1]);
-
-                // Place them on telescope in 0-360°
-                float angle = Angle360(-boatUp, element.transform.position - target, boatRight);
-                angle = 360 - angle;
-                float layerWidth = layers[(int)element.layer].layerSize * layers[(int)element.layer].parallaxSpeed;
-                float offset = angle * (layerWidth / 360f) - (layerWidth / 2f);
-                telescopeElementObject1.transform.localPosition = new Vector3(offset, 0, 0);
-                telescopeElementObject2.transform.localPosition = new Vector3(offset, 0, 0);
-
-                // Initialize telescope elements
-                TelescopeElement telescopeElement2 = telescopeElementObject2.GetComponent<TelescopeElement>();
-                telescopeElement1.cloneElement = telescopeElement2;
-                telescopeElement2.cloneElement = telescopeElement1;
-                int elementAngle = Mathf.RoundToInt(angle + 180) % 360;
-                telescopeElement1.startAngle = elementAngle;
-                telescopeElement2.startAngle = elementAngle;
-                int elementCurrentAngle = (elementAngle + boatRotation) % 360;
-                telescopeElement1.angleToBoat = elementCurrentAngle;
-                telescopeElement2.angleToBoat = elementCurrentAngle;
-                telescopeElement1.audio = true;
-            }
+                AddElementToPanorama(element, target);
         }
+    }
+
+    void AddElementToPanorama(MapElement element, Vector3 target)
+    {
+        // Create first telescope element
+        GameObject telescopeElementObject1 = new GameObject(element.name);
+        SpriteRenderer spriteRenderer = telescopeElementObject1.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = element.elementSprite;
+        spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        BoxCollider collider = telescopeElementObject1.AddComponent<BoxCollider>();
+        collider.isTrigger = true;
+
+        if (element.layer == ELayer.HORIZON)
+            spriteRenderer.sortingOrder = 3;
+        else
+            spriteRenderer.sortingOrder = 5;
+
+        telescopeElementObject1.transform.parent = layers[(int)element.layer].children[0];
+        telescopeElementObject1.transform.rotation = Quaternion.Euler(90, 0, 0);
+        telescopeElementObject1.transform.localScale = new Vector3(1, 1, 1);
+
+        TelescopeElement telescopeElement1 = telescopeElementObject1.AddComponent<TelescopeElement>();
+        telescopeElement1.elementDiscover = element;
+        telescopeElement1.triggerActive = !element.visible;
+        telescopeElement1.needZoom = element.needZoom;
+        telescopeElement1.needSight = element.needSight;
+        telescopeElement1.needSuperPrecision = element.needSuperPrecision;
+        telescopeElement1.playClue = element.playClue;
+
+        // Clone it
+        GameObject telescopeElementObject2 = Instantiate(telescopeElementObject1, layers[(int)element.layer].children[1]);
+
+        // Place them on telescope in 0-360°
+        if (target == Vector3.zero)
+            target = boat.transform.position;
+        float angle = Angle360(-boat.transform.up, element.transform.position - target, boat.transform.right);
+        angle = 360 - angle;
+        float layerWidth = layers[(int)element.layer].layerSize * layers[(int)element.layer].parallaxSpeed;
+        float offset = angle * (layerWidth / 360f) - (layerWidth / 2f);
+        telescopeElementObject1.transform.localPosition = new Vector3(offset, 0, 0);
+        telescopeElementObject2.transform.localPosition = new Vector3(offset, 0, 0);
+
+        // Initialize telescope elements
+        TelescopeElement telescopeElement2 = telescopeElementObject2.GetComponent<TelescopeElement>();
+        telescopeElement1.cloneElement = telescopeElement2;
+        telescopeElement2.cloneElement = telescopeElement1;
+        int elementAngle = Mathf.RoundToInt(angle + 180) % 360;
+        telescopeElement1.startAngle = elementAngle;
+        telescopeElement2.startAngle = elementAngle;
+        int elementCurrentAngle = (elementAngle + boatRotation) % 360;
+        telescopeElement1.angleToBoat = elementCurrentAngle;
+        telescopeElement2.angleToBoat = elementCurrentAngle;
+        telescopeElement1.audio = true;
+    }
+
+    void OnBoatAsksTelescopeRefreshEvent(BoatAsksTelescopeRefreshEvent e)
+    {
+        AddElementToPanorama(e.element, Vector3.zero);
     }
 
     float Angle360(Vector3 from, Vector3 to, Vector3 right)

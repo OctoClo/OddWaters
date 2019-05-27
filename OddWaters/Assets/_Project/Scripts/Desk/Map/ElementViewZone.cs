@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ElementViewZone : MonoBehaviour
 {
+    [SerializeField]
+    bool needTelescopeRefresh = false;
     [HideInInspector]
     public int zone;
     MapElement element;
@@ -17,7 +19,7 @@ public class ElementViewZone : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Boat"))
-            other.transform.GetComponent<Boat>().ElementInSight(element);
+            other.transform.GetComponent<Boat>().ElementInSight(element, needTelescopeRefresh);
     }
 
     void OnTriggerExit(Collider other)

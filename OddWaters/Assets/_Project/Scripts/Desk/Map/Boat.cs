@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoatInMapElement : GameEvent { public bool exit; public ElementViewZone elementZone; }
+public class BoatInMapElementEvent : GameEvent { public bool exit; public ElementViewZone elementZone; }
+public class BoatAsksTelescopeRefreshEvent : GameEvent { public MapElement element; }
 
 public class Boat : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class Boat : MonoBehaviour
     [HideInInspector]
     public Island currentIsland;
 
+    public bool safeZone;
+
     void Start()
     {
         line.SetPosition(0, Vector3.zero);
@@ -43,6 +46,7 @@ public class Boat : MonoBehaviour
         elementsInSight = new List<MapElement>();
         inATyphoon = false;
         onAnIsland = false;
+        safeZone = false;
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
@@ -83,15 +87,17 @@ public class Boat : MonoBehaviour
         lastDotPercentageSound = currentDotPercentage;
     }
 
-    public void ElementInSight(MapElement element)
+    public void ElementInSight(MapElement element, bool needTelescopeRefresh = false)
     {
         if (!elementsInSight.Contains(element))
             elementsInSight.Add(element);
 
+        if (needTelescopeRefresh)
+            EventManager.Instance.Raise(new BoatAsksTelescopeRefreshEvent() { element = element });
+
         ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
-        Island island = element.GetComponent<Island>();
-        if (!island)
-            EventManager.Instance.Raise(new BoatInMapElement() { exit = false, elementZone = viewZone });
+        if (viewZone.GetComponentInParent<MapElement>().magnetism)
+            EventManager.Instance.Raise(new BoatInMapElementEvent() { exit = false, elementZone = viewZone });
     }
 
     public void ElementNoMoreInSight(MapElement element)
@@ -100,9 +106,8 @@ public class Boat : MonoBehaviour
             elementsInSight.Remove(element);
 
         ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
-        Island island = element.GetComponent<Island>();
-        if (!island)
-            EventManager.Instance.Raise(new BoatInMapElement() { exit = true, elementZone = viewZone });
+        if (viewZone.GetComponentInParent<MapElement>().magnetism)
+            EventManager.Instance.Raise(new BoatInMapElementEvent() { exit = true, elementZone = viewZone });
     }
 
     public List<MapElement> GetElementsInSight()

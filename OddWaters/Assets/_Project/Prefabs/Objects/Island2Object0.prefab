@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6940976582377043785}
   - component: {fileID: 256273966554577083}
   - component: {fileID: 8063826278406950093}
+  - component: {fileID: 3658986601725192575}
   m_Layer: 0
   m_Name: Island2Object0
   m_TagString: Untagged
@@ -136,3 +137,18 @@ MonoBehaviour:
     valueGuid: dadd2c7c3ccf0c41b38ecd9073917372
     groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
     groupID: -429652670
+--- !u!114 &3658986601725192575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733778486701186075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61eb206d756d2f54e9acca8e9e5428e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  inactiveColor: {r: 0, g: 0, b: 0, a: 1}
+  activeColor: {r: 2, g: 58, b: 6, a: 1}

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class MegaTyphoonActivatedEvent : GameEvent { public TelescopeElement element; }
+
 public class TelescopeElement : MonoBehaviour
 {
     [HideInInspector]
@@ -9,6 +11,12 @@ public class TelescopeElement : MonoBehaviour
 
     [HideInInspector]
     public bool needZoom = false;
+    [HideInInspector]
+    public bool needSight = false;
+    [HideInInspector]
+    public bool needSuperPrecision = false;
+    [HideInInspector]
+    public bool playClue = true;
 
     public bool inSight = false;
     [HideInInspector]
@@ -33,7 +41,12 @@ public class TelescopeElement : MonoBehaviour
     void Start()
     {
         if (audio)
-            AkSoundEngine.PostEvent("Play_Clue_" + name, gameObject);
+        {
+            if (playClue)
+                AkSoundEngine.PostEvent("Play_Clue_" + name, gameObject);
+            if (elementDiscover.name == "MegaTyphoon")
+                EventManager.Instance.Raise(new MegaTyphoonActivatedEvent() { element = this });
+        }
     }
 
     void Update()

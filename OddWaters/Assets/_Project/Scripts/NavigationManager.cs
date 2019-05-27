@@ -94,19 +94,19 @@ public class NavigationManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);    
-        EventManager.Instance.AddListener<BoatInMapElement>(OnBoatInMapElement);    
+        EventManager.Instance.AddListener<BoatInMapElementEvent>(OnBoatInMapElement);    
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
-        EventManager.Instance.RemoveListener<BoatInMapElement>(OnBoatInMapElement);
+        EventManager.Instance.RemoveListener<BoatInMapElementEvent>(OnBoatInMapElement);
     }
 
     public IEnumerator InitializeTelescopeElements()
     {
         yield return new WaitForSeconds(0.1f);
-        telescope.RefreshElements(boat.transform.up, boat.transform.position, boat.transform.right, map.GetCurrentPanorama());
+        telescope.RefreshElements(boat.transform.position, map.GetCurrentPanorama());
     }
 
     void Update()
@@ -127,7 +127,7 @@ public class NavigationManager : MonoBehaviour
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
                     AkSoundEngine.PostEvent("Stop_Typhon", gameObject);
                     lightScript.rotateDegreesPerSecond.value.y = 0;
-                    telescope.RefreshElements(boat.transform.up, journeyTarget, boat.transform.right, map.GetCurrentPanorama());
+                    telescope.RefreshElements(journeyTarget, map.GetCurrentPanorama());
 
                     // Save position
                     lastValidPosition.transform.position = boat.transform.position;
@@ -176,9 +176,14 @@ public class NavigationManager : MonoBehaviour
 
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
-        Debug.Log("Boat in typhoon!");
-        AkSoundEngine.PostEvent("Play_Typhon", gameObject);
-        StartCoroutine(WaitBeforeGoingToInitialPos(e.typhoon));
+        if (e.safe)
+            e.typhoon.GetComponent<SpriteRenderer>().enabled = true;
+        else
+        {
+            Debug.Log("Boat in typhoon!");
+            AkSoundEngine.PostEvent("Play_Typhon", gameObject);
+            StartCoroutine(WaitBeforeGoingToInitialPos(e.typhoon));
+        }
     }
 
     IEnumerator WaitBeforeGoingToInitialPos(GameObject typhoon)
@@ -189,7 +194,7 @@ public class NavigationManager : MonoBehaviour
         LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, false);
     }
 
-    void OnBoatInMapElement(BoatInMapElement e)
+    void OnBoatInMapElement(BoatInMapElementEvent e)
     {
         if (!e.exit)
         {

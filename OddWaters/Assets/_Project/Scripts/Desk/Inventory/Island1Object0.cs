@@ -38,12 +38,12 @@ public class Island1Object0 : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.Instance.AddListener<BoatInMapElement>(OnBoatInMapElement);
+        EventManager.Instance.AddListener<BoatInMapElementEvent>(OnBoatInMapElement);
     }
 
     void OnDisable()
     {
-        EventManager.Instance.RemoveListener<BoatInMapElement>(OnBoatInMapElement);
+        EventManager.Instance.RemoveListener<BoatInMapElementEvent>(OnBoatInMapElement);
     }
 
     void Update()
@@ -63,7 +63,7 @@ public class Island1Object0 : MonoBehaviour
         }
     }
 
-    void OnBoatInMapElement(BoatInMapElement e)
+    void OnBoatInMapElement(BoatInMapElementEvent e)
     {
         if (!e.exit)
             currentStone = e.elementZone.GetComponentInParent<MapElement>();

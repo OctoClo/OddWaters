@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoatInTyphoonEvent : GameEvent { public GameObject typhoon; };
+public class BoatInTyphoonEvent : GameEvent { public GameObject typhoon; public bool safe; };
 
 public class BoatWorldCollider : MonoBehaviour
 {
     Boat boat;
+    List<GameObject> safeZones;
 
     void Start()
     {
-        boat = transform.parent.gameObject.GetComponent<Boat>();    
+        boat = transform.parent.gameObject.GetComponent<Boat>();
+        safeZones = new List<GameObject>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,8 +25,16 @@ public class BoatWorldCollider : MonoBehaviour
         }
         else if (other.CompareTag("Typhoon"))
         {
-            boat.inATyphoon = true;
-            EventManager.Instance.Raise(new BoatInTyphoonEvent() { typhoon = other.gameObject });
+            EventManager.Instance.Raise(new BoatInTyphoonEvent() { typhoon = other.gameObject, safe = (safeZones.Count != 0) });
+
+            if (safeZones.Count == 0)
+                boat.inATyphoon = true;
+        }
+        else if (other.CompareTag("SafeZone"))
+        {
+            safeZones.Add(other.gameObject);
+            if (safeZones.Count == 1)
+                boat.safeZone = true;
         }
     }
 
@@ -38,5 +48,11 @@ public class BoatWorldCollider : MonoBehaviour
         }
         else if (other.CompareTag("Typhoon"))
             boat.inATyphoon = false;
+        else if (other.CompareTag("SafeZone"))
+        {
+            safeZones.Remove(other.gameObject);
+            if (safeZones.Count == 0)
+                boat.safeZone = false;
+        }
     }
 }

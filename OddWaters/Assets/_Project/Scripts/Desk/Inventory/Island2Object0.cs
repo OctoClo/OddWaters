@@ -4,36 +4,67 @@ using UnityEngine;
 
 public class Island2Object0 : MonoBehaviour
 {
-
+    [SerializeField]
     Color inactiveColor = Color.black;
+    [SerializeField]
     Color activeColor = new Color(2, 58, 6);
 
     Color currentColor;
-
     Material mat;
 
-    public bool active = false;
+    bool activated;
+    TelescopeElement telescopeElement;
+    bool tracking;
+    float angleFactor;
+    float currentAngle;
+    float currentPercentage;
 
-    // Start is called before the first frame update
     void Start()
     {
         mat = GetComponent<Renderer>().material;
+
+        activated = false;
+        tracking = false;
+        angleFactor = 1.0f / 180.0f;
     }
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<MegaTyphoonActivatedEvent>(OnMegaTyphoonActivatedEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<MegaTyphoonActivatedEvent>(OnMegaTyphoonActivatedEvent);
+    }
+
     void Update()
     {
-        
-
-        if(active)
+        if (tracking)
         {
-            currentColor = Color.Lerp(inactiveColor, activeColor, Mathf.PingPong(Time.time, 1));
-        }
-        else
-        {
-            currentColor = inactiveColor;
-        }
+            currentAngle = telescopeElement.angleToBoat;
+            if (currentAngle > 180)
+                currentAngle = 360 - currentAngle;
+            currentPercentage = 1 - currentAngle * angleFactor;
 
-        mat.SetColor("_EmissionColor", currentColor / 20.0f);
+            currentColor = Color.Lerp(inactiveColor, activeColor, currentPercentage);
+            mat.SetColor("_EmissionColor", currentColor / 20.0f);
+
+            if (telescopeElement.elementDiscover.discovered)
+            {
+                activated = true;
+                tracking = false;
+                mat.SetColor("_EmissionColor", activeColor / 10.0f);
+            }
+        }
+    }
+
+    void OnMegaTyphoonActivatedEvent(MegaTyphoonActivatedEvent e)
+    {
+        if (!activated)
+        {
+            tracking = true;
+            telescopeElement = e.element;
+        }
     }
 }

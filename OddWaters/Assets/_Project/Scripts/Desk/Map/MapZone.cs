@@ -12,19 +12,16 @@ public class MapZone : MonoBehaviour
     public bool visible;
 
     [SerializeField]
-    Material visibleMat;
-    [SerializeField]
-    Material invisibleMat;
-
-    MeshRenderer meshRenderer;
+    GameObject clouds;
 
     [SerializeField]
     List<GameObject> elementsToHide = new List<GameObject>();
 
     void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = (visible ? visibleMat : invisibleMat);
+        if (clouds != null)
+            clouds.SetActive(!visible);
+
         ListExtensions.Shuffle(telescopePanoramas);
 
         foreach (GameObject element in elementsToHide)
@@ -34,7 +31,10 @@ public class MapZone : MonoBehaviour
     public void Discover()
     {
         visible = true;
-        meshRenderer.material = visibleMat;
+
+        if (clouds != null)
+            clouds.SetActive(false);
+
         foreach (GameObject element in elementsToHide)
             element.SetActive(true);
     }
