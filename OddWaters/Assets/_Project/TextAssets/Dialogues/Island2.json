@@ -5,14 +5,14 @@
             "name": "Monk",
             "firstDialogue":
             [
-                "*The monk gazes at you quietly from a distance",
+                "*The monk gazes at you quietly from a distance.",
                 "Another one of them making it to our island. Unusual.",
                 "Maybe this time they will listen.",
                 "Maybe this time, they will understand that the sea is to be respected.",
-                "*He talks in a tongue you don’t understand",
+                "*He talks in a tongue you don’t understand.",
                 "Some of them want to control it, and make it your own.",
                 "Most of them don’t know. How many times must we explain?",
-                "*He talks in an incomprehensible language",
+                "*He talks in an incomprehensible language.",
         		"Take this if you want a chance to understand.",
 				"Go east, and open yourself to the sea.",
         		"Listen to its roars and complaints, and perhaps you’ll sea its true form."
@@ -20,21 +20,21 @@
             "secondDialogue":
             [
                 "Listen, human.",
-                "Find your way to the east, and listen to its complaints"
+                "Find your way to the east, and listen to its complaints."
             ]
         },
         {
             "name": "Monk",
             "firstDialogue":
             [
-                "*The monk gazes at you quietly from a distance",
+                "*The monk gazes at you quietly from a distance.",
                 "Another one of them making it to our island. Unusual.",
                 "Maybe this time they will listen.",
                 "Maybe this time, they will understand that the sea is to be respected.",
-                "*He talks in a tongue you don’t understand",
+                "*He talks in a tongue you don’t understand.",
                 "Some of them want to control it, and make it your own.",
                 "Most of them don’t know. How many times must we explain?",
-                "*He talks in an incomprehensible language",
+                "*He talks in an incomprehensible language.",
         		"Take this if you want a chance to understand.",
 				"Go east, and open yourself to the sea.",
         		"Listen to its roars and complaints, and perhaps you’ll sea its true form."
@@ -42,7 +42,7 @@
             "secondDialogue":
             [
                 "Listen, human.",
-                "Find your way to the east, and listen to its complaints"
+                "Find your way to the east, and listen to its complaints."
             ]
         }
     ]
