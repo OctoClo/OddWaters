@@ -44,13 +44,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     GameObject panelUI;
     [SerializeField]
-    GameObject maskingCube;
-    [SerializeField]
-    GameObject upMaskingCube;
-    [SerializeField]
     Telescope telescope;
-    [SerializeField]
-    GameObject deskMaskingCube;
     [SerializeField]
     Roll rollingDesk;
     [SerializeField]
@@ -98,22 +92,15 @@ public class TutorialManager : MonoBehaviour
 
     public void Setup()
     {
-
         globalAnimator.SetTrigger("Setup Tutorial");
-
     }
 
     public void Launch()
     {
-        
         tutorialText = JsonUtility.FromJson<TutorialText>(tutorialJSON.text);
-
         step = ETutorialStep.TELESCOPE_MOVE;
-
         tutorialUIAnimator.SetTrigger("Start");
-
         StartCoroutine(UpdateStep());
-        
     }
 
     IEnumerator UpdateStep()
@@ -124,9 +111,6 @@ public class TutorialManager : MonoBehaviour
         {
             case ETutorialStep.STORM:
                 //LaunchAmbiance();
-
-                //deskMaskingCube.SetActive(true);
-                //maskingCube.SetActive(true);
                 //rollingDesk.enabled = false;
                 yield return new WaitForSeconds(stormDuration);
                 NextStep();
@@ -134,19 +118,16 @@ public class TutorialManager : MonoBehaviour
 
             case ETutorialStep.TELESCOPE_MOVE:
                 yield return StartCoroutine(navigationManager.InitializeTelescopeElements());
-
                 globalAnimator.SetTrigger("Reveal Telescope");
 
                 PromptTooltip();
 
-                //maskingCube.SetActive(false);
                 //tutorialField.transform.parent.gameObject.SetActive(true);
                 break;
 
             case ETutorialStep.BOAT_MOVE:
                 globalAnimator.SetTrigger("Reveal Desk");
                 telescope.SetImageAlpha(true);
-                deskMaskingCube.SetActive(false);
                 navigationManager.goalCollider = boatGoalCollider;
 
                 PromptTooltip();
