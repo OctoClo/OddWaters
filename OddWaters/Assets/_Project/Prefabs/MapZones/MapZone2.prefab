@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 5626751689418047238}
   - component: {fileID: 5626751689418047480}
   - component: {fileID: 5626751689418047239}
+  - component: {fileID: 3233601273487869302}
   m_Layer: 0
   m_Name: MapZone2
   m_TagString: Untagged
@@ -441,6 +442,25 @@ MonoBehaviour:
   clouds: {fileID: 9057976835555734881}
   elementsToHide:
   - {fileID: 3845129463227889837}
+--- !u!95 &3233601273487869302
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626751689418047237}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85b6e18da7500b8479e2d372deefcf47, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9057976835555734881
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +472,6 @@ GameObject:
   - component: {fileID: 6080415001100966194}
   - component: {fileID: 4418360356973100707}
   - component: {fileID: 1512970130586574901}
-  - component: {fileID: 7051548840520802673}
   m_Layer: 0
   m_Name: Clouds
   m_TagString: Untagged
@@ -519,20 +538,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &7051548840520802673
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9057976835555734881}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1099166597699700426
 PrefabInstance:
   m_ObjectHideFlags: 0

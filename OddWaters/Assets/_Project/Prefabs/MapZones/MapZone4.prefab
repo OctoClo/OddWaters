@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2715683312440537935}
   - component: {fileID: 2715683312440537929}
   - component: {fileID: 2715683312440537928}
+  - component: {fileID: 3818524084881404301}
   m_Layer: 0
   m_Name: MapZone4
   m_TagString: Untagged
@@ -64,6 +65,25 @@ MonoBehaviour:
   visible: 0
   clouds: {fileID: 0}
   elementsToHide: []
+--- !u!95 &3818524084881404301
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715683312440537934}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85b6e18da7500b8479e2d372deefcf47, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3872689350107012317
 GameObject:
   m_ObjectHideFlags: 0

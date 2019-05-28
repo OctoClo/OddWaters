@@ -13,6 +13,7 @@ public class MapZone : MonoBehaviour
 
     [SerializeField]
     GameObject clouds;
+    Animator animator;
 
     [SerializeField]
     List<GameObject> elementsToHide = new List<GameObject>();
@@ -22,6 +23,7 @@ public class MapZone : MonoBehaviour
         if (clouds != null)
             clouds.SetActive(!visible);
 
+        animator = GetComponent<Animator>();
         ListExtensions.Shuffle(telescopePanoramas);
 
         foreach (GameObject element in elementsToHide)
@@ -33,7 +35,8 @@ public class MapZone : MonoBehaviour
         visible = true;
 
         if (clouds != null)
-            clouds.SetActive(false);
+            //clouds.SetActive(false);
+            animator.SetTrigger("RemoveClouds");
 
         foreach (GameObject element in elementsToHide)
             element.SetActive(true);
