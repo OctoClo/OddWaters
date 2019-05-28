@@ -27,9 +27,9 @@ public class NavigationManager : MonoBehaviour
     [SerializeField]
     GameObject boat;
     Boat boatScript;
-    SpriteRenderer boatRenderer;
+    Renderer boatRenderer;
     [SerializeField]
-    Sprite[] boatSprites;
+    Material[] boatMaterials;
     [SerializeField]
     float boatSpeed;
     [SerializeField]
@@ -72,7 +72,7 @@ public class NavigationManager : MonoBehaviour
 
     void Start()
     {
-        boatRenderer = boat.GetComponent<SpriteRenderer>();
+        boatRenderer = boat.GetComponent<Renderer>();
         boatScript = boat.GetComponent<Boat>();
         navigating = false;
         insideGoal = false;
@@ -177,7 +177,7 @@ public class NavigationManager : MonoBehaviour
     void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
     {
         if (e.safe)
-            e.typhoon.GetComponent<SpriteRenderer>().enabled = true;
+            e.typhoon.GetComponent<Renderer>().enabled = true;
         else
         {
             Debug.Log("Boat in typhoon!");
@@ -189,7 +189,7 @@ public class NavigationManager : MonoBehaviour
     IEnumerator WaitBeforeGoingToInitialPos(GameObject typhoon)
     {
         yield return new WaitForSeconds(0.5f);
-        typhoon.GetComponent<SpriteRenderer>().enabled = true;
+        typhoon.GetComponent<Renderer>().enabled = true;
         fromTyphoon = true;
         LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, false);
     }
@@ -216,7 +216,7 @@ public class NavigationManager : MonoBehaviour
         // Initialize navigation values
         navigating = true;
         currentSpeed = (fromTyphoon ? boatSpeedFromTyhpoon : boatSpeed);
-        boatRenderer.sprite = boatSprites[0];
+        boatRenderer.material = boatMaterials[0];
         lightScript.rotateDegreesPerSecond.value.y = sunMove;
         target.y = boat.transform.position.y;
         journeyLength = (target - boat.transform.position).sqrMagnitude;
@@ -276,7 +276,7 @@ public class NavigationManager : MonoBehaviour
     void BerthOnIsland(bool tutorial)
     {
         onIsland = true;
-        boatRenderer.sprite = boatSprites[1];
+        boatRenderer.material = boatMaterials[1];
 
         // Reset rotations
         boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);

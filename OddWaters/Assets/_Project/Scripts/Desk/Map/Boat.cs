@@ -40,7 +40,7 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
-        line.SetPosition(0, Vector3.zero);
+        line.SetPosition(0, new Vector3(0, 0, -0.1f));
         line.enabled = false;
         endOfLine.SetActive(false);
         elementsInSight = new List<MapElement>();
@@ -71,7 +71,7 @@ public class Boat : MonoBehaviour
         if (line.enabled)
         {
             lineEnd = transform.InverseTransformPoint(navigationManager.lastValidCursorPos);
-            lineEnd.z = 0;
+            lineEnd.z = -0.1f;
             line.SetPosition(1, lineEnd);
             endOfLine.transform.localPosition = lineEnd;
             currentDotPercentage = (navigationManager.lastValidCursorPos - transform.position).sqrMagnitude / lineMaxLenght;
