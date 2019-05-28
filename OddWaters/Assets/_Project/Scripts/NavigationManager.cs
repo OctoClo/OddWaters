@@ -13,23 +13,7 @@ public enum ENavigationResult
 
 public class NavigationManager : MonoBehaviour
 {
-    [SerializeField]
-    ScreenManager screenManager;
-
-    [SerializeField]
-    AutoMoveAndRotate lightScript;
-    [SerializeField]
-    int sunMove = -3;
-
-    [SerializeField]
-    Map map;
-
-    [SerializeField]
-    GameObject boat;
-    Boat boatScript;
-    Renderer boatRenderer;
-    [SerializeField]
-    Material[] boatMaterials;
+    [Header("General")]
     [SerializeField]
     float boatSpeed;
     [SerializeField]
@@ -39,8 +23,31 @@ public class NavigationManager : MonoBehaviour
     float maxDistance = 3f;
     float maxDistanceSqr;
     [SerializeField]
+    Material[] boatMaterials;
+    [SerializeField]
+    int sunMove = -3;    
+
+    [Header("References")]
+    [SerializeField]
+    ScreenManager screenManager;
+    [SerializeField]
+    Telescope telescope;
+    [SerializeField]
+    Map map;
+    [SerializeField]
+    AutoMoveAndRotate lightScript;
+    [SerializeField]
+    GameObject boat;
+    Boat boatScript;
+    Renderer boatRenderer;
+    [SerializeField]
     LineRenderer boatTrail;
     int linePoints = 0;
+    [SerializeField]
+    TutorialManager tutorialManager;
+    [HideInInspector]
+    public Collider goalCollider;
+    bool insideGoal;
 
     bool navigating;
     Vector3 journeyTarget;
@@ -48,10 +55,6 @@ public class NavigationManager : MonoBehaviour
     float journeyLength;
     GameObject lastValidPosition;
     int lastValidPositionZone;
-
-    [SerializeField]
-    Telescope telescope;
-    
     bool onIsland = false;
 
     Vector3 boatColliderLeft;
@@ -63,12 +66,6 @@ public class NavigationManager : MonoBehaviour
     public Vector3 lastValidCursorPos;
     Vector3 lastValidTarget;
     int lastValidTargetZone;
-
-    [SerializeField]
-    TutorialManager tutorialManager;
-    [HideInInspector]
-    public Collider goalCollider;
-    bool insideGoal;
 
     void Start()
     {

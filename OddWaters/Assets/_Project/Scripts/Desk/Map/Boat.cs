@@ -7,21 +7,14 @@ public class BoatAsksTelescopeRefreshEvent : GameEvent { public MapElement eleme
 
 public class Boat : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField]
-    NavigationManager navigationManager;
-
-    // Navigation line
-    [SerializeField]
-    LineRenderer line;
-    [SerializeField]
-    GameObject endOfLine;
+    [Range(0.01f, 0.2f)]
+    float dotsSoundInterval = 0.1f;
     [HideInInspector]
     public float lineMaxLenght;
     float lastDotPercentageSound;
     float currentDotPercentage;
-    [SerializeField]
-    [Range(0.01f, 0.2f)]
-    float dotsSoundInterval = 0.1f;
     Vector3 lineEnd;
 
     [HideInInspector]
@@ -36,7 +29,16 @@ public class Boat : MonoBehaviour
     [HideInInspector]
     public Island currentIsland;
 
+    [HideInInspector]
     public bool safeZone;
+
+    [Header("References")]
+    [SerializeField]
+    NavigationManager navigationManager;
+    [SerializeField]
+    LineRenderer line;
+    [SerializeField]
+    GameObject endOfLine;
 
     void Start()
     {

@@ -6,32 +6,28 @@ public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 
 public class ScreenManager : MonoBehaviour
 {
-    [SerializeField]
-    bool launchMenu = false;
-    [SerializeField]
-    bool playIntro = false;
-    [SerializeField]
-    Animator introAnimator;
+    [Header("References")]
     [SerializeField]
     Animator globalAnimator;
-
     [SerializeField]
     GameObject telescopeScreen;
-
     [SerializeField]
     GameObject desk;
-
     [SerializeField]
     Inventory inventory;
     [SerializeField]
     DialogueManager dialogueManager;
-
     [SerializeField]
     GameObject islandScreen;
     [SerializeField]
     GameObject islandBackground;
     [SerializeField]
     GameObject islandCharacter;
+    [SerializeField]
+    TutorialManager tutorialManager;
+    bool tutorial;
+    [SerializeField]
+    GameObject tutorialPanel;
 
     [HideInInspector]
     public EScreenType screenType = EScreenType.SEA;
@@ -42,12 +38,6 @@ public class ScreenManager : MonoBehaviour
     bool firstVisit;
     GameObject objectToGive;
     int nextZone;
-
-    [SerializeField]
-    TutorialManager tutorialManager;
-    bool tutorial;
-    [SerializeField]
-    GameObject tutorialPanel;
 
     private void Start()
     {

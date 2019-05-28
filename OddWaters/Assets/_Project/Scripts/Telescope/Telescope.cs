@@ -12,61 +12,60 @@ public enum ELayer
 
 public class Telescope : MonoBehaviour
 {
-    [SerializeField]
-    Boat boat;
-    int boatRotation;
-
-    SpriteRenderer[] spriteRenderers;
-
-    // Drag
+    [Header("Drag")]
     [SerializeField]
     [Range(0.1f, 2)]
     float dragSpeedNormal = 1;
     [SerializeField]
     [Range(0.01f, 1)]
     float dragSpeedZoom = 0.3f;
-    [SerializeField]
-    Transform layersContainer;
-    TelescopeLayer[] layers;
     float currentDragSpeed;
     float telescopePosMax;
     [SerializeField]
     Sprite indicatorDragSprite;
     GameObject indicatorDrag;
 
-    // Zoom
-    bool zoom;
-    [SerializeField]
-    GameObject maskZoom;
+    [Header("Zoom")]
     [SerializeField]
     float zoomPower = 1.5f;
     [SerializeField]
     [Tooltip("Augmente de 0.1 en 0.1")]
     float wheelZoomThreshold = 0.3f;
     float wheelZoomLevel;
+    bool zoom;
     Vector3 scaleMaskNormal;
     Vector3 scaleMaskZoom;
     Vector3 scaleContainerNormal;
     Vector3 scaleContainerZoom;
     [SerializeField]
-    GameObject colliderNormal;
-    [SerializeField]
-    GameObject colliderZoom;
-
-    bool zoomAnimation;
-    Vector3 scaleMaskTarget;
-    Vector3 scaleContainerTarget;
-    float zoomAnimationAlpha;
-
-    [SerializeField]
     float elementDetectionSensitivity = 0.5f;
     [SerializeField]
     float elementSuperDetectionSensitivity = 0.5f;
 
+
+    [Header("References")]
     [SerializeField]
     TutorialManager tutorialManager;
     [HideInInspector]
     public bool tutorial;
+    [SerializeField]
+    GameObject maskZoom;
+    [SerializeField]
+    Boat boat;
+    int boatRotation;
+    [SerializeField]
+    GameObject colliderNormal;
+    [SerializeField]
+    GameObject colliderZoom;
+    [SerializeField]
+    Transform layersContainer;
+    TelescopeLayer[] layers;
+
+    SpriteRenderer[] spriteRenderers;
+    bool zoomAnimation;
+    Vector3 scaleMaskTarget;
+    Vector3 scaleContainerTarget;
+    float zoomAnimationAlpha;
 
     void Start()
     {

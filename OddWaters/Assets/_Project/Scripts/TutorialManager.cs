@@ -19,6 +19,7 @@ public enum ETutorialStep
 
 public class TutorialManager : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField]
     bool tutorial = true;
     [HideInInspector]
@@ -30,6 +31,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     float lastSentenceDuration = 4;
 
+    [Header("References")]
     [SerializeField]
     Animator globalAnimator;
     [SerializeField]

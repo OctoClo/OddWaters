@@ -11,11 +11,7 @@ enum EMoveType
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField]
-    InspectionInterface inspectionInterface;
-    [SerializeField]
-    TutorialManager tutorialManager;
-
+    [Header("Trade Animations")]
     [SerializeField]
     Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
     [SerializeField]
@@ -23,14 +19,20 @@ public class Inventory : MonoBehaviour
     Vector3 targetPos;
     [SerializeField]
     float drag = 7.37f;
+    [SerializeField]
+    GameObject previousObject;
+
+    [Header("References")]
+    [SerializeField]
+    InspectionInterface inspectionInterface;
+    [SerializeField]
+    TutorialManager tutorialManager;
 
     GameObject prefabToGive;
     GameObject newObject;
     BoxCollider boxCollider;
     Rigidbody rb;
-    [SerializeField]
-    GameObject previousObject;
-   
+
     bool moving;
     EMoveType move;
     bool waiting;

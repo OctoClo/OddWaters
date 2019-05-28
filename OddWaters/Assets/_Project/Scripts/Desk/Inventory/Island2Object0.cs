@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Island2Object0 : MonoBehaviour
 {
+    [Header("Glow")]
     [SerializeField]
     Color inactiveColor = Color.black;
     [SerializeField]

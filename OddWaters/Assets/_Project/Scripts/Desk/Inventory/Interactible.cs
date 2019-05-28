@@ -6,6 +6,9 @@ public enum ERotation { R0, R90, R180 };
 
 public class Interactible : MonoBehaviour
 {
+    [Header("General")]
+    [SerializeField]
+    AK.Wwise.Switch soundMaterial;
     [SerializeField]
     TextAsset transcriptJSONRecto;
     [SerializeField]
@@ -15,6 +18,7 @@ public class Interactible : MonoBehaviour
     bool switchTranscriptSide;
     int side;
 
+    [Header("Offsets")]
     [SerializeField]
     [Range(2, 20)]
     int zoomOffset = 4;
@@ -22,12 +26,14 @@ public class Interactible : MonoBehaviour
     [Range(0.01f, 0.5f)]
     float grabOffset = 0.1f;
 
+    [Header("Rotations")]
     [SerializeField]
     [Range(1, 4)]
     float rotationSpeed = 3f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
 
+    [Header("References")]
     public InspectionInterface inspectionInterface;
     public TutorialManager tutorialManager;
 
@@ -49,9 +55,6 @@ public class Interactible : MonoBehaviour
     Vector3 beforeZoomPosition;
     Vector3 zoomPosition;
     Transform inventory;
-
-    [SerializeField]
-    AK.Wwise.Switch soundMaterial;
 
     void Start()
     {

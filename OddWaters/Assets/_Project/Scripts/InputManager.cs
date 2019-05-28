@@ -11,20 +11,7 @@ enum EInteractibleState { UNKNOWN, CLICKED, DRAGNDROP };
 
 public class InputManager : MonoBehaviour
 {
-    // General
-    [SerializeField]
-    TutorialManager tutorialManager;
-    [SerializeField]
-    ScreenManager screenManager;
-    [SerializeField]
-    DialogueManager dialogueManager;
-    Camera mainCamera;
-    GameObject mouseProjection;
-    RaycastHit[] hitsOnRayToMouse;
-    bool blockInput;
-    bool navigating;
-    bool dialogueOngoing;
-
+    [Header("General")]
     // Double click
     [SerializeField]
     float delayBetweenDoubleClick = 0.12f;
@@ -33,10 +20,15 @@ public class InputManager : MonoBehaviour
     bool firstClickInteractible;
     bool interactibleAlreadyDropped;
 
-    // Tutorial
-    [HideInInspector]
-    public bool tutorial;
-    bool firstTelescopeMove;
+    [Header("References")]
+    [SerializeField]
+    TutorialManager tutorialManager;
+    [SerializeField]
+    ScreenManager screenManager;
+    [SerializeField]
+    DialogueManager dialogueManager;
+    [SerializeField]
+    NavigationManager navigationManager;
 
     // Interactible
     [SerializeField]
@@ -48,7 +40,19 @@ public class InputManager : MonoBehaviour
     Vector3 interactibleScreenPos;
     Vector3 interactibleOffset;
     EInteractibleState interactibleState;
-    
+
+    [SerializeField]
+    Animator globalAnimator;
+
+    // Boat
+    [SerializeField]
+    Boat boat;
+    [SerializeField]
+    Animator boatAnimator;
+    bool navigation;
+    [SerializeField]
+    BoatTrailAnimation trailAnimation;
+
     // Telescope
     [SerializeField]
     Telescope telescope;
@@ -57,21 +61,18 @@ public class InputManager : MonoBehaviour
     Vector3 dragCurrentPos;
     float dragSpeed;
 
-    // Animation
-    [SerializeField]
-    Animator globalAnimator;
-    [SerializeField]
-    BoatTrailAnimation trailAnimation;
+    // Tutorial
+    [HideInInspector]
+    public bool tutorial;
+    bool firstTelescopeMove;
 
-    // Map
-    [SerializeField]
-    NavigationManager navigationManager;
-    [SerializeField]
-    Boat boat;
-    [SerializeField]
-    Animator boatAnimator;
-    bool navigation;
-    
+    Camera mainCamera;
+    GameObject mouseProjection;
+    RaycastHit[] hitsOnRayToMouse;
+    bool blockInput;
+    bool navigating;
+    bool dialogueOngoing;
+
     void Start()
     {
         mouseProjection = new GameObject("Mouse Projection");

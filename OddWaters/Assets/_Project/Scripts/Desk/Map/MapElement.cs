@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class MapElement : MonoBehaviour
 {
+    [Header("General")]
     public new string name;
+    public bool visible;
+
+    [Header("Discovery")]
     public bool needSight = true;
     public bool needZoom = false;
     public bool needSuperPrecision = false;
-    public bool visible;
     public bool magnetism = true;
-    public bool playClue = true;
-    public Sprite elementSprite;
-    public ELayer layer;
+    [SerializeField]
+    GameObject[] elementsToActivate;
 
+    [Header("Sound")]
+    public bool playClue = true;
     [SerializeField]
     AK.Wwise.Event discoverySound;
 
+    [Header("Panorama")]
+    public Sprite elementSprite;
+    public ELayer layer;
+
     [HideInInspector]
     public bool discovered = false;
-
     MeshRenderer meshRenderer;
-
-    [SerializeField]
-    GameObject[] elementsToActivate;
 
     virtual protected void Start()
     {
