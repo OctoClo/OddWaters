@@ -8,7 +8,7 @@
         "Drag and drop the boat to the cross",
         "Use the mouse wheel to zoom on island",
         "Go on the island",
-        "Double click on an object to inspect it",
+        "Right click on an object to inspect it",
         "Rotate the object with the buttons",
         "",
         "Drag and drop an object to move it around",
@@ -18,11 +18,11 @@
     {
       "steps":
       [
-        "Maintenez le clic droit pour déplacer le panorama",
+        "Maintenez le clic gauche pour déplacer le panorama",
         "Faites glisser le bateau sur le repère",
         "Utilisez la molette pour zoomer",
         "Allez sur l'île",
-        "Double cliquez sur un objet pour l'inspecter",
+        "Faites un clic droit sur un objet pour l'inspecter",
         "Faites tourner l'objet avec les boutons",
         "",
         "Maintenez un objet pour le déplacer",

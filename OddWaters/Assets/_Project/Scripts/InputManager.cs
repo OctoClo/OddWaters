@@ -282,7 +282,7 @@ public class InputManager : MonoBehaviour
                 {
                     // Interactible
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
-                    if ((!blockInput || navigating) && hitInfo.collider && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM) && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
+                    if ((!blockInput || navigating) && hitInfo.collider && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_MOVE) && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
                     {
                         interactible = hitInfo.collider.GetComponent<Interactible>();
                         interactibleState = EInteractibleState.DRAGNDROP;
