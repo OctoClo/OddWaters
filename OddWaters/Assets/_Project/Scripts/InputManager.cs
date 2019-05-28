@@ -167,10 +167,32 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             AkSoundEngine.PostEvent("Play_Click", gameObject);
+
             if (navigation)
                 StopNavigation();
-            else if ((!blockInput || navigating) && interactibleState == EInteractibleState.CLICKED)
-                ExitInterfaceRotation();
+            else
+            {
+                if (interactibleState == EInteractibleState.CLICKED)
+                    ExitInterfaceRotation();
+                else
+                {
+                    RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
+                    if ((!blockInput || navigating) && hitInfo.collider && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM) && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
+                    {
+                        interactible = hitInfo.collider.GetComponent<Interactible>();
+                        interactibleState = EInteractibleState.CLICKED;
+                        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+                        interactible.EnterRotationInterface();
+                        inspectionInterface.gameObject.SetActive(true);
+                        rotationPanel.SetActive(true);
+                        telescope.SetImageAlpha(true);
+                        boat.SetImageAlpha(true);
+
+                        if (tutorialManager.step == ETutorialStep.OBJECT_ZOOM)
+                            tutorialManager.CompleteStep();
+                    }
+                }
+            }
         }
 
         // Interactible rotate
@@ -282,30 +304,13 @@ public class InputManager : MonoBehaviour
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
                     if ((!blockInput || navigating) && hitInfo.collider && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM) && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
                     {
-                        if (!firstClickInteractible)
-                        {
-                            firstClickInteractible = true;
-                            timerDoubleClick = Time.time;
-                            interactible = hitInfo.collider.GetComponent<Interactible>();
-                            interactibleState = EInteractibleState.UNKNOWN;
-                            Vector3 interactibleGrabbedPos = interactible.GetGrabbedPosition();
-                            interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
-                            interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
-                        }
-                        else
-                        {
-                            firstClickInteractible = false;
-                            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                            interactibleState = EInteractibleState.CLICKED;
-                            interactible.EnterRotationInterface();
-                            inspectionInterface.gameObject.SetActive(true);
-                            rotationPanel.SetActive(true);
-                            telescope.SetImageAlpha(true);
-                            boat.SetImageAlpha(true);
-
-                            if (tutorialManager.step == ETutorialStep.OBJECT_ZOOM)
-                                tutorialManager.CompleteStep();
-                        }
+                        interactible = hitInfo.collider.GetComponent<Interactible>();
+                        interactibleState = EInteractibleState.DRAGNDROP;
+                        CursorManager.Instance.SetCursor(ECursor.DRAG);
+                        Vector3 interactibleGrabbedPos = interactible.GetGrabbedPosition();
+                        interactibleScreenPos = mainCamera.WorldToScreenPoint(interactibleGrabbedPos);
+                        interactibleOffset = interactibleGrabbedPos - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, interactibleScreenPos.z));
+                        interactible.Grab();
                     }
                     else if (!blockInput)
                     {
@@ -349,13 +354,8 @@ public class InputManager : MonoBehaviour
 
     void HandleMouseLeftButtonUp()
     {
-        if (interactible)
-        {
-            if (interactibleState == EInteractibleState.UNKNOWN)
-                interactibleAlreadyDropped = true;
-            else if (interactibleState == EInteractibleState.DRAGNDROP)
-                DropInteractible();
-        }
+        if (interactible && interactibleState == EInteractibleState.DRAGNDROP)
+            DropInteractible();
         else if (telescopeDrag)
             EndTelescopeDrag();
         else if (navigation)
