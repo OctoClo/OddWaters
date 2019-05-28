@@ -15,4 +15,9 @@ public class DialogueHover : MonoBehaviour, IPointerExitHandler, IPointerEnterHa
     {
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
+
+    void OnDisable()
+    {
+        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+    }
 }

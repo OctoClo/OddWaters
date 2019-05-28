@@ -21,8 +21,8 @@ public class InputManager : MonoBehaviour
     Camera mainCamera;
     GameObject mouseProjection;
     RaycastHit[] hitsOnRayToMouse;
-    public bool blockInput;
-    public bool navigating;
+    bool blockInput;
+    bool navigating;
     bool dialogueOngoing;
 
     // Double click
@@ -225,8 +225,6 @@ public class InputManager : MonoBehaviour
                 else if ((!blockInput || navigating) && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM) && hitsOnRayToMouse.Any(hit => hit.collider.GetComponent<Interactible>()))
                 {
                     // Hover interactible
-                    Debug.Log("BlockInput: " + blockInput);
-                    Debug.Log("Navigating: " + navigating);
                     CursorManager.Instance.SetCursor(ECursor.HOVER);
                 }
                 else if (!blockInput || navigating)
