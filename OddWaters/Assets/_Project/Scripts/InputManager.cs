@@ -120,42 +120,22 @@ public class InputManager : MonoBehaviour
             HandleMouseLeftButtonDown();
         
         // Telescope single click
-        if (firstClickTelescope && (Time.time - timerDoubleClick) > delayBetweenDoubleClick)
+        if (firstClickTelescope)
         {
-            firstClickTelescope = false;
-            if (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM)
+            float timeSinceClick = Time.time - timerDoubleClick;
+            if (timeSinceClick > delayBetweenDoubleClick || Input.GetMouseButton(0) && timeSinceClick > 0.1f)
             {
-                if (telescopeDrag)
-                    EndTelescopeDrag();
-
-                telescopeDrag = true;
-                dragBeginPos = Input.mousePosition;
-                Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
-                telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
-            }
-        }
-
-        // Interactible single click
-        if (firstClickInteractible && (Time.time - timerDoubleClick) > delayBetweenDoubleClick)
-        {
-            firstClickInteractible = false;
-            if (interactibleState == EInteractibleState.UNKNOWN &&  (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_MOVE))
-            {
-                interactibleState = EInteractibleState.DRAGNDROP;
-                CursorManager.Instance.SetCursor(ECursor.DRAG);
-                interactible.Grab();
-
-                if (interactibleAlreadyDropped)
+                firstClickTelescope = false;
+                if (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM)
                 {
-                    interactibleAlreadyDropped = false;
-                    DropInteractible();
+                    if (telescopeDrag)
+                        EndTelescopeDrag();
+
+                    telescopeDrag = true;
+                    dragBeginPos = Input.mousePosition;
+                    Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+                    telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
                 }
-            }
-            else
-            {
-                CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-                interactibleState = EInteractibleState.UNKNOWN;
-                interactible = null;
             }
         }
 
