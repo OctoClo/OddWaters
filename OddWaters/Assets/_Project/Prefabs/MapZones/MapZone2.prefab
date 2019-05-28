@@ -111,6 +111,7 @@ MonoBehaviour:
   needSuperPrecision: 0
   visible: 0
   magnetism: 0
+  playClue: 1
   elementSprite: {fileID: 21300000, guid: a6faa92ca1ac1394dae1dcbebf5669d4, type: 3}
   layer: 0
   discoverySound:
@@ -264,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82eaeb0a9a7836c4da8b41b5fbc5c3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needTelescopeRefresh: 0
   zone: 0
 --- !u!1 &4582758676341239044
 GameObject:
@@ -435,7 +437,7 @@ MonoBehaviour:
   - {fileID: 3687238321577612547, guid: 948ed90cd9b1ae4479edc8ebe8640831, type: 3}
   - {fileID: 7864211357198424669, guid: 5e19956d5d7a4cb4c8e7f019d10af175, type: 3}
   - {fileID: 2922078873119544339, guid: d1704408a39f5e64a92b56c4de74e04f, type: 3}
-  visible: 1
+  visible: 0
   clouds: {fileID: 9057976835555734881}
   elementsToHide:
   - {fileID: 3845129463227889837}
