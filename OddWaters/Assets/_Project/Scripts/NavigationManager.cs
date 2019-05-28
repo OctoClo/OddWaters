@@ -141,7 +141,7 @@ public class NavigationManager : MonoBehaviour
                     {
                         //EndJourneyAtSea
                         screenManager.EndNavigationAtSea();
-                        EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = true });
+                        EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
 
                         if (goalCollider && insideGoal)
                             tutorialManager.CompleteStep();

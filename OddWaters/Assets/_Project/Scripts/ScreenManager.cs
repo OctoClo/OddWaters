@@ -95,8 +95,7 @@ public class ScreenManager : MonoBehaviour
         firstVisit = island.firstTimeVisiting;
         island.Berth();
 
-        if (!firstVisit)
-            EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
 
         globalAnimator.SetTrigger("FirstBerth");
         if (tutorialNow) tutorialManager.CompleteStep();
@@ -106,7 +105,7 @@ public class ScreenManager : MonoBehaviour
 
     public IEnumerator RelaunchDialogue()
     {
-        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
         globalAnimator.SetTrigger("Retalk");
         yield return new WaitForSeconds(1.9f);
         dialogueManager.StartDialogue(currentIsland.dialogue, false);
@@ -137,7 +136,7 @@ public class ScreenManager : MonoBehaviour
             }
         }
         else
-            EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
     }
 
     public void LeaveIsland()

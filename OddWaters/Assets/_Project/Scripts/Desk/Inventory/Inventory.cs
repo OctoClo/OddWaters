@@ -108,7 +108,7 @@ public class Inventory : MonoBehaviour
             {
                 waiting = false;
                 currentTime = 0;
-                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+                EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
             }
         }
         if (moving)
