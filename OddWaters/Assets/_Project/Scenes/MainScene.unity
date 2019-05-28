@@ -438,38 +438,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59534254}
   m_CullTransparentMesh: 0
---- !u!84 &68367298
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &85039592
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,19 +481,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a20455468b74f4e937ae0b40627f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayBetweenDoubleClick: 0.2
   tutorialManager: {fileID: 1136672030}
   screenManager: {fileID: 1974049330}
   dialogueManager: {fileID: 1303358153}
-  delayBetweenDoubleClick: 0.2
-  tutorial: 0
+  navigationManager: {fileID: 674968308}
   inspectionInterface: {fileID: 1971627126}
   rotationPanel: {fileID: 237130663}
-  telescope: {fileID: 1749075880}
   globalAnimator: {fileID: 1962910260}
-  trailAnimation: {fileID: 123005739}
-  navigationManager: {fileID: 674968308}
   boat: {fileID: 1621107813}
   boatAnimator: {fileID: 1621107815}
+  trailAnimation: {fileID: 123005739}
+  telescope: {fileID: 1749075880}
+  tutorial: 0
 --- !u!1 &116890817
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,6 +2465,38 @@ Transform:
   m_Father: {fileID: 1524979132}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!84 &392130505
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &395623775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3186,13 +3186,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 68367298}
+  shadowMapRenderTexture: {fileID: 503777799}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  shadowDataRenderTexture: {fileID: 1132007471}
+  shadowDataRenderTexture: {fileID: 1907450978}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -3401,6 +3401,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!84 &503777799
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &542433995
 GameObject:
   m_ObjectHideFlags: 0
@@ -4114,22 +4146,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7383a528d06604fbecc306fe9688aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenManager: {fileID: 1974049330}
-  lightScript: {fileID: 1079661066}
-  sunMove: -10
-  map: {fileID: 4240498592487743361}
-  boat: {fileID: 1621107811}
-  boatMaterials:
-  - {fileID: 2100000, guid: c4ae3ada1e1ca904d9bdd70be72a14f2, type: 2}
-  - {fileID: 2100000, guid: 47146d0adc8f0ba4ea0f3ce9838c906e, type: 2}
   boatSpeed: 0.012
   boatSpeedFromTyhpoon: 0.016
   maxDistance: 1.7
-  boatTrail: {fileID: 123005738}
+  boatMaterials:
+  - {fileID: 2100000, guid: c4ae3ada1e1ca904d9bdd70be72a14f2, type: 2}
+  - {fileID: 2100000, guid: 47146d0adc8f0ba4ea0f3ce9838c906e, type: 2}
+  sunMove: -10
+  screenManager: {fileID: 1974049330}
   telescope: {fileID: 1749075880}
-  lastValidCursorPos: {x: 0, y: 0, z: 0}
+  map: {fileID: 4240498592487743361}
+  lightScript: {fileID: 1079661066}
+  boat: {fileID: 1621107811}
+  boatTrail: {fileID: 123005738}
   tutorialManager: {fileID: 1136672030}
   goalCollider: {fileID: 0}
+  lastValidCursorPos: {x: 0, y: 0, z: 0}
 --- !u!1 &675979882
 GameObject:
   m_ObjectHideFlags: 0
@@ -6551,13 +6583,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 1367814617}
+  shadowMapRenderTexture: {fileID: 392130505}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.25
   outOfPhaseColor: {r: 0.999999, g: 0.52962387, b: 0.16920221, a: 1}
-  shadowDataRenderTexture: {fileID: 1412288483}
+  shadowDataRenderTexture: {fileID: 1937048300}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -6711,38 +6743,6 @@ Transform:
   m_Father: {fileID: 1520678653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1132007471
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1136672028
 GameObject:
   m_ObjectHideFlags: 0
@@ -6987,12 +6987,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5f121a253fd8e4396a048a031d0b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectionInterface: {fileID: 1971627126}
-  tutorialManager: {fileID: 1136672030}
   spawnPos: {x: 7.74, y: 0.5, z: 8.74}
   receiveEndPos: {x: 7.74, y: 0.5, z: 1.74}
   drag: 7.37
   previousObject: {fileID: 0}
+  inspectionInterface: {fileID: 1971627126}
+  tutorialManager: {fileID: 1136672030}
 --- !u!1 &1202265808
 GameObject:
   m_ObjectHideFlags: 0
@@ -7760,38 +7760,6 @@ Transform:
   m_Father: {fileID: 498123062}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1367814617
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1385777344
 GameObject:
   m_ObjectHideFlags: 0
@@ -8058,38 +8026,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 359006015784811835}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1412288483
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1436534902
 GameObject:
   m_ObjectHideFlags: 0
@@ -8787,16 +8723,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1baabcdbd8311ad46917e6143de9b108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navigationManager: {fileID: 674968308}
-  line: {fileID: 116890819}
-  endOfLine: {fileID: 1928807667}
-  lineMaxLenght: 0
   dotsSoundInterval: 0.1
+  lineMaxLenght: 0
   mouseProjection: {fileID: 0}
   inATyphoon: 0
   onAnIsland: 0
   currentIsland: {fileID: 0}
   safeZone: 0
+  navigationManager: {fileID: 674968308}
+  line: {fileID: 116890819}
+  endOfLine: {fileID: 1928807667}
 --- !u!54 &1621107814
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9510,21 +9446,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc7075a41387574aa1d429882de0f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boat: {fileID: 1621107813}
-  dragSpeedNormal: 1.2
-  dragSpeedZoom: 0.3
-  layersContainer: {fileID: 266783008}
+  dragSpeedNormal: 3
+  dragSpeedZoom: 0.8
+  dragMinValue: 0.06
+  dragMaxValue: 0.25
   indicatorDragSprite: {fileID: 21300000, guid: 0dc0fec069b91fa41960c1e15dcbac26,
     type: 3}
-  maskZoom: {fileID: 1871133214}
   zoomPower: 2.3
   wheelZoomThreshold: 0.4
-  colliderNormal: {fileID: 984357947}
-  colliderZoom: {fileID: 824436104}
   elementDetectionSensitivity: 1.5
   elementSuperDetectionSensitivity: 0.5
   tutorialManager: {fileID: 1136672030}
   tutorial: 0
+  maskZoom: {fileID: 1871133214}
+  boat: {fileID: 1621107813}
+  colliderNormal: {fileID: 984357947}
+  colliderZoom: {fileID: 824436104}
+  layersContainer: {fileID: 266783008}
 --- !u!114 &1749075881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10721,6 +10659,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884304572}
   m_CullTransparentMesh: 0
+--- !u!84 &1907450978
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light 2 : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1911856205
 GameObject:
   m_ObjectHideFlags: 0
@@ -10848,6 +10818,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!84 &1937048300
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!4 &1945074558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5626751689418047238, guid: 1f822bcc722c2a94a955b9a9b978ef11,
@@ -11087,9 +11089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e131afdcccdf0ba469b8358142c82c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchMenu: 0
-  playIntro: 0
-  introAnimator: {fileID: 885479258}
   globalAnimator: {fileID: 1962910260}
   telescopeScreen: {fileID: 1749075878}
   desk: {fileID: 1520678652}
@@ -11098,10 +11097,10 @@ MonoBehaviour:
   islandScreen: {fileID: 365311602}
   islandBackground: {fileID: 502742720}
   islandCharacter: {fileID: 413120500}
-  screenType: 0
-  currentIslandNumber: 0
   tutorialManager: {fileID: 1136672030}
   tutorialPanel: {fileID: 1436534902}
+  screenType: 0
+  currentIslandNumber: 0
 --- !u!1 &1977021956
 GameObject:
   m_ObjectHideFlags: 0
@@ -12272,6 +12271,19 @@ PrefabInstance:
       propertyPath: elementsToActivate.Array.data[0]
       value: 
       objectReference: {fileID: 4288415666113271627}
+    - target: {fileID: 852920628, guid: bccd4cef1f9bbb74dbc26840e0a4cde6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623846569, guid: bccd4cef1f9bbb74dbc26840e0a4cde6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781547479898427886, guid: bccd4cef1f9bbb74dbc26840e0a4cde6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bccd4cef1f9bbb74dbc26840e0a4cde6, type: 3}
 --- !u!1001 &989681347748517376

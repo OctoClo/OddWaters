@@ -14,13 +14,19 @@ public class Telescope : MonoBehaviour
 {
     [Header("Drag")]
     [SerializeField]
-    [Range(0.1f, 2)]
+    [Range(0.1f, 5)]
     float dragSpeedNormal = 1;
     [SerializeField]
     [Range(0.01f, 1)]
     float dragSpeedZoom = 0.3f;
     float currentDragSpeed;
     float telescopePosMax;
+    [SerializeField]
+    [Range(0.01f, 0.1f)]
+    float dragMinValue = 0.06f;
+    [SerializeField]
+    [Range(0.1f, 0.5f)]
+    float dragMaxValue = 0.25f;
     [SerializeField]
     Sprite indicatorDragSprite;
     GameObject indicatorDrag;
@@ -183,6 +189,13 @@ public class Telescope : MonoBehaviour
     public void UpdateSpeed(float speed)
     {
         currentDragSpeed = speed * (zoom ? dragSpeedZoom : dragSpeedNormal);
+        if (!zoom)
+        {
+            if (speed > 0)
+                currentDragSpeed = Mathf.Clamp(currentDragSpeed, dragMinValue, dragMaxValue);
+            else
+                currentDragSpeed = Mathf.Clamp(currentDragSpeed, -dragMaxValue, -dragMinValue);
+        }
 
         for (int i = 0; i < layers.Length; i++)
             layers[i].dragSpeed = currentDragSpeed;
