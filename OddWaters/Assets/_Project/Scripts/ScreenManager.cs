@@ -97,7 +97,7 @@ public class ScreenManager : MonoBehaviour
     {
         EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
         globalAnimator.SetTrigger("Retalk");
-        yield return new WaitForSeconds(1.9f);
+        yield return new WaitForSeconds(1.2f);
         dialogueManager.StartDialogue(currentIsland.dialogue, false);
     }
 
