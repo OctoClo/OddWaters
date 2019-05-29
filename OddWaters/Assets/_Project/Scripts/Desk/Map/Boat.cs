@@ -39,6 +39,13 @@ public class Boat : MonoBehaviour
     LineRenderer line;
     [SerializeField]
     GameObject endOfLine;
+    [SerializeField]
+    LineRenderer trail;
+    [SerializeField]
+    Transform trailPosFolder;
+
+    int trailPosCount;
+    Vector3 currentTrailPos;
 
     void Start()
     {
@@ -50,7 +57,19 @@ public class Boat : MonoBehaviour
         onAnIsland = false;
         safeZone = false;
 
+        trailPosCount = 1;
+        trail.positionCount = trailPosCount;
+
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+    }
+
+    public void AddTrailPos()
+    {
+        GameObject newTrailPos = new GameObject("TrailPosition");
+        newTrailPos.transform.parent = trailPosFolder;
+        newTrailPos.transform.position = transform.position;
+        trailPosCount++;
+        trail.positionCount = trailPosCount;
     }
 
     public void StartTargeting()
@@ -80,6 +99,11 @@ public class Boat : MonoBehaviour
             if (Mathf.Abs(lastDotPercentageSound - currentDotPercentage) >= dotsSoundInterval)
                 PlayDotsSound();
         }
+
+        for (int i = 0; i < trailPosCount - 1; i ++)
+            trail.SetPosition(i, trailPosFolder.GetChild(i).transform.position);
+            
+        trail.SetPosition(trailPosCount - 1, transform.position);
     }
 
     void PlayDotsSound()

@@ -92,6 +92,7 @@ public class TutorialManager : MonoBehaviour
 
     public void Setup()
     {
+        rollingDesk.enabled = false;
         globalAnimator.SetTrigger("Setup Tutorial");
     }
 
@@ -139,7 +140,6 @@ public class TutorialManager : MonoBehaviour
                 telescope.SetImageAlpha(false);
                 panelUI.SetActive(true);
                 telescope.tutorial = true;
-                rollingDesk.enabled = false;
 
                 PromptTooltip();
 
@@ -149,7 +149,6 @@ public class TutorialManager : MonoBehaviour
                 telescope.SetImageAlpha(true);
                 panelUI.SetActive(false);
                 telescope.tutorial = false;
-                rollingDesk.enabled = true;
                 navigationManager.goalCollider = firstIslandCollider;
 
                 PromptTooltip();
@@ -181,6 +180,7 @@ public class TutorialManager : MonoBehaviour
             case ETutorialStep.NO_TUTORIAL:
                 //upMaskingCube.SetActive(false);
                 inputManager.tutorial = false;
+                rollingDesk.enabled = true;
 
                 PromptTooltip();
 

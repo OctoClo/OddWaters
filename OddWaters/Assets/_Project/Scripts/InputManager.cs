@@ -50,8 +50,6 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Animator boatAnimator;
     bool navigation;
-    [SerializeField]
-    BoatTrailAnimation trailAnimation;
 
     // Telescope
     [SerializeField]
@@ -208,8 +206,6 @@ public class InputManager : MonoBehaviour
                 // Hover up part
                 if (!blockInput && (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM) && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")))
                 {
-                    if (!globalAnimator.GetBool("Hover"))
-                        trailAnimation.Hover();
                     globalAnimator.SetBool("Hover", true);
 
                     if (telescope.gameObject.activeInHierarchy)
@@ -233,9 +229,6 @@ public class InputManager : MonoBehaviour
                 else if (!blockInput || navigating)
                 {
                     CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-
-                    if (globalAnimator.GetBool("Hover"))
-                        trailAnimation.Hover();
                     globalAnimator.SetBool("Hover", false);
                 }
             }
