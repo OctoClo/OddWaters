@@ -55,15 +55,10 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    LaunchAmbiance();
+
                     if (tutorial)
-                    {
-                        LaunchAmbiance();
                         tutorialManager.Launch();
-                    }
-                    else
-                    {
-                        LaunchAmbiance();
-                    }
                 }
             }
         }

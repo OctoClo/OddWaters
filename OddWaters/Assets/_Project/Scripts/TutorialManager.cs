@@ -5,14 +5,12 @@ using TMPro;
 
 public enum ETutorialStep
 {
-    STORM,
     TELESCOPE_MOVE,
     BOAT_MOVE,
     TELESCOPE_ZOOM,
     GO_TO_ISLAND,
     OBJECT_ZOOM,
     OBJECT_ROTATE,
-    WAITING,
     OBJECT_MOVE,
     NO_TUTORIAL
 }
@@ -20,10 +18,9 @@ public enum ETutorialStep
 public class TutorialManager : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField]
-    bool tutorial = true;
+    
     [HideInInspector]
-    public ETutorialStep step = ETutorialStep.STORM;
+    public ETutorialStep step = ETutorialStep.TELESCOPE_MOVE;
 
     [SerializeField]
     float stormDuration = 2;
@@ -58,36 +55,19 @@ public class TutorialManager : MonoBehaviour
     TextAsset tutorialJSON;
     TutorialText tutorialText;
 
-    void Start()
-    {
-        //inputManager.tutorial = tutorial;
-
-        /*if (!tutorial)
-        {
-            step = ETutorialStep.NO_TUTORIAL;
-            LaunchAmbiance();
-            StartCoroutine(navigationManager.InitializeTelescopeElements());
-        }
-        else
-        {
-            tutorialText = JsonUtility.FromJson<TutorialText>(tutorialJSON.text);
-            StartCoroutine(UpdateStep());
-        }*/
-
-        if (!tutorial)
-        {
-            step = ETutorialStep.NO_TUTORIAL;
-            //LaunchAmbiance();
-            StartCoroutine(navigationManager.InitializeTelescopeElements());
-        }
-    }
+    [HideInInspector]
+    public bool stateCompleted = false;
+    bool tutorial = true;
 
     public void SetActive(bool state)
     {
         tutorial = state;
         inputManager.tutorial = tutorial;
 
-        if (tutorial) Setup();
+        if (tutorial)
+            Setup();
+        else
+            StartCoroutine(navigationManager.InitializeTelescopeElements());
     }
 
     public void Setup()
@@ -110,29 +90,17 @@ public class TutorialManager : MonoBehaviour
 
         switch (step)
         {
-            case ETutorialStep.STORM:
-                //LaunchAmbiance();
-                //rollingDesk.enabled = false;
-                yield return new WaitForSeconds(stormDuration);
-                NextStep();
-                break;
-
             case ETutorialStep.TELESCOPE_MOVE:
                 yield return StartCoroutine(navigationManager.InitializeTelescopeElements());
                 globalAnimator.SetTrigger("Reveal Telescope");
-
                 PromptTooltip();
-
-                //tutorialField.transform.parent.gameObject.SetActive(true);
                 break;
 
             case ETutorialStep.BOAT_MOVE:
                 globalAnimator.SetTrigger("Reveal Desk");
                 telescope.SetImageAlpha(true);
                 navigationManager.goalCollider = boatGoalCollider;
-
                 PromptTooltip();
-
                 break;
 
             case ETutorialStep.TELESCOPE_ZOOM:
@@ -140,9 +108,7 @@ public class TutorialManager : MonoBehaviour
                 telescope.SetImageAlpha(false);
                 panelUI.SetActive(true);
                 telescope.tutorial = true;
-
                 PromptTooltip();
-
                 break;
 
             case ETutorialStep.GO_TO_ISLAND:
@@ -150,56 +116,40 @@ public class TutorialManager : MonoBehaviour
                 panelUI.SetActive(false);
                 telescope.tutorial = false;
                 navigationManager.goalCollider = firstIslandCollider;
-
                 PromptTooltip();
-
                 break;
 
             case ETutorialStep.OBJECT_ZOOM:
                 PromptTooltip();
-
                 break;
 
             case ETutorialStep.OBJECT_ROTATE:
                 PromptTooltip();
-
                 break;
 
-            /*case ETutorialStep.WAITING:
-                yield return new WaitForSeconds(2);
-                //tutorialField.transform.parent.gameObject.SetActive(false);
-                CompleteStep();
-                break;*/
-
             case ETutorialStep.OBJECT_MOVE:
-
                 PromptTooltip();
-
                 break;
 
             case ETutorialStep.NO_TUTORIAL:
-                //upMaskingCube.SetActive(false);
                 inputManager.tutorial = false;
                 rollingDesk.enabled = true;
-
                 PromptTooltip();
-
                 yield return new WaitForSeconds(lastSentenceDuration);
-
                 CompleteStep();
-
                 break;
         }
     }
 
     void PromptTooltip()
     {
-        UpdateTutorialText();
+        tutorialField.text = tutorialText.languages[(int)LanguageManager.Instance.language].steps[(int)step];
         tutorialUIAnimator.SetBool("StepCompleted", false);
     }
 
     public void CompleteStep()
     {
+        stateCompleted = true;
         tutorialUIAnimator.SetBool("StepCompleted", true);
     }
 
@@ -207,28 +157,6 @@ public class TutorialManager : MonoBehaviour
     {
         step++;
         StartCoroutine(UpdateStep());
-
-    }
-
-    void UpdateTutorialText()
-    {
-        tutorialField.text = tutorialText.languages[(int)LanguageManager.Instance.language].steps[(int)step - 1];
-    }
-
-    void LaunchAmbiance()
-    {
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
-    }
-
-    public void MaskUp()
-    {
-
-    }
-
-    public void MaskBottom()
-    {
-
+        stateCompleted = false;
     }
 }

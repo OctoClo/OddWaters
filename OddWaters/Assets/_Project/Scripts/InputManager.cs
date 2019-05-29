@@ -389,8 +389,8 @@ public class InputManager : MonoBehaviour
         interactible.ExitRotationInterface();
         interactible = null;
 
-        if (tutorialManager.step == ETutorialStep.WAITING)
-            tutorialManager.CompleteStep();
+        if (tutorialManager.step == ETutorialStep.OBJECT_ROTATE && tutorialManager.stateCompleted)
+            tutorialManager.NextStep();
     }
 
     void StopNavigation()
