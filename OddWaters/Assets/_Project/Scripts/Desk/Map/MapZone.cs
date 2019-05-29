@@ -20,11 +20,12 @@ public class MapZone : MonoBehaviour
 
     void Start()
     {
-        if (clouds != null)
-            clouds.SetActive(!visible);
-
         animator = GetComponent<Animator>();
         ListExtensions.Shuffle(telescopePanoramas);
+
+        if (clouds != null && visible)
+            //clouds.SetActive(!visible);
+            animator.SetTrigger("RemoveClouds");
 
         foreach (GameObject element in elementsToHide)
             element.SetActive(false);

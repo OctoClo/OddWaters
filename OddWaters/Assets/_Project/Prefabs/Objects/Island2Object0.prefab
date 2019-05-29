@@ -29,13 +29,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2733778486701186075}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 4.01, y: 0.55, z: 2.86}
   m_LocalScale: {x: 4.049005, y: 0.29560903, z: 4.049005}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &8177256173539615770
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -122,6 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d57ccc45b2454b83434e11eaacd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMaterial:
+    ID: 1974580389
+    valueGuid: dadd2c7c3ccf0c41b38ecd9073917372
+    groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
+    groupID: -429652670
   transcriptJSONRecto: {fileID: 0}
   transcriptJSONVerso: {fileID: 0}
   zoomOffset: 14
@@ -132,11 +137,6 @@ MonoBehaviour:
   tutorialManager: {fileID: 0}
   grabbable: 0
   rotating: 0
-  soundMaterial:
-    ID: 1974580389
-    valueGuid: dadd2c7c3ccf0c41b38ecd9073917372
-    groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
-    groupID: -429652670
 --- !u!114 &3658986601725192575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61eb206d756d2f54e9acca8e9e5428e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 0
   inactiveColor: {r: 0, g: 0, b: 0, a: 1}
   activeColor: {r: 2, g: 58, b: 6, a: 1}
+  maxTotalAngle: 90
+  angleFactor: 0
+  currentAngle: 0
+  currentPercentage: 0
