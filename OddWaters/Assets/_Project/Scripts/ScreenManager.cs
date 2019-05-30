@@ -107,6 +107,9 @@ public class ScreenManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         if (firstEncounter)
         {
+            if (tutorial)
+                tutorialManager.NextStep();
+
             // Add object to inventory
             objectToGive = currentIsland.objectToGive;
             bool waitLonger = inventory.TradeObjects(objectToGive);
@@ -116,14 +119,6 @@ public class ScreenManager : MonoBehaviour
             // Discover new zone
             nextZone = currentIsland.nextZone;
             EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
-
-            // Tutorial
-            if (tutorial)
-            {
-                //tutorial = false;
-                //tutorialPanel.SetActive(true);
-                tutorialManager.NextStep();
-            }
         }
         else
             EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });

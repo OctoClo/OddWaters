@@ -72,7 +72,6 @@ public class GameManager : MonoBehaviour
 
     public void IntroEnded()
     {
-        Debug.Log("Intro ended");
         tutorialManager.Launch();
     }
 }

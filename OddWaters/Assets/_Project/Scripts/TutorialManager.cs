@@ -18,12 +18,8 @@ public enum ETutorialStep
 public class TutorialManager : MonoBehaviour
 {
     [Header("General")]
-    
     [HideInInspector]
     public ETutorialStep step = ETutorialStep.TELESCOPE_MOVE;
-
-    [SerializeField]
-    float stormDuration = 2;
     public float telescopeDragWait = 2;
     [SerializeField]
     float lastSentenceDuration = 4;
