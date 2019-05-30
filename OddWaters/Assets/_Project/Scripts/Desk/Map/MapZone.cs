@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class MapZone : MonoBehaviour
 {
+    [Header("General")]
     public int zoneNumber;
+    public bool visible;
+
+    [Header("Ambiance")]
+    public AK.Wwise.State seaIntensity;
+    public AK.Wwise.State weather;
+
+    [Header("Panorama")]
     [SerializeField]
     List<GameObject> telescopePanoramas;
     int currentPanoramaIndex = -1;
-    
-    public bool visible;
 
+    [Header("Activation")]
+    [SerializeField]
+    List<GameObject> elementsToHide = new List<GameObject>();
+
+    [Header("References")]
     [SerializeField]
     GameObject clouds;
     Animator animator;
-
-    [SerializeField]
-    List<GameObject> elementsToHide = new List<GameObject>();
 
     void Start()
     {

@@ -60,10 +60,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 4
-  telescopePanoramas: []
   visible: 0
-  clouds: {fileID: 0}
+  seaIntensity:
+    ID: 437764669
+    valueGuid: e6c73e3f4ae7f5438857bbf41724e9a9
+    groupGuid: 2903329c32b5b54dbdad7b4b6b661c9c
+    groupID: 1729344733
+  weather:
+    ID: 1686739424
+    valueGuid: d896238caecbaf428ea3e2b8e64273ab
+    groupGuid: 1f21aa39b57a1d41a705434c99109e65
+    groupID: 317282339
+  telescopePanoramas: []
   elementsToHide: []
+  clouds: {fileID: 0}
 --- !u!95 &3818524084881404301
 Animator:
   serializedVersion: 3

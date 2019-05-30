@@ -113,6 +113,8 @@ MonoBehaviour:
   magnetism: 0
   elementsToActivate: []
   playClue: 1
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: -1078966768
     valueGuid: 7625cdbea0162841ada4d80ad4651037
@@ -256,6 +258,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 1
+  visible: 0
+  seaIntensity:
+    ID: 254447977
+    valueGuid: c70f9d9495325c4797f75bb344ced087
+    groupGuid: 2903329c32b5b54dbdad7b4b6b661c9c
+    groupID: 1729344733
+  weather:
+    ID: -1280534195
+    valueGuid: b1fbcac605505d44960c1a4d6d55f4ae
+    groupGuid: 1f21aa39b57a1d41a705434c99109e65
+    groupID: 317282339
   telescopePanoramas:
   - {fileID: 77726808190436554, guid: 69f51b6aa67cd9d45a3c648991c40d6a, type: 3}
   - {fileID: 8215899232302559255, guid: 44c6ff4f9347f60499272e92f232b31f, type: 3}
@@ -265,9 +278,8 @@ MonoBehaviour:
   - {fileID: 7946758883831839148, guid: 265190a127583c34a8425a48b8d38a33, type: 3}
   - {fileID: 6666070330913199084, guid: f1dce08868ede96409c1dbc596a0aef3, type: 3}
   - {fileID: 8768198119488476961, guid: 310603aac3650d04ca5ad1c32f6b47a9, type: 3}
-  visible: 0
-  clouds: {fileID: 7396675554058732554}
   elementsToHide: []
+  clouds: {fileID: 7396675554058732554}
 --- !u!95 &1546072607609193724
 Animator:
   serializedVersion: 3

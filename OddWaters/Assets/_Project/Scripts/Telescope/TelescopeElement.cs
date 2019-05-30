@@ -49,10 +49,7 @@ public class TelescopeElement : MonoBehaviour
             audioPlayer = elementDiscover.name.Equals("MegaTyphoon") ? CursorManager.Instance.gameObject : gameObject;
 
             if (playClue)
-            {
                 AkSoundEngine.PostEvent("Play_Clue_" + name, audioPlayer);
-                Debug.Log("Playing clue for " + name);
-            }
 
             if (elementDiscover.name.Equals("MegaTyphoon"))
                 EventManager.Instance.Raise(new MegaTyphoonActivatedEvent() { element = this });

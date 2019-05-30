@@ -184,10 +184,7 @@ public class NavigationManager : MonoBehaviour
     void OnBoatInMapElement(BoatInMapElementEvent e)
     {
         if (!e.exit)
-        {
-            Debug.Log("Magnetiiiiism");
             LaunchNavigation(e.elementZone.transform.position, e.elementZone.zone, false);
-        }
     }
 
     public void Navigate()

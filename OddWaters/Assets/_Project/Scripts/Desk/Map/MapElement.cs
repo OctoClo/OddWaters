@@ -64,10 +64,7 @@ public class MapElement : MonoBehaviour
             tutorialManager.CompleteStep();
 
         for (int i = 0; i < elementsToActivate.Length; i++)
-        {
-            Debug.Log("Activated " + elementsToActivate[i].name);
             elementsToActivate[i].SetActive(true);
-        }
     }
 
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)

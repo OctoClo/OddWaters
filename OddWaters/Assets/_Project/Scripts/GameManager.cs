@@ -38,31 +38,21 @@ public class GameManager : MonoBehaviour
 
         //Check first element to launch on startup
         if (splashscreen)
-        {
             cutsceneAnimator.SetTrigger("Splashscreen");
-        }
         else
         {
             if (startupMenu)
-            {
                 menusAnimator.SetBool("MainMenuVisible", true);
-            }
             else
             {
-                if (intro)
-                {
-                    PlayIntro();
-                }
-                else
-                {
-                    LaunchAmbiance();
+                AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
 
-                    if (tutorial)
-                        tutorialManager.Launch();
-                }
+                if (intro)
+                    PlayIntro();
+                else if (tutorial)
+                    tutorialManager.Launch();
             }
         }
-        
     }
 
     void SplashscreenEnded()
@@ -75,23 +65,14 @@ public class GameManager : MonoBehaviour
 
     void PlayIntro()
     {
-        cutsceneAnimator.SetTrigger("Intro");
         AkSoundEngine.PostEvent("Play_Intro", gameObject);
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
         AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
+        cutsceneAnimator.SetTrigger("Intro");
     }
 
     public void IntroEnded()
     {
         Debug.Log("Intro ended");
         tutorialManager.Launch();
-    }
-
-    void LaunchAmbiance()
-    {
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
     }
 }

@@ -294,6 +294,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 3
+  visible: 0
+  seaIntensity:
+    ID: 739190283
+    valueGuid: 6a48c3fc3bd9d34cb2b0f9af53e035b5
+    groupGuid: 2903329c32b5b54dbdad7b4b6b661c9c
+    groupID: 1729344733
+  weather:
+    ID: -76778153
+    valueGuid: 0f08de2a34d1a6478d60ff63b5a577cf
+    groupGuid: 1f21aa39b57a1d41a705434c99109e65
+    groupID: 317282339
   telescopePanoramas:
   - {fileID: 1685283963969913422, guid: b502dfc583894c348869f80a04f91bdb, type: 3}
   - {fileID: 1200601180746373304, guid: a8ace38d712a2db42a3e4c42d627933a, type: 3}
@@ -304,10 +315,9 @@ MonoBehaviour:
   - {fileID: 2398998879646468237, guid: 9604f1aa03c0ed94c959f0cac16d24a6, type: 3}
   - {fileID: 3353761379007792927, guid: 0db0c913e52f6d841badc13db508e1aa, type: 3}
   - {fileID: 2229159857197820432, guid: d833fd2ee2875c1428bff3b0d8743763, type: 3}
-  visible: 0
-  clouds: {fileID: 9162881260408406117}
   elementsToHide:
   - {fileID: 8795863432182471390}
+  clouds: {fileID: 9162881260408406117}
 --- !u!95 &3797407746100524723
 Animator:
   serializedVersion: 3
@@ -613,6 +623,11 @@ MonoBehaviour:
   elementSprite: {fileID: 0}
   layer: 0
   discovered: 0
+  state:
+    ID: -366943099
+    valueGuid: 3c36462ae1c1024e97c90d6405dedf2c
+    groupGuid: 463b45245aac4144a6063ce89e421b61
+    groupID: -1983392123
 --- !u!1 &4477944678953038953
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,6 +688,11 @@ MonoBehaviour:
   elementSprite: {fileID: 0}
   layer: 0
   discovered: 0
+  state:
+    ID: -234694450
+    valueGuid: 2fb3c865957c4049a52089b78084e6f2
+    groupGuid: 463b45245aac4144a6063ce89e421b61
+    groupID: -1983392123
 --- !u!1 &4603984333335707261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1033,11 @@ MonoBehaviour:
   elementSprite: {fileID: 0}
   layer: 0
   discovered: 0
+  state:
+    ID: 1324340420
+    valueGuid: e98628ebc72a4a439b80bac5f63e316a
+    groupGuid: 463b45245aac4144a6063ce89e421b61
+    groupID: -1983392123
 --- !u!1 &7687237227562237925
 GameObject:
   m_ObjectHideFlags: 0
