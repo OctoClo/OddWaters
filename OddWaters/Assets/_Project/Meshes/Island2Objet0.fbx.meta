@@ -1,61 +1,14 @@
 fileFormatVersion: 2
-guid: 18e8241b8b64fa747852b9fc54e81ccd
+guid: 9271773cf9d20e44bb9b4239fe6dff96
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: OddspinnerBranche1Bague_low
-    100004: OddspinnerBranche1Dent1_low
-    100006: OddspinnerBranche1Dent2_low
-    100008: OddspinnerBranche2Bague_low
-    100010: OddspinnerBranche2Dent1_low
-    100012: OddspinnerBranche2Dent2_low
-    100014: OddspinnerBranche3Bague_low
-    100016: OddspinnerBranche3Dent1_low
-    100018: OddspinnerBranche3Dent2_low
-    100020: OddspinnerCenter_low
     400000: //RootNode
-    400002: OddspinnerBranche1Bague_low
-    400004: OddspinnerBranche1Dent1_low
-    400006: OddspinnerBranche1Dent2_low
-    400008: OddspinnerBranche2Bague_low
-    400010: OddspinnerBranche2Dent1_low
-    400012: OddspinnerBranche2Dent2_low
-    400014: OddspinnerBranche3Bague_low
-    400016: OddspinnerBranche3Dent1_low
-    400018: OddspinnerBranche3Dent2_low
-    400020: OddspinnerCenter_low
-    2100000: lambert1
-    2300000: OddspinnerBranche1Bague_low
-    2300002: OddspinnerBranche1Dent1_low
-    2300004: OddspinnerBranche1Dent2_low
-    2300006: OddspinnerBranche2Bague_low
-    2300008: OddspinnerBranche2Dent1_low
-    2300010: OddspinnerBranche2Dent2_low
-    2300012: OddspinnerBranche3Bague_low
-    2300014: OddspinnerBranche3Dent1_low
-    2300016: OddspinnerBranche3Dent2_low
-    2300018: OddspinnerCenter_low
-    3300000: OddspinnerBranche1Bague_low
-    3300002: OddspinnerBranche1Dent1_low
-    3300004: OddspinnerBranche1Dent2_low
-    3300006: OddspinnerBranche2Bague_low
-    3300008: OddspinnerBranche2Dent1_low
-    3300010: OddspinnerBranche2Dent2_low
-    3300012: OddspinnerBranche3Bague_low
-    3300014: OddspinnerBranche3Dent1_low
-    3300016: OddspinnerBranche3Dent2_low
-    3300018: OddspinnerCenter_low
-    4300000: OddspinnerCenter_low
-    4300002: OddspinnerBranche1Bague_low
-    4300004: OddspinnerBranche1Dent1_low
-    4300006: OddspinnerBranche1Dent2_low
-    4300008: OddspinnerBranche2Bague_low
-    4300010: OddspinnerBranche2Dent1_low
-    4300012: OddspinnerBranche2Dent2_low
-    4300014: OddspinnerBranche3Bague_low
-    4300016: OddspinnerBranche3Dent1_low
-    4300018: OddspinnerBranche3Dent2_low
+    2100000: lambert2
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Island2Objet0_low
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -430,7 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Ark
   visible: 0
-  needSight: 0
+  needSight: 1
   needZoom: 0
   needSuperPrecision: 0
   magnetism: 1
@@ -442,7 +442,7 @@ MonoBehaviour:
   discoverySound:
     ID: 0
     valueGuid: 00000000000000000000000000000000
-  elementSprite: {fileID: 0}
+  elementSprite: {fileID: 21300000, guid: dfa6e749b47f57649b15224b384e27a4, type: 3}
   layer: 4
   discovered: 0
 --- !u!1 &2239694819985361710
@@ -877,7 +877,7 @@ MonoBehaviour:
   nextZone: 4
   background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
   character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
-  objectToGive: {fileID: 787944874, guid: 424a6eb1cf8a98540a455dda2a651793, type: 3}
+  objectToGive: {fileID: 0}
   speech: {fileID: 4900000, guid: 2cc86861ca0f41f40ad93d4f09a09eaf, type: 3}
   dialogue:
     languages: []
