@@ -76,8 +76,10 @@ public class GameManager : MonoBehaviour
     void PlayIntro()
     {
         cutsceneAnimator.SetTrigger("Intro");
-
-        LaunchAmbiance();
+        AkSoundEngine.PostEvent("Play_Intro", gameObject);
+        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
+        AkSoundEngine.SetState("Weather", "Fine");
+        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
     }
 
     public void IntroEnded()

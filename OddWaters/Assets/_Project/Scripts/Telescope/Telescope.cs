@@ -212,13 +212,7 @@ public class Telescope : MonoBehaviour
     {
         // Field of view rotation
         if (currentDragSpeed != 0)
-        {
-            float telescopeRotation = layers[(int)ELayer.BACKGROUND].children[0].localPosition.x * (360f / (telescopePosMax * 2)) - telescopePosMax * (360f / (telescopePosMax * 2)) + 180;
-            boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
-            boatRotation = Mathf.RoundToInt(telescopeRotation + 360);
-            foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
-                element.angleToBoat = (element.startAngle + boatRotation) % 360;
-        }
+            RefreshElementsAngle();
         // Element identification on zoom
         else
         {
@@ -278,6 +272,17 @@ public class Telescope : MonoBehaviour
             if (!island || island != boat.currentIsland)
                 AddElementToPanorama(element, target);
         }
+
+        RefreshElementsAngle();
+    }
+
+    void RefreshElementsAngle()
+    {
+        float telescopeRotation = layers[(int)ELayer.BACKGROUND].children[0].localPosition.x * (360f / (telescopePosMax * 2)) - telescopePosMax * (360f / (telescopePosMax * 2)) + 180;
+        boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
+        boatRotation = Mathf.RoundToInt(telescopeRotation + 360);
+        foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
+            element.angleToBoat = (element.startAngle + boatRotation) % 360;
     }
 
     void AddElementToPanorama(MapElement element, Vector3 target)
@@ -305,7 +310,18 @@ public class Telescope : MonoBehaviour
         telescopeElement1.needZoom = element.needZoom;
         telescopeElement1.needSight = element.needSight;
         telescopeElement1.needSuperPrecision = element.needSuperPrecision;
-        telescopeElement1.playClue = element.playClue;
+        if (element.clueOneShot)
+        {
+            if (!element.clueAlreadyPlayed)
+            {
+                telescopeElement1.playClue = true;
+                element.clueAlreadyPlayed = true;
+            }
+            else
+                telescopeElement1.playClue = false;
+        }
+        else
+            telescopeElement1.playClue = element.playClue;
 
         // Clone it
         GameObject telescopeElementObject2 = Instantiate(telescopeElementObject1, layers[(int)element.layer].children[1]);

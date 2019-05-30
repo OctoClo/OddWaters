@@ -427,6 +427,8 @@ MonoBehaviour:
   elementsToActivate:
   - {fileID: 0}
   playClue: 0
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: 0
     valueGuid: 00000000000000000000000000000000
@@ -603,6 +605,8 @@ MonoBehaviour:
   magnetism: 0
   elementsToActivate: []
   playClue: 0
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: 0
     valueGuid: 00000000000000000000000000000000
@@ -661,6 +665,8 @@ MonoBehaviour:
   magnetism: 0
   elementsToActivate: []
   playClue: 0
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: 0
     valueGuid: 00000000000000000000000000000000
@@ -839,9 +845,11 @@ MonoBehaviour:
   magnetism: 0
   elementsToActivate: []
   playClue: 0
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
   discoverySound:
-    ID: 0
-    valueGuid: 00000000000000000000000000000000
+    ID: -767721553
+    valueGuid: 269557d1bec32446927ef070cc28d061
   elementSprite: {fileID: 21300000, guid: 4f526a51b255e494894f41e24373730d, type: 3}
   layer: 0
   discovered: 0
@@ -997,6 +1005,8 @@ MonoBehaviour:
   magnetism: 0
   elementsToActivate: []
   playClue: 0
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: 0
     valueGuid: 00000000000000000000000000000000

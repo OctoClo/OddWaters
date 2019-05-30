@@ -242,6 +242,8 @@ MonoBehaviour:
   elementsToActivate:
   - {fileID: 0}
   playClue: 1
+  clueOneShot: 1
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: -767721554
     valueGuid: b5e9f00be82fc647966df13f2abb8d10

@@ -18,6 +18,8 @@ public class MapElement : MonoBehaviour
 
     [Header("Sound")]
     public bool playClue = true;
+    public bool clueOneShot = false;
+    public bool clueAlreadyPlayed = false;
     [SerializeField]
     AK.Wwise.Event discoverySound;
 
