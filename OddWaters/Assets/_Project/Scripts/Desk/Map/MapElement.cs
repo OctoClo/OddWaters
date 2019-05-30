@@ -35,6 +35,16 @@ public class MapElement : MonoBehaviour
         meshRenderer.enabled = visible;
     }
 
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
+    }
+
     virtual public IEnumerator Discover(bool tutorial, TutorialManager tutorialManager)
     {
         if (discoverySound != null)
@@ -52,6 +62,17 @@ public class MapElement : MonoBehaviour
             tutorialManager.CompleteStep();
 
         for (int i = 0; i < elementsToActivate.Length; i++)
+        {
+            Debug.Log("Activated " + elementsToActivate[i].name);
             elementsToActivate[i].SetActive(true);
+        }
+    }
+
+    void OnDiscoverZoneEvent(DiscoverZoneEvent e)
+    {
+        if (name.Equals("MegaTyphoon") && e.zoneNumber == 4)
+        {
+            // Do something maybe
+        }
     }
 }

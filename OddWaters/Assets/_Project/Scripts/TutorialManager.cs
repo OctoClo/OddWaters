@@ -67,7 +67,11 @@ public class TutorialManager : MonoBehaviour
         if (tutorial)
             Setup();
         else
+        {
             StartCoroutine(navigationManager.InitializeTelescopeElements());
+            rollingDesk.enabled = true;
+            step = ETutorialStep.NO_TUTORIAL;
+        }
     }
 
     public void Setup()

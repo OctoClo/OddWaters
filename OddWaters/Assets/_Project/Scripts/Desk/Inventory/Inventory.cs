@@ -69,36 +69,45 @@ public class Inventory : MonoBehaviour
             targetPos = previousObject.transform.position;
             targetPos.y += 1;
             rb.velocity = (targetPos - previousObject.transform.position);
-            return true;
         }
         else
             AddObjectToInventory();
 
-        return false;
+        return (previousObject && prefabToGive);
     }
 
     void AddObjectToInventory()
     {
-        moving = true;
-        move = EMoveType.RECEIVE;
+        if (prefabToGive)
+        {
+            moving = true;
+            move = EMoveType.RECEIVE;
 
-        newObject = Instantiate(prefabToGive, transform);
-        previousObject = newObject;
+            newObject = Instantiate(prefabToGive, transform);
+            previousObject = newObject;
 
-        boxCollider = newObject.GetComponent<BoxCollider>();
-        boxCollider.isTrigger = true;
+            boxCollider = newObject.GetComponent<BoxCollider>();
+            boxCollider.isTrigger = true;
 
-        rb = newObject.GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.drag = 0;
+            rb = newObject.GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.drag = 0;
 
-        newObject.transform.localPosition = spawnPos;
-        targetPos = receiveEndPos;
-        rb.velocity = (targetPos - spawnPos);
+            newObject.transform.localPosition = spawnPos;
+            targetPos = receiveEndPos;
+            rb.velocity = (targetPos - spawnPos);
 
-        Interactible interactible = newObject.GetComponent<Interactible>();
-        interactible.inspectionInterface = inspectionInterface;
-        interactible.tutorialManager = tutorialManager;
+            Interactible interactible = newObject.GetComponent<Interactible>();
+            interactible.inspectionInterface = inspectionInterface;
+            interactible.tutorialManager = tutorialManager;
+        }
+        else
+        {
+            moving = false;
+            waiting = false;
+            currentTime = 0;
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
+        }
     }
 
     void Update()
