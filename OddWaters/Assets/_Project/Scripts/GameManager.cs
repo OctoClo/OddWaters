@@ -35,24 +35,12 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         tutorialManager.SetActive(tutorial);
+        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
 
-        //Check first element to launch on startup
-        if (splashscreen)
-            cutsceneAnimator.SetTrigger("Splashscreen");
-        else
-        {
-            if (startupMenu)
-                menusAnimator.SetBool("MainMenuVisible", true);
-            else
-            {
-                AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
-
-                if (intro)
-                    PlayIntro();
-                else if (tutorial)
-                    tutorialManager.Launch();
-            }
-        }
+        if (intro)
+            PlayIntro();
+        else if (tutorial)
+            tutorialManager.Launch();
     }
 
     void OnEnable()
@@ -63,14 +51,6 @@ public class GameManager : MonoBehaviour
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<GameFinishedEvent>(OnGameFinishedEvent);
-    }
-
-    void SplashscreenEnded()
-    {
-        if (startupMenu)
-        {
-
-        }
     }
 
     void PlayIntro()
