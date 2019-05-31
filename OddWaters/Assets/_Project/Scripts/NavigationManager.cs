@@ -147,7 +147,7 @@ public class NavigationManager : MonoBehaviour
                         insideGoal = false;
                     }
                 }
-                else
+                else if (lastZone)
                 {
                     lightScript.rotateDegreesPerSecond.value.y = 0;
                     EventManager.Instance.Raise(new GameFinishedEvent());
