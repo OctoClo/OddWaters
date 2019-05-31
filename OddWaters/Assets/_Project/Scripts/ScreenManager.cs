@@ -6,32 +6,28 @@ public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 
 public class ScreenManager : MonoBehaviour
 {
-    [SerializeField]
-    bool launchMenu = false;
-    [SerializeField]
-    bool playIntro = false;
-    [SerializeField]
-    Animator introAnimator;
+    [Header("References")]
     [SerializeField]
     Animator globalAnimator;
-
     [SerializeField]
     GameObject telescopeScreen;
-
     [SerializeField]
     GameObject desk;
-
     [SerializeField]
     Inventory inventory;
     [SerializeField]
     DialogueManager dialogueManager;
-
     [SerializeField]
     GameObject islandScreen;
     [SerializeField]
     GameObject islandBackground;
     [SerializeField]
     GameObject islandCharacter;
+    [SerializeField]
+    TutorialManager tutorialManager;
+    bool tutorial;
+    [SerializeField]
+    GameObject tutorialPanel;
 
     [HideInInspector]
     public EScreenType screenType = EScreenType.SEA;
@@ -42,12 +38,6 @@ public class ScreenManager : MonoBehaviour
     bool firstVisit;
     GameObject objectToGive;
     int nextZone;
-
-    [SerializeField]
-    TutorialManager tutorialManager;
-    bool tutorial;
-    [SerializeField]
-    GameObject tutorialPanel;
 
     private void Start()
     {
@@ -95,8 +85,7 @@ public class ScreenManager : MonoBehaviour
         firstVisit = island.firstTimeVisiting;
         island.Berth();
 
-        if (!firstVisit)
-            EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
 
         globalAnimator.SetTrigger("FirstBerth");
         if (tutorialNow) tutorialManager.CompleteStep();
@@ -106,9 +95,9 @@ public class ScreenManager : MonoBehaviour
 
     public IEnumerator RelaunchDialogue()
     {
-        EventManager.Instance.Raise(new BlockInputEvent() { block = true });
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
         globalAnimator.SetTrigger("Retalk");
-        yield return new WaitForSeconds(1.9f);
+        yield return new WaitForSeconds(1.2f);
         dialogueManager.StartDialogue(currentIsland.dialogue, false);
     }
 
@@ -118,6 +107,9 @@ public class ScreenManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         if (firstEncounter)
         {
+            if (tutorial)
+                tutorialManager.NextStep();
+
             // Add object to inventory
             objectToGive = currentIsland.objectToGive;
             bool waitLonger = inventory.TradeObjects(objectToGive);
@@ -127,17 +119,9 @@ public class ScreenManager : MonoBehaviour
             // Discover new zone
             nextZone = currentIsland.nextZone;
             EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
-
-            // Tutorial
-            if (tutorial)
-            {
-                //tutorial = false;
-                //tutorialPanel.SetActive(true);
-                tutorialManager.NextStep();
-            }
         }
         else
-            EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
     }
 
     public void LeaveIsland()

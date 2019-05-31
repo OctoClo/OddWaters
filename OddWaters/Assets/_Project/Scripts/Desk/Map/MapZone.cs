@@ -4,25 +4,36 @@ using UnityEngine;
 
 public class MapZone : MonoBehaviour
 {
+    [Header("General")]
     public int zoneNumber;
+    public bool visible;
+
+    [Header("Ambiance")]
+    public AK.Wwise.State seaIntensity;
+    public AK.Wwise.State weather;
+
+    [Header("Panorama")]
     [SerializeField]
     List<GameObject> telescopePanoramas;
     int currentPanoramaIndex = -1;
-    
-    public bool visible;
 
-    [SerializeField]
-    GameObject clouds;
-
+    [Header("Activation")]
     [SerializeField]
     List<GameObject> elementsToHide = new List<GameObject>();
 
+    [Header("References")]
+    [SerializeField]
+    GameObject clouds;
+    Animator animator;
+
     void Start()
     {
-        if (clouds != null)
-            clouds.SetActive(!visible);
-
+        animator = GetComponent<Animator>();
         ListExtensions.Shuffle(telescopePanoramas);
+
+        if (clouds != null && visible)
+            //clouds.SetActive(!visible);
+            animator.SetTrigger("RemoveClouds");
 
         foreach (GameObject element in elementsToHide)
             element.SetActive(false);
@@ -33,7 +44,8 @@ public class MapZone : MonoBehaviour
         visible = true;
 
         if (clouds != null)
-            clouds.SetActive(false);
+            //clouds.SetActive(false);
+            animator.SetTrigger("RemoveClouds");
 
         foreach (GameObject element in elementsToHide)
             element.SetActive(true);

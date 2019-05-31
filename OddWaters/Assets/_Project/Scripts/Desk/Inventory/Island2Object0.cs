@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Island2Object0 : MonoBehaviour
 {
+    [Header("Glow")]
     [SerializeField]
     Color inactiveColor = Color.black;
     [SerializeField]
     Color activeColor = new Color(2, 58, 6);
+    [SerializeField]
+    float maxTotalAngle = 45;
 
     Color currentColor;
     Material mat;
@@ -15,17 +18,18 @@ public class Island2Object0 : MonoBehaviour
     bool activated;
     TelescopeElement telescopeElement;
     bool tracking;
-    float angleFactor;
-    float currentAngle;
-    float currentPercentage;
+    public float angleFactor;
+    public float currentAngle;
+    public float currentPercentage;
 
     void Start()
     {
         mat = GetComponent<Renderer>().material;
 
+        maxTotalAngle /= 2.0f;
         activated = false;
         tracking = false;
-        angleFactor = 1.0f / 180.0f;
+        angleFactor = 1.0f / maxTotalAngle;
     }
 
     void OnEnable()
@@ -45,7 +49,10 @@ public class Island2Object0 : MonoBehaviour
             currentAngle = telescopeElement.angleToBoat;
             if (currentAngle > 180)
                 currentAngle = 360 - currentAngle;
-            currentPercentage = 1 - currentAngle * angleFactor;
+            if (currentAngle <= maxTotalAngle)
+                currentPercentage = 1 - currentAngle * angleFactor;
+            else
+                currentPercentage = 0;
 
             currentColor = Color.Lerp(inactiveColor, activeColor, currentPercentage);
             mat.SetColor("_EmissionColor", currentColor / 20.0f);

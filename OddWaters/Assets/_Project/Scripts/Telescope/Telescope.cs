@@ -12,61 +12,66 @@ public enum ELayer
 
 public class Telescope : MonoBehaviour
 {
+    [Header("Drag")]
     [SerializeField]
-    Boat boat;
-    int boatRotation;
-
-    SpriteRenderer[] spriteRenderers;
-
-    // Drag
-    [SerializeField]
-    [Range(0.1f, 2)]
+    [Range(0.1f, 5)]
     float dragSpeedNormal = 1;
     [SerializeField]
     [Range(0.01f, 1)]
     float dragSpeedZoom = 0.3f;
-    [SerializeField]
-    Transform layersContainer;
-    TelescopeLayer[] layers;
     float currentDragSpeed;
     float telescopePosMax;
+    [SerializeField]
+    [Range(0.01f, 0.1f)]
+    float dragMinValue = 0.06f;
+    [SerializeField]
+    [Range(0.1f, 0.5f)]
+    float dragMaxValue = 0.25f;
     [SerializeField]
     Sprite indicatorDragSprite;
     GameObject indicatorDrag;
 
-    // Zoom
-    bool zoom;
-    [SerializeField]
-    GameObject maskZoom;
+    [Header("Zoom")]
     [SerializeField]
     float zoomPower = 1.5f;
     [SerializeField]
     [Tooltip("Augmente de 0.1 en 0.1")]
     float wheelZoomThreshold = 0.3f;
     float wheelZoomLevel;
+    bool zoom;
     Vector3 scaleMaskNormal;
     Vector3 scaleMaskZoom;
     Vector3 scaleContainerNormal;
     Vector3 scaleContainerZoom;
     [SerializeField]
-    GameObject colliderNormal;
-    [SerializeField]
-    GameObject colliderZoom;
-
-    bool zoomAnimation;
-    Vector3 scaleMaskTarget;
-    Vector3 scaleContainerTarget;
-    float zoomAnimationAlpha;
-
-    [SerializeField]
     float elementDetectionSensitivity = 0.5f;
     [SerializeField]
     float elementSuperDetectionSensitivity = 0.5f;
 
+
+    [Header("References")]
     [SerializeField]
     TutorialManager tutorialManager;
     [HideInInspector]
     public bool tutorial;
+    [SerializeField]
+    GameObject maskZoom;
+    [SerializeField]
+    Boat boat;
+    int boatRotation;
+    [SerializeField]
+    GameObject colliderNormal;
+    [SerializeField]
+    GameObject colliderZoom;
+    [SerializeField]
+    Transform layersContainer;
+    TelescopeLayer[] layers;
+
+    SpriteRenderer[] spriteRenderers;
+    bool zoomAnimation;
+    Vector3 scaleMaskTarget;
+    Vector3 scaleContainerTarget;
+    float zoomAnimationAlpha;
 
     void Start()
     {
@@ -184,6 +189,13 @@ public class Telescope : MonoBehaviour
     public void UpdateSpeed(float speed)
     {
         currentDragSpeed = speed * (zoom ? dragSpeedZoom : dragSpeedNormal);
+        if (!zoom)
+        {
+            if (speed > 0)
+                currentDragSpeed = Mathf.Clamp(currentDragSpeed, dragMinValue, dragMaxValue);
+            else
+                currentDragSpeed = Mathf.Clamp(currentDragSpeed, -dragMaxValue, -dragMinValue);
+        }
 
         for (int i = 0; i < layers.Length; i++)
             layers[i].dragSpeed = currentDragSpeed;
@@ -200,13 +212,7 @@ public class Telescope : MonoBehaviour
     {
         // Field of view rotation
         if (currentDragSpeed != 0)
-        {
-            float telescopeRotation = layers[(int)ELayer.BACKGROUND].children[0].localPosition.x * (360f / (telescopePosMax * 2)) - telescopePosMax * (360f / (telescopePosMax * 2)) + 180;
-            boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
-            boatRotation = Mathf.RoundToInt(telescopeRotation + 360);
-            foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
-                element.angleToBoat = (element.startAngle + boatRotation) % 360;
-        }
+            RefreshElementsAngle();
         // Element identification on zoom
         else
         {
@@ -266,6 +272,17 @@ public class Telescope : MonoBehaviour
             if (!island || island != boat.currentIsland)
                 AddElementToPanorama(element, target);
         }
+
+        RefreshElementsAngle();
+    }
+
+    void RefreshElementsAngle()
+    {
+        float telescopeRotation = layers[(int)ELayer.BACKGROUND].children[0].localPosition.x * (360f / (telescopePosMax * 2)) - telescopePosMax * (360f / (telescopePosMax * 2)) + 180;
+        boat.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 0, telescopeRotation);
+        boatRotation = Mathf.RoundToInt(telescopeRotation + 360);
+        foreach (TelescopeElement element in layersContainer.GetComponentsInChildren<TelescopeElement>())
+            element.angleToBoat = (element.startAngle + boatRotation) % 360;
     }
 
     void AddElementToPanorama(MapElement element, Vector3 target)
@@ -293,7 +310,18 @@ public class Telescope : MonoBehaviour
         telescopeElement1.needZoom = element.needZoom;
         telescopeElement1.needSight = element.needSight;
         telescopeElement1.needSuperPrecision = element.needSuperPrecision;
-        telescopeElement1.playClue = element.playClue;
+        if (element.clueOneShot)
+        {
+            if (!element.clueAlreadyPlayed)
+            {
+                telescopeElement1.playClue = true;
+                element.clueAlreadyPlayed = true;
+            }
+            else
+                telescopeElement1.playClue = false;
+        }
+        else
+            telescopeElement1.playClue = element.playClue;
 
         // Clone it
         GameObject telescopeElementObject2 = Instantiate(telescopeElementObject1, layers[(int)element.layer].children[1]);

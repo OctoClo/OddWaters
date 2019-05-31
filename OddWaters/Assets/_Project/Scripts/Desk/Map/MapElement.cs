@@ -4,31 +4,47 @@ using UnityEngine;
 
 public class MapElement : MonoBehaviour
 {
+    [Header("General")]
     public new string name;
+    public bool visible;
+
+    [Header("Discovery")]
     public bool needSight = true;
     public bool needZoom = false;
     public bool needSuperPrecision = false;
-    public bool visible;
     public bool magnetism = true;
-    public bool playClue = true;
-    public Sprite elementSprite;
-    public ELayer layer;
+    [SerializeField]
+    GameObject[] elementsToActivate;
 
+    [Header("Sound")]
+    public bool playClue = true;
+    public bool clueOneShot = false;
+    public bool clueAlreadyPlayed = false;
     [SerializeField]
     AK.Wwise.Event discoverySound;
 
+    [Header("Panorama")]
+    public Sprite elementSprite;
+    public ELayer layer;
+
     [HideInInspector]
     public bool discovered = false;
-
     MeshRenderer meshRenderer;
-
-    [SerializeField]
-    GameObject[] elementsToActivate;
 
     virtual protected void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.enabled = visible;
+    }
+
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
     }
 
     virtual public IEnumerator Discover(bool tutorial, TutorialManager tutorialManager)
@@ -49,5 +65,13 @@ public class MapElement : MonoBehaviour
 
         for (int i = 0; i < elementsToActivate.Length; i++)
             elementsToActivate[i].SetActive(true);
+    }
+
+    void OnDiscoverZoneEvent(DiscoverZoneEvent e)
+    {
+        if (name.Equals("MegaTyphoon") && e.zoneNumber == 4)
+        {
+            // Do something maybe
+        }
     }
 }

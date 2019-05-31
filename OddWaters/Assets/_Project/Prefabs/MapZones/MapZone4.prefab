@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2715683312440537935}
   - component: {fileID: 2715683312440537929}
   - component: {fileID: 2715683312440537928}
+  - component: {fileID: 3818524084881404301}
   m_Layer: 0
   m_Name: MapZone4
   m_TagString: Untagged
@@ -30,7 +31,6 @@ Transform:
   m_LocalScale: {x: 3.89, y: 2.51, z: 1}
   m_Children:
   - {fileID: 6180503551666357217}
-  - {fileID: 6147690956893313567}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -60,10 +60,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 4
-  telescopePanoramas: []
   visible: 0
-  clouds: {fileID: 0}
+  seaIntensity:
+    ID: 437764669
+    valueGuid: e6c73e3f4ae7f5438857bbf41724e9a9
+    groupGuid: 2903329c32b5b54dbdad7b4b6b661c9c
+    groupID: 1729344733
+  weather:
+    ID: 1686739424
+    valueGuid: d896238caecbaf428ea3e2b8e64273ab
+    groupGuid: 1f21aa39b57a1d41a705434c99109e65
+    groupID: 317282339
+  telescopePanoramas: []
   elementsToHide: []
+  clouds: {fileID: 0}
+--- !u!95 &3818524084881404301
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715683312440537934}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85b6e18da7500b8479e2d372deefcf47, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3872689350107012317
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,95 +244,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: MegaTyphoon
+  visible: 0
   needSight: 1
   needZoom: 0
   needSuperPrecision: 1
-  visible: 0
   magnetism: 0
+  elementsToActivate:
+  - {fileID: 0}
   playClue: 1
-  elementSprite: {fileID: 0}
-  layer: 1
+  clueOneShot: 1
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: -767721554
     valueGuid: b5e9f00be82fc647966df13f2abb8d10
+  elementSprite: {fileID: 0}
+  layer: 1
   discovered: 0
-  elementsToActivate:
-  - {fileID: 0}
---- !u!1 &5689792541464938376
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6147690956893313567}
-  - component: {fileID: 408118962886244914}
-  m_Layer: 0
-  m_Name: Mask
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6147690956893313567
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689792541464938376}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.072, y: -0.14, z: 0.5}
-  m_LocalScale: {x: 0.8965038, y: 1.355941, z: 0.6960902}
-  m_Children: []
-  m_Father: {fileID: 2715683312440537935}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!331 &408118962886244914
-SpriteMask:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689792541464938376}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d695c6680e62d524a8cbcad2cb291d7a, type: 3}
-  m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 0
-  m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
-  m_BackSortingLayer: 0
-  m_FrontSortingOrder: 8
-  m_BackSortingOrder: 7
-  m_IsCustomRangeActive: 1
-  m_SpriteSortPoint: 0

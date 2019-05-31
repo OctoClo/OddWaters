@@ -6,6 +6,7 @@ public class DiscoverZoneEvent : GameEvent { public int zoneNumber; }
 
 public class Island : MapElement
 {
+    [Header("Island")]
     public int islandNumber;
     public int nextZone;
     public Sprite background;

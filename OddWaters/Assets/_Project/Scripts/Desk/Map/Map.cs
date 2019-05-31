@@ -38,7 +38,7 @@ public class Map : MonoBehaviour
             }
         }
 
-        currentZone = 0;
+        ChangeZone(0);
     }
 
     void OnEnable()
@@ -54,6 +54,8 @@ public class Map : MonoBehaviour
     public void ChangeZone(int newZone)
     {
         currentZone = newZone;
+        mapZones[currentZone].seaIntensity.SetValue();
+        mapZones[currentZone].weather.SetValue();
     }
 
     public GameObject GetCurrentPanorama()

@@ -19,11 +19,6 @@ public class TelescopeLayer : MonoBehaviour
 
     bool initialized = false;
 
-    void Start()
-    {
-        Initialize();
-    }
-
      void Initialize()
     {
         children = new Transform[2];
@@ -66,6 +61,9 @@ public class TelescopeLayer : MonoBehaviour
 
     void Update()
     {
+        if (!initialized)
+            Initialize();
+
         // Move both layers
         Vector3 move = new Vector3(dragSpeed, 0, 0);
 

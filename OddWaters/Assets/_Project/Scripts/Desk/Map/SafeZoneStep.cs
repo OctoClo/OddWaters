@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SafeZoneStep : MapElement
 {
+    [Header("Safe Zone")]
+    [SerializeField]
+    AK.Wwise.State state;
+
     protected override void Start()
     {
     }
@@ -12,7 +16,7 @@ public class SafeZoneStep : MapElement
     {
         visible = true;
         discovered = true;
-        AkSoundEngine.SetState("Seavoices_State", name);
+        state.SetValue();
 
         yield return null;
     }

@@ -7,21 +7,14 @@ public class BoatAsksTelescopeRefreshEvent : GameEvent { public MapElement eleme
 
 public class Boat : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField]
-    NavigationManager navigationManager;
-
-    // Navigation line
-    [SerializeField]
-    LineRenderer line;
-    [SerializeField]
-    GameObject endOfLine;
+    [Range(0.01f, 0.2f)]
+    float dotsSoundInterval = 0.1f;
     [HideInInspector]
     public float lineMaxLenght;
     float lastDotPercentageSound;
     float currentDotPercentage;
-    [SerializeField]
-    [Range(0.01f, 0.2f)]
-    float dotsSoundInterval = 0.1f;
     Vector3 lineEnd;
 
     [HideInInspector]
@@ -36,11 +29,27 @@ public class Boat : MonoBehaviour
     [HideInInspector]
     public Island currentIsland;
 
+    [HideInInspector]
     public bool safeZone;
+
+    [Header("References")]
+    [SerializeField]
+    NavigationManager navigationManager;
+    [SerializeField]
+    LineRenderer line;
+    [SerializeField]
+    GameObject endOfLine;
+    [SerializeField]
+    LineRenderer trail;
+    [SerializeField]
+    Transform trailPosFolder;
+
+    int trailPosCount;
+    Vector3 currentTrailPos;
 
     void Start()
     {
-        line.SetPosition(0, Vector3.zero);
+        line.SetPosition(0, new Vector3(0, 0, -0.1f));
         line.enabled = false;
         endOfLine.SetActive(false);
         elementsInSight = new List<MapElement>();
@@ -48,7 +57,19 @@ public class Boat : MonoBehaviour
         onAnIsland = false;
         safeZone = false;
 
+        trailPosCount = 1;
+        trail.positionCount = trailPosCount;
+
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+    }
+
+    public void AddTrailPos()
+    {
+        GameObject newTrailPos = new GameObject("TrailPosition");
+        newTrailPos.transform.parent = trailPosFolder;
+        newTrailPos.transform.position = transform.position;
+        trailPosCount++;
+        trail.positionCount = trailPosCount;
     }
 
     public void StartTargeting()
@@ -71,13 +92,18 @@ public class Boat : MonoBehaviour
         if (line.enabled)
         {
             lineEnd = transform.InverseTransformPoint(navigationManager.lastValidCursorPos);
-            lineEnd.z = 0;
+            lineEnd.z = -0.1f;
             line.SetPosition(1, lineEnd);
             endOfLine.transform.localPosition = lineEnd;
             currentDotPercentage = (navigationManager.lastValidCursorPos - transform.position).sqrMagnitude / lineMaxLenght;
             if (Mathf.Abs(lastDotPercentageSound - currentDotPercentage) >= dotsSoundInterval)
                 PlayDotsSound();
         }
+
+        for (int i = 0; i < trailPosCount - 1; i ++)
+            trail.SetPosition(i, trailPosFolder.GetChild(i).transform.position);
+            
+        trail.SetPosition(trailPosCount - 1, transform.position);
     }
 
     void PlayDotsSound()

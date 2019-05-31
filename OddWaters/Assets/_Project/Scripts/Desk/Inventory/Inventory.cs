@@ -11,11 +11,7 @@ enum EMoveType
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField]
-    InspectionInterface inspectionInterface;
-    [SerializeField]
-    TutorialManager tutorialManager;
-
+    [Header("Trade Animations")]
     [SerializeField]
     Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
     [SerializeField]
@@ -23,14 +19,20 @@ public class Inventory : MonoBehaviour
     Vector3 targetPos;
     [SerializeField]
     float drag = 7.37f;
+    [SerializeField]
+    GameObject previousObject;
+
+    [Header("References")]
+    [SerializeField]
+    InspectionInterface inspectionInterface;
+    [SerializeField]
+    TutorialManager tutorialManager;
 
     GameObject prefabToGive;
     GameObject newObject;
     BoxCollider boxCollider;
     Rigidbody rb;
-    [SerializeField]
-    GameObject previousObject;
-   
+
     bool moving;
     EMoveType move;
     bool waiting;
@@ -67,36 +69,45 @@ public class Inventory : MonoBehaviour
             targetPos = previousObject.transform.position;
             targetPos.y += 1;
             rb.velocity = (targetPos - previousObject.transform.position);
-            return true;
         }
         else
             AddObjectToInventory();
 
-        return false;
+        return (previousObject && prefabToGive);
     }
 
     void AddObjectToInventory()
     {
-        moving = true;
-        move = EMoveType.RECEIVE;
+        if (prefabToGive)
+        {
+            moving = true;
+            move = EMoveType.RECEIVE;
 
-        newObject = Instantiate(prefabToGive, transform);
-        previousObject = newObject;
+            newObject = Instantiate(prefabToGive, transform);
+            previousObject = newObject;
 
-        boxCollider = newObject.GetComponent<BoxCollider>();
-        boxCollider.isTrigger = true;
+            boxCollider = newObject.GetComponent<BoxCollider>();
+            boxCollider.isTrigger = true;
 
-        rb = newObject.GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.drag = 0;
+            rb = newObject.GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.drag = 0;
 
-        newObject.transform.localPosition = spawnPos;
-        targetPos = receiveEndPos;
-        rb.velocity = (targetPos - spawnPos);
+            newObject.transform.localPosition = spawnPos;
+            targetPos = receiveEndPos;
+            rb.velocity = (targetPos - spawnPos);
 
-        Interactible interactible = newObject.GetComponent<Interactible>();
-        interactible.inspectionInterface = inspectionInterface;
-        interactible.tutorialManager = tutorialManager;
+            Interactible interactible = newObject.GetComponent<Interactible>();
+            interactible.inspectionInterface = inspectionInterface;
+            interactible.tutorialManager = tutorialManager;
+        }
+        else
+        {
+            moving = false;
+            waiting = false;
+            currentTime = 0;
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
+        }
     }
 
     void Update()
@@ -108,7 +119,7 @@ public class Inventory : MonoBehaviour
             {
                 waiting = false;
                 currentTime = 0;
-                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+                EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
             }
         }
         if (moving)

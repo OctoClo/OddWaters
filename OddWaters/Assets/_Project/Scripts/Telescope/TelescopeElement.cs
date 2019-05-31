@@ -6,30 +6,34 @@ public class MegaTyphoonActivatedEvent : GameEvent { public TelescopeElement ele
 
 public class TelescopeElement : MonoBehaviour
 {
+    // General
     [HideInInspector]
     public bool triggerActive = true;
+    [HideInInspector]
+    public MapElement elementDiscover;
+    [HideInInspector]
+    public TelescopeElement cloneElement;
 
+    // Discovery
     [HideInInspector]
     public bool needZoom = false;
     [HideInInspector]
     public bool needSight = false;
     [HideInInspector]
     public bool needSuperPrecision = false;
+
+    // Audio
+    [HideInInspector]
+    public bool audio = false;
+    GameObject audioPlayer;
     [HideInInspector]
     public bool playClue = true;
-
-    public bool inSight = false;
+    
+    // Angle and in sight
     [HideInInspector]
     public int startAngle;
     public int angleToBoat;
-    [HideInInspector]
-    public bool audio = false;
-
-    [HideInInspector]
-    public MapElement elementDiscover;
-
-    [HideInInspector]
-    public TelescopeElement cloneElement;
+    public bool inSight = false;
 
     public void Trigger(bool tutorial, TutorialManager tutorialManager)
     {
@@ -42,9 +46,12 @@ public class TelescopeElement : MonoBehaviour
     {
         if (audio)
         {
+            audioPlayer = elementDiscover.name.Equals("MegaTyphoon") ? CursorManager.Instance.gameObject : gameObject;
+
             if (playClue)
-                AkSoundEngine.PostEvent("Play_Clue_" + name, gameObject);
-            if (elementDiscover.name == "MegaTyphoon")
+                AkSoundEngine.PostEvent("Play_Clue_" + name, audioPlayer);
+
+            if (elementDiscover.name.Equals("MegaTyphoon"))
                 EventManager.Instance.Raise(new MegaTyphoonActivatedEvent() { element = this });
         }
     }
@@ -52,7 +59,7 @@ public class TelescopeElement : MonoBehaviour
     void Update()
     {
         if (audio)
-            AkSoundEngine.SetRTPCValue("Angle", angleToBoat, gameObject);
+            AkSoundEngine.SetRTPCValue("Angle", angleToBoat, audioPlayer);
     }
 
     void OnTriggerEnter(Collider other)

@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1235202462}
   - component: {fileID: 1235202463}
-  - component: {fileID: 7075778046155756342}
+  - component: {fileID: 140030273771562731}
+  - component: {fileID: 5162849374963221159}
   m_Layer: 0
   m_Name: TutorialGoal
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1235202461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.038, y: -0.043, z: -0}
-  m_LocalScale: {x: 0.1, y: 0.13, z: 1}
+  m_LocalScale: {x: 0.07, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 359006016548906844}
   m_RootOrder: 1
@@ -45,16 +46,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.17
   m_Center: {x: 0, y: 0, z: 0.00000023841858}
---- !u!212 &7075778046155756342
-SpriteRenderer:
+--- !u!33 &140030273771562731
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235202461}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5162849374963221159
+MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235202461}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -62,7 +71,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 83003c5840a841a44ac8dc845378c111, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,25 +83,14 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: fa3d9df0d4d55b24da896bb803a48596, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SortingOrder: 0
 --- !u!1 &359006014877531841
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,18 +197,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Island0
+  visible: 0
   needSight: 1
   needZoom: 1
   needSuperPrecision: 0
-  visible: 0
   magnetism: 0
-  elementSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
-  layer: 1
+  elementsToActivate: []
+  playClue: 1
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
   discoverySound:
     ID: -1078966765
     valueGuid: e704cb5658159a46a3c77fc5590c163f
+  elementSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
+  layer: 1
   discovered: 0
-  elementsToActivate: []
   islandNumber: 0
   nextZone: 1
   background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
@@ -278,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82eaeb0a9a7836c4da8b41b5fbc5c3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needTelescopeRefresh: 0
   zone: 0
 --- !u!1 &359006016548906845
 GameObject:
@@ -339,8 +341,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 0
+  visible: 1
+  seaIntensity:
+    ID: 437764669
+    valueGuid: e6c73e3f4ae7f5438857bbf41724e9a9
+    groupGuid: 2903329c32b5b54dbdad7b4b6b661c9c
+    groupID: 1729344733
+  weather:
+    ID: 1686739424
+    valueGuid: d896238caecbaf428ea3e2b8e64273ab
+    groupGuid: 1f21aa39b57a1d41a705434c99109e65
+    groupID: 317282339
   telescopePanoramas:
   - {fileID: 7127492151962068300, guid: 663873821be5da9498ed694614a80653, type: 3}
-  visible: 1
-  clouds: {fileID: 0}
   elementsToHide: []
+  clouds: {fileID: 0}

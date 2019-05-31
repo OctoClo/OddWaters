@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class Island1Object0 : MonoBehaviour
 {
+    [Header("Glow")]
+    [SerializeField]
+    Color inactiveColor;
+    [SerializeField]
+    Color activeColor;
+    [SerializeField]
+    Renderer[] emissionRenderers;
+
+    Color currentColor;
+    Material[] materials;
+    int renderersCount;
+
+    [Header("Stone relative")]
     [SerializeField]
     float maxDistanceToStone;
     [SerializeField]
@@ -14,17 +27,6 @@ public class Island1Object0 : MonoBehaviour
     float distanceFactor;
     float distanceToCurrentStone;
     Vector3 belowPos;
-
-    [SerializeField]
-    Renderer[] emissionRenderers;
-    [SerializeField]
-    Color inactiveColor;
-    [SerializeField]
-    Color activeColor;
-
-    Color currentColor;
-    Material[] materials;
-    int renderersCount;
 
     void Start()
     {
