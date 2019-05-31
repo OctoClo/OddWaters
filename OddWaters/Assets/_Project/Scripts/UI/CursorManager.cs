@@ -23,12 +23,13 @@ public class CursorManager : Singleton<CursorManager>
     Vector2[] cursorOffsets;
     ECursor currentCursor = ECursor.COUNT;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
+
     void Start()
     {
-        //Vector2 offsetCenter = new Vector2(cursorSprites[0].width / 2, cursorSprites[0].height / 2);
-        //Vector2 offsetCenterLeft = new Vector2(0, cursorSprites[0].texture.height / 2);
-        //Vector2 offsetCenterRight = new Vector2(cursorSprites[0].texture.width, cursorSprites[0].texture.height / 2);
-
         cursorOffsets = new Vector2[(int)ECursor.COUNT];
         cursorOffsets[(int)ECursor.TELESCOPE_PAN_CENTER] = new Vector2(cursorSprites[(int)ECursor.TELESCOPE_PAN_CENTER].width / 2, cursorSprites[(int)ECursor.TELESCOPE_PAN_CENTER].height / 2);
         cursorOffsets[(int)ECursor.TELESCOPE_PAN_LEFT] = new Vector2(cursorSprites[(int)ECursor.TELESCOPE_PAN_LEFT].width / 2, cursorSprites[(int)ECursor.TELESCOPE_PAN_LEFT].height / 2);

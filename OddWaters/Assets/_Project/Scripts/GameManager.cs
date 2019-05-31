@@ -18,19 +18,13 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     bool paused = false;
 
-    [Header("Managers")]
+    [Header("References")]
     [SerializeField]
     TutorialManager tutorialManager;
-
-    [Header("Animators")]
-    [SerializeField]
-    Animator menusAnimator;
     [SerializeField]
     Animator cutsceneAnimator;
     [SerializeField]
-    Animator globalAnimator;
-    [SerializeField]
-    Animator tutorialUIAnimator;
+    GameObject pauseButton;
 
     void Awake()
     {
@@ -40,7 +34,10 @@ public class GameManager : MonoBehaviour
         if (intro)
             PlayIntro();
         else if (tutorial)
+        {
+            pauseButton.SetActive(true);
             tutorialManager.Launch();
+        }
     }
 
     void OnEnable()
@@ -56,12 +53,12 @@ public class GameManager : MonoBehaviour
     void PlayIntro()
     {
         AkSoundEngine.PostEvent("Play_Intro", gameObject);
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
         cutsceneAnimator.SetTrigger("Intro");
     }
 
     public void IntroEnded()
     {
+        pauseButton.SetActive(true);
         tutorialManager.Launch();
     }
 

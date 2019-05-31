@@ -13,25 +13,31 @@ public class StartupMenu : MonoBehaviour
     [SerializeField]
     GameObject Controls;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (active)
         {
             Launch();
         }
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Launch()
     {
+        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
+        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
+        AkSoundEngine.SetState("Weather", "Fine");
+        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         MenusAnimator.SetTrigger("ShowSplashscreen");
+    }
+
+    public void MouseEnters()
+    {
+        CursorManager.Instance.SetCursor(ECursor.HOVER);
+    }
+
+    public void MouseExits()
+    {
+        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
 
     public void OnClickPlay()
@@ -58,7 +64,11 @@ public class StartupMenu : MonoBehaviour
 
     public void OnClickQuit()
     {
-        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
     }
 
     public void OnClickOptionsControls()

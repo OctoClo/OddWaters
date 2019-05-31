@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Options : MonoBehaviour
 {
-
+    [Header("References")]
     [SerializeField]
     GameObject Controls;
+    [SerializeField]
+    GameObject AreYouSure;
 
     [SerializeField]
     Animator ENAnimator;
     [SerializeField]
     Animator FRAnimator;
 
-    private void Start()
+    private void OnEnable()
     {
-
-        //Get current language, select button
         ENAnimator.SetTrigger("Activate");
     }
 
@@ -32,11 +32,30 @@ public class Options : MonoBehaviour
 
     public void OnClickLanguageButton(string language)
     {
-        SetLanguage(language);
+        LanguageManager.Instance.language = language.Equals("EN") ? ELanguage.ENGLISH : ELanguage.FRENCH;
     }
 
-    void SetLanguage(string language)
+    public void OnVolumeChanged(float value)
     {
+        AkSoundEngine.SetRTPCValue("Volume", value * 10);
+    }
 
+    public void OnClickQuit()
+    {
+        AreYouSure.SetActive(true);
+    }
+
+    public void OnClickQuitCancel()
+    {
+        AreYouSure.SetActive(false);
+    }
+
+    public void OnClickQuitConfirm()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
     }
 }

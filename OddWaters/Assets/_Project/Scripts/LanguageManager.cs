@@ -10,5 +10,5 @@ public enum ELanguage
 
 public class LanguageManager : Singleton<LanguageManager>
 {
-    public ELanguage language = ELanguage.ENGLISH; 
+    public ELanguage language = ELanguage.ENGLISH;
 }

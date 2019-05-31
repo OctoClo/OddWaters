@@ -29,6 +29,8 @@ public class InputManager : MonoBehaviour
     DialogueManager dialogueManager;
     [SerializeField]
     NavigationManager navigationManager;
+    [SerializeField]
+    GameObject pauseObject;
 
     // Interactible
     [SerializeField]
@@ -114,7 +116,7 @@ public class InputManager : MonoBehaviour
             mouseProjection.transform.position = desk.point;
 
         // Left button down
-        if (Input.GetMouseButtonDown(0))
+        if (!eventSystem.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
             HandleMouseLeftButtonDown();
         
         // Telescope single click
@@ -190,9 +192,12 @@ public class InputManager : MonoBehaviour
                 interactible.Rotate(2, -1);
         }
 
-        // Hover things
-        if (!interactible && !telescopeDrag && !navigation)
+        if (!eventSystem.IsPointerOverGameObject() && !interactible && !telescopeDrag && !navigation)
         {
+            // Pause
+            if (Input.GetKeyDown(KeyCode.Escape))
+                ToggleOptions();
+
             // Hover boat
             if (!blockInput && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND) && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
             {
@@ -233,6 +238,8 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
+        else if (eventSystem.IsPointerOverGameObject())
+            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
 
         // Dialogue
         if (dialogueOngoing && Input.GetMouseButtonDown(0))
@@ -422,6 +429,22 @@ public class InputManager : MonoBehaviour
     public void RotateButtonNegative(int axis)
     {
         interactible.Rotate(axis, -1);
+    }
+
+    public void ToggleOptions()
+    {
+        pauseObject.SetActive(!pauseObject.activeInHierarchy);
+        AkSoundEngine.SetState("Pause", pauseObject.activeInHierarchy ? "Pause" : "InGame");
+    }
+
+    public void MouseEnters()
+    {
+        CursorManager.Instance.SetCursor(ECursor.HOVER);
+    }
+
+    public void MouseExits()
+    {
+        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
 }
 
