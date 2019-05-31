@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 6456958726628860533}
   - component: {fileID: 5266091320916054540}
   m_Layer: 0
-  m_Name: Island1Object0b
+  m_Name: Island1Object0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,9 +855,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d57ccc45b2454b83434e11eaacd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMaterial:
+    ID: 1974580389
+    valueGuid: dadd2c7c3ccf0c41b38ecd9073917372
+    groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
+    groupID: -429652670
   transcriptJSONRecto: {fileID: 0}
   transcriptJSONVerso: {fileID: 0}
-  zoomOffset: 17
+  zoomOffset: 15
   grabOffset: 0.07
   rotationSpeed: 3
   rotationsAmount: 000000000100000002000000
@@ -865,11 +870,6 @@ MonoBehaviour:
   tutorialManager: {fileID: 0}
   grabbable: 0
   rotating: 0
-  soundMaterial:
-    ID: 1974580389
-    valueGuid: dadd2c7c3ccf0c41b38ecd9073917372
-    groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
-    groupID: -429652670
 --- !u!114 &5266091320916054540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,13 +882,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b560973d3eb43aa4fac128ac5d63afab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceToStone: 3
-  currentStone: {fileID: 0}
-  currentPercentage: 0
+  inactiveColor: {r: 0, g: 0, b: 0, a: 1}
+  activeColor: {r: 1, g: 1, b: 1, a: 1}
   emissionRenderers:
   - {fileID: 4536593082737790046}
   - {fileID: 4536593082737790040}
   - {fileID: 4536593082737790034}
   - {fileID: 4536593082737790028}
-  inactiveColor: {r: 0, g: 0, b: 0, a: 1}
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
+  maxDistanceToStone: 3
+  currentStone: {fileID: 0}
+  currentPercentage: 0
