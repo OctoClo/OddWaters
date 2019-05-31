@@ -325,8 +325,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7396675554058732554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24, y: 0.051, z: -0.01}
-  m_LocalScale: {x: 1.4, y: 0.8688, z: 1}
+  m_LocalPosition: {x: 0.111, y: 0.016, z: -0.01}
+  m_LocalScale: {x: 1.16, y: 0.96, z: 1}
   m_Children: []
   m_Father: {fileID: 989681348783808233}
   m_RootOrder: 0
@@ -383,11 +383,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 989681348783808233}
     m_Modifications:
-    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonSmall (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 6110967441215509302, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -442,6 +437,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonSmall (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5995856545864018070, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
@@ -828,11 +828,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 989681348783808233}
     m_Modifications:
-    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonSmall
-      objectReference: {fileID: 0}
     - target: {fileID: 6110967441215509302, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -887,6 +882,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonSmall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea69476e23f662a40a047a400bc6f058, type: 3}

@@ -55,6 +55,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<GameFinishedEvent>(OnGameFinishedEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<GameFinishedEvent>(OnGameFinishedEvent);
+    }
+
     void SplashscreenEnded()
     {
         if (startupMenu)
@@ -73,5 +83,10 @@ public class GameManager : MonoBehaviour
     public void IntroEnded()
     {
         tutorialManager.Launch();
+    }
+
+    void OnGameFinishedEvent(GameFinishedEvent e)
+    {
+        cutsceneAnimator.SetTrigger("Outro");
     }
 }

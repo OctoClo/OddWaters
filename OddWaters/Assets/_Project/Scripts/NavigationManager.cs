@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using Aura2API;
 
+public class GameFinishedEvent : GameEvent { };
+
 public enum ENavigationResult
 {
     SEA,
@@ -147,8 +149,8 @@ public class NavigationManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("GG, you finished the game");
                     lightScript.rotateDegreesPerSecond.value.y = 0;
+                    EventManager.Instance.Raise(new GameFinishedEvent());
                 }
             }
             // Still journeying
