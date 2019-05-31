@@ -1,0 +1,1067 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="132">
+	<RootPaths>
+		<ProjectRoot>C:\Users\OctoClo\_Perso\Dev\OddWaters\OddWaters_WwiseRepo\OddWatersWwise\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\OctoClo\_Perso\Dev\OddWaters\OddWaters_WwiseRepo\OddWatersWwise\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\OctoClo\_Perso\Dev\OddWaters\OddWaters_WwiseRepo\OddWatersWwise\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\OctoClo\_Perso\Dev\OddWaters\OddWaters_WwiseRepo\OddWatersWwise\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles>
+		<File Id="7780058" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_03.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="30675441" Language="SFX">
+			<ShortName>JourneysEnd\JourneysEnd_Piano.wav</ShortName>
+			<Path>SFX\JourneysEnd\JourneysEnd_Piano_8956FC97.wem</Path>
+		</File>
+		<File Id="46774381" Language="SFX">
+			<ShortName>Weather\Rain\Heavy\OddWaters_SD_AMB_Weather_Rain_Heavy_03.wav</ShortName>
+			<Path>SFX\Weather\Rain\Heavy\OddWaters_SD_AMB_Weather_Rain_Heavy_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="47888798" Language="SFX">
+			<ShortName>Weather\Thunder\Bed\OddWaters_SD_AMB_Weather_Thunder_Bed_03.wav</ShortName>
+			<Path>SFX\Weather\Thunder\Bed\OddWaters_SD_AMB_Weather_Thunder_Bed_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="54285286" Language="SFX">
+			<ShortName>Water\Calm\OddWaters_SD_AMB_Water_Loop_Calm_01.wav</ShortName>
+			<Path>SFX\Water\Calm\OddWaters_SD_AMB_Water_Loop_Calm_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="70501999" Language="SFX">
+			<ShortName>Wind\Moderate\OddWaters_SD_AMB_Wind_Loop2_Moderate_02.wav</ShortName>
+			<Path>SFX\Wind\Moderate\OddWaters_SD_AMB_Wind_Loop2_Moderate_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="112200190" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_04.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_04_82C9D3C5.wem</Path>
+		</File>
+		<File Id="114011836" Language="SFX">
+			<ShortName>OddWaters_MinersBay_v1_110BPM44.wav</ShortName>
+			<Path>SFX\OddWaters_MinersBay_v1_110BPM44_02E962B3.wem</Path>
+		</File>
+		<File Id="114904381" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_05.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_05_82C9D3C5.wem</Path>
+		</File>
+		<File Id="163686514" Language="SFX">
+			<ShortName>Water\Calm\OddWaters_SD_AMB_Water_Loop_Calm_02.wav</ShortName>
+			<Path>SFX\Water\Calm\OddWaters_SD_AMB_Water_Loop_Calm_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="171247430" Language="SFX">
+			<ShortName>JourneysEnd\JourneysEnd_Voices.wav</ShortName>
+			<Path>SFX\JourneysEnd\JourneysEnd_Voices_8956FC97.wem</Path>
+		</File>
+		<File Id="181046311" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_06.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_06_82C9D3C5.wem</Path>
+		</File>
+		<File Id="186868378" Language="SFX">
+			<ShortName>Wind\Calm\OddWaters_SD_AMB_Wind_Loop1_Calm_03.wav</ShortName>
+			<Path>SFX\Wind\Calm\OddWaters_SD_AMB_Wind_Loop1_Calm_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="207798534" Language="SFX">
+			<ShortName>Weather\Rain\Light\OddWaters_SD_AMB_Weather_Rain_Light_02.wav</ShortName>
+			<Path>SFX\Weather\Rain\Light\OddWaters_SD_AMB_Weather_Rain_Light_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="218569405" Language="SFX">
+			<ShortName>Water\Moderate\OddWaters_SD_AMB_Water_Loop1_Moderate_02.wav</ShortName>
+			<Path>SFX\Water\Moderate\OddWaters_SD_AMB_Water_Loop1_Moderate_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="269976446" Language="SFX">
+			<ShortName>JourneysEnd_Voices_Sea.wav</ShortName>
+			<Path>SFX\JourneysEnd_Voices_Sea_8956FC97.wem</Path>
+		</File>
+		<File Id="278249003" Language="SFX">
+			<ShortName>Wind\Calm\OddWaters_SD_AMB_Wind_Loop2_Calm_01.wav</ShortName>
+			<Path>SFX\Wind\Calm\OddWaters_SD_AMB_Wind_Loop2_Calm_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="282533731" Language="SFX">
+			<ShortName>Wind\Calm\OddWaters_SD_AMB_Wind_Loop2_Calm_03.wav</ShortName>
+			<Path>SFX\Wind\Calm\OddWaters_SD_AMB_Wind_Loop2_Calm_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="296465641" Language="SFX">
+			<ShortName>Wind\Calm\OddWaters_SD_AMB_Wind_Loop1_Calm_02.wav</ShortName>
+			<Path>SFX\Wind\Calm\OddWaters_SD_AMB_Wind_Loop1_Calm_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="299845954" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_01.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="344549955" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_04.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_04_82C9D3C5.wem</Path>
+		</File>
+		<File Id="377433059" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_01.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="390406659" Language="SFX">
+			<ShortName>Wind\Moderate\OddWaters_SD_AMB_Wind_Loop2_Moderate_01.wav</ShortName>
+			<Path>SFX\Wind\Moderate\OddWaters_SD_AMB_Wind_Loop2_Moderate_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="426229578" Language="SFX">
+			<ShortName>JourneysEnd\JourneysEnd_String.wav</ShortName>
+			<Path>SFX\JourneysEnd\JourneysEnd_String_8956FC97.wem</Path>
+		</File>
+		<File Id="453757596" Language="SFX">
+			<ShortName>Water\Rough\RoughHigh\OddWaters_SD_AMB_Water_Loop_Rough_High_03.wav</ShortName>
+			<Path>SFX\Water\Rough\RoughHigh\OddWaters_SD_AMB_Water_Loop_Rough_High_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="483063473" Language="SFX">
+			<ShortName>SparrowsPeak\Bed\Sea\OddWaters_AMB_SparrowsPeak_Bed_Sea_01.wav</ShortName>
+			<Path>SFX\SparrowsPeak\Bed\Sea\OddWaters_AMB_SparrowsPeak_Bed_Sea_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="488830621" Language="SFX">
+			<ShortName>Water\Rough\RoughLow\OddWaters_SD_AMB_Water_Loop_Rough_Low_02.wav</ShortName>
+			<Path>SFX\Water\Rough\RoughLow\OddWaters_SD_AMB_Water_Loop_Rough_Low_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="490640440" Language="SFX">
+			<ShortName>Wind\Rough\OddWaters_SD_AMB_Wind_Loop1_Rough.wav</ShortName>
+			<Path>SFX\Wind\Rough\OddWaters_SD_AMB_Wind_Loop1_Rough_82C9D3C5.wem</Path>
+		</File>
+		<File Id="491739421" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_05.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_05_82C9D3C5.wem</Path>
+		</File>
+		<File Id="500037438" Language="SFX">
+			<ShortName>SparrowsPeak\Bed\Wind\OddWaters_AMB_SparrowsPeak_Bed_Wind_01.wav</ShortName>
+			<Path>SFX\SparrowsPeak\Bed\Wind\OddWaters_AMB_SparrowsPeak_Bed_Wind_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="502893673" Language="SFX">
+			<ShortName>Wind\Rough\OddWaters_SD_AMB_Wind_Loop2_Rough_02.wav</ShortName>
+			<Path>SFX\Wind\Rough\OddWaters_SD_AMB_Wind_Loop2_Rough_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="507580949" Language="SFX">
+			<ShortName>Bed\OddWaters_SD_AMB_FishersRock_L3.wav</ShortName>
+			<Path>SFX\Bed\OddWaters_SD_AMB_FishersRock_L3_82C9D3C5.wem</Path>
+		</File>
+		<File Id="528312946" Language="SFX">
+			<ShortName>Bed\OddWaters_SD_AMB_FishersRock_L2.wav</ShortName>
+			<Path>SFX\Bed\OddWaters_SD_AMB_FishersRock_L2_82C9D3C5.wem</Path>
+		</File>
+		<File Id="544621842" Language="SFX">
+			<ShortName>Wind\Moderate\OddWaters_SD_AMB_Wind_Loop1_Moderate.wav</ShortName>
+			<Path>SFX\Wind\Moderate\OddWaters_SD_AMB_Wind_Loop1_Moderate_82C9D3C5.wem</Path>
+		</File>
+		<File Id="546949694" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_07.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_07_82C9D3C5.wem</Path>
+		</File>
+		<File Id="550741107" Language="SFX">
+			<ShortName>Water\Moderate\OddWaters_SD_AMB_Water_Loop1_Moderate_03.wav</ShortName>
+			<Path>SFX\Water\Moderate\OddWaters_SD_AMB_Water_Loop1_Moderate_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="564722799" Language="SFX">
+			<ShortName>Weather\Thunder\Bed\OddWaters_SD_AMB_Weather_Thunder_Bed_02.wav</ShortName>
+			<Path>SFX\Weather\Thunder\Bed\OddWaters_SD_AMB_Weather_Thunder_Bed_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="569003790" Language="SFX">
+			<ShortName>SparrowsPeak\Bed\Sea\OddWaters_AMB_SparrowsPeak_Bed_Sea_03.wav</ShortName>
+			<Path>SFX\SparrowsPeak\Bed\Sea\OddWaters_AMB_SparrowsPeak_Bed_Sea_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="607612884" Language="SFX">
+			<ShortName>SparrowsPeak\Bed\Sea\OddWaters_AMB_SparrowsPeak_Bed_Sea_02.wav</ShortName>
+			<Path>SFX\SparrowsPeak\Bed\Sea\OddWaters_AMB_SparrowsPeak_Bed_Sea_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="612255981" Language="SFX">
+			<ShortName>Wind\Rough\OddWaters_SD_AMB_Wind_Loop2_Rough_01.wav</ShortName>
+			<Path>SFX\Wind\Rough\OddWaters_SD_AMB_Wind_Loop2_Rough_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="616714154" Language="SFX">
+			<ShortName>OddWaters_FishersRock_v2_170BPM44.wav</ShortName>
+			<Path>SFX\OddWaters_FishersRock_v2_170BPM44_02E962B3.wem</Path>
+		</File>
+		<File Id="620457601" Language="SFX">
+			<ShortName>Wind\Rough\OddWaters_SD_AMB_Wind_Loop2_Rough_03.wav</ShortName>
+			<Path>SFX\Wind\Rough\OddWaters_SD_AMB_Wind_Loop2_Rough_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="644597799" Language="SFX">
+			<ShortName>Water\Rough\RoughLow\OddWaters_SD_AMB_Water_Loop_Rough_Low_03.wav</ShortName>
+			<Path>SFX\Water\Rough\RoughLow\OddWaters_SD_AMB_Water_Loop_Rough_Low_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="653364095" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_02.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Bed\OddWaters_SD_AMB_Boat_Bed_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="655628579" Language="SFX">
+			<ShortName>SparrowsPeak\Bed\Wind\OddWaters_AMB_SparrowsPeak_Bed_Wind_03.wav</ShortName>
+			<Path>SFX\SparrowsPeak\Bed\Wind\OddWaters_AMB_SparrowsPeak_Bed_Wind_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="738450177" Language="SFX">
+			<ShortName>JourneysEnd\JourneysEnd_Synth.wav</ShortName>
+			<Path>SFX\JourneysEnd\JourneysEnd_Synth_8956FC97.wem</Path>
+		</File>
+		<File Id="769871716" Language="SFX">
+			<ShortName>Bed\OddWaters_SD_AMB_FishersRock_L1.wav</ShortName>
+			<Path>SFX\Bed\OddWaters_SD_AMB_FishersRock_L1_82C9D3C5.wem</Path>
+		</File>
+		<File Id="773430152" Language="SFX">
+			<ShortName>Water\Moderate\OddWaters_SD_AMB_Water_Loop2_Moderate_03.wav</ShortName>
+			<Path>SFX\Water\Moderate\OddWaters_SD_AMB_Water_Loop2_Moderate_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="789750041" Language="SFX">
+			<ShortName>Weather\Rain\Light\OddWaters_SD_AMB_Weather_Rain_Light_01.wav</ShortName>
+			<Path>SFX\Weather\Rain\Light\OddWaters_SD_AMB_Weather_Rain_Light_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="793679548" Language="SFX">
+			<ShortName>Weather\Rain\Heavy\OddWaters_SD_AMB_Weather_Rain_Heavy_01.wav</ShortName>
+			<Path>SFX\Weather\Rain\Heavy\OddWaters_SD_AMB_Weather_Rain_Heavy_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="797052964" Language="SFX">
+			<ShortName>Wind\Calm\OddWaters_SD_AMB_Wind_Loop1_Calm_01.wav</ShortName>
+			<Path>SFX\Wind\Calm\OddWaters_SD_AMB_Wind_Loop1_Calm_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="811601671" Language="SFX">
+			<ShortName>Water\Rough\RoughLow\OddWaters_SD_AMB_Water_Loop_Rough_Low_01.wav</ShortName>
+			<Path>SFX\Water\Rough\RoughLow\OddWaters_SD_AMB_Water_Loop_Rough_Low_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="824039822" Language="SFX">
+			<ShortName>Water\Moderate\OddWaters_SD_AMB_Water_Loop2_Moderate_02.wav</ShortName>
+			<Path>SFX\Water\Moderate\OddWaters_SD_AMB_Water_Loop2_Moderate_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="847256092" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_02.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="861779947" Language="SFX">
+			<ShortName>OddWaters_SparrowsPeak_v1_60BPM44.wav</ShortName>
+			<Path>SFX\OddWaters_SparrowsPeak_v1_60BPM44_02E962B3.wem</Path>
+		</File>
+		<File Id="885575631" Language="SFX">
+			<ShortName>Weather\Thunder\Bed\OddWaters_SD_AMB_Weather_Thunder_Bed_01.wav</ShortName>
+			<Path>SFX\Weather\Thunder\Bed\OddWaters_SD_AMB_Weather_Thunder_Bed_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="918594799" Language="SFX">
+			<ShortName>Water\Moderate\OddWaters_SD_AMB_Water_Loop2_Moderate_01.wav</ShortName>
+			<Path>SFX\Water\Moderate\OddWaters_SD_AMB_Water_Loop2_Moderate_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="950185835" Language="SFX">
+			<ShortName>Water\Rough\RoughHigh\OddWaters_SD_AMB_Water_Loop_Rough_High_01.wav</ShortName>
+			<Path>SFX\Water\Rough\RoughHigh\OddWaters_SD_AMB_Water_Loop_Rough_High_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="967559225" Language="SFX">
+			<ShortName>Weather\Rain\Light\OddWaters_SD_AMB_Weather_Rain_Light_03.wav</ShortName>
+			<Path>SFX\Weather\Rain\Light\OddWaters_SD_AMB_Weather_Rain_Light_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="968638325" Language="SFX">
+			<ShortName>Water\Moderate\OddWaters_SD_AMB_Water_Loop1_Moderate_01.wav</ShortName>
+			<Path>SFX\Water\Moderate\OddWaters_SD_AMB_Water_Loop1_Moderate_01_82C9D3C5.wem</Path>
+		</File>
+		<File Id="969628142" Language="SFX">
+			<ShortName>Wind\Calm\OddWaters_SD_AMB_Wind_Loop2_Calm_02.wav</ShortName>
+			<Path>SFX\Wind\Calm\OddWaters_SD_AMB_Wind_Loop2_Calm_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="972774497" Language="SFX">
+			<ShortName>SparrowsPeak\Bed\Wind\OddWaters_AMB_SparrowsPeak_Bed_Wind_02.wav</ShortName>
+			<Path>SFX\SparrowsPeak\Bed\Wind\OddWaters_AMB_SparrowsPeak_Bed_Wind_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="975238969" Language="SFX">
+			<ShortName>Water\Rough\RoughHigh\OddWaters_SD_AMB_Water_Loop_Rough_High_02.wav</ShortName>
+			<Path>SFX\Water\Rough\RoughHigh\OddWaters_SD_AMB_Water_Loop_Rough_High_02_82C9D3C5.wem</Path>
+		</File>
+		<File Id="977771495" Language="SFX">
+			<ShortName>AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_03.wav</ShortName>
+			<Path>SFX\AMB\Boat\Hull\Rough\RoughHigh\OddWaters_SD_AMB_Boat_RoughHigh_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="996802803" Language="SFX">
+			<ShortName>Water\Calm\OddWaters_SD_AMB_Water_Loop_Calm_03.wav</ShortName>
+			<Path>SFX\Water\Calm\OddWaters_SD_AMB_Water_Loop_Calm_03_82C9D3C5.wem</Path>
+		</File>
+		<File Id="1032118896" Language="SFX">
+			<ShortName>Weather\Rain\Heavy\OddWaters_SD_AMB_Weather_Rain_Heavy_02.wav</ShortName>
+			<Path>SFX\Weather\Rain\Heavy\OddWaters_SD_AMB_Weather_Rain_Heavy_02_82C9D3C5.wem</Path>
+		</File>
+	</StreamedFiles>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="2209261142" GUID="{1DBD9369-F7F8-4F78-A583-4A8AAD2FE6A1}" Language="SFX">
+			<ObjectPath>\SoundBanks\OddWaters\OddWatersBank</ObjectPath>
+			<ShortName>OddWatersBank</ShortName>
+			<Path>OddWatersBank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="2705999562" Name="Play_AMB_Island0" ObjectPath="\Events\OddWaters\Play_AMB_Island0" GUID="{019D8846-7FD4-4AA7-BF18-B52BEBC77092}"/>
+				<Event Id="2705999563" Name="Play_AMB_Island1" ObjectPath="\Events\OddWaters\Play_AMB_Island1" GUID="{96AF7F1F-F3EE-4A41-AC15-3561077772FE}"/>
+				<Event Id="2705999560" Name="Play_AMB_Island2" ObjectPath="\Events\OddWaters\Play_AMB_Island2" GUID="{62B9C78D-2D36-4436-B9AC-88DB09AAF6C4}"/>
+				<Event Id="2705999561" Name="Play_AMB_Island3" ObjectPath="\Events\OddWaters\Play_AMB_Island3" GUID="{AD49538F-EE0B-46E8-89B5-72A3B275AE85}" MaxAttenuation="0.000000"/>
+				<Event Id="995275646" Name="Play_AMB_Sea" ObjectPath="\Events\OddWaters\Play_AMB_Sea" GUID="{6F93EEDA-3DEB-453E-A640-AF40B6C20EF0}" MaxAttenuation="100.000000"/>
+				<Event Id="3235884521" Name="Play_Arrival" ObjectPath="\Events\OddWaters\Play_Arrival" GUID="{07A9001A-5302-4E1F-90ED-EC976DA859EE}"/>
+				<Event Id="311910498" Name="Play_Click" ObjectPath="\Events\OddWaters\Play_Click" GUID="{0EB6E72F-2D7A-4153-9526-EE0BDAAE7BF6}"/>
+				<Event Id="2881977545" Name="Play_Clue_Island0" ObjectPath="\Events\OddWaters\Play_Clue_Island0" GUID="{BA955D8E-C0CA-47D6-B7B9-DD20547DA222}"/>
+				<Event Id="2881977544" Name="Play_Clue_Island1" ObjectPath="\Events\OddWaters\Play_Clue_Island1" GUID="{2CF6D0C2-645D-440E-8B79-7EFBEEA4FB29}"/>
+				<Event Id="2881977547" Name="Play_Clue_Island2" ObjectPath="\Events\OddWaters\Play_Clue_Island2" GUID="{489EAE57-6C00-42F6-952F-1A925BFB5979}"/>
+				<Event Id="3327428353" Name="Play_Clue_MegaTyphoon" ObjectPath="\Events\OddWaters\Play_Clue_MegaTyphoon" GUID="{84D27A48-6519-4E73-81AD-32EF85A603F6}"/>
+				<Event Id="984202607" Name="Play_Clue_Stele" ObjectPath="\Events\OddWaters\Play_Clue_Stele" GUID="{D9A0008A-1410-429C-B10B-68F6D0834547}"/>
+				<Event Id="3216000531" Name="Play_Discovery_Acte1" ObjectPath="\Events\OddWaters\Play_Discovery_Acte1" GUID="{56CB04E7-1558-469A-A3C7-7FC5590C163F}"/>
+				<Event Id="3216000528" Name="Play_Discovery_Acte2" ObjectPath="\Events\OddWaters\Play_Discovery_Acte2" GUID="{BECD2576-16A0-4128-ADA4-D80AD4651037}"/>
+				<Event Id="3216000529" Name="Play_Discovery_Acte3" ObjectPath="\Events\OddWaters\Play_Discovery_Acte3" GUID="{4D300052-2A51-4BB1-A0DF-9279C78113B0}"/>
+				<Event Id="2463745710" Name="Play_Dots" ObjectPath="\Events\OddWaters\Play_Dots" GUID="{D27CB518-C145-4E3E-ABAD-DC9414860D8A}"/>
+				<Event Id="3103472528" Name="Play_Intro" ObjectPath="\Events\OddWaters\Play_Intro" GUID="{AC4D3291-3960-4868-B220-4C99951419C0}"/>
+				<Event Id="2470965865" Name="Play_Island0_Object0" ObjectPath="\Events\OddWaters\Play_Island0_Object0" GUID="{3366726D-3241-401B-8731-5E36F58F02B1}"/>
+				<Event Id="3780367824" Name="Play_Island1_Object0" ObjectPath="\Events\OddWaters\Play_Island1_Object0" GUID="{CBE539D2-0884-4F53-9AB7-3C122D55BBA9}"/>
+				<Event Id="4142383443" Name="Play_Island2_Object0" ObjectPath="\Events\OddWaters\Play_Island2_Object0" GUID="{D014C507-D4FF-48A0-8BFB-0BD36AA786FE}"/>
+				<Event Id="2313552257" Name="Play_Manipulation" ObjectPath="\Events\OddWaters\Play_Manipulation" GUID="{F4B29D61-A082-4FAB-8D58-20414160EC61}"/>
+				<Event Id="204959014" Name="Play_Note" ObjectPath="\Events\OddWaters\Play_Note" GUID="{8E5239E2-1122-4606-9B20-9B745AEDC59B}"/>
+				<Event Id="3527245741" Name="Play_OddDiscovery_01" ObjectPath="\Events\OddWaters\Play_OddDiscovery_01" GUID="{9E1E0D75-01F6-435F-B409-5123AF69278C}"/>
+				<Event Id="3527245742" Name="Play_OddDiscovery_02" ObjectPath="\Events\OddWaters\Play_OddDiscovery_02" GUID="{0BF0E9B5-2FE8-47C6-966D-F13F2ABB8D10}"/>
+				<Event Id="3527245743" Name="Play_OddDiscovery_03" ObjectPath="\Events\OddWaters\Play_OddDiscovery_03" GUID="{D1579526-C3BE-4624-927E-F070CC28D061}"/>
+				<Event Id="1530826435" Name="Play_Sailing" ObjectPath="\Events\OddWaters\Play_Sailing" GUID="{72548F13-0340-4486-8509-E64C9A644BBA}"/>
+				<Event Id="376872004" Name="Play_Stele_Reforge" ObjectPath="\Events\OddWaters\Play_Stele_Reforge" GUID="{7D7CC4FF-B21E-49C2-BEB4-9C88C3E7C75E}"/>
+				<Event Id="1016290791" Name="Play_Telescope_Close" ObjectPath="\Events\OddWaters\Play_Telescope_Close" GUID="{A6310FD1-E8E2-4610-8D21-205AB997DDD5}"/>
+				<Event Id="2443706769" Name="Play_Telescope_Open" ObjectPath="\Events\OddWaters\Play_Telescope_Open" GUID="{AF2751DC-578F-4132-A9F4-B6C2C5C25C8C}"/>
+				<Event Id="3258297918" Name="Play_Travel" ObjectPath="\Events\OddWaters\Play_Travel" GUID="{6E724C2B-E6A4-456B-AA34-0840C2D74CEA}"/>
+				<Event Id="2212946616" Name="Play_Typhon" ObjectPath="\Events\OddWaters\Play_Typhon" GUID="{358B8BF5-FF0E-440C-913A-F5C9ED86578F}"/>
+				<Event Id="2280200964" Name="Stop_AMB_Island0" ObjectPath="\Events\OddWaters\Stop_AMB_Island0" GUID="{188FF3F4-6025-44C2-A889-F937C3B3E0AE}" MaxAttenuation="100.000000"/>
+				<Event Id="2280200965" Name="Stop_AMB_Island1" ObjectPath="\Events\OddWaters\Stop_AMB_Island1" GUID="{49C8636A-6AC8-46E6-8861-6F48B54A6B6F}" MaxAttenuation="100.000000"/>
+				<Event Id="2280200967" Name="Stop_AMB_Island3" ObjectPath="\Events\OddWaters\Stop_AMB_Island3" GUID="{140F5211-A22F-4877-B76F-FEB59F069998}" MaxAttenuation="100.000000"/>
+				<Event Id="730857756" Name="Stop_AMB_Sea" ObjectPath="\Events\OddWaters\Stop_AMB_Sea" GUID="{62AAB22A-FAB2-457D-B64E-32A33FC6D0A5}" MaxAttenuation="0.000000"/>
+				<Event Id="157406730" Name="Stop_SoundClue" ObjectPath="\Events\OddWaters\Stop_SoundClue" GUID="{4E300289-80FA-41FE-94E0-ECF812086D9A}" MaxAttenuation="0.000000"/>
+				<Event Id="2155599014" Name="Stop_Typhon" ObjectPath="\Events\OddWaters\Stop_Typhon" GUID="{0764D464-E7CD-4FD0-81E0-713D854D49B7}" MaxAttenuation="0.000000"/>
+			</IncludedEvents>
+			<ReferencedStreamedFiles>
+				<File Id="7780058"/>
+				<File Id="30675441"/>
+				<File Id="46774381"/>
+				<File Id="47888798"/>
+				<File Id="54285286"/>
+				<File Id="70501999"/>
+				<File Id="112200190"/>
+				<File Id="114011836"/>
+				<File Id="114904381"/>
+				<File Id="163686514"/>
+				<File Id="171247430"/>
+				<File Id="181046311"/>
+				<File Id="186868378"/>
+				<File Id="207798534"/>
+				<File Id="218569405"/>
+				<File Id="269976446"/>
+				<File Id="278249003"/>
+				<File Id="282533731"/>
+				<File Id="296465641"/>
+				<File Id="299845954"/>
+				<File Id="344549955"/>
+				<File Id="377433059"/>
+				<File Id="390406659"/>
+				<File Id="426229578"/>
+				<File Id="453757596"/>
+				<File Id="483063473"/>
+				<File Id="488830621"/>
+				<File Id="490640440"/>
+				<File Id="491739421"/>
+				<File Id="500037438"/>
+				<File Id="502893673"/>
+				<File Id="507580949"/>
+				<File Id="528312946"/>
+				<File Id="544621842"/>
+				<File Id="546949694"/>
+				<File Id="550741107"/>
+				<File Id="564722799"/>
+				<File Id="569003790"/>
+				<File Id="607612884"/>
+				<File Id="612255981"/>
+				<File Id="616714154"/>
+				<File Id="620457601"/>
+				<File Id="644597799"/>
+				<File Id="653364095"/>
+				<File Id="655628579"/>
+				<File Id="738450177"/>
+				<File Id="769871716"/>
+				<File Id="773430152"/>
+				<File Id="789750041"/>
+				<File Id="793679548"/>
+				<File Id="797052964"/>
+				<File Id="811601671"/>
+				<File Id="824039822"/>
+				<File Id="847256092"/>
+				<File Id="861779947"/>
+				<File Id="885575631"/>
+				<File Id="918594799"/>
+				<File Id="950185835"/>
+				<File Id="967559225"/>
+				<File Id="968638325"/>
+				<File Id="969628142"/>
+				<File Id="972774497"/>
+				<File Id="975238969"/>
+				<File Id="977771495"/>
+				<File Id="996802803"/>
+				<File Id="1032118896"/>
+			</ReferencedStreamedFiles>
+			<IncludedMemoryFiles>
+				<File Id="931448" Language="SFX">
+					<ShortName>Birds\A\OddWaters_SFX_SoundClue_Birds_A_01.wav</ShortName>
+					<Path>SFX\Birds\A\OddWaters_SFX_SoundClue_Birds_A_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="7055373" Language="SFX">
+					<ShortName>Note\OddWaters_SD_SFX_Map_Note_05.wav</ShortName>
+					<Path>SFX\Note\OddWaters_SD_SFX_Map_Note_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="12085154" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_03.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="25395788" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_01.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="26313754" Language="SFX">
+					<ShortName>Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_05.wav</ShortName>
+					<Path>SFX\Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="30675441" Language="SFX">
+					<ShortName>JourneysEnd\JourneysEnd_Piano.wav</ShortName>
+					<Path>SFX\JourneysEnd\JourneysEnd_Piano_8956FC97.wem</Path>
+					<PrefetchSize>19264</PrefetchSize>
+				</File>
+				<File Id="40475314" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_03.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="46801696" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_12.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_12_82C9D3C5.wem</Path>
+				</File>
+				<File Id="61045889" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Arrival_03.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Arrival_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="63764447" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_01.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="68599965" Language="SFX">
+					<ShortName>Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack06.wav</ShortName>
+					<Path>SFX\Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="76596876" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_06.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="77409690" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_04.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="85349864" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_05.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="86587766" Language="SFX">
+					<ShortName>Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_03.wav</ShortName>
+					<Path>SFX\Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="96611697" Language="SFX">
+					<ShortName>Gong\OddWaters_SFX_SoundClue_Gong_04.wav</ShortName>
+					<Path>SFX\Gong\OddWaters_SFX_SoundClue_Gong_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="96811654" Language="SFX">
+					<ShortName>Birds\A\OddWaters_SFX_SoundClue_Birds_A_02.wav</ShortName>
+					<Path>SFX\Birds\A\OddWaters_SFX_SoundClue_Birds_A_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="103290253" Language="SFX">
+					<ShortName>HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_03.wav</ShortName>
+					<Path>SFX\HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="112090580" Language="SFX">
+					<ShortName>Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack05.wav</ShortName>
+					<Path>SFX\Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="114011836" Language="SFX">
+					<ShortName>OddWaters_MinersBay_v1_110BPM44.wav</ShortName>
+					<Path>SFX\OddWaters_MinersBay_v1_110BPM44_02E962B3.wem</Path>
+					<PrefetchSize>845</PrefetchSize>
+				</File>
+				<File Id="115335101" Language="SFX">
+					<ShortName>Note\OddWaters_SD_SFX_Map_Note_02.wav</ShortName>
+					<Path>SFX\Note\OddWaters_SD_SFX_Map_Note_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="125316561" Language="SFX">
+					<ShortName>HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_04.wav</ShortName>
+					<Path>SFX\HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="131338096" Language="SFX">
+					<ShortName>MinersBay\Bed\Sea\OddWaters_AMB_MinersBay_Bed_Sea_02.wav</ShortName>
+					<Path>SFX\MinersBay\Bed\Sea\OddWaters_AMB_MinersBay_Bed_Sea_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="146822023" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_04.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="158684949" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_04.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="159596277" Language="SFX">
+					<ShortName>Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack02.wav</ShortName>
+					<Path>SFX\Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="164565883" Language="SFX">
+					<ShortName>Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_04.wav</ShortName>
+					<Path>SFX\Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="170368698" Language="SFX">
+					<ShortName>FineUp\OddWaters_SD_AMB_FishersRock_FineUp_02.wav</ShortName>
+					<Path>SFX\FineUp\OddWaters_SD_AMB_FishersRock_FineUp_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="171247430" Language="SFX">
+					<ShortName>JourneysEnd\JourneysEnd_Voices.wav</ShortName>
+					<Path>SFX\JourneysEnd\JourneysEnd_Voices_8956FC97.wem</Path>
+					<PrefetchSize>19264</PrefetchSize>
+				</File>
+				<File Id="174868261" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Rock_Pickup.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Rock_Pickup_82C9D3C5.wem</Path>
+				</File>
+				<File Id="189570923" Language="SFX">
+					<ShortName>Weather\Thunder\FineUp\OddWaters_SD_AMB_Weather_Thunder_FineUp_01.wav</ShortName>
+					<Path>SFX\Weather\Thunder\FineUp\OddWaters_SD_AMB_Weather_Thunder_FineUp_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="199197212" Language="SFX">
+					<ShortName>Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_01.wav</ShortName>
+					<Path>SFX\Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="201978996" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_ADE90C44.wem</Path>
+				</File>
+				<File Id="215073194" Language="SFX">
+					<ShortName>HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_06.wav</ShortName>
+					<Path>SFX\HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="215684382" Language="SFX">
+					<ShortName>Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_05.wav</ShortName>
+					<Path>SFX\Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="219473709" Language="SFX">
+					<ShortName>Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_04.wav</ShortName>
+					<Path>SFX\Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="222406255" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_03.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="225726504" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe1\OddWaters_AMB_Minersbay_FineUp_Pickaxe1_02.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe1\OddWaters_AMB_Minersbay_FineUp_Pickaxe1_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="239132298" Language="SFX">
+					<ShortName>Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack03.wav</ShortName>
+					<Path>SFX\Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="239917813" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_27367DC5.wem</Path>
+				</File>
+				<File Id="250228449" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_02.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="264818142" Language="SFX">
+					<ShortName>OddWaters_SD_UI_Dot.wav</ShortName>
+					<Path>SFX\OddWaters_SD_UI_Dot_56D34C19.wem</Path>
+				</File>
+				<File Id="266000995" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_DAC28921.wem</Path>
+				</File>
+				<File Id="269976446" Language="SFX">
+					<ShortName>JourneysEnd_Voices_Sea.wav</ShortName>
+					<Path>SFX\JourneysEnd_Voices_Sea_8956FC97.wem</Path>
+					<PrefetchSize>19264</PrefetchSize>
+				</File>
+				<File Id="275111468" Language="SFX">
+					<ShortName>Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_07.wav</ShortName>
+					<Path>SFX\Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_07_82C9D3C5.wem</Path>
+				</File>
+				<File Id="287680422" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_03.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="296716878" Language="SFX">
+					<ShortName>Sail\Bed\OddWaters_SD_AMB_Boat_Sail_Bed_03.wav</ShortName>
+					<Path>SFX\Sail\Bed\OddWaters_SD_AMB_Boat_Sail_Bed_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="300784855" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_02.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="305718544" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_07.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_07_82C9D3C5.wem</Path>
+				</File>
+				<File Id="309260515" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_02.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="325349113" Language="SFX">
+					<ShortName>Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_02.wav</ShortName>
+					<Path>SFX\Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="326586178" Language="SFX">
+					<ShortName>MinersBay\Bed\Wind\OddWaters_AMB_MinersBay_Bed_Wind_03.wav</ShortName>
+					<Path>SFX\MinersBay\Bed\Wind\OddWaters_AMB_MinersBay_Bed_Wind_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="336847351" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_05.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="337335467" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Telescope_Open.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Telescope_Open_56D34C19.wem</Path>
+				</File>
+				<File Id="338053428" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_1E2A9268.wem</Path>
+				</File>
+				<File Id="339377662" Language="SFX">
+					<ShortName>OddWaters_OddDiscovery_02.wav</ShortName>
+					<Path>SFX\OddWaters_OddDiscovery_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="342449088" Language="SFX">
+					<ShortName>Birds\C\OddWaters_SFX_SoundClue_Birds_C_01.wav</ShortName>
+					<Path>SFX\Birds\C\OddWaters_SFX_SoundClue_Birds_C_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="345810186" Language="SFX">
+					<ShortName>Letter\OddWaters_SD_SFX_Letter_Pickup.wav</ShortName>
+					<Path>SFX\Letter\OddWaters_SD_SFX_Letter_Pickup_82C9D3C5.wem</Path>
+				</File>
+				<File Id="362347611" Language="SFX">
+					<ShortName>Weather\Thunder\FineUp\OddWaters_SD_AMB_Weather_Thunder_FineUp_02.wav</ShortName>
+					<Path>SFX\Weather\Thunder\FineUp\OddWaters_SD_AMB_Weather_Thunder_FineUp_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="367083907" Language="SFX">
+					<ShortName>Gong\OddWaters_SFX_SoundClue_Gong_01.wav</ShortName>
+					<Path>SFX\Gong\OddWaters_SFX_SoundClue_Gong_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="400187429" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_14.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_14_82C9D3C5.wem</Path>
+				</File>
+				<File Id="400971131" Language="SFX">
+					<ShortName>Birds\C\OddWaters_SFX_SoundClue_Birds_C_02.wav</ShortName>
+					<Path>SFX\Birds\C\OddWaters_SFX_SoundClue_Birds_C_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="401716016" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_05.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="404380525" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_01.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="405919811" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe1\OddWaters_AMB_Minersbay_FineUp_Pickaxe1_01.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe1\OddWaters_AMB_Minersbay_FineUp_Pickaxe1_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="408572940" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_01.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="408603618" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_02.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="426229578" Language="SFX">
+					<ShortName>JourneysEnd\JourneysEnd_String.wav</ShortName>
+					<Path>SFX\JourneysEnd\JourneysEnd_String_8956FC97.wem</Path>
+					<PrefetchSize>19264</PrefetchSize>
+				</File>
+				<File Id="438789062" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Rock.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Rock_AF3A5996.wem</Path>
+				</File>
+				<File Id="444612902" Language="SFX">
+					<ShortName>Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_01.wav</ShortName>
+					<Path>SFX\Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="446705557" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_05.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="448942936" Language="SFX">
+					<ShortName>Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_02.wav</ShortName>
+					<Path>SFX\Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="467116564" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_06.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Calm Sea\OddWaters_SD_AMB_Boat_Calm_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="470010589" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_05.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="472300290" Language="SFX">
+					<ShortName>Note\OddWaters_SD_SFX_Map_Note_04.wav</ShortName>
+					<Path>SFX\Note\OddWaters_SD_SFX_Map_Note_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="475209429" Language="SFX">
+					<ShortName>FineUp\OddWaters_SD_AMB_FishersRock_FineUp_04.wav</ShortName>
+					<Path>SFX\FineUp\OddWaters_SD_AMB_FishersRock_FineUp_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="483188146" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_03.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="483656853" Language="SFX">
+					<ShortName>Gong\OddWaters_SFX_SoundClue_Gong_03.wav</ShortName>
+					<Path>SFX\Gong\OddWaters_SFX_SoundClue_Gong_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="500136957" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_06.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="505880340" Language="SFX">
+					<ShortName>MinersBay\Bed\Sea\OddWaters_AMB_MinersBay_Bed_Sea_01.wav</ShortName>
+					<Path>SFX\MinersBay\Bed\Sea\OddWaters_AMB_MinersBay_Bed_Sea_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="511883253" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_09.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_09_82C9D3C5.wem</Path>
+				</File>
+				<File Id="512539710" Language="SFX">
+					<ShortName>Birds\C\OddWaters_SFX_SoundClue_Birds_C_04.wav</ShortName>
+					<Path>SFX\Birds\C\OddWaters_SFX_SoundClue_Birds_C_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="519747415" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_11.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_11_82C9D3C5.wem</Path>
+				</File>
+				<File Id="521143511" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_13.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_13_82C9D3C5.wem</Path>
+				</File>
+				<File Id="521978513" Language="SFX">
+					<ShortName>Birds\A\OddWaters_SFX_SoundClue_Birds_A_03.wav</ShortName>
+					<Path>SFX\Birds\A\OddWaters_SFX_SoundClue_Birds_A_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="523423149" Language="SFX">
+					<ShortName>Sail\Bed\OddWaters_SD_AMB_Boat_Sail_Bed_02.wav</ShortName>
+					<Path>SFX\Sail\Bed\OddWaters_SD_AMB_Boat_Sail_Bed_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="529149496" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_89D99233.wem</Path>
+				</File>
+				<File Id="533288321" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_06.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="541549055" Language="SFX">
+					<ShortName>FineUp\OddWaters_SD_AMB_FishersRock_FineUp_01.wav</ShortName>
+					<Path>SFX\FineUp\OddWaters_SD_AMB_FishersRock_FineUp_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="548488563" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_05.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="551379766" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_01.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="556456306" Language="SFX">
+					<ShortName>HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_05.wav</ShortName>
+					<Path>SFX\HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="586806062" Language="SFX">
+					<ShortName>Birds\B\OddWaters_SFX_SoundClue_Birds_B_03.wav</ShortName>
+					<Path>SFX\Birds\B\OddWaters_SFX_SoundClue_Birds_B_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="591545974" Language="SFX">
+					<ShortName>OddWaters_Discovery_Acte1.wav</ShortName>
+					<Path>SFX\OddWaters_Discovery_Acte1_82C9D3C5.wem</Path>
+				</File>
+				<File Id="592714545" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_08.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_08_82C9D3C5.wem</Path>
+				</File>
+				<File Id="597187031" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_3A82BE91.wem</Path>
+				</File>
+				<File Id="610472217" Language="SFX">
+					<ShortName>Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack04.wav</ShortName>
+					<Path>SFX\Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="616714154" Language="SFX">
+					<ShortName>OddWaters_FishersRock_v2_170BPM44.wav</ShortName>
+					<Path>SFX\OddWaters_FishersRock_v2_170BPM44_02E962B3.wem</Path>
+					<PrefetchSize>1065</PrefetchSize>
+				</File>
+				<File Id="626295157" Language="SFX">
+					<ShortName>MinersBay\Bed\Wind\OddWaters_AMB_MinersBay_Bed_Wind_02.wav</ShortName>
+					<Path>SFX\MinersBay\Bed\Wind\OddWaters_AMB_MinersBay_Bed_Wind_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="628972002" Language="SFX">
+					<ShortName>Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_05.wav</ShortName>
+					<Path>SFX\Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="636608857" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_01.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="641740667" Language="SFX">
+					<ShortName>HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_02.wav</ShortName>
+					<Path>SFX\HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="643897941" Language="SFX">
+					<ShortName>Sail\Bed\OddWaters_SD_AMB_Boat_Sail_Bed_01.wav</ShortName>
+					<Path>SFX\Sail\Bed\OddWaters_SD_AMB_Boat_Sail_Bed_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="645016204" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Arrival_02.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Arrival_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="648445706" Language="SFX">
+					<ShortName>OddWaters_ExitFishersRockPartA_v2_170BPM44.wav</ShortName>
+					<Path>SFX\OddWaters_ExitFishersRockPartA_v2_170BPM44_02E962B3.wem</Path>
+				</File>
+				<File Id="663452997" Language="SFX">
+					<ShortName>OddWaters_OddDiscovery_03.wav</ShortName>
+					<Path>SFX\OddWaters_OddDiscovery_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="666431150" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_D1A514C3.wem</Path>
+				</File>
+				<File Id="667299209" Language="SFX">
+					<ShortName>Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_01.wav</ShortName>
+					<Path>SFX\Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="680843860" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_04.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="681833413" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_02.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe2\OddWaters_AMB_Minersbay_FineUp_Pickaxe2_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="685659088" Language="SFX">
+					<ShortName>Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_03.wav</ShortName>
+					<Path>SFX\Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="688544681" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_04.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="694365246" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_06.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="707286126" Language="SFX">
+					<ShortName>Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack07.wav</ShortName>
+					<Path>SFX\Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack07_82C9D3C5.wem</Path>
+				</File>
+				<File Id="709027246" Language="SFX">
+					<ShortName>Note\OddWaters_SD_SFX_Map_Note_03.wav</ShortName>
+					<Path>SFX\Note\OddWaters_SD_SFX_Map_Note_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="710989068" Language="SFX">
+					<ShortName>Birds\C\OddWaters_SFX_SoundClue_Birds_C_03.wav</ShortName>
+					<Path>SFX\Birds\C\OddWaters_SFX_SoundClue_Birds_C_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="714213930" Language="SFX">
+					<ShortName>MinersBay\Bed\Wind\OddWaters_AMB_MinersBay_Bed_Wind_01.wav</ShortName>
+					<Path>SFX\MinersBay\Bed\Wind\OddWaters_AMB_MinersBay_Bed_Wind_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="716100145" Language="SFX">
+					<ShortName>OddWaters_Discovery_Acte2.wav</ShortName>
+					<Path>SFX\OddWaters_Discovery_Acte2_82C9D3C5.wem</Path>
+				</File>
+				<File Id="725973127" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_05.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_05_82C9D3C5.wem</Path>
+				</File>
+				<File Id="725990301" Language="SFX">
+					<ShortName>Gong\OddWaters_SFX_SoundClue_Gong_02.wav</ShortName>
+					<Path>SFX\Gong\OddWaters_SFX_SoundClue_Gong_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="738450177" Language="SFX">
+					<ShortName>JourneysEnd\JourneysEnd_Synth.wav</ShortName>
+					<Path>SFX\JourneysEnd\JourneysEnd_Synth_8956FC97.wem</Path>
+					<PrefetchSize>19264</PrefetchSize>
+				</File>
+				<File Id="741134110" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Stele_Reforge.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Stele_Reforge_82C9D3C5.wem</Path>
+				</File>
+				<File Id="747540758" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_07.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_07_82C9D3C5.wem</Path>
+				</File>
+				<File Id="750282042" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_03.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="766465833" Language="SFX">
+					<ShortName>Birds\B\OddWaters_SFX_SoundClue_Birds_B_01.wav</ShortName>
+					<Path>SFX\Birds\B\OddWaters_SFX_SoundClue_Birds_B_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="768723469" Language="SFX">
+					<ShortName>Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_04.wav</ShortName>
+					<Path>SFX\Sail\Moderate\OddWaters_SD_AMB_Boat_Sail_Moderate_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="769518807" Language="SFX">
+					<ShortName>OddWaters_Discovery_Acte3.wav</ShortName>
+					<Path>SFX\OddWaters_Discovery_Acte3_82C9D3C5.wem</Path>
+				</File>
+				<File Id="779240412" Language="SFX">
+					<ShortName>Birds\B\OddWaters_SFX_SoundClue_Birds_B_02.wav</ShortName>
+					<Path>SFX\Birds\B\OddWaters_SFX_SoundClue_Birds_B_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="784941557" Language="SFX">
+					<ShortName>Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_03.wav</ShortName>
+					<Path>SFX\Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="811024671" Language="SFX">
+					<ShortName>Weather\Thunder\FineUp\OddWaters_SD_AMB_Weather_Thunder_FineUp_03.wav</ShortName>
+					<Path>SFX\Weather\Thunder\FineUp\OddWaters_SD_AMB_Weather_Thunder_FineUp_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="814973579" Language="SFX">
+					<ShortName>OddWaters_SD_UI_Click.wav</ShortName>
+					<Path>SFX\OddWaters_SD_UI_Click_56D34C19.wem</Path>
+				</File>
+				<File Id="827795441" Language="SFX">
+					<ShortName>Birds\A\OddWaters_SFX_SoundClue_Birds_A_04.wav</ShortName>
+					<Path>SFX\Birds\A\OddWaters_SFX_SoundClue_Birds_A_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="834103277" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_07.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_07_82C9D3C5.wem</Path>
+				</File>
+				<File Id="846556693" Language="SFX">
+					<ShortName>FineUp\OddWaters_SD_AMB_FishersRock_FineUp_03.wav</ShortName>
+					<Path>SFX\FineUp\OddWaters_SD_AMB_FishersRock_FineUp_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="848444711" Language="SFX">
+					<ShortName>Note\OddWaters_SD_SFX_Map_Note_06.wav</ShortName>
+					<Path>SFX\Note\OddWaters_SD_SFX_Map_Note_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="853878942" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_03.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="861779947" Language="SFX">
+					<ShortName>OddWaters_SparrowsPeak_v1_60BPM44.wav</ShortName>
+					<Path>SFX\OddWaters_SparrowsPeak_v1_60BPM44_02E962B3.wem</Path>
+					<PrefetchSize>9497</PrefetchSize>
+				</File>
+				<File Id="877428853" Language="SFX">
+					<ShortName>OddWaters_OddDiscovery_01.wav</ShortName>
+					<Path>SFX\OddWaters_OddDiscovery_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="878184876" Language="SFX">
+					<ShortName>MinersBay\FineUp\Pickaxe1\OddWaters_AMB_Minersbay_FineUp_Pickaxe1_03.wav</ShortName>
+					<Path>SFX\MinersBay\FineUp\Pickaxe1\OddWaters_AMB_Minersbay_FineUp_Pickaxe1_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="887730489" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_10.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_10_82C9D3C5.wem</Path>
+				</File>
+				<File Id="897757183" Language="SFX">
+					<ShortName>Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse.wav</ShortName>
+					<Path>SFX\Stelle\OddWaters_SFX_SoundClue_Stelle_Pulse_D1DA69EA.wem</Path>
+				</File>
+				<File Id="901724878" Language="SFX">
+					<ShortName>Rock\OddWaters_SD_SFX_Manipulation_Rock_02.wav</ShortName>
+					<Path>SFX\Rock\OddWaters_SD_SFX_Manipulation_Rock_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="908997384" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_06.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="957849704" Language="SFX">
+					<ShortName>Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_06.wav</ShortName>
+					<Path>SFX\Sail\Rough\OddWaters_SD_AMB_Boat_Sail_Rough_06_82C9D3C5.wem</Path>
+				</File>
+				<File Id="960907046" Language="SFX">
+					<ShortName>Note\OddWaters_SD_SFX_Map_Note_01.wav</ShortName>
+					<Path>SFX\Note\OddWaters_SD_SFX_Map_Note_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="961739569" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Arrival_01.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Arrival_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="968208080" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_01.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="970986240" Language="SFX">
+					<ShortName>OddWaters_ExitFishersRockPartB_v2_170BPM44.wav</ShortName>
+					<Path>SFX\OddWaters_ExitFishersRockPartB_v2_170BPM44_02E962B3.wem</Path>
+				</File>
+				<File Id="983932478" Language="SFX">
+					<ShortName>MinersBay\Bed\Sea\OddWaters_AMB_MinersBay_Bed_Sea_03.wav</ShortName>
+					<Path>SFX\MinersBay\Bed\Sea\OddWaters_AMB_MinersBay_Bed_Sea_03_82C9D3C5.wem</Path>
+				</File>
+				<File Id="984637563" Language="SFX">
+					<ShortName>Birds\B\OddWaters_SFX_SoundClue_Birds_B_04.wav</ShortName>
+					<Path>SFX\Birds\B\OddWaters_SFX_SoundClue_Birds_B_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="986636395" Language="SFX">
+					<ShortName>Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_02.wav</ShortName>
+					<Path>SFX\Water\Rough\RoughFineUp\OddWaters_SD_AMB_Water_FineUp_Rough_02_82C9D3C5.wem</Path>
+				</File>
+				<File Id="989675323" Language="SFX">
+					<ShortName>HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_01.wav</ShortName>
+					<Path>SFX\HandSpinner\OddWaters_SD_SFX_Manipulation_HandSpinner_01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="993474602" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Arrival_04.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Arrival_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1002666494" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_HandSpinner_Pickup.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_HandSpinner_Pickup_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1003040380" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_15.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_15_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1007403441" Language="SFX">
+					<ShortName>OddWaters_SD_SFX_Telescope_Close.wav</ShortName>
+					<Path>SFX\OddWaters_SD_SFX_Telescope_Close_56D34C19.wem</Path>
+				</File>
+				<File Id="1022206912" Language="SFX">
+					<ShortName>Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack01.wav</ShortName>
+					<Path>SFX\Stelle\Crack\OddWaters_SFX_SoundClue_Stelle_Crack01_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1032395727" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_09.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_09_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1040093552" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_07.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_07_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1041693009" Language="SFX">
+					<ShortName>OddWATER_intro.wav</ShortName>
+					<Path>SFX\OddWATER_intro_02E962B3.wem</Path>
+				</File>
+				<File Id="1041851996" Language="SFX">
+					<ShortName>Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_08.wav</ShortName>
+					<Path>SFX\Sail\Calm\OddWaters_SD_AMB_Boat_Sail_Calm_08_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1048812032" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_04.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Rough\RoughLow\OddWaters_SD_AMB_Boat_RoughLow_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1055462918" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_04.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_04_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1063115817" Language="SFX">
+					<ShortName>Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_08.wav</ShortName>
+					<Path>SFX\Manipulation\Paper\OddWaters_SD_SFX_Manipulation_Paper_08_82C9D3C5.wem</Path>
+				</File>
+				<File Id="1069654394" Language="SFX">
+					<ShortName>AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_02.wav</ShortName>
+					<Path>SFX\AMB\Boat\Hull\Moderate Sea\OddWaters_SD_AMB_Boat_Moderate_02_82C9D3C5.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

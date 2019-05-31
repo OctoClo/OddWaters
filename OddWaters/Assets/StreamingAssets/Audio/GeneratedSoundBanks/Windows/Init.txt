@@ -1,0 +1,86 @@
+Switch Group	ID	Name			Wwise Object Path	Notes
+	1705516017	DayNight			\OddWaters\DayNight	
+
+Switch	ID	Name	Switch Group			Notes
+	311764537	Day	DayNight			
+	1011622525	Night	DayNight			
+
+State Group	ID	Name			Wwise Object Path	Notes
+	317282339	Weather			\OddWaters\Weather	
+	340290257	MusState			\OddWaters\MusState	
+	569894559	Telescope			\OddWaters\Telescope	
+	1729344733	SeaIntensity			\OddWaters\SeaIntensity	
+	2311575173	Seavoices_State			\OddWaters\Seavoices_State	
+	3092587493	Pause			\OddWaters\Pause	
+
+State	ID	Name	State Group			Notes
+	0	None	Weather			
+	1686739424	Storm	Weather			
+	1951474816	Light_Rain	Weather			
+	3014433101	Fine	Weather			
+	4218189143	Heavy_Rain	Weather			
+	0	None	MusState			
+	1090460138	FishersRock	MusState			
+	1125500713	Intro	MusState			
+	1322964267	SeaVoices	MusState			
+	2555883807	MinersBay	MusState			
+	2938667867	SparrowsPeak	MusState			
+	3431113001	JourneysEnd	MusState			
+	4157985386	ExitFishersRock	MusState			
+	0	None	Telescope			
+	1451272583	Close	Telescope			
+	3072142513	Open	Telescope			
+	0	None	SeaIntensity			
+	254447977	CalmSea	SeaIntensity			
+	437764669	RoughSea	SeaIntensity			
+	739190283	ModerateSea	SeaIntensity			
+	0	None	Seavoices_State			
+	1324340420	Piano	Seavoices_State			
+	3313685232	Voices	Seavoices_State			
+	3928024197	Synth	Seavoices_State			
+	4060272846	String	Seavoices_State			
+	0	None	Pause			
+	984691642	InGame	Pause			
+	3092587493	Pause	Pause			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	288670078	Pause	Pause	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\DuckingSFX		
+	700161826	Pause	Pause	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Musique		
+	890351766	Pause	Pause	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World		
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	504532776	Brick			\Factory Reflect Acoustic Textures\Textures\Brick	
+	513139656	Mountain			\Factory Reflect Acoustic Textures\Textures\Mountain	
+	841620460	Concrete			\Factory Reflect Acoustic Textures\Textures\Concrete	
+	1755085759	Wood_Deep			\Factory Reflect Acoustic Textures\Textures\Wood_Deep	
+	1873957695	Anechoic			\Factory Reflect Acoustic Textures\Textures\Anechoic	
+	1970351858	Fabric			\Factory Reflect Acoustic Textures\Textures\Fabric	
+	2058049674	Wood			\Factory Reflect Acoustic Textures\Textures\Wood	
+	2412606308	Carpet			\Factory Reflect Acoustic Textures\Textures\Carpet	
+	2415836739	Volume			\OddWaters\Volume	
+	2637588553	Tile			\Factory Reflect Acoustic Textures\Textures\Tile	
+	2928161104	Curtains			\Factory Reflect Acoustic Textures\Textures\Curtains	
+	3195498748	Cork_Tiles			\Factory Reflect Acoustic Textures\Textures\Cork_Tiles	
+	3670307564	Drywall			\Factory Reflect Acoustic Textures\Textures\Drywall	
+	4168643977	Acoustic_Banner			\Factory Reflect Acoustic Textures\Textures\Acoustic_Banner	
+	4262522749	Wood_Bright			\Factory Reflect Acoustic Textures\Textures\Wood_Bright	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	69765534	Musique			\Default Work Unit\Master Audio Bus\Musique	
+	1329694923	DuckingSFX			\Default Work Unit\Master Audio Bus\DuckingSFX	
+	1551306167	UI			\Default Work Unit\Master Audio Bus\UI	
+	2609808943	World			\Default Work Unit\Master Audio Bus\World	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+
+Auxiliary Bus	ID	Name			Wwise Object Path	Notes
+	231770747	RevFar			\Default Work Unit\Master Audio Bus\World\RevFar	
+
+Effect plug-ins	ID	Name	Type				Notes
+	19400738	Wwise Recorder (Custom)	Wwise Recorder			
+	3216246379	Space_Dreaming	Wwise RoomVerb			
+
+Audio Devices	ID	Name	Type				Notes
+	2317455096	No_Output	No Output			
+	3859886410	System	System			
+	4230635974	Default_Motion_Device	Wwise Motion			
+
