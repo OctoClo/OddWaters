@@ -112,8 +112,7 @@ public class ScreenManager : MonoBehaviour
 
             // Add object to inventory
             objectToGive = currentIsland.objectToGive;
-            bool waitLonger = inventory.TradeObjects(objectToGive);
-            AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
+            bool waitLonger = inventory.TradeObjects(objectToGive, currentIsland.islandNumber);
             yield return new WaitForSeconds(2.5f + (waitLonger ? 1 : 0));
 
             // Discover new zone

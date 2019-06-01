@@ -28,6 +28,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     TutorialManager tutorialManager;
 
+    int islandNumber;
     GameObject prefabToGive;
     GameObject newObject;
     BoxCollider boxCollider;
@@ -53,9 +54,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool TradeObjects(GameObject prefab)
+    public bool TradeObjects(GameObject prefab, int islandNb)
     {
         prefabToGive = prefab;
+        islandNumber = islandNb;
 
         if (previousObject)
         {
@@ -100,6 +102,8 @@ public class Inventory : MonoBehaviour
             Interactible interactible = newObject.GetComponent<Interactible>();
             interactible.inspectionInterface = inspectionInterface;
             interactible.tutorialManager = tutorialManager;
+
+            AkSoundEngine.PostEvent("Play_Island" + islandNumber + "_Object0", gameObject);
         }
         else
         {
