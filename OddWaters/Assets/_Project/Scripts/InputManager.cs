@@ -178,6 +178,7 @@ public class InputManager : MonoBehaviour
                     ExitInterfaceRotation();
                 else
                 {
+                    hitsOnRayToMouse = hitsOnRayToMouse.OrderBy(hit => Vector3.SqrMagnitude(mainCamera.transform.position - hit.point)).ToArray();
                     RaycastHit hitInfo = hitsOnRayToMouse.FirstOrDefault(hit => hit.collider.GetComponent<Interactible>());
                     if ((!blockInput || navigating) && hitInfo.collider && (!tutorial || tutorialManager.step >= ETutorialStep.OBJECT_ZOOM) && hitInfo.collider.GetComponent<Interactible>().IsGrabbable())
                     {
