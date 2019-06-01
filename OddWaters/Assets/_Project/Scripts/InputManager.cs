@@ -57,6 +57,7 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Telescope telescope;
     bool telescopeDrag;
+    bool telescopeDragFromWheel;
     Vector3 dragBeginPos;
     Vector3 dragCurrentPos;
     float dragSpeed;
@@ -89,6 +90,8 @@ public class InputManager : MonoBehaviour
         dialogueOngoing = false;
         navigation = false;
         firstTelescopeMove = true;
+        telescopeDrag = false;
+        telescopeDragFromWheel = false;
     }
 
     void OnEnable()
@@ -137,6 +140,25 @@ public class InputManager : MonoBehaviour
                     telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
                 }
             }
+        }
+
+        // Begin wheel telescope drag
+        if (Input.GetMouseButtonDown(2) && telescope.gameObject.activeInHierarchy && !telescopeDrag &&
+            (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM) &&
+            hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")))
+        {
+            telescopeDrag = true;
+            telescopeDragFromWheel = true;
+            dragBeginPos = Input.mousePosition;
+            Vector3 mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.y);
+            telescope.BeginDrag(mainCamera.ScreenToWorldPoint(mouseScreenPos));
+        }
+
+        // End wheel telescope drag
+        if (Input.GetMouseButtonUp(2) && telescopeDrag && telescopeDragFromWheel)
+        {
+            EndTelescopeDrag();
+            telescopeDragFromWheel = false;
         }
 
         // Left button up
@@ -247,14 +269,9 @@ public class InputManager : MonoBehaviour
         // Telescope drag
         if (telescopeDrag)
         {
-            if (!Input.GetMouseButton(0))
-                EndTelescopeDrag();
-            else
-            {
-                dragCurrentPos = Input.mousePosition;
-                dragSpeed = -(dragCurrentPos - dragBeginPos).x * Time.deltaTime;
-                telescope.UpdateSpeed(dragSpeed);
-            }
+            dragCurrentPos = Input.mousePosition;
+            dragSpeed = -(dragCurrentPos - dragBeginPos).x * Time.deltaTime;
+            telescope.UpdateSpeed(dragSpeed);
         }
 
         // Navigation
@@ -294,7 +311,7 @@ public class InputManager : MonoBehaviour
                     else if (!blockInput)
                     {
                         // Telescope
-                        bool telescopeClick = (telescope.gameObject.activeInHierarchy &&
+                        bool telescopeClick = (telescope.gameObject.activeInHierarchy && !telescopeDrag &&
                             (!tutorial || tutorialManager.step == ETutorialStep.TELESCOPE_MOVE || tutorialManager.step == ETutorialStep.TELESCOPE_ZOOM) &&
                             hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("UpPartCollider")));
                         if (telescopeClick)
@@ -335,7 +352,7 @@ public class InputManager : MonoBehaviour
     {
         if (interactible && interactibleState == EInteractibleState.DRAGNDROP)
             DropInteractible();
-        else if (telescopeDrag)
+        else if (telescopeDrag && !telescopeDragFromWheel)
             EndTelescopeDrag();
         else if (navigation)
         {
