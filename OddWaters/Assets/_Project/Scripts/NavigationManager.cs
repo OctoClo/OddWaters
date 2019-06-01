@@ -148,10 +148,7 @@ public class NavigationManager : MonoBehaviour
                     }
                 }
                 else if (lastZone)
-                {
                     lightScript.rotateDegreesPerSecond.value.y = 0;
-                    EventManager.Instance.Raise(new GameFinishedEvent());
-                }
             }
             // Still journeying
             else
@@ -196,6 +193,8 @@ public class NavigationManager : MonoBehaviour
 
     void LaunchNavigation(Vector3 target, int newZoneNumber, bool beginJourney)
     {
+        if (lastZone)
+            EventManager.Instance.Raise(new GameFinishedEvent());
         EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = true });
         AkSoundEngine.PostEvent("Stop_SoundClue", gameObject);
 

@@ -55,8 +55,12 @@ public class MapElement : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
 
-        AkSoundEngine.PostEvent("Play_Note", gameObject);
-        meshRenderer.enabled = true;
+        if (!name.Equals("MegaTyphoon"))
+        {
+            AkSoundEngine.PostEvent("Play_Note", gameObject);
+            meshRenderer.enabled = true;
+        }
+        
         visible = true;
         discovered = true;
 
@@ -71,7 +75,7 @@ public class MapElement : MonoBehaviour
     {
         if (name.Equals("MegaTyphoon") && e.zoneNumber == 4)
         {
-            // Do something maybe
+            meshRenderer.enabled = true;
         }
     }
 }
