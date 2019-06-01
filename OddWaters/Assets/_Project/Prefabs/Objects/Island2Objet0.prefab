@@ -129,7 +129,7 @@ MonoBehaviour:
     groupID: -429652670
   transcriptJSONRecto: {fileID: 0}
   transcriptJSONVerso: {fileID: 0}
-  zoomOffset: 14
+  zoomOffset: 12
   grabOffset: 0.01
   rotationSpeed: 3
   rotationsAmount: 000000000100000000000000
