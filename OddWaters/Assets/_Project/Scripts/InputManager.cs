@@ -192,12 +192,13 @@ public class InputManager : MonoBehaviour
                 interactible.Rotate(2, -1);
         }
 
+        // Pause
+        if (Input.GetKeyDown(KeyCode.Escape) && !interactible && !telescopeDrag && !navigation)
+            ToggleOptions();
+
+        // Hover things
         if (!eventSystem.IsPointerOverGameObject() && !interactible && !telescopeDrag && !navigation)
         {
-            // Pause
-            if (Input.GetKeyDown(KeyCode.Escape))
-                ToggleOptions();
-
             // Hover boat
             if (!blockInput && (!tutorial || tutorialManager.step == ETutorialStep.BOAT_MOVE || tutorialManager.step == ETutorialStep.GO_TO_ISLAND) && hitsOnRayToMouse.Any(hit => hit.collider.CompareTag("Boat")))
             {
@@ -238,8 +239,6 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
-        else if (eventSystem.IsPointerOverGameObject())
-            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
 
         // Dialogue
         if (dialogueOngoing && Input.GetMouseButtonDown(0))
@@ -439,11 +438,13 @@ public class InputManager : MonoBehaviour
 
     public void MouseEnters()
     {
+        Debug.Log("Mouse on");
         CursorManager.Instance.SetCursor(ECursor.HOVER);
     }
 
     public void MouseExits()
     {
+        Debug.Log("Mouse out");
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
 }

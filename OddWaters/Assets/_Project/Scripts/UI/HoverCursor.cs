@@ -4,8 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DialogueHover : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
+public class HoverCursor : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
+    EventSystem eventSystem;
+
+    void Start()
+    {
+        eventSystem = EventSystem.current;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         CursorManager.Instance.SetCursor(ECursor.HOVER);
@@ -18,6 +25,7 @@ public class DialogueHover : MonoBehaviour, IPointerExitHandler, IPointerEnterHa
 
     void OnDisable()
     {
-        CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+        if (!eventSystem.IsPointerOverGameObject())
+            CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
 }

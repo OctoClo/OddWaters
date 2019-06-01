@@ -14,10 +14,17 @@ public class Options : MonoBehaviour
     Animator ENAnimator;
     [SerializeField]
     Animator FRAnimator;
+    Animator currentAnimator;
+
+    private void Awake()
+    {
+        currentAnimator = ENAnimator;
+        currentAnimator.SetTrigger("Activate");
+    }
 
     private void OnEnable()
     {
-        ENAnimator.SetTrigger("Activate");
+        currentAnimator.SetTrigger("Activate");
     }
 
     public void OnClickControls()
@@ -32,7 +39,16 @@ public class Options : MonoBehaviour
 
     public void OnClickLanguageButton(string language)
     {
-        LanguageManager.Instance.language = language.Equals("EN") ? ELanguage.ENGLISH : ELanguage.FRENCH;
+        if (language.Equals("EN"))
+        {
+            currentAnimator = ENAnimator;
+            LanguageManager.Instance.language = ELanguage.ENGLISH;
+        }
+        else
+        {
+            currentAnimator = FRAnimator;
+            LanguageManager.Instance.language = ELanguage.FRENCH;
+        }
     }
 
     public void OnVolumeChanged(float value)
