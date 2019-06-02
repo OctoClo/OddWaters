@@ -15,6 +15,7 @@ public class HoverCursor : MonoBehaviour, IPointerExitHandler, IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        AkSoundEngine.PostEvent("Play_Dots", gameObject);
         CursorManager.Instance.SetCursor(ECursor.HOVER);
     }
 

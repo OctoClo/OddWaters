@@ -30,11 +30,13 @@ public class Options : MonoBehaviour
     public void OnClickControls()
     {
         Controls.SetActive(true);
+        AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
     }
 
     public void OnClickControlsBack()
     {
         Controls.SetActive(false);
+        AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
     }
 
     public void OnClickLanguageButton(string language)
@@ -59,11 +61,13 @@ public class Options : MonoBehaviour
     public void OnClickQuit()
     {
         AreYouSure.SetActive(true);
+        AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
     }
 
     public void OnClickQuitCancel()
     {
         AreYouSure.SetActive(false);
+        AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
     }
 
     public void OnClickQuitConfirm()

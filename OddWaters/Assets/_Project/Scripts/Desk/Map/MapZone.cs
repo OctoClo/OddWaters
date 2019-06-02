@@ -32,7 +32,6 @@ public class MapZone : MonoBehaviour
         ListExtensions.Shuffle(telescopePanoramas);
 
         if (clouds != null && visible)
-            //clouds.SetActive(!visible);
             animator.SetTrigger("RemoveClouds");
 
         foreach (GameObject element in elementsToHide)
@@ -44,8 +43,10 @@ public class MapZone : MonoBehaviour
         visible = true;
 
         if (clouds != null)
-            //clouds.SetActive(false);
+        {
+            AkSoundEngine.PostEvent("Play_Clouds", gameObject);
             animator.SetTrigger("RemoveClouds");
+        }
 
         foreach (GameObject element in elementsToHide)
             element.SetActive(true);

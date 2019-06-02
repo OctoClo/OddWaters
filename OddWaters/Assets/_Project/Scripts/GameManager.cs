@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Debug")]
-    [SerializeField]
-    bool splashscreen = false;
-    [SerializeField]
-    bool startupMenu = false;
+    [Header("General")]
     [SerializeField]
     bool intro = false;
     [SerializeField]
     bool tutorial = false;
-
-    [Header("States")]
-    [HideInInspector]
-    bool paused = false;
 
     [Header("References")]
     [SerializeField]
@@ -64,6 +56,8 @@ public class GameManager : MonoBehaviour
 
     void OnGameFinishedEvent(GameFinishedEvent e)
     {
+        pauseButton.SetActive(false);
+        AkSoundEngine.PostEvent("Stop_All", gameObject);
         cutsceneAnimator.gameObject.SetActive(true);
         cutsceneAnimator.Play("Default");
         cutsceneAnimator.SetTrigger("Outro");

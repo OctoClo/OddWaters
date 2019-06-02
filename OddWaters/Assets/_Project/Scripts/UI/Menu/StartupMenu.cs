@@ -23,15 +23,14 @@ public class StartupMenu : MonoBehaviour
 
     public void Launch()
     {
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
+        AkSoundEngine.PostEvent("Play_Menu", gameObject);
         MenusAnimator.SetTrigger("ShowSplashscreen");
     }
 
     public void MouseEnters()
     {
+        AkSoundEngine.PostEvent("Play_Dots", gameObject);
         CursorManager.Instance.SetCursor(ECursor.HOVER);
     }
 
@@ -43,6 +42,7 @@ public class StartupMenu : MonoBehaviour
     public void OnClickPlay()
     {
         MenusAnimator.SetTrigger("ToGame");
+        AkSoundEngine.PostEvent("Play_Start", gameObject);
         StartCoroutine(OnPlayAnimEnd());
     }
 
@@ -55,11 +55,13 @@ public class StartupMenu : MonoBehaviour
     public void OnClickOptions()
     {
         MenusAnimator.SetBool("OptionsVisible", true);
+        AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
     }
 
     public void OnClickCredits()
     {
         MenusAnimator.SetBool("CreditsVisible", true);
+        AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
     }
 
     public void OnClickQuit()
@@ -74,19 +76,23 @@ public class StartupMenu : MonoBehaviour
     public void OnClickOptionsControls()
     {
         Controls.SetActive(true);
+        AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
     }
 
     public void OnClickControlsBack()
     {
         Controls.SetActive(false);
+        AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
     }
 
     public void OnClickOptionsBack()
     {
         MenusAnimator.SetBool("OptionsVisible", false);
+        AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
     }
     public void OnClickCreditsBack()
     {
         MenusAnimator.SetBool("CreditsVisible", false);
+        AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
     }
 }

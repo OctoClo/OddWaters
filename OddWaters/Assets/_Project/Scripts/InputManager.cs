@@ -460,18 +460,20 @@ public class InputManager : MonoBehaviour
     public void ToggleOptions()
     {
         pauseObject.SetActive(!pauseObject.activeInHierarchy);
+        if (pauseObject.activeInHierarchy)
+            AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
+        else
+            AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
         AkSoundEngine.SetState("Pause", pauseObject.activeInHierarchy ? "Pause" : "InGame");
     }
 
     public void MouseEnters()
     {
-        Debug.Log("Mouse on");
         CursorManager.Instance.SetCursor(ECursor.HOVER);
     }
 
     public void MouseExits()
     {
-        Debug.Log("Mouse out");
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
 }
