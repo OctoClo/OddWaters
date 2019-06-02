@@ -156,10 +156,7 @@ public class InputManager : MonoBehaviour
 
         // End wheel telescope drag
         if (Input.GetMouseButtonUp(2) && telescopeDrag && telescopeDragFromWheel)
-        {
             EndTelescopeDrag();
-            telescopeDragFromWheel = false;
-        }
 
         // Left button up
         if (Input.GetMouseButtonUp(0))
@@ -366,6 +363,7 @@ public class InputManager : MonoBehaviour
     {
         firstClickTelescope = false;
         telescopeDrag = false;
+        telescopeDragFromWheel = false;
         telescope.EndDrag();
         if (tutorialManager.step == ETutorialStep.TELESCOPE_MOVE && firstTelescopeMove)
             StartCoroutine(WaitBeforeTutorialGoOn());
@@ -423,6 +421,17 @@ public class InputManager : MonoBehaviour
         boatAnimator.SetBool("Hold", false);
         CursorManager.Instance.SetCursor(ECursor.DEFAULT);
         boat.StopTargeting();
+    }
+
+    public void StopCurrentInteractions()
+    {
+        if (interactible)
+        {
+            if (interactibleState == EInteractibleState.CLICKED)
+                ExitInterfaceRotation();
+            else if (interactibleState == EInteractibleState.DRAGNDROP)
+                DropInteractible();
+        }
     }
 
     void OnBlockInputEvent(BlockInputEvent e)

@@ -28,6 +28,8 @@ public class ScreenManager : MonoBehaviour
     bool tutorial;
     [SerializeField]
     GameObject tutorialPanel;
+    [SerializeField]
+    InputManager inputManager;
 
     [HideInInspector]
     public EScreenType screenType = EScreenType.SEA;
@@ -69,6 +71,9 @@ public class ScreenManager : MonoBehaviour
 
     public IEnumerator Berth(Island island, bool tutorialNow)
     {
+        inputManager.StopCurrentInteractions();
+        inventory.HandleBerth(true);
+
         currentIsland = island;
         tutorial = tutorialNow;
 
@@ -95,6 +100,8 @@ public class ScreenManager : MonoBehaviour
 
     public IEnumerator RelaunchDialogue()
     {
+        inputManager.StopCurrentInteractions();
+        inventory.HandleBerth(true);
         EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
         globalAnimator.SetTrigger("Retalk");
         yield return new WaitForSeconds(1.2f);
@@ -104,7 +111,9 @@ public class ScreenManager : MonoBehaviour
     public IEnumerator TransitionAfterFirstBerth(bool firstEncounter)
     {
         globalAnimator.SetTrigger("EndDialogue");
+
         yield return new WaitForSeconds(1.5f);
+
         if (firstEncounter)
         {
             if (tutorial)
@@ -122,6 +131,8 @@ public class ScreenManager : MonoBehaviour
         }
         else
             EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
+
+        inventory.HandleBerth(false);
     }
 
     public void LeaveIsland()

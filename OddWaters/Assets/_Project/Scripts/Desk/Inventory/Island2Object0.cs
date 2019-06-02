@@ -22,6 +22,9 @@ public class Island2Object0 : Interactible
     Vector3 targetFloatPos;
     Roll roll;
 
+    bool onIsland;
+    Vector3 beforeDialoguePos;
+
     float angleFactor;
     public float currentAngle;
     public float currentPercentage;
@@ -37,6 +40,7 @@ public class Island2Object0 : Interactible
         activated = false;
         tracking = false;
         angleFactor = 1.0f / maxTotalAngle;
+        onIsland = false;
     }
 
     void OnEnable()
@@ -76,7 +80,7 @@ public class Island2Object0 : Interactible
                 floating = false;
             }
 
-            if (floating && !zoom && !grabbed)
+            if (floating && !zoom && !grabbed && !onIsland)
             {
                 targetFloatPos = beginFloatPos;
                 targetFloatPos.y += maxHeight * currentPercentage;
@@ -183,6 +187,26 @@ public class Island2Object0 : Interactible
     {
         yield return new WaitForSeconds(delay);
         roll.enabled = true;
+    }
+
+    public void HandleBerth(bool berth)
+    {
+        if (tracking || activated)
+        {
+            onIsland = berth;
+
+            if (onIsland)
+            {
+                roll.enabled = false;
+                beforeDialoguePos = transform.position;
+                transform.position = beginFloatPos;
+            }
+            else if (!onIsland)
+            {
+                transform.position = beforeDialoguePos;
+                roll.enabled = true;
+            }
+        }
     }
 
     void OnMegaTyphoonActivatedEvent(MegaTyphoonActivatedEvent e)

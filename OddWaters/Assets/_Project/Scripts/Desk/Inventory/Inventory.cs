@@ -53,6 +53,17 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void HandleBerth(bool berth)
+    {
+        if (previousObject)
+        {
+            Island2Object0 lastObject = previousObject.GetComponent<Island2Object0>();
+            if (lastObject)
+                lastObject.gameObject.SetActive(!berth);
+                //lastObject.HandleBerth(berth);
+        }
+    }
+
     public bool TradeObjects(GameObject prefab)
     {
         prefabToGive = prefab;
