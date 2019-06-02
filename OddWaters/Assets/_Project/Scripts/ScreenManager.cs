@@ -112,7 +112,11 @@ public class ScreenManager : MonoBehaviour
     {
         globalAnimator.SetTrigger("EndDialogue");
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1);
+
+        inventory.HandleBerth(false);
+
+        yield return new WaitForSeconds(0.5f);
 
         if (firstEncounter)
         {
@@ -131,8 +135,6 @@ public class ScreenManager : MonoBehaviour
         }
         else
             EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
-
-        inventory.HandleBerth(false);
     }
 
     public void LeaveIsland()

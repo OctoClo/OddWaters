@@ -59,8 +59,7 @@ public class Inventory : MonoBehaviour
         {
             Island2Object0 lastObject = previousObject.GetComponent<Island2Object0>();
             if (lastObject)
-                lastObject.gameObject.SetActive(!berth);
-                //lastObject.HandleBerth(berth);
+                lastObject.HandleBerth(berth);
         }
     }
 

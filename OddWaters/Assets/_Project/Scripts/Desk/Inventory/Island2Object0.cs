@@ -199,10 +199,11 @@ public class Island2Object0 : Interactible
             {
                 roll.enabled = false;
                 beforeDialoguePos = transform.position;
-                transform.position = beginFloatPos;
+                rigidBody.useGravity = true;
             }
             else if (!onIsland)
             {
+                rigidBody.useGravity = false;
                 transform.position = beforeDialoguePos;
                 roll.enabled = true;
             }
