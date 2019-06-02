@@ -35,6 +35,8 @@ public class TelescopeElement : MonoBehaviour
     public int angleToBoat;
     public bool inSight = false;
 
+    bool megaTyphoon;
+
     public void Trigger(bool tutorial, TutorialManager tutorialManager)
     {
         triggerActive = false;
@@ -46,12 +48,13 @@ public class TelescopeElement : MonoBehaviour
     {
         if (audio)
         {
-            audioPlayer = elementDiscover.name.Equals("MegaTyphoon") ? CursorManager.Instance.gameObject : gameObject;
+            megaTyphoon = elementDiscover.name.Equals("MegaTyphoon");
+            audioPlayer = megaTyphoon ? CursorManager.Instance.gameObject : gameObject;
 
             if (playClue)
                 AkSoundEngine.PostEvent("Play_Clue_" + name, audioPlayer);
 
-            if (elementDiscover.name.Equals("MegaTyphoon"))
+            if (megaTyphoon)
                 EventManager.Instance.Raise(new MegaTyphoonActivatedEvent() { element = this });
         }
     }

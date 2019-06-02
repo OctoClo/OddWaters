@@ -113,7 +113,7 @@ public class ScreenManager : MonoBehaviour
             // Add object to inventory
             objectToGive = currentIsland.objectToGive;
             bool waitLonger = inventory.TradeObjects(objectToGive, currentIsland.islandNumber);
-            yield return new WaitForSeconds(2.5f + (waitLonger ? 1 : 0));
+            yield return new WaitForSeconds(1.2f + (waitLonger ? 1 : 0));
 
             // Discover new zone
             nextZone = currentIsland.nextZone;

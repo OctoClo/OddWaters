@@ -43,11 +43,11 @@ public class Roll : MonoBehaviour
     void OnEnable()
     {
         initialPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        elapsedTime = 0;
     }
 
     void Update()
     {
-
         elapsedTime += Time.deltaTime;
 
         xOffset = transform.position.x - initialPos.x;
@@ -64,8 +64,9 @@ public class Roll : MonoBehaviour
         transform.position = new Vector3(initialPos.x + xOffset, initialPos.y + yOffset, transform.position.z + zOffset);
 
         if (rotation)
+        {
             rotationOffset = Mathf.Sin(elapsedTime * (rotationSpeed / 100)) * (rotationAmp / 100);
-
-        transform.localEulerAngles = new Vector3(0f, 0f, rotationOffset);
+            transform.localEulerAngles = new Vector3(0f, 0f, rotationOffset);
+        }
     }
 }

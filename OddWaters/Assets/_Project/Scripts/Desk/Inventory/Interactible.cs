@@ -21,7 +21,8 @@ public class Interactible : MonoBehaviour
     [Header("Offsets")]
     [SerializeField]
     [Range(2, 20)]
-    int zoomOffset = 4;
+    protected int zoomOffset = 4;
+    protected float currentZoomOffset;
     [SerializeField]
     [Range(0.01f, 0.5f)]
     float grabOffset = 0.1f;
@@ -29,7 +30,7 @@ public class Interactible : MonoBehaviour
     [Header("Rotations")]
     [SerializeField]
     [Range(1, 4)]
-    float rotationSpeed = 3f;
+    protected float rotationSpeed = 3f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
 
@@ -39,24 +40,26 @@ public class Interactible : MonoBehaviour
 
     [HideInInspector]
     public bool grabbable = false;
+    protected bool grabbed = false;
 
     [HideInInspector]
     public bool rotating;
-    Quaternion rotationBefore;
-    Quaternion rotationAfter;
+    protected Quaternion rotationBefore;
+    protected Quaternion rotationAfter;
     float rotationTime = 0;
-    float currentRotationSpeed;
+    protected float currentRotationSpeed;
 
     Camera mainCamera;
-    Rigidbody rigidBody;
-    BoxCollider boxCollider;
+    protected Rigidbody rigidBody;
+    protected BoxCollider boxCollider;
 
-    bool zoom;
-    Vector3 beforeZoomPosition;
+    // Rotation interface
+    protected bool zoom;
+    protected Vector3 beforeZoomPosition;
     Vector3 zoomPosition;
-    Transform inventory;
+    protected Transform inventory;
 
-    void Start()
+    protected virtual void Start()
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
@@ -65,6 +68,7 @@ public class Interactible : MonoBehaviour
         currentRotationSpeed = rotationSpeed;
         inventory = transform.parent;
         soundMaterial.SetValue(gameObject);
+        currentZoomOffset = zoomOffset;
 
         if (transcriptJSONRecto != null)
             transcriptRecto = JsonUtility.FromJson<Transcript>(transcriptJSONRecto.text);
@@ -75,24 +79,20 @@ public class Interactible : MonoBehaviour
         side = 0;
     }
 
-    public virtual void Trigger()
-    {
-
-    }
-
-    public bool IsGrabbable()
+    public virtual bool IsGrabbable()
     {
         return (rigidBody.velocity.sqrMagnitude <= 0.5f);
     }
 
-    public void Grab()
+    public virtual void Grab()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = false;
         transform.position = GetGrabbedPosition();
+        grabbed = true;
     }
 
-    public Vector3 GetGrabbedPosition()
+    public virtual Vector3 GetGrabbedPosition()
     {
         Vector3 position = mainCamera.transform.position - gameObject.transform.position;
         position.Normalize();
@@ -106,10 +106,11 @@ public class Interactible : MonoBehaviour
         rigidBody.velocity = (newPosition - transform.position) * 15;
     }
 
-    public void Drop()
+    public virtual void Drop()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = true;
+        grabbed = false;
     }
 
     public void Rotate(int axis, int direction)
@@ -147,7 +148,7 @@ public class Interactible : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (rotating)
         {
@@ -183,13 +184,14 @@ public class Interactible : MonoBehaviour
         return 0;
     }
 
-    public void EnterRotationInterface()
+    public virtual void EnterRotationInterface()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = true;
         rigidBody.useGravity = false;
+        boxCollider.isTrigger = true;
         beforeZoomPosition = gameObject.transform.position;
-        zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + zoomOffset, 0);
+        zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + currentZoomOffset, 0);
         gameObject.transform.position = zoomPosition;
 
         inspectionInterface.InitializeInterface(transcriptRecto, transcriptVerso, side);
@@ -202,19 +204,21 @@ public class Interactible : MonoBehaviour
         transform.SetParent(null);
     }
 
-    public void ExitRotationInterface()
+    public virtual void ExitRotationInterface()
     {
-        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         if (rotating)
         {
             rotating = false;
             currentRotationSpeed = rotationSpeed;
             transform.rotation = rotationAfter;
         }
+
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
+        zoom = false;
+        transform.parent = inventory;
+        boxCollider.isTrigger = false;
         beforeZoomPosition.y += 0.5f;
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
-        zoom = false;
-        transform.parent = inventory;
     }
 }
