@@ -119,14 +119,12 @@ public class Island2Object0 : Interactible
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
        
-        if (tracking)
+        if (tracking || activated)
         {
             roll.enabled = true;
             beginFloatPos.x = transform.position.x;
             beginFloatPos.z = transform.position.z;
         }
-        else if (activated)
-            StartCoroutine(WaitBeforeEnablingRoll(0.5f));
 
         grabbed = false;
 

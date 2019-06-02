@@ -298,7 +298,8 @@ public class NavigationManager : MonoBehaviour
             }
 
             // Stone magnetism
-            RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<Island>() == null);
+            RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<MapElement>().magnetism &&
+                                                                  hit.collider.GetComponentInParent<Island>() == null);
             distanceToTarget = (stone.point - boat.transform.position).sqrMagnitude;
             if (stone.collider && distanceToTarget <= maxDistanceSqr)
             {

@@ -121,9 +121,8 @@ public class Boat : MonoBehaviour
         if (needTelescopeRefresh)
             EventManager.Instance.Raise(new BoatAsksTelescopeRefreshEvent() { element = element });
 
-        ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
-        if (viewZone.GetComponentInParent<MapElement>().magnetism)
-            EventManager.Instance.Raise(new BoatInMapElementEvent() { exit = false, elementZone = viewZone });
+        if (element.magnetism)
+            EventManager.Instance.Raise(new BoatInMapElementEvent() { exit = false, elementZone = element.GetComponentInChildren<ElementViewZone>() });  
     }
 
     public void ElementNoMoreInSight(MapElement element)
@@ -131,9 +130,8 @@ public class Boat : MonoBehaviour
         if (elementsInSight.Contains(element))
             elementsInSight.Remove(element);
 
-        ElementViewZone viewZone = element.GetComponentInChildren<ElementViewZone>();
-        if (viewZone.GetComponentInParent<MapElement>().magnetism)
-            EventManager.Instance.Raise(new BoatInMapElementEvent() { exit = true, elementZone = viewZone });
+        if (element.magnetism)
+            EventManager.Instance.Raise(new BoatInMapElementEvent() { exit = true, elementZone = element.GetComponentInChildren<ElementViewZone>() });
     }
 
     public List<MapElement> GetElementsInSight()
