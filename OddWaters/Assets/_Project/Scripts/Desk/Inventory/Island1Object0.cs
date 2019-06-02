@@ -61,7 +61,7 @@ public class Island1Object0 : MonoBehaviour
 
             currentColor = Color.Lerp(inactiveColor, activeColor, currentPercentage);
             for (int i = 0; i < renderersCount; i++)
-                materials[i].SetColor("_EmissionColor", currentColor);
+                materials[i].SetColor("_EmissionColor", currentColor * 5);
         }
     }
 

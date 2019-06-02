@@ -879,7 +879,7 @@ MonoBehaviour:
   - {fileID: 4536593082737790040}
   - {fileID: 4536593082737790034}
   - {fileID: 4536593082737790028}
-  maxDistanceToStone: 3
+  maxDistanceToStone: 5
   currentStone: {fileID: 0}
   currentPercentage: 0
 --- !u!65 &3870498407491393678
