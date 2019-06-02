@@ -73,6 +73,7 @@ public class InputManager : MonoBehaviour
     bool blockInput;
     bool navigating;
     bool dialogueOngoing;
+    bool pause;
 
     void Start()
     {
@@ -92,6 +93,7 @@ public class InputManager : MonoBehaviour
         firstTelescopeMove = true;
         telescopeDrag = false;
         telescopeDragFromWheel = false;
+        pause = false;
     }
 
     void OnEnable()
@@ -259,10 +261,6 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
-
-        // Dialogue
-        if (dialogueOngoing && Input.GetMouseButtonDown(0))
-            dialogueManager.NextLine();
 
         // Telescope drag
         if (telescopeDrag)
@@ -459,12 +457,19 @@ public class InputManager : MonoBehaviour
 
     public void ToggleOptions()
     {
-        pauseObject.SetActive(!pauseObject.activeInHierarchy);
-        if (pauseObject.activeInHierarchy)
+        pause = !pause;
+        pauseObject.SetActive(pause);
+
+        if (pause)
+        {
             AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
+            AkSoundEngine.SetState("Pause", "Pause");
+        }
         else
+        {
             AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
-        AkSoundEngine.SetState("Pause", pauseObject.activeInHierarchy ? "Pause" : "InGame");
+            AkSoundEngine.SetState("Pause", "InGame");
+        }
     }
 
     public void MouseEnters()
