@@ -51,7 +51,7 @@ public class Interactible : MonoBehaviour
 
     Camera mainCamera;
     protected Rigidbody rigidBody;
-    protected BoxCollider boxCollider;
+    protected Collider[] colliders;
 
     // Rotation interface
     protected bool zoom;
@@ -63,7 +63,7 @@ public class Interactible : MonoBehaviour
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
-        boxCollider = GetComponent<BoxCollider>();
+        colliders = GetComponents<Collider>();
         rotating = false;
         currentRotationSpeed = rotationSpeed;
         inventory = transform.parent;
@@ -120,7 +120,9 @@ public class Interactible : MonoBehaviour
         if (angle != 0)
         {
             AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
-            boxCollider.enabled = false;
+
+            foreach (Collider collider in colliders)
+                collider.enabled = false;
 
             rotating = true;
             rotationTime = 0;
@@ -162,7 +164,8 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
-                boxCollider.enabled = true;
+                foreach (Collider collider in colliders)
+                    collider.enabled = true;
                 inspectionInterface.SetButtonsInteractable(true);
 
                 if (switchTranscriptSide)
@@ -189,7 +192,8 @@ public class Interactible : MonoBehaviour
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = true;
         rigidBody.useGravity = false;
-        boxCollider.isTrigger = true;
+        foreach (Collider collider in colliders)
+            collider.isTrigger = true;
         beforeZoomPosition = gameObject.transform.position;
         zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + currentZoomOffset, 0);
         gameObject.transform.position = zoomPosition;
@@ -216,7 +220,8 @@ public class Interactible : MonoBehaviour
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = false;
         transform.parent = inventory;
-        boxCollider.isTrigger = false;
+        foreach (Collider collider in colliders)
+            collider.isTrigger = false;
         beforeZoomPosition.y += 0.5f;
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;

@@ -31,7 +31,7 @@ public class Inventory : MonoBehaviour
     int islandNumber;
     GameObject prefabToGive;
     GameObject newObject;
-    BoxCollider boxCollider;
+    Collider[] colliders;
     Rigidbody rb;
 
     bool moving;
@@ -49,7 +49,7 @@ public class Inventory : MonoBehaviour
 
         if (previousObject)
         {
-            boxCollider = previousObject.GetComponent<BoxCollider>();
+            colliders = previousObject.GetComponents<Collider>();
             rb = previousObject.GetComponent<Rigidbody>();
         }
     }
@@ -64,7 +64,8 @@ public class Inventory : MonoBehaviour
             moving = true;
             move = EMoveType.GIVE_FIRST_STEP;
 
-            boxCollider.isTrigger = true;
+            foreach (Collider collider in colliders)
+                collider.isTrigger = true;
             rb.useGravity = false;
             rb.drag = 0;
 
@@ -88,8 +89,9 @@ public class Inventory : MonoBehaviour
             newObject = Instantiate(prefabToGive, transform);
             previousObject = newObject;
 
-            boxCollider = newObject.GetComponent<BoxCollider>();
-            boxCollider.isTrigger = true;
+            colliders = newObject.GetComponents<Collider>();
+            foreach (Collider collider in colliders)
+                collider.isTrigger = true;
 
             rb = newObject.GetComponent<Rigidbody>();
             rb.useGravity = false;
@@ -133,7 +135,8 @@ public class Inventory : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.useGravity = true;
                 rb.drag = drag;
-                boxCollider.isTrigger = false;
+                foreach (Collider collider in colliders)
+                    collider.isTrigger = false;
                 moving = false;
                 waiting = true;
             }

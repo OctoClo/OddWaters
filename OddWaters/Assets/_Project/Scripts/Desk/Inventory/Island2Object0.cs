@@ -166,7 +166,8 @@ public class Island2Object0 : Interactible
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = false;
         transform.parent = inventory;
-        boxCollider.isTrigger = false;
+        foreach (Collider collider in colliders)
+            collider.isTrigger = false;
 
         if (tracking || activated)
             StartCoroutine(WaitBeforeEnablingRoll(0.5f));
