@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1028,7 +1028,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
@@ -1053,7 +1053,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 39085360
+      value: 5530928
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
@@ -2961,7 +2961,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
@@ -2986,7 +2986,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 173303088
+      value: 4099171632
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
@@ -3336,7 +3336,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
@@ -3361,7 +3361,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 39085360
+      value: 173303088
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
@@ -7112,7 +7112,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
@@ -7137,7 +7137,7 @@ PrefabInstance:
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 391406896
+      value: 4283721008
       objectReference: {fileID: 0}
     - target: {fileID: 8663361289482224344, guid: bd1f684a5fbaab24c9ad013be022d117,
         type: 3}
