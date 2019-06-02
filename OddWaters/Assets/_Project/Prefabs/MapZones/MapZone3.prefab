@@ -988,7 +988,7 @@ MonoBehaviour:
     ID: 0
     valueGuid: 00000000000000000000000000000000
   elementSprite: {fileID: 21300000, guid: 8f089796c96b9084581cbee7d2bfb12c, type: 3}
-  layer: 4
+  layer: 1
   discovered: 0
 --- !u!1 &7377196524161030120
 GameObject:
