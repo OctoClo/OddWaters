@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cutscenes : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class Cutscenes : MonoBehaviour
         gameManager.IntroEnded();
     }
 
-    void OutroEnded()
+    public void OutroEnded()
     {
-
+        SceneManager.LoadScene("StartupMenu");
     }
 }

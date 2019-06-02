@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
 
     void OnGameFinishedEvent(GameFinishedEvent e)
     {
+        cutsceneAnimator.gameObject.SetActive(true);
+        cutsceneAnimator.Play("Default");
         cutsceneAnimator.SetTrigger("Outro");
     }
 }
