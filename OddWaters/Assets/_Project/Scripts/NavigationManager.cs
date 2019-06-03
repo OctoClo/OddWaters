@@ -275,78 +275,82 @@ public class NavigationManager : MonoBehaviour
     {
         if (!lastZone)
         {
-            insideGoal = false;
             Vector3 journey = targetPos - boat.transform.position;
             float distance = journey.magnitude;
-
-            Vector3 rayOrigin = targetPos;
-            rayOrigin.y += 1;
-            RaycastHit[] hitsAtTarget = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
-
-            if (goalCollider && hitsAtTarget.Any(hit => ReferenceEquals(hit.collider.gameObject, goalCollider.gameObject)))
-                insideGoal = true;
-
-            // Visible island at target position
-            RaycastHit island = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);
-            float distanceToTarget = (island.point - boat.transform.position).sqrMagnitude;
-            if (island.collider && distanceToTarget <= maxDistanceSqr)
+            float clampedDistance = distance;
+            if (clampedDistance > maxDistance)
             {
-                lastValidCursorPos = targetPos;
-                lastValidTarget = island.transform.position;
-                lastValidTargetZone = island.collider.GetComponent<Island>().islandNumber;
-                return ENavigationResult.ISLAND;
+                targetPos = FindMaxDistanceOnTrajectory(clampedDistance, targetPos);
+                journey = targetPos - boat.transform.position;
+                clampedDistance = maxDistance;
             }
 
-            // Stone magnetism
-            RaycastHit stone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<MapElement>().magnetism &&
-                                                                  hit.collider.GetComponentInParent<Island>() == null);
-            distanceToTarget = (stone.point - boat.transform.position).sqrMagnitude;
-            if (stone.collider && distanceToTarget <= maxDistanceSqr)
+            insideGoal = false;
+            RaycastHit[] hitsOnJourney = Physics.RaycastAll(boat.transform.position, journey, clampedDistance);
+
+            // Invisible map zone on trajectory?
+            RaycastHit hitInfo = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible);
+            if (hitInfo.collider)
             {
-                lastValidCursorPos = targetPos;
-                lastValidTarget = stone.transform.position;
+                lastValidCursorPos = hitInfo.point;
+                lastValidTarget = hitInfo.point;
+                lastValidTargetZone = hitInfo.collider.GetComponent<MapZone>().zoneNumber;
                 return ENavigationResult.SEA;
-            }
-
-            // Visible map zone
-            RaycastHit mapZone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible);
-            if (mapZone.collider)
-            {
-                lastValidTargetZone = mapZone.collider.GetComponent<MapZone>().zoneNumber;
-                distanceToTarget = (mapZone.point - boat.transform.position).sqrMagnitude;
-
-                if (distanceToTarget <= maxDistanceSqr)
-                {
-                    lastValidCursorPos = targetPos;
-                    lastValidTarget = targetPos;
-                    return ENavigationResult.SEA;
-                }
-                else
-                {
-                    lastValidCursorPos = FindMaxDistanceOnTrajectory(distance, targetPos);
-                    lastValidTarget = lastValidCursorPos;
-                    return ENavigationResult.SEA;
-                }
             }
             else
             {
-                // No map zone visible at target pos
-                RaycastHit[] hitsOnReverseJourney = Physics.RaycastAll(targetPos, -journey, distance);
-                hitsOnReverseJourney = hitsOnReverseJourney.OrderByDescending(hit => Vector3.SqrMagnitude(boat.transform.position - hit.point)).ToArray();
-                mapZone = hitsOnReverseJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().visible);
-                float distanceToBorder = (mapZone.point - boat.transform.position).sqrMagnitude;
-                distanceToTarget = (targetPos - boat.transform.position).sqrMagnitude;
-                if (distanceToTarget <= maxDistanceSqr || distanceToBorder <= maxDistanceSqr)
+                Vector3 rayOrigin = targetPos;
+                rayOrigin.y += 1;
+                RaycastHit[] hitsAtTarget = Physics.RaycastAll(rayOrigin, new Vector3(0, -1, 0), 5);
+
+                // No map zone at target pos?
+                if (!hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>()))
                 {
-                    lastValidCursorPos = mapZone.point;
-                    lastValidTarget = mapZone.point;
+                    hitsOnJourney = Physics.RaycastAll(targetPos, -journey, distance);
+                    hitInfo = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber != map.currentZone && hit.collider.GetComponent<MapZone>().visible);
+                    if (!hitInfo.collider)
+                        hitInfo = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == map.currentZone);
+                    lastValidCursorPos = hitInfo.point;
+                    lastValidTarget = hitInfo.point;
+                    lastValidTargetZone = hitInfo.collider.GetComponent<MapZone>().zoneNumber;
                     return ENavigationResult.SEA;
                 }
                 else
                 {
-                    lastValidCursorPos = FindMaxDistanceOnTrajectory(distance, targetPos);
-                    lastValidTarget = lastValidCursorPos;
-                    return ENavigationResult.SEA;
+                    // Inside tutorial goal?
+                    if (goalCollider && hitsAtTarget.Any(hit => ReferenceEquals(hit.collider.gameObject, goalCollider.gameObject)))
+                        insideGoal = true;
+
+                    // Visible island at target pos?
+                    hitInfo = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<Island>() && hit.collider.GetComponent<Island>().visible && hit.collider.GetComponent<Island>().islandNumber != screenManager.currentIslandNumber);
+                    if (hitInfo.collider)
+                    {
+                        lastValidCursorPos = targetPos;
+                        lastValidTarget = hitInfo.transform.position;
+                        lastValidTargetZone = hitInfo.collider.GetComponent<Island>().islandNumber;
+                        return ENavigationResult.ISLAND;
+                    }
+                    else
+                    {
+                        // MapElement magnetism?
+                        hitInfo = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponentInParent<MapElement>() && hit.collider.GetComponentInParent<MapElement>().magnetism &&
+                                                                     hit.collider.GetComponentInParent<Island>() == null);
+                        if (hitInfo.collider)
+                        {
+                            lastValidCursorPos = targetPos;
+                            lastValidTarget = hitInfo.transform.position;
+                            lastValidTargetZone = hitInfo.collider.GetComponentInParent<MapZone>().zoneNumber;
+                            return ENavigationResult.SEA;
+                        }
+                        else
+                        {
+                            // Sea
+                            lastValidCursorPos = targetPos;
+                            lastValidTarget = targetPos;
+                            lastValidTargetZone = hitsAtTarget.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>()).collider.GetComponent<MapZone>().zoneNumber;
+                            return ENavigationResult.SEA;
+                        }
+                    }
                 }
             }
         }
