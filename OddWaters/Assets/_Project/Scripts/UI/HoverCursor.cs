@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 
 public class HoverCursor : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
+    [SerializeField]
+    bool forceDefaultCursorOnDisable = false;
+
     EventSystem eventSystem;
 
     void Start()
@@ -26,7 +29,7 @@ public class HoverCursor : MonoBehaviour, IPointerExitHandler, IPointerEnterHand
 
     void OnDisable()
     {
-        if (!eventSystem.IsPointerOverGameObject())
+        if (forceDefaultCursorOnDisable || !eventSystem.IsPointerOverGameObject())
             CursorManager.Instance.SetCursor(ECursor.DEFAULT);
     }
 }
