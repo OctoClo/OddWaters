@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     float delayBetweenLetters;
 
+    bool dialogueOngoing;
     Queue<string> lines;
     string currentLine;
     bool typing;
@@ -26,12 +27,14 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        dialogueOngoing = false;
         typing = false;
         lines = new Queue<string>();    
     }
 
     public void StartDialogue(Dialogue dialogue, bool first)
     {
+        dialogueOngoing = true;
         firstEncounter = first;
 
         lines.Clear();
@@ -55,38 +58,41 @@ public class DialogueManager : MonoBehaviour
 
     public void NextLine()
     {
-        if (typing)
+        if (dialogueOngoing)
         {
-            typing = false;
-            StopAllCoroutines();
-            textField.text = currentLine;
-        }
-        else
-        {
-            if (lines.Count == 0)
+            if (typing)
             {
-                EndDialogue();
-                return;
-            }
-
-            currentLine = lines.Dequeue();
-
-            if (currentLine[0] == '*')
-            {
-                textField.fontStyle = FontStyles.Italic;
-                currentLine = currentLine.Substring(1);
+                typing = false;
+                StopAllCoroutines();
+                textField.text = currentLine;
             }
             else
-                textField.fontStyle = FontStyles.Normal;
+            {
+                if (lines.Count == 0)
+                {
+                    EndDialogue();
+                    return;
+                }
 
-            /*typing = true;
-            currentLetterIndex = 0;*/
+                currentLine = lines.Dequeue();
 
-            letters = currentLine.ToCharArray();
-            textField.text = "";
+                if (currentLine[0] == '*')
+                {
+                    textField.fontStyle = FontStyles.Italic;
+                    currentLine = currentLine.Substring(1);
+                }
+                else
+                    textField.fontStyle = FontStyles.Normal;
 
-            StopAllCoroutines();
-            StartCoroutine(TypeLine());
+                /*typing = true;
+                currentLetterIndex = 0;*/
+
+                letters = currentLine.ToCharArray();
+                textField.text = "";
+
+                StopAllCoroutines();
+                StartCoroutine(TypeLine());
+            }
         }
     }
 
@@ -114,6 +120,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        dialogueOngoing = false;
         EventManager.Instance.Raise(new DialogueEvent() { ongoing = false, firstEncounter = firstEncounter });
     }
 }
