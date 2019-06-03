@@ -145,7 +145,7 @@ Transform:
   - {fileID: 2088635794}
   - {fileID: 1261362507}
   m_Father: {fileID: 4240498592487375776}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &12254909 stripped
 GameObject:
@@ -980,9 +980,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingLayerID: 1933946501
+  m_SortingLayer: -1
+  m_SortingOrder: 2
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0.71, y: 1.99, z: 0}
@@ -1433,38 +1433,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
---- !u!84 &225232077
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &227853637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,9 +1770,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 8
+  m_SortingLayerID: 1933946501
+  m_SortingLayer: -1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0dc0fec069b91fa41960c1e15dcbac26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.08235294}
   m_FlipX: 0
@@ -2591,38 +2559,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   language: 0
---- !u!84 &358303305
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &362503023
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,7 +3869,7 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 225232077}
+  shadowMapRenderTexture: {fileID: 1824326821}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
@@ -6362,7 +6298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &885479255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8132,7 +8068,7 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 358303305}
+  shadowMapRenderTexture: {fileID: 1431483052}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
@@ -8290,7 +8226,7 @@ Transform:
   - {fileID: 1603097332}
   - {fileID: 1553221898}
   m_Father: {fileID: 1520678653}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1099321773 stripped
 GameObject:
@@ -8569,7 +8505,7 @@ Transform:
   m_Children:
   - {fileID: 1276025383}
   m_Father: {fileID: 1520678653}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1200305078
 MonoBehaviour:
@@ -9437,8 +9373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681a1061ad593b7499ea30123c4ce3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intro: 1
-  tutorial: 1
+  intro: 0
+  tutorial: 0
   tutorialManager: {fileID: 1136672030}
   cutsceneAnimator: {fileID: 885479258}
   pauseButton: {fileID: 319201177}
@@ -9535,6 +9471,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 359006015784811835}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &1431483052
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1436534902
 GameObject:
   m_ObjectHideFlags: 0
@@ -10080,6 +10048,7 @@ Transform:
   m_LocalPosition: {x: -0.27273345, y: -3.3897238, z: 0.020067334}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1526216872}
   - {fileID: 1091172746}
   - {fileID: 5642983572614519709}
   - {fileID: 4240498592487375776}
@@ -10174,10 +10143,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526216871}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.31, y: 0.10999998, z: -0.080000035}
-  m_LocalScale: {x: 12.748344, y: 6.390009, z: 1}
+  m_LocalPosition: {x: -0.008999974, y: 0.09899998, z: -1.5120002}
+  m_LocalScale: {x: 11.47351, y: 5.75101, z: 0.90000045}
   m_Children: []
-  m_Father: {fileID: 4240498592487375776}
+  m_Father: {fileID: 1520678653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!331 &1526216873
@@ -10219,12 +10188,12 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d695c6680e62d524a8cbcad2cb291d7a, type: 3}
   m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 0
-  m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
-  m_BackSortingLayer: 0
-  m_FrontSortingOrder: 8
-  m_BackSortingOrder: 7
+  m_FrontSortingLayerID: 1933946501
+  m_BackSortingLayerID: 1933946501
+  m_FrontSortingLayer: -1
+  m_BackSortingLayer: -1
+  m_FrontSortingOrder: 5
+  m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
 --- !u!1 &1553221897
@@ -11312,7 +11281,7 @@ Transform:
   - {fileID: 251744802}
   - {fileID: 123005737}
   m_Father: {fileID: 4240498592487375776}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90.00001, y: 126.53, z: -97.23801}
 --- !u!114 &1621107813
 MonoBehaviour:
@@ -11767,7 +11736,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4240498592487375776}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679746781
 GameObject:
@@ -12764,7 +12733,7 @@ Transform:
   m_Children:
   - {fileID: 1197662870}
   m_Father: {fileID: 1520678653}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1803826513
 GameObject:
@@ -12927,6 +12896,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803826513}
   m_CullTransparentMesh: 0
+--- !u!84 &1824326821
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!114 &1825436578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13500,9 +13501,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingLayerID: 1933946501
+  m_SortingLayer: -1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0dc0fec069b91fa41960c1e15dcbac26, type: 3}
   m_Color: {r: 0.6509804, g: 0.29411766, b: 0.13333334, a: 1}
   m_FlipX: 0
@@ -13663,7 +13664,7 @@ Transform:
   - {fileID: 4240498592487375788}
   - {fileID: 4240498592487375790}
   m_Father: {fileID: 4240498592487375776}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1965086193
 BoxCollider:
@@ -14333,7 +14334,7 @@ PrefabInstance:
     - target: {fileID: 7173360024550280814, guid: 6ffbfa15871c7e6439bd57b3af252714,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7173360024550280815, guid: 6ffbfa15871c7e6439bd57b3af252714,
         type: 3}
@@ -15191,7 +15192,7 @@ PrefabInstance:
     - target: {fileID: 2149043043904874349, guid: df1936be9f8012c4a8eb4e95c1a20117,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2149043043904874351, guid: df1936be9f8012c4a8eb4e95c1a20117,
         type: 3}
@@ -15336,13 +15337,12 @@ Transform:
   m_LocalPosition: {x: 0.27, y: 0, z: -1.44}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
-  - {fileID: 1526216872}
   - {fileID: 1965086192}
   - {fileID: 1209866}
   - {fileID: 1621107812}
   - {fileID: 1677813700}
   m_Father: {fileID: 1520678653}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4240498592487375778
 Transform:
@@ -16186,7 +16186,7 @@ Transform:
   - {fileID: 1690376534}
   - {fileID: 1260283856}
   m_Father: {fileID: 1520678653}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5642983572614519711
 Transform:
