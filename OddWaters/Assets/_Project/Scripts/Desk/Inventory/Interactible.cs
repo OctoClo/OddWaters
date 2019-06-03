@@ -221,7 +221,10 @@ public class Interactible : MonoBehaviour
         zoom = false;
         transform.parent = inventory;
         foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
             collider.isTrigger = false;
+        }
         beforeZoomPosition.y += 0.5f;
         gameObject.transform.position = beforeZoomPosition;
         rigidBody.useGravity = true;
