@@ -18,7 +18,10 @@ public class Options : MonoBehaviour
 
     private void Awake()
     {
-        currentAnimator = ENAnimator;
+        if (LanguageManager.Instance.language == ELanguage.ENGLISH)
+            currentAnimator = ENAnimator;
+        else
+            currentAnimator = FRAnimator;
         currentAnimator.SetTrigger("Activate");
     }
 
@@ -44,12 +47,12 @@ public class Options : MonoBehaviour
         if (language.Equals("EN"))
         {
             currentAnimator = ENAnimator;
-            LanguageManager.Instance.language = ELanguage.ENGLISH;
+            LanguageManager.Instance.ChangeLanguage(ELanguage.ENGLISH);
         }
         else
         {
             currentAnimator = FRAnimator;
-            LanguageManager.Instance.language = ELanguage.FRENCH;
+            LanguageManager.Instance.ChangeLanguage(ELanguage.FRENCH);
         }
     }
 

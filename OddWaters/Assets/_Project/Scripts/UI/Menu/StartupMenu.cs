@@ -18,6 +18,7 @@ public class StartupMenu : MonoBehaviour
         if (active)
         {
             Launch();
+            LanguageManager.Instance.UpdateTranslator();
         }
     }
 

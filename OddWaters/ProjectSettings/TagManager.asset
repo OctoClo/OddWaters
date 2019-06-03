@@ -12,6 +12,7 @@ TagManager:
   - Character
   - UpPartCollider
   - SafeZone
+  - Translator
   layers:
   - Default
   - TransparentFX
