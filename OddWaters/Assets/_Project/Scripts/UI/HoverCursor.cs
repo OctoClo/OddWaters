@@ -8,6 +8,8 @@ public class HoverCursor : MonoBehaviour, IPointerExitHandler, IPointerEnterHand
 {
     [SerializeField]
     bool forceDefaultCursorOnDisable = false;
+    [SerializeField]
+    bool playHover = true;
 
     EventSystem eventSystem;
 
@@ -18,7 +20,8 @@ public class HoverCursor : MonoBehaviour, IPointerExitHandler, IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AkSoundEngine.PostEvent("Play_Dots", gameObject);
+        if (playHover)
+            AkSoundEngine.PostEvent("Play_Dots", gameObject);
         CursorManager.Instance.SetCursor(ECursor.HOVER);
     }
 

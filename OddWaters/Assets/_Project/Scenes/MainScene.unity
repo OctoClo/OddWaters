@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &32289962
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &116890817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,6 +1050,38 @@ Transform:
   m_Father: {fileID: 1454082149}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!84 &127884475
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!114 &158097139 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1807566906648291230, guid: 9447aec447add1b45a24bc01330eea1d,
@@ -1441,6 +1475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &227853637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,6 +1833,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5905885807345709938}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &269862750
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &277595177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1984,6 +2051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!114 &302735142 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7160669725754848475, guid: 1e439839996747b4bab3ab7ec566d3f6,
@@ -2218,6 +2286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &321979371
 GameObject:
   m_ObjectHideFlags: 0
@@ -3532,6 +3601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &464722430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,13 +3971,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 1505886882}
+  shadowMapRenderTexture: {fileID: 127884475}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  shadowDataRenderTexture: {fileID: 1720302837}
+  shadowDataRenderTexture: {fileID: 1349600478}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -4962,6 +5032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &691585708
 GameObject:
   m_ObjectHideFlags: 0
@@ -5367,6 +5438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &744454104 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9032263608552378909, guid: 9447aec447add1b45a24bc01330eea1d,
@@ -5662,6 +5734,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!84 &828082905
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &839652700
 GameObject:
   m_ObjectHideFlags: 0
@@ -5898,6 +6002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &863136439 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5627796328167877188, guid: 9447aec447add1b45a24bc01330eea1d,
@@ -5917,6 +6022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &874614193
 GameObject:
   m_ObjectHideFlags: 0
@@ -6008,6 +6114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 1
+  playHover: 0
 --- !u!114 &874614198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6604,38 +6711,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c62aaab0493ae4d4f938ce0f5ec13418, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d283c91a38279b946ad298b8529c6c6b, type: 3}
---- !u!84 &961250974
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &962635537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7214,6 +7289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!114 &1006936256 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 629876287821650925, guid: 9447aec447add1b45a24bc01330eea1d,
@@ -7779,13 +7855,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 961250974}
+  shadowMapRenderTexture: {fileID: 269862750}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.25
   outOfPhaseColor: {r: 0.999999, g: 0.52962387, b: 0.16920221, a: 1}
-  shadowDataRenderTexture: {fileID: 1386416253}
+  shadowDataRenderTexture: {fileID: 828082905}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -7958,6 +8034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!114 &1110065604 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7160669726380700994, guid: 1e439839996747b4bab3ab7ec566d3f6,
@@ -8615,6 +8692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &1302304653
 GameObject:
   m_ObjectHideFlags: 0
@@ -9003,6 +9081,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342034145}
   m_CullTransparentMesh: 0
+--- !u!84 &1349600478
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light 2 : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1353593985
 GameObject:
   m_ObjectHideFlags: 0
@@ -9123,38 +9233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!84 &1386416253
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1387124336
 GameObject:
   m_ObjectHideFlags: 0
@@ -9611,38 +9689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
---- !u!84 &1505886882
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
+  playHover: 1
 --- !u!1 &1508221271
 GameObject:
   m_ObjectHideFlags: 0
@@ -11673,38 +11720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
---- !u!84 &1720302837
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light 2 : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
+  playHover: 1
 --- !u!1 &1741706509
 GameObject:
   m_ObjectHideFlags: 0
@@ -14497,6 +14513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &2107019488
 GameObject:
   m_ObjectHideFlags: 0
@@ -14806,6 +14823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1 &2117119721
 GameObject:
   m_ObjectHideFlags: 0
@@ -14885,6 +14903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceDefaultCursorOnDisable: 0
+  playHover: 1
 --- !u!1001 &359006015784811835
 PrefabInstance:
   m_ObjectHideFlags: 0
