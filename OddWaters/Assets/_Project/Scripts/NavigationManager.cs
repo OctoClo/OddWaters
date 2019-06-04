@@ -84,14 +84,12 @@ public class NavigationManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.Instance.AddListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);    
-        EventManager.Instance.AddListener<BoatInMapElementEvent>(OnBoatInMapElement);    
+        EventManager.Instance.AddListener<BoatInMapElementEvent>(OnBoatInMapElement);
         EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);    
     }
 
     void OnDisable()
     {
-        EventManager.Instance.RemoveListener<BoatInTyphoonEvent>(OnBoatInTyphoonEvent);
         EventManager.Instance.RemoveListener<BoatInMapElementEvent>(OnBoatInMapElement);
         EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
     }
@@ -113,9 +111,16 @@ public class NavigationManager : MonoBehaviour
             if (journey.sqrMagnitude <= 0.0005f)
             {
                 navigating = false;
-                
+
+                // If typhoon at end of journey
+                if (boatScript.inATyphoon && !fromTyphoon)
+                {
+                    Debug.Log("Boat in typhoon!");
+                    AkSoundEngine.PostEvent("Play_Typhon", gameObject);
+                    StartCoroutine(WaitBeforeGoingToInitialPos(boatScript.typhoon));
+                }
                 // If correct position
-                if (!boatScript.inATyphoon && !lastZone)
+                else if (!lastZone)
                 {
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
                     AkSoundEngine.PostEvent("Stop_Typhon", gameObject);
@@ -156,27 +161,23 @@ public class NavigationManager : MonoBehaviour
                 float distCovered = (Time.time - journeyBeginTime) * currentSpeed;
                 float fracJourney = distCovered / journeyLength;
                 boat.transform.position = Vector3.Lerp(boat.transform.position, journeyTarget, fracJourney);
-            }
-        }
-    }
 
-    void OnBoatInTyphoonEvent(BoatInTyphoonEvent e)
-    {
-        if (e.safe)
-            e.typhoon.GetComponent<Renderer>().enabled = true;
-        else
-        {
-            Debug.Log("Boat in typhoon!");
-            AkSoundEngine.PostEvent("Play_Typhon", gameObject);
-            StartCoroutine(WaitBeforeGoingToInitialPos(e.typhoon));
+                // Typhoon
+                if (boatScript.inATyphoon && !fromTyphoon)
+                {
+                    Debug.Log("Boat in typhoon!");
+                    AkSoundEngine.PostEvent("Play_Typhon", gameObject);
+                    StartCoroutine(WaitBeforeGoingToInitialPos(boatScript.typhoon));
+                }
+            }
         }
     }
 
     IEnumerator WaitBeforeGoingToInitialPos(GameObject typhoon)
     {
+        fromTyphoon = true;
         yield return new WaitForSeconds(0.5f);
         typhoon.GetComponent<Renderer>().enabled = true;
-        fromTyphoon = true;
         LaunchNavigation(lastValidPosition.transform.position, lastValidPositionZone, false);
     }
 

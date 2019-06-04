@@ -22,15 +22,14 @@ public class Boat : MonoBehaviour
     SpriteRenderer[] spriteRenderers;
     List<MapElement> elementsInSight;
 
-    [HideInInspector]
+    public bool safeZone;
     public bool inATyphoon;
+    [HideInInspector]
+    public GameObject typhoon;
     [HideInInspector]
     public bool onAnIsland;
     [HideInInspector]
     public Island currentIsland;
-
-    [HideInInspector]
-    public bool safeZone;
 
     [Header("References")]
     [SerializeField]

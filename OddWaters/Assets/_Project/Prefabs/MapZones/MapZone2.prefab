@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 2
-  visible: 1
+  visible: 0
   seaIntensity:
     ID: 739190283
     valueGuid: 6a48c3fc3bd9d34cb2b0f9af53e035b5
