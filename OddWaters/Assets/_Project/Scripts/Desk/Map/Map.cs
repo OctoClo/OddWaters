@@ -63,6 +63,11 @@ public class Map : MonoBehaviour
         return mapZones[currentZone].GetPanorama();
     }
 
+    public ERainType GetCurrentRain()
+    {
+        return mapZones[currentZone].rain;
+    }
+
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)
     {
         Debug.Log("Discovered zone n°" + e.zoneNumber);

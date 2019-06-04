@@ -16,6 +16,7 @@ public class MapZone : MonoBehaviour
     [SerializeField]
     List<GameObject> telescopePanoramas;
     int currentPanoramaIndex = -1;
+    public ERainType rain;
 
     [Header("Activation")]
     [SerializeField]

@@ -97,7 +97,7 @@ public class NavigationManager : MonoBehaviour
     public IEnumerator InitializeTelescopeElements()
     {
         yield return new WaitForSeconds(0.1f);
-        telescope.RefreshElements(boat.transform.position, map.GetCurrentPanorama());
+        telescope.RefreshElements(boat.transform.position, map.GetCurrentPanorama(), map.GetCurrentRain());
     }
 
     void Update()
@@ -125,7 +125,6 @@ public class NavigationManager : MonoBehaviour
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
                     AkSoundEngine.PostEvent("Stop_Typhon", gameObject);
                     lightScript.rotateDegreesPerSecond.value.y = 0;
-                    telescope.RefreshElements(journeyTarget, map.GetCurrentPanorama());
 
                     // Save position
                     lastValidPosition.transform.position = boat.transform.position;
@@ -139,6 +138,7 @@ public class NavigationManager : MonoBehaviour
                     {
                         //EndJourneyAtSea
                         screenManager.EndNavigationAtSea();
+                        telescope.RefreshElements(journeyTarget, map.GetCurrentPanorama(), map.GetCurrentRain());
                         EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
 
                         if (goalCollider && insideGoal)
@@ -232,7 +232,7 @@ public class NavigationManager : MonoBehaviour
             boat.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, 0);
 
             // Dezoom
-            telescope.ResetZoom();
+            telescope.StartNavigation();
 
             if (onIsland)
             {

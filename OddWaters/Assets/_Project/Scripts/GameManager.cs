@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     void PlayIntro()
     {
         AkSoundEngine.PostEvent("Play_Intro", gameObject);
+        cutsceneAnimator.gameObject.SetActive(true);
         cutsceneAnimator.SetTrigger("Intro");
     }
 

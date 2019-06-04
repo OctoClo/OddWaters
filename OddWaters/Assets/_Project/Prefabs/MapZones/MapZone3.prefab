@@ -316,6 +316,7 @@ MonoBehaviour:
   - {fileID: 2398998879646468237, guid: 9604f1aa03c0ed94c959f0cac16d24a6, type: 3}
   - {fileID: 3353761379007792927, guid: 0db0c913e52f6d841badc13db508e1aa, type: 3}
   - {fileID: 2229159857197820432, guid: d833fd2ee2875c1428bff3b0d8743763, type: 3}
+  rain: 1
   elementsToHide:
   - {fileID: 8795863432182471390}
   clouds: {fileID: 9162881260408406117}

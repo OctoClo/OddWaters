@@ -7,7 +7,8 @@ public enum ELayer
     SEA,
     WATER3,
     WATER2,
-    WATER1
+    WATER1,
+    RAIN
 };
 
 public class Telescope : MonoBehaviour
@@ -73,6 +74,8 @@ public class Telescope : MonoBehaviour
     Vector3 scaleContainerTarget;
     float zoomAnimationAlpha;
 
+    RainManager rainManager;
+
     void Start()
     {
         // Find layers
@@ -107,7 +110,7 @@ public class Telescope : MonoBehaviour
         EventManager.Instance.RemoveListener<BoatAsksTelescopeRefreshEvent>(OnBoatAsksTelescopeRefreshEvent);
     }
 
-    public void ResetZoom()
+    void ResetZoom()
     {
         wheelZoomLevel = 0;
         zoom = false;
@@ -250,18 +253,27 @@ public class Telescope : MonoBehaviour
             layers[i].ResetPosition();
     }
 
-    public void RefreshElements(Vector3 target, GameObject panorama)
+    public void StartNavigation()
+    {
+        ResetZoom();
+        rainManager.UpdateRain(ERainType.NONE);
+    }
+
+    public void RefreshElements(Vector3 target, GameObject panorama, ERainType rain)
     {
         // Update panorama
         foreach (Transform child in layersContainer)
             Destroy(child.gameObject);
 
-        GameObject layer;
+        GameObject layer = null;
         for (int i = 0; i < panorama.transform.childCount; i++)
         {
             layer = Instantiate(panorama.transform.GetChild(i).gameObject, layersContainer);
             layers[i] = layer.GetComponent<TelescopeLayer>();
         }
+
+        rainManager = layer.GetComponent<RainManager>();
+        rainManager.UpdateRain(rain);
 
         ResetPosition();
 
@@ -298,7 +310,7 @@ public class Telescope : MonoBehaviour
         if (element.layer == ELayer.HORIZON)
             spriteRenderer.sortingOrder = 3;
         else
-            spriteRenderer.sortingOrder = 5;
+            spriteRenderer.sortingOrder = 6;
 
         telescopeElementObject1.transform.parent = layers[(int)element.layer].children[0];
         telescopeElementObject1.transform.rotation = Quaternion.Euler(90, 0, 0);

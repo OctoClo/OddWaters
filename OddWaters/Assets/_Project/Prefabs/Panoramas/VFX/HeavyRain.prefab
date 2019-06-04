@@ -1,11 +1,101 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2585820887439986340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5724248969370413685}
+  - component: {fileID: 5701313801131759000}
+  - component: {fileID: 5253680899713482719}
+  - component: {fileID: 7010869363936261389}
+  m_Layer: 0
+  m_Name: Collider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5724248969370413685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585820887439986340}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.23}
+  m_LocalScale: {x: 37.46, y: 1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 3004228721978101900}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5701313801131759000
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585820887439986340}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &5253680899713482719
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585820887439986340}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7010869363936261389
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585820887439986340}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &3004228722092901160
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822772921168257, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -13,7 +103,7 @@ GameObject:
   - component: {fileID: 3004228722092901167}
   - component: {fileID: 3004228722092901166}
   m_Layer: 0
-  m_Name: Raindrop_1
+  m_Name: Raindrop1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22,13 +112,12 @@ GameObject:
 --- !u!4 &3004228722092901161
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822772921168256, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228722092901160}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 7.88, y: -2.75, z: 8.93}
+  m_LocalPosition: {x: 0.26, y: 0, z: 3.13}
   m_LocalScale: {x: 1, y: 1, z: 1.7542}
   m_Children: []
   m_Father: {fileID: 3004228721978101900}
@@ -37,9 +126,8 @@ Transform:
 --- !u!198 &3004228722092901167
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822772921168258, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228722092901160}
   serializedVersion: 6
@@ -3690,7 +3778,7 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 1
-    collisionShape0: {fileID: 3004228724025913149}
+    collisionShape0: {fileID: 5724248969370413685}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -4643,9 +4731,8 @@ ParticleSystem:
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822772921168259, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228722092901160}
   m_Enabled: 1
@@ -4705,15 +4792,14 @@ ParticleSystemRenderer:
 --- !u!1 &3004228722202225544
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822772028902084, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3004228721978101900}
   m_Layer: 0
-  m_Name: RainVFX
+  m_Name: HeavyRain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4722,12 +4808,11 @@ GameObject:
 --- !u!4 &3004228721978101900
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228722202225544}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4738,15 +4823,15 @@ Transform:
   - {fileID: 3004228723870113289}
   - {fileID: 3004228723712579207}
   - {fileID: 3004228724025913149}
+  - {fileID: 5724248969370413685}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3004228723032283558
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8828898596607599515, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -4754,7 +4839,7 @@ GameObject:
   - component: {fileID: 3004228723032283557}
   - component: {fileID: 3004228723032283556}
   m_Layer: 0
-  m_Name: Raindrop_2
+  m_Name: Raindrop2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4763,13 +4848,12 @@ GameObject:
 --- !u!4 &3004228723032283559
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 3598423120930709055, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723032283558}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.6959505, y: -3, z: 8.4017}
+  m_LocalPosition: {x: -1.9240499, y: 0, z: 2.6016996}
   m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 3004228721978101900}
@@ -4778,9 +4862,8 @@ Transform:
 --- !u!198 &3004228723032283557
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 3209662871386967057, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723032283558}
   serializedVersion: 6
@@ -8431,7 +8514,7 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 1
-    collisionShape0: {fileID: 3004228724025913149}
+    collisionShape0: {fileID: 5724248969370413685}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -9384,9 +9467,8 @@ ParticleSystem:
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8165396488435165611, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723032283558}
   m_Enabled: 1
@@ -9446,9 +9528,8 @@ ParticleSystemRenderer:
 --- !u!1 &3004228723706161685
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822773111524079, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -9456,7 +9537,7 @@ GameObject:
   - component: {fileID: 3004228723706161688}
   - component: {fileID: 3004228723706161691}
   m_Layer: 0
-  m_Name: Raindrop_4
+  m_Name: Raindrop4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9465,13 +9546,12 @@ GameObject:
 --- !u!4 &3004228723706161690
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822773111524078, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723706161685}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.6959505, y: -3, z: 8.4017}
+  m_LocalPosition: {x: -1.9240499, y: 0, z: 2.6016996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3004228721978101900}
@@ -9480,9 +9560,8 @@ Transform:
 --- !u!198 &3004228723706161688
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822773111524064, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723706161685}
   serializedVersion: 6
@@ -13133,7 +13212,7 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 1
-    collisionShape0: {fileID: 3004228724025913149}
+    collisionShape0: {fileID: 5724248969370413685}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -14086,9 +14165,8 @@ ParticleSystem:
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822773111524065, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723706161685}
   m_Enabled: 1
@@ -14171,7 +14249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723712579206}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 7.74, y: -2.76, z: 3.98}
+  m_LocalPosition: {x: 0.11999935, y: 0, z: -1.4350007}
   m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 3004228721978101900}
@@ -17832,7 +17910,7 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 1
-    collisionShape0: {fileID: 3004228724025913149}
+    collisionShape0: {fileID: 5724248969370413685}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -18846,9 +18924,8 @@ ParticleSystemRenderer:
 --- !u!1 &3004228723808015760
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7134537595842332433, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -18856,7 +18933,7 @@ GameObject:
   - component: {fileID: 3004228723808015767}
   - component: {fileID: 3004228723808015766}
   m_Layer: 0
-  m_Name: Raindrop_3
+  m_Name: Raindrop3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18865,13 +18942,12 @@ GameObject:
 --- !u!4 &3004228723808015761
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7491267124006569382, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723808015760}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 7.37, y: -2.9, z: 6.7}
+  m_LocalPosition: {x: -0.25000054, y: 0, z: 0.8999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3004228721978101900}
@@ -18880,9 +18956,8 @@ Transform:
 --- !u!198 &3004228723808015767
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 4021246238419594562, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723808015760}
   serializedVersion: 6
@@ -22533,7 +22608,7 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 1
-    collisionShape0: {fileID: 3004228724025913149}
+    collisionShape0: {fileID: 5724248969370413685}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -23486,9 +23561,8 @@ ParticleSystem:
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 3376883537817943463, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723808015760}
   m_Enabled: 1
@@ -23548,9 +23622,8 @@ ParticleSystemRenderer:
 --- !u!1 &3004228723870113288
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7078154536422642484, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -23567,13 +23640,12 @@ GameObject:
 --- !u!4 &3004228723870113289
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 6781561100414685698, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723870113288}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 7.74, y: -2.76, z: 3.515}
+  m_LocalPosition: {x: 0.11999935, y: 0, z: -1.9000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3004228721978101900}
@@ -23582,9 +23654,8 @@ Transform:
 --- !u!198 &3004228723870113295
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 5412974206277244472, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723870113288}
   serializedVersion: 6
@@ -27235,7 +27306,7 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 1
-    collisionShape0: {fileID: 3004228724025913149}
+    collisionShape0: {fileID: 5724248969370413685}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -28188,9 +28259,8 @@ ParticleSystem:
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 4515910594297920023, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228723870113288}
   m_Enabled: 1
@@ -28250,31 +28320,29 @@ ParticleSystemRenderer:
 --- !u!1 &3004228724025913148
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822771918194354, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3004228724025913149}
   - component: {fileID: 3004228724025913154}
   m_Layer: 0
-  m_Name: Raindrop_Collider
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3004228724025913149
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822771918194357, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228724025913148}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.92, y: -2.55, z: 2.74}
+  m_LocalPosition: {x: -16.539999, y: 0, z: -2.67}
   m_LocalScale: {x: 2.0948436, y: 1.0302583, z: 1}
   m_Children: []
   m_Father: {fileID: 3004228721978101900}
@@ -28283,9 +28351,8 @@ Transform:
 --- !u!65 &3004228724025913154
 BoxCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8052822771918194356, guid: a669a813f6a65fb4abd1e8b93d36578b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5075686239897803339}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3004228724025913148}
   m_Material: {fileID: 0}
@@ -28294,87 +28361,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 16.93625, y: 0.9999999, z: 0.111453295}
   m_Center: {x: 7.9681244, y: 0, z: 0.44427335}
---- !u!1001 &5075686239897803339
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8052822772028902084, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_Name
-      value: RainVFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052822772028902087, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078154536422642484, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: m_Name
-      value: RippleFront
-      objectReference: {fileID: 0}
-    - target: {fileID: 5412974206277244472, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5412974206277244472, guid: a669a813f6a65fb4abd1e8b93d36578b,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 0.6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a669a813f6a65fb4abd1e8b93d36578b, type: 3}

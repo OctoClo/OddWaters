@@ -354,5 +354,6 @@ MonoBehaviour:
     groupID: 317282339
   telescopePanoramas:
   - {fileID: 7127492151962068300, guid: 663873821be5da9498ed694614a80653, type: 3}
+  rain: 2
   elementsToHide: []
   clouds: {fileID: 0}
