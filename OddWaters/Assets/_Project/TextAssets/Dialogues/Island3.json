@@ -7,52 +7,52 @@
             [
                 "Here you are, at last.",
                 "We knew one of you would come, someday.",
-                "We knew someone will finally listen.",
-                "There is a lot of people on this lost sea. All different, and yet so alike.",
-                "They are either naïve, scared, or vain. They reject what they don't know, or think of themselves as superior and ignore their peers.",
-                "*She pauses",
+                "We knew someone would eventually listen.",
+                "There are lots of people on this lost sea. All different, and yet so alike.",
+                "They are either naïve, scared, or vain. They reject what they don’t know, or think themselves superior to their peers.",
+                "*She pauses.",
                 "They are all lost in a tumultuous sea. Trapped in their ideas.",
-                "They are willing to believe that it's the constraints of the sea that prevent them from understanding each other.",
-        		"Yet, you borrowed their views. You tried to understand. You tried to listen.",
-				"And now you're here.",
-        		"The one you follow, on the other hand, was not willing to change his mind.",
-				"She wanted to make everything her own. She was so sure of herself, and that lost her.",
-				"We should not try to resist the sea. We should not try to own it, or control it.",
-				"Each tide has its own language. Each people its own to speak it.",
-				"If we understand what is between our isolations, we will find pathways.",
-				"*She takes a look at the horizon",
-				"As all things end, contemplate the sea. Be humbled by its chaos."
+                "They are willing to blame the sea for their woes.",
+            		"Yet, you borrowed their views. You tried to understand. You tried to listen.",
+    				    "And now you’re here.",
+            		"The one you follow, however, was not willing to change.",
+        				"She wanted to make everything her own. She was so confident, and that lost her.",
+        				"We ought not to resist the sea. We ought not to own it, nor control it.",
+        				"Each tide has its own language. Each people its own way to speak it.",
+        				"If we understand what is between our isolations, we will find pathways.",
+        				"*She gazes at the horizon.",
+        				"As all things end, contemplate the sea. Be humbled by its chaos."
             ],
             "secondDialogue":
             [
-                "..."
+                "?"
             ]
         },
         {
-            "name": "Faceless",
+            "name": "Sans-Visage",
             "firstDialogue":
             [
-                "Here you are, at last.",
-                "We knew one of you would come, someday.",
-                "We knew someone will finally listen.",
-                "There is a lot of people on this lost sea. All different, and yet so alike.",
-                "They are either naïve, scared, or vain. They reject what they don't know, or think of themselves as superior and ignore their peers.",
-                "*She pauses",
-                "They are all lost in a tumultuous sea. Trapped in their ideas.",
-                "They are willing to believe that it's the constraints of the sea that prevent them from understanding each other.",
-        		"Yet, you borrowed their views. You tried to understand. You tried to listen.",
-				"And now you're here.",
-        		"The one you follow, on the other hand, was not willing to change his mind.",
-				"She wanted to make everything her own. She was so sure of herself, and that lost her.",
-				"We should not try to resist the sea. We should not try to own it, or control it.",
-				"Each tide has its own language. Each people its own to speak it.",
-				"If we understand what is between our isolations, we will find pathways.",
-				"*She takes a look at the horizon",
-				"As all things end, contemplate the sea. Be humbled by its chaos."
+                "Vous voici enfin.",
+                "Nous savions que l’un d’entre vous arriverait un jour.",
+                "Nous savions que l’un d’entre vous finirait par écouter.",
+                "Il y a beaucoup de personnes sur cette mer perdue. Toutes différentes et pourtant si semblables.",
+                "Ils sont naïfs, apeurés ou arrogants. Ils rejettent ce qu’ils ne connaissent pas et se pensent supérieurs aux autres.",
+                "*Elle marque une pause.",
+                "Ils sont perdus sur cette mer tumultueuse, piégés dans leurs idées.",
+                "Ils sont prêts à accuser la mer de tous leurs maux.",
+                "Pourtant, tu as accueilli leur point de vue. Tu as essayé d’écouter. Tu as essayé de comprendre.",
+                "Et maintenant te voici.",
+                "Celle que tu suis, en revanche, n’était pas prête à changer.",
+                "Elle désirait tout posséder. Son arrogance l’a perdue.",
+                "Nous ne devons pas essayer de résister à la mer. Nous ne devons ni la posséder ni la contrôler.",
+                "Chaque courant a son propre langage. Chaque personne, sa propre façon de le parler.",
+                "Si nous comprenons ce qui nous isole les uns des autres, nous trouverons des ter",
+                "*Elle regarde l’horizon.",
+                "Alors que tout prend fin, contemple la mer. Sois humble face à son chaos."
             ],
             "secondDialogue":
             [
-                "..."
+                "?"
             ]
         }
     ]

@@ -6,35 +6,45 @@
             "firstDialogue":
             [
                 "Greetings stranger!",
-                "What brings you on our humble island? Interested in trading something against typhoon rock?",
-                "*He listens to you, and his welcoming tone fades away.",
-                "Oh. Up north you say? You must talk about these fools, perched on their peak.",
-                "Good luck then. I’ve never come across people so stubborn and short minded.",
-                "They are out of reality, if you ask me.",
-                "Anyway… There's a strange rock to the east. You might want to begin there.",
-				"Also, it happens we got our hands on this thingy.",
-				"I can give it to you…",
-				"...if you have something to trade of course.",
-				"*He looks at you from head to toe, searching for something of value.",
-				"I guess I’ll be satisfied with anything really."
+                "What brings you on our humble island? Interested in trading something for typhoon rock?",
+                "*He listens to you, and his welcoming demeanor fades away.",
+                "Oh. Up north, you say. You must be talking about these fools, perched on their peak.",
+                "Good luck then. I’ve never come across people so stubborn and narrow-minded.",
+                "They live in another world, if you ask me.",
+                "Anyway… There’s a strange rock to the east. You might want to start there.",
+        				"Also, it happens we got our hands on this thing.",
+        				"I can give it to you…",
+        				"…if you have something to trade, of course.",
+        				"*He looks at you from head to toe, searching for something of value.",
+        				"I guess I’ll be satisfied with anything really."
             ],
             "secondDialogue":
             [
                 "Hello again.",
-                "As I said, you might want to go to that rock to the east."
+                "As I said, you might want to investigate that rock to the east."
             ]
         },
         {
             "name": "Serge",
             "firstDialogue":
             [
-                "Line 1",
-                "Line 2"
+                "Salutation étrangère !",
+                "Qu’est-ce qui vous amène sur notre humble île ? Vous êtes intéressée pour échanger quelque chose contre de la Roche du Typhon ?",
+                "*Il vous écoute avec intérêt, mais son ton accueillant disparaît rapidement.",
+                "Oh… Au nord, vous dîtes. Vous devez parler de ces fous, perchés sur leur pics.",
+                "Eh bien, bonne chance à vous. Je n’ai jamais rencontré de personnes aussi têtues et étroites d’esprit.",
+                "Ils vivent dans un autre monde si vous voulez mon avis.",
+                "Quoi qu’il en soit… Il y a une pierre étrange pas loin vers l’Est. Vous devriez peut-être commencer par là-bas.",
+                "D’ailleurs, il se trouve que nous avons ce mystérieux objet en notre possession.",
+                "Je veux bien vous le donner…",
+                "…si vous avez quelque chose à échanger, bien sûr.",
+                "*Il vous regarde de la tête aux pieds, cherchant quelque chose de valeur.",
+                "Je me contenterai de ce que vous avez j’imagine."
             ],
             "secondDialogue":
             [
-                "2nd dialogue",
-                "blah blah blah"
+                "Vous revoilà.",
+                "Comme je vous l’ai dit, vous devriez peut être aller voir cette drôle de pierre vers l’Est."
             ]
         }
     ]
