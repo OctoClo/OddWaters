@@ -185,8 +185,8 @@ MonoBehaviour:
         ObjectType: 15
   AuxBusWwu:
   - Guid: '{D9786E67-0C05-4EC6-9575-00A71ACF3534}'
-    m_lastTimePart2: -1999181941
-    m_lastTimePsrt1: 463348152
+    m_lastTimePart2: -1999181540
+    m_lastTimePsrt1: 1751002948
     ParentPhysicalPath: 
     PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     List:
@@ -211,8 +211,8 @@ MonoBehaviour:
     PhysicalPath: SoundBanks\Default Work Unit.wwu
     List: []
   - Guid: '{F161DE3A-6B2A-4BFF-AEE2-065DBFF23778}'
-    m_lastTimePart2: -1999181941
-    m_lastTimePsrt1: 463507722
+    m_lastTimePart2: -1999181535
+    m_lastTimePsrt1: -1940584938
     ParentPhysicalPath: 
     PhysicalPath: SoundBanks\OddWaters.wwu
     List:
@@ -233,8 +233,8 @@ MonoBehaviour:
     PhysicalPath: Events\Default Work Unit.wwu
     List: []
   - Guid: '{9D43C336-125E-4D10-AAA8-59C4E9B43494}'
-    m_lastTimePart2: -1999181920
-    m_lastTimePsrt1: -1722676152
+    m_lastTimePart2: -1999181533
+    m_lastTimePsrt1: -2024734999
     ParentPhysicalPath: 
     PhysicalPath: Events\OddWaters.wwu
     List:
@@ -486,6 +486,18 @@ MonoBehaviour:
       - ElementName: OddWaters
         ObjectType: 12
       - ElementName: Play_Island2_Object0
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 2fc6a406ca52a24eb582a9608b491ba7
+      ID: 1675104066
+      Name: Play_Island3_Object0
+      Path: OddWaters\Play_Island3_Object0
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: Play_Island3_Object0
         ObjectType: 3
       maxAttenuation: 0
       maxDuration: 0
@@ -779,8 +791,8 @@ MonoBehaviour:
     PhysicalPath: Game Parameters\Default Work Unit.wwu
     List: []
   - Guid: '{00709781-A0CF-435A-91C4-77B45499F7AD}'
-    m_lastTimePart2: -1999181941
-    m_lastTimePsrt1: 463078873
+    m_lastTimePart2: -1999181540
+    m_lastTimePsrt1: 1750434478
     ParentPhysicalPath: 
     PhysicalPath: Game Parameters\OddWaters.wwu
     List:
@@ -792,6 +804,15 @@ MonoBehaviour:
       - ElementName: OddWaters
         ObjectType: 12
       - ElementName: Angle
+        ObjectType: 13
+    - Guid: f1f75e86351c2541b4bc303cbfffb965
+      ID: 1124241146
+      Name: CloudsChain
+      Path: OddWaters\CloudsChain
+      PathAndIcons:
+      - ElementName: OddWaters
+        ObjectType: 12
+      - ElementName: CloudsChain
         ObjectType: 13
     - Guid: 61ef02e7b4f5814290bdbe68417c4484
       ID: 671444909
@@ -1071,8 +1092,8 @@ MonoBehaviour:
     PhysicalPath: Switches\Default Work Unit.wwu
     List: []
   - Guid: '{4ECDCB98-2AED-4500-A11B-AC9A8EBF85C3}'
-    m_lastTimePart2: -1999182571
-    m_lastTimePsrt1: 1460303495
+    m_lastTimePart2: -1999182570
+    m_lastTimePsrt1: -1389863544
     ParentPhysicalPath: 
     PhysicalPath: Switches\OddWaters.wwu
     List:

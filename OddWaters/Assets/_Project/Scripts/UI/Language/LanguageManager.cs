@@ -8,14 +8,22 @@ public enum ELanguage
     FRENCH
 }
 
-public class LanguageManager : Singleton<LanguageManager>
+public class LanguageManager : MonoBehaviour
 {
+    public static LanguageManager Instance;
+
     public ELanguage language = ELanguage.ENGLISH;
     Translator translator;
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        if (Instance != null)
+            Destroy(Instance);
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     public void UpdateTranslator()

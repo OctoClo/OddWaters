@@ -15,8 +15,10 @@ public enum ECursor
     COUNT
 }
 
-public class CursorManager : Singleton<CursorManager>
+public class CursorManager : MonoBehaviour
 {
+    public static CursorManager Instance;
+
     [SerializeField]
     [Tooltip("Order : DEFAULT - TELESCOPE_PAN_CENTER - TELESCOPE_PAN_LEFT - TELESCOPE_PAN_RIGHT - NAVIGATION_OK - NAVIGATION_ISLAND - HOVER - DRAG")]
     Texture2D[] cursorSprites;
@@ -25,7 +27,13 @@ public class CursorManager : Singleton<CursorManager>
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        if (Instance != null)
+            Destroy(Instance);
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     void Start()
