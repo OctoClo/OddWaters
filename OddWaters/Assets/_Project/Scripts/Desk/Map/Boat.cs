@@ -69,7 +69,6 @@ public class Boat : MonoBehaviour
         newTrailPos.transform.parent = trailPosFolder;
         newTrailPos.transform.position = transform.position;
         trailPosCount++;
-        trail.positionCount = trailPosCount;
     }
 
     public void StartTargeting()
@@ -89,6 +88,7 @@ public class Boat : MonoBehaviour
 
     void Update()
     {
+        // Update enavigation line
         if (line.enabled)
         {
             lineEnd = transform.InverseTransformPoint(navigationManager.lastValidCursorPos);
@@ -100,9 +100,10 @@ public class Boat : MonoBehaviour
                 PlayDotsSound();
         }
 
+        // Update trail positions
+        trail.positionCount = trailPosCount;
         for (int i = 0; i < trailPosCount - 1; i ++)
             trail.SetPosition(i, trailPosFolder.GetChild(i).transform.position);
-            
         trail.SetPosition(trailPosCount - 1, transform.position);
     }
 
