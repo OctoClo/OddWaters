@@ -6,9 +6,14 @@ public class ButtonEvents : MonoBehaviour
 {
     Animator animator;
 
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        animator.SetBool("Hover", false);
     }
 
     public void OnMouseIn()
