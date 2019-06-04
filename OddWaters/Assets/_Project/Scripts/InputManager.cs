@@ -72,7 +72,6 @@ public class InputManager : MonoBehaviour
     RaycastHit[] hitsOnRayToMouse;
     bool blockInput;
     bool navigating;
-    bool dialogueOngoing;
     bool pause;
 
     void Start()
@@ -90,7 +89,6 @@ public class InputManager : MonoBehaviour
         eventSystem = EventSystem.current;
         blockInput = false;
         navigating = false;
-        dialogueOngoing = false;
         navigation = false;
         firstTelescopeMove = true;
         telescopeDrag = false;
@@ -101,13 +99,11 @@ public class InputManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<BlockInputEvent>(OnBlockInputEvent);
-        EventManager.Instance.AddListener<DialogueEvent>(OnDialogueEvent);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<BlockInputEvent>(OnBlockInputEvent);
-        EventManager.Instance.RemoveListener<DialogueEvent>(OnDialogueEvent);
     }
 
     void Update()
@@ -440,11 +436,6 @@ public class InputManager : MonoBehaviour
         navigating = e.navigation;
         if (e.block)
             CursorManager.Instance.SetCursor(ECursor.DEFAULT);
-    }
-
-    void OnDialogueEvent(DialogueEvent e)
-    {
-        dialogueOngoing = e.ongoing;
     }
 
     public void RotateButtonPositive(int axis)
