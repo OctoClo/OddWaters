@@ -24,19 +24,25 @@ public class CursorManager : MonoBehaviour
     Texture2D[] cursorSprites;
     Vector2[] cursorOffsets;
     ECursor currentCursor = ECursor.COUNT;
+    bool initialized = false;
 
     void Awake()
     {
         if (Instance != null)
             Destroy(Instance);
         else
-        {
             Instance = this;
-            DontDestroyOnLoad(this);
-        }
+
+        DontDestroyOnLoad(this);
     }
 
     void Start()
+    {
+        Initialize();
+        SetCursor(ECursor.DEFAULT);
+    }
+
+    void Initialize()
     {
         cursorOffsets = new Vector2[(int)ECursor.COUNT];
         cursorOffsets[(int)ECursor.TELESCOPE_PAN_CENTER] = new Vector2(cursorSprites[(int)ECursor.TELESCOPE_PAN_CENTER].width / 2, cursorSprites[(int)ECursor.TELESCOPE_PAN_CENTER].height / 2);
@@ -45,14 +51,16 @@ public class CursorManager : MonoBehaviour
         cursorOffsets[(int)ECursor.DEFAULT] = Vector2.zero;
         cursorOffsets[(int)ECursor.NAVIGATION_OK] = Vector2.zero;
         cursorOffsets[(int)ECursor.NAVIGATION_ISLAND] = Vector2.zero;
-
-        SetCursor(ECursor.DEFAULT);
+        initialized = true;
     }
 
     public void SetCursor(ECursor cursor)
     {
         if (currentCursor != cursor)
         {
+            if (!initialized)
+                Initialize();
+            
             Cursor.SetCursor(cursorSprites[(int)cursor], cursorOffsets[(int)cursor], CursorMode.Auto);
             currentCursor = cursor;
         }

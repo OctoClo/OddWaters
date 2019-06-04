@@ -20,10 +20,9 @@ public class LanguageManager : MonoBehaviour
         if (Instance != null)
             Destroy(Instance);
         else
-        {
             Instance = this;
-            DontDestroyOnLoad(this);
-        }
+
+        DontDestroyOnLoad(this);
     }
 
     public void UpdateTranslator()
