@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.RemoveListener<GameFinishedEvent>(OnGameFinishedEvent);
     }
 
+    void OnDestroy()
+    {
+        AkSoundEngine.PostEvent("Stop_All", gameObject);
+    }
+
     void PlayIntro()
     {
         AkSoundEngine.PostEvent("Play_Intro", gameObject);
@@ -58,7 +63,6 @@ public class GameManager : MonoBehaviour
     void OnGameFinishedEvent(GameFinishedEvent e)
     {
         pauseButton.SetActive(false);
-        AkSoundEngine.PostEvent("Stop_All", gameObject);
         cutsceneAnimator.gameObject.SetActive(true);
         cutsceneAnimator.Play("Default");
         cutsceneAnimator.SetTrigger("Outro");
