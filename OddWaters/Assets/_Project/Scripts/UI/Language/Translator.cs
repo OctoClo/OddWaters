@@ -24,6 +24,7 @@ public class Translator : MonoBehaviour
     public TextMeshProUGUI[] JeremyTexts;
     public TextMeshProUGUI[] ClementTexts;
     public TextMeshProUGUI[] movePanTexts;
+    public TextMeshProUGUI[] movePanControlTexts;
     public TextMeshProUGUI[] leftClickHoldTexts;
     public TextMeshProUGUI[] zoomTexts;
     public TextMeshProUGUI[] zoomControlTexts;
@@ -69,6 +70,7 @@ public class Translator : MonoBehaviour
             JeremyTexts,
             ClementTexts,
             movePanTexts,
+            movePanControlTexts,
             leftClickHoldTexts,
             zoomTexts,
             zoomControlTexts,
