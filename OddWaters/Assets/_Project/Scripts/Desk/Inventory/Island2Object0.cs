@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class Island2Object0 : Interactible
 {
-    [Header("Activation")]
+    [Header("Clues")]
     [SerializeField]
-    Color activeColor = new Color(2, 58, 6);
-    Material mat;
+    Texture emissiveClue;
+    Color inactiveColor = Color.black;
+    public Color currentColor;
     [SerializeField]
     float maxTotalAngle = 45;
     [SerializeField]
     float maxHeight = 2;
 
+    [Header("Activation")]
+    [SerializeField]
+    Texture emissiveActive;
+    [SerializeField]
+    Color activeColor = new Color(2, 58, 6);
+
+    Material mat;
     TelescopeElement telescopeElement;
 
     bool activated;
     bool tracking;
-    public bool floating;
-    Vector3 beginFloatPos;
-    Vector3 targetFloatPos;
-    Roll roll;
-
     bool onIsland;
     Vector3 beforeDialoguePos;
+    Vector3 beginFloatPos;
+    Vector3 targetFloatPos;
 
+    [Header("Debug")]
+    public bool floating;
     float angleFactor;
     public float currentAngle;
     public float currentPercentage;
@@ -34,7 +41,7 @@ public class Island2Object0 : Interactible
         base.Start();
 
         mat = GetComponent<Renderer>().material;
-        roll = GetComponent<Roll>();
+        mat.SetTexture("_EmissionTexture", emissiveClue);
 
         maxTotalAngle /= 2.0f;
         activated = false;
@@ -59,6 +66,7 @@ public class Island2Object0 : Interactible
 
         if (tracking)
         {
+            // Calculate current %
             currentAngle = telescopeElement.angleToBoat;
             if (currentAngle > 180)
                 currentAngle = 360 - currentAngle;
@@ -80,6 +88,7 @@ public class Island2Object0 : Interactible
                 floating = false;
             }
 
+            // Floating
             if (floating && !zoom && !grabbed && !onIsland)
             {
                 targetFloatPos = beginFloatPos;
@@ -87,10 +96,16 @@ public class Island2Object0 : Interactible
                 rigidBody.velocity = (targetFloatPos - transform.position) * 1;
             }
 
+            // Glowing
+            currentColor = Color.Lerp(inactiveColor, activeColor, currentPercentage);
+            mat.SetColor("_EmissionColor", currentColor / 10.0f);
+
+            // Activation
             if (telescopeElement.elementDiscover.discovered)
             {
                 activated = true;
                 tracking = false;
+                mat.SetTexture("_EmissionTexture", emissiveActive);
                 mat.SetColor("_EmissionColor", activeColor / 10.0f);
             }
         }
@@ -111,8 +126,6 @@ public class Island2Object0 : Interactible
 
     public override void Grab()
     {
-        if (tracking || activated)
-            roll.enabled = false;
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = false;
         transform.position = GetGrabbedPosition();
@@ -125,7 +138,6 @@ public class Island2Object0 : Interactible
        
         if (tracking || activated)
         {
-            roll.enabled = true;
             beginFloatPos.x = transform.position.x;
             beginFloatPos.z = transform.position.z;
         }
@@ -148,7 +160,6 @@ public class Island2Object0 : Interactible
     {
         if (tracking || activated)
         {
-            roll.enabled = false;
             currentZoomOffset = zoomOffset - (beginFloatPos.y + maxHeight * currentPercentage);
         }
         else
@@ -171,9 +182,6 @@ public class Island2Object0 : Interactible
         foreach (Collider collider in colliders)
             collider.isTrigger = false;
 
-        if (tracking || activated)
-            StartCoroutine(WaitBeforeEnablingRoll(0.5f));
-
         if (!floating)
         {
             rigidBody.useGravity = true;
@@ -181,12 +189,6 @@ public class Island2Object0 : Interactible
         }
 
         gameObject.transform.position = beforeZoomPosition;
-    }
-
-    IEnumerator WaitBeforeEnablingRoll(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        roll.enabled = true;
     }
 
     public void HandleBerth(bool berth)
@@ -197,7 +199,6 @@ public class Island2Object0 : Interactible
 
             if (onIsland)
             {
-                roll.enabled = false;
                 beforeDialoguePos = transform.position;
                 rigidBody.useGravity = true;
             }
@@ -205,7 +206,6 @@ public class Island2Object0 : Interactible
             {
                 rigidBody.useGravity = false;
                 transform.position = beforeDialoguePos;
-                roll.enabled = true;
             }
         }
     }
@@ -216,7 +216,6 @@ public class Island2Object0 : Interactible
         {
             tracking = true;
             telescopeElement = e.element;
-            roll.enabled = true;
         }
     }
 }

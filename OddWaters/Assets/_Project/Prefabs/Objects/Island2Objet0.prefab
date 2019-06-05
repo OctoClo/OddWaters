@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3638403638231014073}
   - component: {fileID: 3638403638229915769}
   - component: {fileID: 3057982926310382204}
-  - component: {fileID: 3763128599955921355}
   - component: {fileID: 3131409304676220622}
   - component: {fileID: 7175409026950366562}
   m_Layer: 0
@@ -108,36 +107,15 @@ MonoBehaviour:
   tutorialManager: {fileID: 0}
   grabbable: 0
   rotating: 0
-  activeColor: {r: 22.918123, g: 32.132626, b: 40.402054, a: 1}
+  emissiveClue: {fileID: 2800000, guid: a1cc673796d14374db8b03e3efe0c1da, type: 3}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
   maxTotalAngle: 90
   maxHeight: 4
+  emissiveActive: {fileID: 2800000, guid: a1cc673796d14374db8b03e3efe0c1da, type: 3}
+  activeColor: {r: 22.918123, g: 32.132626, b: 40.402054, a: 1}
   floating: 0
   currentAngle: 0
   currentPercentage: 0
---- !u!114 &3763128599955921355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3638403638227650233}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26cc9c38b90c88b4eadb80b531cc2bee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rollX: 1
-  xAmp: 30
-  xSpeed: 33
-  rollY: 0
-  yAmp: 5
-  ySpeed: 10
-  rollZ: 1
-  zAmp: 40
-  zSpeed: 10
-  rotation: 0
-  rotationAmp: 10
-  rotationSpeed: 10
 --- !u!65 &3131409304676220622
 BoxCollider:
   m_ObjectHideFlags: 0
