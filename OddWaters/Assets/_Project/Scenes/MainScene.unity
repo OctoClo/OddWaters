@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1079661063}
-  m_IndirectSpecularColor: {r: 0.18268389, g: 0.22567503, b: 0.29132435, a: 1}
+  m_IndirectSpecularColor: {r: 0.18268377, g: 0.22567512, b: 0.29132453, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -722,6 +722,7 @@ MonoBehaviour:
   dialogueManager: {fileID: 1303358153}
   navigationManager: {fileID: 674968308}
   pauseObject: {fileID: 1272905272}
+  controlsObject: {fileID: 67340691}
   inspectionInterface: {fileID: 1971627126}
   rotationPanel: {fileID: 237130663}
   globalAnimator: {fileID: 1962910260}
@@ -6041,7 +6042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &885479255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8860,8 +8861,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681a1061ad593b7499ea30123c4ce3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intro: 0
-  tutorial: 0
+  intro: 1
+  tutorial: 1
   tutorialManager: {fileID: 1136672030}
   cutsceneAnimator: {fileID: 885479258}
   pauseButton: {fileID: 319201177}
@@ -9018,7 +9019,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 436.8, y: 212.8}
+  m_SizeDelta: {x: 493.39, y: 212.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1436534904
 MonoBehaviour:
@@ -12428,14 +12429,14 @@ MonoBehaviour:
   m_text: Faites ceci, faites cela...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 78c121b76f509b24e9597f407b0afc14, type: 2}
-  m_sharedMaterial: {fileID: 21351834110195728, guid: 1ac4b29a751e1974b92256b83c793946,
+  m_sharedMaterial: {fileID: 21886917593659618, guid: 78c121b76f509b24e9597f407b0afc14,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 33554431
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -12500,14 +12501,14 @@ MonoBehaviour:
     spaceCount: 3
     wordCount: 4
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 1
   m_subTextObjects:
@@ -13913,7 +13914,7 @@ PrefabInstance:
     - target: {fileID: 7173360024550280814, guid: 6ffbfa15871c7e6439bd57b3af252714,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7173360024550280815, guid: 6ffbfa15871c7e6439bd57b3af252714,
         type: 3}
@@ -14796,7 +14797,7 @@ PrefabInstance:
     - target: {fileID: 2149043043904874349, guid: df1936be9f8012c4a8eb4e95c1a20117,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2149043043904874351, guid: df1936be9f8012c4a8eb4e95c1a20117,
         type: 3}
@@ -15545,7 +15546,7 @@ PrefabInstance:
     - target: {fileID: 4864525967752015545, guid: d0f6bb3b04e0ebc46bf038f190aca12b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4864525967752015544, guid: d0f6bb3b04e0ebc46bf038f190aca12b,
         type: 3}
@@ -16196,15 +16197,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5905885807048246702, guid: 8fe6e9939c6cd084289bbc1a526192ee,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 5905885806902402605, guid: 8fe6e9939c6cd084289bbc1a526192ee,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5905885807048246702, guid: 8fe6e9939c6cd084289bbc1a526192ee,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe6e9939c6cd084289bbc1a526192ee, type: 3}

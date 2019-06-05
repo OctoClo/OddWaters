@@ -31,6 +31,8 @@ public class InputManager : MonoBehaviour
     NavigationManager navigationManager;
     [SerializeField]
     GameObject pauseObject;
+    [SerializeField]
+    GameObject controlsObject;
 
     // Interactible
     [SerializeField]
@@ -450,18 +452,23 @@ public class InputManager : MonoBehaviour
 
     public void ToggleOptions()
     {
-        pause = !pause;
-        pauseObject.SetActive(pause);
-
-        if (pause)
-        {
-            AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
-            AkSoundEngine.SetState("Pause", "Pause");
-        }
+        if (controlsObject.activeInHierarchy)
+            controlsObject.SetActive(false);
         else
         {
-            AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
-            AkSoundEngine.SetState("Pause", "InGame");
+            pause = !pause;
+            pauseObject.SetActive(pause);
+
+            if (pause)
+            {
+                AkSoundEngine.PostEvent("Play_TelescopeOpen_UI", gameObject);
+                AkSoundEngine.SetState("Pause", "Pause");
+            }
+            else
+            {
+                AkSoundEngine.PostEvent("Play_TelescopeClose_UI", gameObject);
+                AkSoundEngine.SetState("Pause", "InGame");
+            }
         }
     }
 
