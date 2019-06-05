@@ -6,7 +6,7 @@
       [
         "Hold left click to drag the panorama",
         "Drag and drop the boat on the cross",
-        "Use mouse wheel to zoom on the island",
+        "Use mouse wheel to zoom on the island and add it to your map",
         "Go to the island",
         "Right click on an object to inspect it",
         "Rotate an object with the buttons",
@@ -19,10 +19,10 @@
       [
         "Maintenez le clic gauche pour déplacer le panorama",
         "Faites glisser le bateau sur le repère",
-        "Utilisez la molette pour zoomer sur une île",
-        "Allez sur l'île",
-        "Faites un clic droit sur un objet pour l'inspecter",
-        "Utilisez les boutons pour faire tourner l'objet",
+        "Utilisez la molette pour zoomer sur une île et l’ajouter à votre carte",
+        "Allez sur l’île",
+        "Faites un clic droit sur un objet pour l’inspecter",
+        "Utilisez les boutons pour faire tourner l’objet",
         "Maintenez un objet pour le déplacer",
         "Maintenant, vous êtes tout seul..."
       ]
