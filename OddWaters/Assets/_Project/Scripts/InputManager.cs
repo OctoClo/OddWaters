@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -123,7 +123,11 @@ public class InputManager : MonoBehaviour
         // Left button down
         if (!eventSystem.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
             HandleMouseLeftButtonDown();
-        
+
+        // Left button up
+        if (Input.GetMouseButtonUp(0))
+            HandleMouseLeftButtonUp();
+
         // Telescope single click
         if (firstClickTelescope)
         {
@@ -159,10 +163,6 @@ public class InputManager : MonoBehaviour
         // End wheel telescope drag
         if (Input.GetMouseButtonUp(2) && telescopeDrag && telescopeDragFromWheel)
             EndTelescopeDrag();
-
-        // Left button up
-        if (Input.GetMouseButtonUp(0))
-            HandleMouseLeftButtonUp();
 
         // Right button down
         if (Input.GetMouseButtonDown(1))
@@ -265,9 +265,14 @@ public class InputManager : MonoBehaviour
         // Telescope drag
         if (telescopeDrag)
         {
-            dragCurrentPos = Input.mousePosition;
-            dragSpeed = -(dragCurrentPos - dragBeginPos).x * Time.deltaTime;
-            telescope.UpdateSpeed(dragSpeed);
+            if (!Input.GetMouseButton(0) && !Input.GetMouseButton(2))
+                EndTelescopeDrag();
+            else
+            {
+                dragCurrentPos = Input.mousePosition;
+                dragSpeed = -(dragCurrentPos - dragBeginPos).x * Time.deltaTime;
+                telescope.UpdateSpeed(dragSpeed);
+            }
         }
 
         // Navigation

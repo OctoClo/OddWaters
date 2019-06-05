@@ -293,6 +293,7 @@ public class NavigationManager : MonoBehaviour
             RaycastHit hitInfo = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && !hit.collider.GetComponent<MapZone>().visible);
             if (hitInfo.collider)
             {
+                hitInfo = GetFirstVisibleZone(targetPos, journey, distance);
                 lastValidCursorPos = hitInfo.point;
                 lastValidTarget = hitInfo.point;
                 lastValidTargetZone = hitInfo.collider.GetComponent<MapZone>().zoneNumber;
@@ -307,10 +308,7 @@ public class NavigationManager : MonoBehaviour
                 // No map zone at target pos?
                 if (!hitsAtTarget.Any(hit => hit.collider.GetComponent<MapZone>()))
                 {
-                    hitsOnJourney = Physics.RaycastAll(targetPos, -journey, distance);
-                    hitInfo = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber != map.currentZone && hit.collider.GetComponent<MapZone>().visible);
-                    if (!hitInfo.collider)
-                        hitInfo = hitsOnJourney.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == map.currentZone);
+                    hitInfo = GetFirstVisibleZone(targetPos, journey, distance);
                     lastValidCursorPos = hitInfo.point;
                     lastValidTarget = hitInfo.point;
                     lastValidTargetZone = hitInfo.collider.GetComponent<MapZone>().zoneNumber;
@@ -366,6 +364,16 @@ public class NavigationManager : MonoBehaviour
             lastValidTargetZone = 4;
             return ENavigationResult.SEA;
         }
+    }
+
+    RaycastHit GetFirstVisibleZone(Vector3 targetPos, Vector3 journey, float distance)
+    {
+        RaycastHit[] hits = Physics.RaycastAll(targetPos, -journey, distance);
+        hits = hits.OrderByDescending(hit => Vector3.SqrMagnitude(boat.transform.position - hit.point)).ToArray();
+        RaycastHit hitInfo = hits.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber != map.currentZone && hit.collider.GetComponent<MapZone>().visible);
+        if (!hitInfo.collider)
+            hitInfo = hits.FirstOrDefault(hit => hit.collider.GetComponent<MapZone>() && hit.collider.GetComponent<MapZone>().zoneNumber == map.currentZone);
+        return hitInfo;
     }
 
     Vector3 FindMaxDistanceOnTrajectory(float distance, Vector3 targetPos)
