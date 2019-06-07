@@ -303,8 +303,8 @@ MonoBehaviour:
     groupGuid: 2903329c32b5b54dbdad7b4b6b661c9c
     groupID: 1729344733
   weather:
-    ID: -76778153
-    valueGuid: 0f08de2a34d1a6478d60ff63b5a577cf
+    ID: 1951474816
+    valueGuid: d7a8414ed1d49246afa1b362bb7dcd8d
     groupGuid: 1f21aa39b57a1d41a705434c99109e65
     groupID: 317282339
   telescopePanoramas:
