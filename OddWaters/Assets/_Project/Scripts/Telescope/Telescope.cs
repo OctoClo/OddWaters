@@ -193,7 +193,7 @@ public class Telescope : MonoBehaviour
         {
             if (speed > 0)
                 currentDragSpeed = Mathf.Clamp(currentDragSpeed, dragMinValue, dragMaxValue);
-            else
+            else if (speed < 0)
                 currentDragSpeed = Mathf.Clamp(currentDragSpeed, -dragMaxValue, -dragMinValue);
         }
 
