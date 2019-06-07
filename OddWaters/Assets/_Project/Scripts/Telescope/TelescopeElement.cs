@@ -25,7 +25,6 @@ public class TelescopeElement : MonoBehaviour
     // Audio
     [HideInInspector]
     public bool audio = false;
-    GameObject audioPlayer;
     [HideInInspector]
     public bool playClue = true;
     
@@ -49,10 +48,9 @@ public class TelescopeElement : MonoBehaviour
         if (audio)
         {
             megaTyphoon = elementDiscover.name.Equals("MegaTyphoon");
-            audioPlayer = megaTyphoon ? CursorManager.Instance.gameObject : gameObject;
 
             if (playClue)
-                AkSoundEngine.PostEvent("Play_Clue_" + name, audioPlayer);
+                AkSoundEngine.PostEvent("Play_Clue_" + name, elementDiscover.gameObject);
 
             if (megaTyphoon)
                 EventManager.Instance.Raise(new MegaTyphoonActivatedEvent() { element = this });
@@ -62,7 +60,7 @@ public class TelescopeElement : MonoBehaviour
     void Update()
     {
         if (audio)
-            AkSoundEngine.SetRTPCValue("Angle", angleToBoat, audioPlayer);
+            AkSoundEngine.SetRTPCValue("Angle", angleToBoat, elementDiscover.gameObject);
     }
 
     void OnTriggerEnter(Collider other)
