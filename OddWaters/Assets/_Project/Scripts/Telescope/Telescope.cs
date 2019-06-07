@@ -46,9 +46,6 @@ public class Telescope : MonoBehaviour
     Vector3 scaleContainerZoom;
     [SerializeField]
     float elementDetectionSensitivity = 0.5f;
-    [SerializeField]
-    float elementSuperDetectionSensitivity = 0.5f;
-
 
     [Header("References")]
     [SerializeField]
@@ -225,7 +222,7 @@ public class Telescope : MonoBehaviour
                 {
                     float distanceElement = Mathf.Abs(element.transform.position.x - maskZoom.transform.position.x);
                     if (!element.needSight
-                        || (!element.needZoom && ((element.needSuperPrecision && distanceElement <= elementSuperDetectionSensitivity)
+                        || (!element.needZoom && ((element.needSuperPrecision && distanceElement <= elementDetectionSensitivity)
                                                 || (!element.needSuperPrecision && element.inSight)))
                         || (zoom && distanceElement <= elementDetectionSensitivity))
                     {
