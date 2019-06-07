@@ -41,7 +41,7 @@ public class Island2Object0 : Interactible
         base.Start();
 
         mat = GetComponent<Renderer>().material;
-        mat.SetTexture("_EmissionTexture", emissiveClue);
+        mat.SetTexture("_EmissionMap", emissiveClue);
 
         maxTotalAngle /= 2.0f;
         activated = false;
@@ -105,7 +105,7 @@ public class Island2Object0 : Interactible
             {
                 activated = true;
                 tracking = false;
-                mat.SetTexture("_EmissionTexture", emissiveActive);
+                mat.SetTexture("_EmissionMap", emissiveActive);
                 mat.SetColor("_EmissionColor", activeColor / 10.0f);
             }
         }

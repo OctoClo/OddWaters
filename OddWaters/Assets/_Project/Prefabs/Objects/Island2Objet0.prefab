@@ -107,7 +107,7 @@ MonoBehaviour:
   tutorialManager: {fileID: 0}
   grabbable: 0
   rotating: 0
-  emissiveClue: {fileID: 2800000, guid: a1cc673796d14374db8b03e3efe0c1da, type: 3}
+  emissiveClue: {fileID: 2800000, guid: a2158238bb18a7346913ea2d36cdf911, type: 3}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
   maxTotalAngle: 90
   maxHeight: 4
