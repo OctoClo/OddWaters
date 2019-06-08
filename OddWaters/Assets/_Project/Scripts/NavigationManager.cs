@@ -124,7 +124,7 @@ public class NavigationManager : MonoBehaviour
                 {
                     AkSoundEngine.PostEvent("Play_Arrival", gameObject);
                     AkSoundEngine.PostEvent("Stop_Typhon", gameObject);
-                    lightScript.rotateDegreesPerSecond.value.y = 0;
+                    lightScript.rotateDegreesPerSecond.value.y = -0.1f;
 
                     // Save position
                     lastValidPosition.transform.position = boat.transform.position;
