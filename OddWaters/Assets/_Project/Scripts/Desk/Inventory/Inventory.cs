@@ -2,25 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum EMoveType
+{
+    GIVE_FIRST_STEP,
+    GIVE_SECOND_STEP,
+    RECEIVE
+}
+
 public class Inventory : MonoBehaviour
 {
-    [SerializeField]
-    InspectionInterface inspectionInterface;
-
+    [Header("Trade Animations")]
     [SerializeField]
     Vector3 spawnPos = new Vector3(6.25f, 1.95f, 1);
     [SerializeField]
-    Vector3 targetPos = new Vector3(6.25f, 1.95f, -1.2f);
+    Vector3 receiveEndPos = new Vector3(6.25f, 1.95f, -1.2f);
+    Vector3 targetPos;
     [SerializeField]
-    [Range(0.01f, 0.2f)]
-    float objectSpeed = 0.1f;
+    float drag = 7.37f;
+    [SerializeField]
+    GameObject previousObject;
 
+    [Header("References")]
+    [SerializeField]
+    InspectionInterface inspectionInterface;
+    [SerializeField]
+    TutorialManager tutorialManager;
+
+    GameObject prefabToGive;
     GameObject newObject;
-    BoxCollider boxCollider;
+    Collider[] colliders;
     Rigidbody rb;
-    Vector3 currentPos;
-   
+
     bool moving;
+    EMoveType move;
     bool waiting;
     float waitTime;
     float currentTime;
@@ -31,25 +45,81 @@ public class Inventory : MonoBehaviour
         waiting = false;
         waitTime = 0.7f;
         currentTime = 0;
+
+        if (previousObject)
+        {
+            colliders = previousObject.GetComponents<Collider>();
+            rb = previousObject.GetComponent<Rigidbody>();
+        }
     }
 
-    public void AddToInventory(GameObject prefab)
+    public void HandleBerth(bool berth)
     {
-        newObject = Instantiate(prefab, transform);
+        if (previousObject)
+        {
+            Island2Object0 lastObject = previousObject.GetComponent<Island2Object0>();
+            if (lastObject)
+                lastObject.HandleBerth(berth);
+        }
+    }
 
-        boxCollider = newObject.GetComponent<BoxCollider>();
-        boxCollider.isTrigger = true;
+    public bool TradeObjects(GameObject prefab)
+    {
+        prefabToGive = prefab;
 
-        rb = newObject.GetComponent<Rigidbody>();
-        rb.useGravity = false;
+        if (previousObject)
+        {
+            moving = true;
+            move = EMoveType.GIVE_FIRST_STEP;
 
-        newObject.transform.localPosition = spawnPos;
-        currentPos = spawnPos;
+            foreach (Collider collider in colliders)
+                collider.isTrigger = true;
+            rb.useGravity = false;
+            rb.drag = 0;
 
-        Interactible interactible = newObject.GetComponent<Interactible>();
-        interactible.inspectionInterface = inspectionInterface;
+            targetPos = previousObject.transform.position;
+            targetPos.y += 1;
+            rb.velocity = (targetPos - previousObject.transform.position);
+        }
+        else
+            AddObjectToInventory();
 
-        moving = true;
+        return (previousObject && prefabToGive);
+    }
+
+    void AddObjectToInventory()
+    {
+        if (prefabToGive)
+        {
+            moving = true;
+            move = EMoveType.RECEIVE;
+
+            newObject = Instantiate(prefabToGive, transform);
+            previousObject = newObject;
+
+            colliders = newObject.GetComponents<Collider>();
+            foreach (Collider collider in colliders)
+                collider.isTrigger = true;
+
+            rb = newObject.GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.drag = 0;
+
+            newObject.transform.localPosition = spawnPos;
+            targetPos = receiveEndPos;
+            rb.velocity = (targetPos - spawnPos);
+
+            Interactible interactible = newObject.GetComponent<Interactible>();
+            interactible.inspectionInterface = inspectionInterface;
+            interactible.tutorialManager = tutorialManager;
+        }
+        else
+        {
+            moving = false;
+            waiting = false;
+            currentTime = 0;
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
+        }
     }
 
     void Update()
@@ -60,20 +130,34 @@ public class Inventory : MonoBehaviour
             if (currentTime >= waitTime)
             {
                 waiting = false;
-                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+                currentTime = 0;
+                EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
             }
         }
         if (moving)
         {
-            currentPos.z -= objectSpeed;
-            newObject.transform.localPosition = currentPos;
-
-            if ((currentPos - targetPos).sqrMagnitude <= 0.01f)
+            if (move == EMoveType.RECEIVE && newObject.transform.localPosition.z <= targetPos.z)
             {
+                rb.velocity = Vector3.zero;
                 rb.useGravity = true;
-                boxCollider.isTrigger = false;
+                rb.drag = drag;
+                foreach (Collider collider in colliders)
+                    collider.isTrigger = false;
                 moving = false;
                 waiting = true;
+            }
+            else if (move == EMoveType.GIVE_FIRST_STEP && previousObject.transform.localPosition.y >= targetPos.y)
+            {
+                move = EMoveType.GIVE_SECOND_STEP;
+
+                targetPos = spawnPos;
+                targetPos.x = previousObject.transform.localPosition.x;
+                rb.velocity = (targetPos - previousObject.transform.localPosition);
+            }
+            else if (move == EMoveType.GIVE_SECOND_STEP && previousObject.transform.localPosition.z >= targetPos.z)
+            {
+                Destroy(previousObject);
+                AddObjectToInventory();
             }
         }
     }

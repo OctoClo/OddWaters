@@ -1,0 +1,49 @@
+{
+    "languages":
+    [
+      {
+            "name": "Monk",
+            "firstDialogue":
+            [
+                "*The monk gazes at you quietly from a distance.",
+                "Another one of them making it to our island. Unusual.",
+                "Maybe this time they will listen.",
+                "Maybe this time, they will understand that the sea is to be respected.",
+                "*He talks in a tongue you don’t understand.",
+                "Some of them want to control it, and make it their own.",
+                "Most of them don’t know. How many times must we explain?",
+                "*He talks in an incomprehensible language.",
+            		"Take this if you want a chance to understand.",
+    				    "Go east, stand before the gate and pay attention to the sea.",
+            		"Listen to its roars and complaints, and it will open for you."
+            ],
+            "secondDialogue":
+            [
+                "Listen to it, human.",
+                "Find your way to the east, and listen to its complaints."
+            ]
+        },
+        {
+            "name": "Moine",
+            "firstDialogue":
+            [
+                "*Le moine vous regarde silencieusement, en retrait.",
+                "Un nouveau venu sur notre île. Voilà qui est inhabituel.",
+                "Peut-être que cette fois, ils écouteront.",
+                "Peut-être que cette fois, ils comprendront que la mer doit être respectée.",
+                "*Il parle dans une langue que vous ne pouvez comprendre.",
+                "Certain d’entre eux veulent la contrôler et la posséder.",
+                "La plupart d’entre eux ne savent pas. Combien de fois devrons-nous l’expliquer ?",
+                "*Il parle dans un langage qui vous est étranger.",
+                "Prenez ça, si vous voulez avoir une chance de comprendre.",
+                "Allez à l’Est, tenez-vous devant l’arche et ouvrez-vous à la mer.",
+                "Ecoutez ses complaintes et rugissements, et peut-être s’ouvrira-t-elle à vous."
+            ],
+            "secondDialogue":
+            [
+                "Ecoute-la, humaine.",
+                "Tu trouveras ton chemin à l’Est. Ecoute ses complaintes."
+            ]
+        }
+    ]
+}

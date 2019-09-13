@@ -68,7 +68,6 @@ GameObject:
   - component: {fileID: 1169443797256003457}
   - component: {fileID: 8204393206024494312}
   - component: {fileID: 8584351513485880787}
-  - component: {fileID: 5981518971043235101}
   - component: {fileID: 3755590695050293610}
   m_Layer: 0
   m_Name: Stone
@@ -137,19 +136,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5981518971043235101
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7195449985057327236}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.41, y: 0.44, z: 0.3}
-  m_Center: {x: -0.0000009536743, y: 0, z: -0.12}
 --- !u!114 &3755590695050293610
 MonoBehaviour:
   m_ObjectHideFlags: 0

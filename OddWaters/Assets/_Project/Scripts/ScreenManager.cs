@@ -6,60 +6,80 @@ public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 
 public class ScreenManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField]
-    Animator upPartAnimator;
-
+    Animator globalAnimator;
     [SerializeField]
     GameObject telescopeScreen;
-
     [SerializeField]
     GameObject desk;
-
     [SerializeField]
     Inventory inventory;
-
+    [SerializeField]
+    DialogueManager dialogueManager;
     [SerializeField]
     GameObject islandScreen;
     [SerializeField]
     GameObject islandBackground;
     [SerializeField]
     GameObject islandCharacter;
+    [SerializeField]
+    TutorialManager tutorialManager;
+    bool tutorial;
+    [SerializeField]
+    GameObject tutorialPanel;
+    [SerializeField]
+    InputManager inputManager;
 
     [HideInInspector]
     public EScreenType screenType = EScreenType.SEA;
 
     [HideInInspector]
     public int currentIslandNumber;
+    Island currentIsland;
     bool firstVisit;
     GameObject objectToGive;
     int nextZone;
 
     private void Start()
     {
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
         currentIslandNumber = -1;
+        tutorial = false;
+    }
+
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<DialogueEvent>(OnDialogueEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<DialogueEvent>(OnDialogueEvent);
     }
 
     public void BeginNavigation()
     {
-        upPartAnimator.ResetTrigger("EndNavigationAtSea");
-        upPartAnimator.SetTrigger("BeginNavigation");
+        globalAnimator.ResetTrigger("EndNavigationAtSea");
+        globalAnimator.SetTrigger("BeginNavigation");
     }
 
     public void EndNavigationAtSea()
     {
-        upPartAnimator.ResetTrigger("LeaveIsland");
-        upPartAnimator.SetTrigger("EndNavigationAtSea");
-        Debug.Log("EndNavigationAtSea");
+        globalAnimator.ResetTrigger("LeaveIsland");
+        globalAnimator.SetTrigger("EndNavigationAtSea");
     }
 
-    public IEnumerator Berth(Island island)
+    public IEnumerator Berth(Island island, bool tutorialNow)
     {
+        inputManager.StopCurrentInteractions();
+        inventory.HandleBerth(true);
+
+        currentIsland = island;
+        tutorial = tutorialNow;
+
         if (!island.discovered)
         {
-            yield return StartCoroutine(island.Discover());
+            yield return StartCoroutine(island.Discover(tutorialNow, tutorialManager));
             yield return new WaitForSeconds(1);
         }
 
@@ -70,34 +90,66 @@ public class ScreenManager : MonoBehaviour
         firstVisit = island.firstTimeVisiting;
         island.Berth();
 
-        if (firstVisit)
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
+
+        globalAnimator.SetTrigger("FirstBerth");
+        if (tutorialNow) tutorialManager.CompleteStep();
+        yield return new WaitForSeconds(4);
+        dialogueManager.StartDialogue(island.dialogue, firstVisit);
+    }
+
+    public IEnumerator RelaunchDialogue()
+    {
+        inputManager.StopCurrentInteractions();
+        inventory.HandleBerth(true);
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
+        globalAnimator.SetTrigger("Retalk");
+        yield return new WaitForSeconds(1.2f);
+        dialogueManager.StartDialogue(currentIsland.dialogue, false);
+    }
+
+    public IEnumerator TransitionAfterFirstBerth(bool firstEncounter)
+    {
+        globalAnimator.SetTrigger("EndDialogue");
+
+        yield return new WaitForSeconds(1);
+
+        inventory.HandleBerth(false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (firstEncounter)
         {
-            upPartAnimator.SetTrigger("FirstBerth");
-            
+            if (tutorial)
+                tutorialManager.NextStep();
+
             // Add object to inventory
-            yield return new WaitForSeconds(7);
-            objectToGive = island.objectToGive;
-            inventory.AddToInventory(objectToGive);
-            AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
+            AkSoundEngine.PostEvent("Play_Island" + currentIsland.islandNumber + "_Object0", gameObject);
+            objectToGive = currentIsland.objectToGive;
+            bool waitLonger = inventory.TradeObjects(objectToGive);
+            yield return new WaitForSeconds(1.2f + (waitLonger ? 1 : 0));
 
             // Discover new zone
-            yield return new WaitForSeconds(2.5f);
-            nextZone = island.nextZone;
+            nextZone = currentIsland.nextZone;
             EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
         }
         else
-            upPartAnimator.SetTrigger("Berth");
-
-        EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
     }
 
     public void LeaveIsland()
     {
-        upPartAnimator.ResetTrigger("Berth");
-        upPartAnimator.ResetTrigger("FirstBerth");
+        globalAnimator.ResetTrigger("Berth");
+        globalAnimator.ResetTrigger("FirstBerth");
         AkSoundEngine.PostEvent("Stop_AMB_Island" + currentIslandNumber, gameObject);
-        upPartAnimator.SetTrigger("LeaveIsland");
+        globalAnimator.SetTrigger("LeaveIsland");
         currentIslandNumber = -1;
+    }
+
+    void OnDialogueEvent(DialogueEvent e)
+    {
+        if (!e.ongoing)
+            StartCoroutine(TransitionAfterFirstBerth(e.firstEncounter));
     }
 
     void ChangeScreenType(EScreenType newType)

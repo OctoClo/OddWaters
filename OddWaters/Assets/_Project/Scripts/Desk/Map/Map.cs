@@ -13,9 +13,6 @@ public class Map : MonoBehaviour
     [HideInInspector]
     public int currentZone;
 
-    [HideInInspector]
-    public GameObject currentPanorama;
-
     void Start()
     {
         mapZones = new MapZone[5];
@@ -40,6 +37,8 @@ public class Map : MonoBehaviour
                 islandCounter++;
             }
         }
+
+        ChangeZone(0);
     }
 
     void OnEnable()
@@ -55,19 +54,18 @@ public class Map : MonoBehaviour
     public void ChangeZone(int newZone)
     {
         currentZone = newZone;
-        currentPanorama = mapZones[currentZone].telescopePanorama;
+        mapZones[currentZone].seaIntensity.SetValue();
+        mapZones[currentZone].weather.SetValue();
     }
 
     public GameObject GetCurrentPanorama()
     {
-        if (currentPanorama)
-        {
-            GameObject panorama = currentPanorama;
-            currentPanorama = null;
-            return panorama;
-        }
+        return mapZones[currentZone].GetPanorama();
+    }
 
-        return null;
+    public ERainType GetCurrentRain()
+    {
+        return mapZones[currentZone].rain;
     }
 
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)

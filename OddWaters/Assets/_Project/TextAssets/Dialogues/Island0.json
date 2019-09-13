@@ -1,0 +1,46 @@
+{
+    "languages":
+    [
+      {
+            "name": "Fisherman",
+            "firstDialogue":
+            [
+                "Uh… hello.",
+                "It’s been a long time since we’ve seen a new face around here.",
+                "*He listens to you closely.",
+                "Want a map to the nearest island? I wouldn’t go there if I were you.",
+                "Odd currents on the way, and a bunch of strange lads, mining some black rocks like madmen.",
+                "And it’s no better anywhere else on that sea.",
+                "All you’ll find is either plain water and no wind, or hazardous currents and treacherous reefs.",
+                "Not to mention these folks…",
+                "Anyway, it’s not much of a help, but here you go."
+
+            ],
+            "secondDialogue":
+            [
+                "Still there?",
+                "Don’t have much more than this old map I gave ya’."
+            ]
+        },
+        {
+            "name": "Pêcheur",
+            "firstDialogue":
+            [
+              "Euh… Bonjour.",
+              "Ca f’sait longtemps qu’on n’avait pas vu une nouvelle tête ici.",
+              "*Il vous écoute avec attention.",
+              "V’voulez une carte de l’île la plus proche ? J’irais pas là-bas si j’étais vous.",
+              "Y’a des courants bizarres sur l’chemin, et un tas d’gens étranges qui passent leur temps à creuser d’la pierre noire.",
+              "Et c’est pas mieux ailleurs sur cette mer.",
+              "Tout c’que vous trouverez c’est d’l’eau calme sans vent, ou des courants et récifs traîtres.",
+              "Et j’vous parle même pas de leurs “gens”…",
+              "Enfin bon, c’est pas une grande aide mais t’nez."
+            ],
+            "secondDialogue":
+            [
+                "T’jours là ?",
+                "J’ai pas grand chose de plus pour vous que la carte que j’vous ai donnée."
+            ]
+        }
+    ]
+}

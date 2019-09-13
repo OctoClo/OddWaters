@@ -1,0 +1,31 @@
+{
+  "languages" :
+  [
+    {
+      "steps":
+      [
+        "Hold left click to drag the panorama",
+        "Drag and drop the boat on the cross",
+        "Use mouse wheel to zoom on the island and add it to your map",
+        "Go to the island",
+        "Right click on an object to inspect it",
+        "Rotate an object with the buttons",
+        "Drag and drop an object to move it around",
+        "Now you are on your own..."
+      ]
+    },
+    {
+      "steps":
+      [
+        "Maintenez le clic gauche pour déplacer le panorama",
+        "Faites glisser le bateau sur le repère",
+        "Utilisez la molette pour zoomer sur une île et l’ajouter à votre carte",
+        "Allez sur l’île",
+        "Faites un clic droit sur un objet pour l’inspecter",
+        "Utilisez les boutons pour faire tourner l’objet",
+        "Maintenez un objet pour le déplacer",
+        "Maintenant, vous êtes tout seul..."
+      ]
+    }
+  ]
+}

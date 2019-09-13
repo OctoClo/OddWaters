@@ -4,27 +4,64 @@ using UnityEngine;
 
 public class MapZone : MonoBehaviour
 {
+    [Header("General")]
     public int zoneNumber;
-    public GameObject telescopePanorama;
-    
     public bool visible;
 
-    [SerializeField]
-    Material visibleMat;
-    [SerializeField]
-    Material invisibleMat;
+    [Header("Ambiance")]
+    public AK.Wwise.State seaIntensity;
+    public AK.Wwise.State weather;
 
-    MeshRenderer meshRenderer;
+    [Header("Panorama")]
+    [SerializeField]
+    List<GameObject> telescopePanoramas;
+    int currentPanoramaIndex = -1;
+    public ERainType rain;
+
+    [Header("Activation")]
+    [SerializeField]
+    List<GameObject> elementsToHide = new List<GameObject>();
+
+    [Header("References")]
+    [SerializeField]
+    GameObject clouds;
+    Animator animator;
 
     void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = (visible ? visibleMat : invisibleMat);
+        animator = GetComponent<Animator>();
+        ListExtensions.Shuffle(telescopePanoramas);
+
+        if (clouds != null && visible)
+            animator.SetTrigger("RemoveClouds");
+
+        foreach (GameObject element in elementsToHide)
+            element.SetActive(false);
     }
 
     public void Discover()
     {
         visible = true;
-        meshRenderer.material = visibleMat;
+
+        if (clouds != null)
+        {
+            AkSoundEngine.PostEvent("Play_Clouds", gameObject);
+            animator.SetTrigger("RemoveClouds");
+        }
+
+        foreach (GameObject element in elementsToHide)
+            element.SetActive(true);
+    }
+
+    public GameObject GetPanorama()
+    {
+        currentPanoramaIndex++;
+        if (currentPanoramaIndex >= telescopePanoramas.Count)
+        {
+            currentPanoramaIndex = 0;
+            ListExtensions.Shuffle(telescopePanoramas);
+        }
+
+        return telescopePanoramas[currentPanoramaIndex];
     }
 }

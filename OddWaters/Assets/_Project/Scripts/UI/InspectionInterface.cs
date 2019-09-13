@@ -7,6 +7,9 @@ using TMPro;
 public class InspectionInterface : MonoBehaviour
 {
     [SerializeField]
+    InputManager inputManager;
+
+    [SerializeField]
     Button transcriptButton;
 
     [SerializeField]
@@ -14,7 +17,7 @@ public class InspectionInterface : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI transcriptField;
-    string[] transcriptTexts;
+    Transcript[] transcripts;
 
     [SerializeField]
     Button[] rotateButtons;
@@ -23,13 +26,13 @@ public class InspectionInterface : MonoBehaviour
 
     public void InitializeInterface(Transcript transcriptRecto, Transcript transcriptVerso, int side)
     {
-        transcriptTexts = new string[2];
+        transcripts = new Transcript[2];
 
         if (transcriptRecto != null)
-            transcriptTexts[0] = transcriptRecto.textFrench;
+            transcripts[0] = transcriptRecto;
 
         if (transcriptVerso != null)
-            transcriptTexts[1] = transcriptVerso.textFrench;
+            transcripts[1] = transcriptVerso;
 
         DisplayTranscriptSide(side);
 
@@ -74,13 +77,21 @@ public class InspectionInterface : MonoBehaviour
 
     public void DisplayTranscriptSide(int side)
     {
-        string newTranscript = transcriptTexts[side];
+        Transcript newTranscript = transcripts[side];
         if (newTranscript != null)
         {
-            transcriptField.text = newTranscript;
+            transcriptField.text = "";
+            int nbLines = newTranscript.languages[(int)LanguageManager.Instance.language].lines.Length;
+            for (int i = 0; i < nbLines; i++)
+                transcriptField.text += newTranscript.languages[(int)LanguageManager.Instance.language].lines[i] + "\n";
             transcriptButton.gameObject.SetActive(true);
         }
         else
             transcriptButton.gameObject.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        inputManager.ExitInterfaceRotation();
     }
 }
