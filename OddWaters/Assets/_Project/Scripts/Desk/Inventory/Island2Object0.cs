@@ -19,6 +19,8 @@ public class Island2Object0 : Interactible
     Texture emissiveActive;
     [SerializeField]
     Color activeColor = new Color(2, 58, 6);
+    [SerializeField]
+    TextAsset clueTranscript;
 
     Material mat;
     TelescopeElement telescopeElement;
@@ -107,6 +109,7 @@ public class Island2Object0 : Interactible
                 tracking = false;
                 mat.SetTexture("_EmissionMap", emissiveActive);
                 mat.SetColor("_EmissionColor", activeColor / 10.0f);
+                transcriptVerso = JsonUtility.FromJson<Transcript>(clueTranscript.text);
             }
         }
     }

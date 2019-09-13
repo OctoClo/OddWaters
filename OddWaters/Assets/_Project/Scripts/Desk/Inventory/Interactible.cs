@@ -13,8 +13,8 @@ public class Interactible : MonoBehaviour
     TextAsset transcriptJSONRecto;
     [SerializeField]
     TextAsset transcriptJSONVerso;
-    Transcript transcriptRecto;
-    Transcript transcriptVerso;
+    protected Transcript transcriptRecto;
+    protected Transcript transcriptVerso;
     bool switchTranscriptSide;
     int side;
 
