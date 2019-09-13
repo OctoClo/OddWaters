@@ -41,16 +41,16 @@ public class DialogueManager : MonoBehaviour
 
         if (firstEncounter)
         {
-            foreach (string line in dialogue.languages[(int)LanguageManager.Instance.language].firstDialogue)
+            foreach (string line in dialogue.languages[(int)OptionsManager.Instance.language].firstDialogue)
                 lines.Enqueue(line);
         }
         else
         {
-            foreach (string line in dialogue.languages[(int)LanguageManager.Instance.language].secondDialogue)
+            foreach (string line in dialogue.languages[(int)OptionsManager.Instance.language].secondDialogue)
                 lines.Enqueue(line);
         }
 
-        nameField.text = dialogue.languages[(int)LanguageManager.Instance.language].name;
+        nameField.text = dialogue.languages[(int)OptionsManager.Instance.language].name;
         NextLine();
 
         EventManager.Instance.Raise(new DialogueEvent() { ongoing = true, firstEncounter = first });

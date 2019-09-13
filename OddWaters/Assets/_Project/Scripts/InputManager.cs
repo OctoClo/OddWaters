@@ -78,7 +78,7 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
-        LanguageManager.Instance.UpdateTranslator();
+        OptionsManager.Instance.UpdateTranslator();
 
         mouseProjection = new GameObject("Mouse Projection");
         mouseProjection.tag = "MouseProjection";

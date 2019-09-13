@@ -8,12 +8,15 @@ public enum ELanguage
     FRENCH
 }
 
-public class LanguageManager : MonoBehaviour
+public class OptionsManager : MonoBehaviour
 {
-    public static LanguageManager Instance;
+    public static OptionsManager Instance;
 
     public ELanguage language = ELanguage.ENGLISH;
     Translator translator;
+
+    [HideInInspector]
+    public int soundValue = 10;
 
     void Awake()
     {

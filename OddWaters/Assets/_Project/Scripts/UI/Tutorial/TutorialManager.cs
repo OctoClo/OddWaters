@@ -143,7 +143,7 @@ public class TutorialManager : MonoBehaviour
 
     void PromptTooltip()
     {
-        tutorialField.text = tutorialText.languages[(int)LanguageManager.Instance.language].steps[(int)step];
+        tutorialField.text = tutorialText.languages[(int)OptionsManager.Instance.language].steps[(int)step];
         tutorialUIAnimator.SetBool("StepCompleted", false);
     }
 

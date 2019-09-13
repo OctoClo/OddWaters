@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
@@ -16,13 +17,18 @@ public class Options : MonoBehaviour
     Animator FRAnimator;
     Animator currentAnimator;
 
+    [SerializeField]
+    Slider soundSlider;
+
     private void Awake()
     {
-        if (LanguageManager.Instance.language == ELanguage.ENGLISH)
+        if (OptionsManager.Instance.language == ELanguage.ENGLISH)
             currentAnimator = ENAnimator;
         else
             currentAnimator = FRAnimator;
         currentAnimator.SetTrigger("Activate");
+
+        soundSlider.value = OptionsManager.Instance.soundValue;
     }
 
     private void OnEnable()
@@ -47,17 +53,18 @@ public class Options : MonoBehaviour
         if (language.Equals("EN"))
         {
             currentAnimator = ENAnimator;
-            LanguageManager.Instance.ChangeLanguage(ELanguage.ENGLISH);
+            OptionsManager.Instance.ChangeLanguage(ELanguage.ENGLISH);
         }
         else
         {
             currentAnimator = FRAnimator;
-            LanguageManager.Instance.ChangeLanguage(ELanguage.FRENCH);
+            OptionsManager.Instance.ChangeLanguage(ELanguage.FRENCH);
         }
     }
 
     public void OnVolumeChanged(float value)
     {
+        OptionsManager.Instance.soundValue = (int)value;
         AkSoundEngine.SetRTPCValue("Volume", value * 10);
     }
 

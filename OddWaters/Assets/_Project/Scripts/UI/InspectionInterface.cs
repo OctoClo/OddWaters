@@ -81,9 +81,9 @@ public class InspectionInterface : MonoBehaviour
         if (newTranscript != null)
         {
             transcriptField.text = "";
-            int nbLines = newTranscript.languages[(int)LanguageManager.Instance.language].lines.Length;
+            int nbLines = newTranscript.languages[(int)OptionsManager.Instance.language].lines.Length;
             for (int i = 0; i < nbLines; i++)
-                transcriptField.text += newTranscript.languages[(int)LanguageManager.Instance.language].lines[i] + "\n";
+                transcriptField.text += newTranscript.languages[(int)OptionsManager.Instance.language].lines[i] + "\n";
             transcriptButton.gameObject.SetActive(true);
         }
         else

@@ -108,7 +108,7 @@ public class Translator : MonoBehaviour
         {
             length = texts[i].Length;
             for (counter = 0; counter < length; counter++)
-                texts[i][counter].text = translation.languages[(int)LanguageManager.Instance.language].texts[i];
+                texts[i][counter].text = translation.languages[(int)OptionsManager.Instance.language].texts[i];
         }
     }
 }
