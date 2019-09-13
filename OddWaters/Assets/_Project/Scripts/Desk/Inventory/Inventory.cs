@@ -82,20 +82,24 @@ public class Inventory : MonoBehaviour
             rb.velocity = (targetPos - previousObject.transform.position);
         }
         else
-            AddObjectToInventory();
+            AddObjectToInventory(true);
 
         return (previousObject && prefabToGive);
     }
 
-    void AddObjectToInventory()
+    public void AddObjectToInventory(bool trade, GameObject prefab = null)
     {
-        if (prefabToGive)
+        if (trade)
+            prefab = prefabToGive;
+        
+        if (prefab)
         {
             moving = true;
             move = EMoveType.RECEIVE;
 
-            newObject = Instantiate(prefabToGive, transform);
-            previousObject = newObject;
+            newObject = Instantiate(prefab, transform);
+            if (trade)
+                previousObject = newObject;
 
             colliders = newObject.GetComponents<Collider>();
             foreach (Collider collider in colliders)
@@ -157,7 +161,7 @@ public class Inventory : MonoBehaviour
             else if (move == EMoveType.GIVE_SECOND_STEP && previousObject.transform.localPosition.z >= targetPos.z)
             {
                 Destroy(previousObject);
-                AddObjectToInventory();
+                AddObjectToInventory(true);
             }
         }
     }
