@@ -1,6 +1,6 @@
 # OddWaters
 
-**Lien vers la page itch : [https://oddwaters.itch.io/game](https://oddwaters.itch.io/game)**
+**Link to the Itch page : [https://oddwaters.itch.io/game](https://oddwaters.itch.io/game)**
 
 
 
@@ -12,4 +12,4 @@ Odd Waters is a **puzzle game** on a sea host of strange phenomenons.
 
 
 
-[Trailer](https://www.youtube.com/watch?v=ZRqy94Mz80E)
+[Youtube Trailer](https://www.youtube.com/watch?v=ZRqy94Mz80E)
