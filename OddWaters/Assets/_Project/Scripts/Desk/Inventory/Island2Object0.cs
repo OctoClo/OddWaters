@@ -20,7 +20,7 @@ public class Island2Object0 : Interactible
     [SerializeField]
     Color activeColor = new Color(2, 58, 6);
     [SerializeField]
-    TextAsset clueTranscript;
+    TextAsset clueJSON;
 
     Material mat;
     TelescopeElement telescopeElement;
@@ -31,6 +31,7 @@ public class Island2Object0 : Interactible
     Vector3 beforeDialoguePos;
     Vector3 beginFloatPos;
     Vector3 targetFloatPos;
+    Transcript clueTranscript;
 
     [Header("Debug")]
     public bool floating;
@@ -50,6 +51,8 @@ public class Island2Object0 : Interactible
         tracking = false;
         angleFactor = 1.0f / maxTotalAngle;
         onIsland = false;
+
+        clueTranscript = JsonUtility.FromJson<Transcript>(clueJSON.text);
     }
 
     void OnEnable()
@@ -79,6 +82,7 @@ public class Island2Object0 : Interactible
                 {
                     rigidBody.useGravity = false;
                     beginFloatPos = transform.position;
+                    transcriptVerso = clueTranscript;
                 }
                 floating = true;
             }
@@ -86,7 +90,11 @@ public class Island2Object0 : Interactible
             {
                 currentPercentage = 0;
                 if (floating)
+                {
                     rigidBody.useGravity = true;
+                    transcriptVerso = null;
+                }
+                    
                 floating = false;
             }
 
@@ -109,7 +117,7 @@ public class Island2Object0 : Interactible
                 tracking = false;
                 mat.SetTexture("_EmissionMap", emissiveActive);
                 mat.SetColor("_EmissionColor", activeColor / 10.0f);
-                transcriptVerso = JsonUtility.FromJson<Transcript>(clueTranscript.text);
+                rigidBody.useGravity = true;
             }
         }
     }
@@ -138,7 +146,7 @@ public class Island2Object0 : Interactible
     public override void Drop()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
-       
+        
         if (tracking || activated)
         {
             beginFloatPos.x = transform.position.x;

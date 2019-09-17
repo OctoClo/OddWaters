@@ -993,7 +993,7 @@ MonoBehaviour:
   layer: 1
   discovered: 0
   inventory: {fileID: 0}
-  lastNote: {fileID: 3525013066644391792, guid: 4bad2a324ae330c48b1774679c08edd5,
+  lastNote: {fileID: 6508210543688471789, guid: ed0757c58e3674f408b177e32ef35c7c,
     type: 3}
 --- !u!1 &7377196524161030120
 GameObject:
@@ -1489,6 +1489,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonBig
+      objectReference: {fileID: 0}
     - target: {fileID: 3054341139229301492, guid: 90abf7713a2cace40965e7f68916fbdd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1554,11 +1559,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.25
       objectReference: {fileID: 0}
-    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonBig
-      objectReference: {fileID: 0}
     - target: {fileID: 3285437866315080020, guid: 90abf7713a2cace40965e7f68916fbdd,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1579,6 +1579,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonSmall (4)
+      objectReference: {fileID: 0}
     - target: {fileID: 6110967441215509302, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1644,21 +1649,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.10000004
       objectReference: {fileID: 0}
-    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonSmall (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 5995856545864018070, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a1339119a9c6d55479cc56e55f0641e9, type: 2}
+    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea69476e23f662a40a047a400bc6f058, type: 3}
 --- !u!4 &6476646532299760830 stripped
@@ -1674,6 +1674,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonSmall (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6110967441215509302, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1738,11 +1743,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.09000003
-      objectReference: {fileID: 0}
-    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonSmall (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
@@ -1864,6 +1864,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonSmall
+      objectReference: {fileID: 0}
     - target: {fileID: 6110967441215509302, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1929,21 +1934,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.09
       objectReference: {fileID: 0}
-    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonSmall
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.27
-      objectReference: {fileID: 0}
     - target: {fileID: 5995856545864018070, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a1339119a9c6d55479cc56e55f0641e9, type: 2}
+    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.27
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea69476e23f662a40a047a400bc6f058, type: 3}
 --- !u!4 &8233965686501181970 stripped
@@ -1959,6 +1959,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonBig (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 3054341139229301492, guid: 90abf7713a2cace40965e7f68916fbdd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2023,11 +2028,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonBig (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3285437866315080020, guid: 90abf7713a2cace40965e7f68916fbdd,
         type: 3}
@@ -2139,6 +2139,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonSmall (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 6110967441215509302, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2204,21 +2209,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonSmall (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 5995856545864018070, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a1339119a9c6d55479cc56e55f0641e9, type: 2}
+    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea69476e23f662a40a047a400bc6f058, type: 3}
 --- !u!4 &866710622765773077 stripped
@@ -2234,6 +2234,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonSmall (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 6110967441215509302, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2299,21 +2304,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.12
       objectReference: {fileID: 0}
-    - target: {fileID: 8120688343186491629, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonSmall (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.36
-      objectReference: {fileID: 0}
     - target: {fileID: 5995856545864018070, guid: ea69476e23f662a40a047a400bc6f058,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3b11d37ec9a402144af6a35d54d03e67, type: 2}
+    - target: {fileID: 3756453984113723806, guid: ea69476e23f662a40a047a400bc6f058,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.36
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea69476e23f662a40a047a400bc6f058, type: 3}
 --- !u!4 &4012237918134076705 stripped
@@ -2429,6 +2429,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonBig (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 3054341139229301492, guid: 90abf7713a2cace40965e7f68916fbdd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2493,11 +2498,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.25000012
-      objectReference: {fileID: 0}
-    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonBig (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90abf7713a2cace40965e7f68916fbdd, type: 3}
@@ -2614,6 +2614,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777504778262695323}
     m_Modifications:
+    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
+        type: 3}
+      propertyPath: m_Name
+      value: TyphoonBig (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 3054341139229301492, guid: 90abf7713a2cace40965e7f68916fbdd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2678,11 +2683,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1017756968623161647, guid: 90abf7713a2cace40965e7f68916fbdd,
-        type: 3}
-      propertyPath: m_Name
-      value: TyphoonBig (3)
       objectReference: {fileID: 0}
     - target: {fileID: 5371718385464508508, guid: 90abf7713a2cace40965e7f68916fbdd,
         type: 3}

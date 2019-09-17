@@ -15275,6 +15275,10 @@ PrefabInstance:
       propertyPath: elementsToActivate.Array.data[0]
       value: 
       objectReference: {fileID: 4288415666113271627}
+    - target: {fileID: 20717904, guid: bccd4cef1f9bbb74dbc26840e0a4cde6, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1200305078}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bccd4cef1f9bbb74dbc26840e0a4cde6, type: 3}
 --- !u!1001 &989681347748517376

@@ -111,9 +111,9 @@ MonoBehaviour:
   currentColor: {r: 0, g: 0, b: 0, a: 0}
   maxTotalAngle: 90
   maxHeight: 4
-  emissiveActive: {fileID: 2800000, guid: a1cc673796d14374db8b03e3efe0c1da, type: 3}
+  emissiveActive: {fileID: 2800000, guid: a0e47d46228fe2a429451b367aeed6b9, type: 3}
   activeColor: {r: 22.918123, g: 32.132626, b: 40.402054, a: 1}
-  clueTranscript: {fileID: 4900000, guid: 4e88d72082c57f64290847c7ca4f29db, type: 3}
+  clueJSON: {fileID: 4900000, guid: 4e88d72082c57f64290847c7ca4f29db, type: 3}
   floating: 0
   currentAngle: 0
   currentPercentage: 0
