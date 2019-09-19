@@ -26,15 +26,15 @@
             "name": "Pêcheur",
             "firstDialogue":
             [
-              "Euh… Bonjour.",
-              "Ca f’sait longtemps qu’on n’avait pas vu une nouvelle tête ici.",
-              "*Il vous écoute avec attention.",
-              "V’voulez une carte de l’île la plus proche ? J’irais pas là-bas si j’étais vous.",
-              "Y’a des courants bizarres sur l’chemin, et un tas d’gens étranges qui passent leur temps à creuser d’la pierre noire.",
-              "Et c’est pas mieux ailleurs sur cette mer.",
-              "Tout c’que vous trouverez c’est d’l’eau calme sans vent, ou des courants et récifs traîtres.",
-              "Et j’vous parle même pas de leurs “gens”…",
-              "Enfin bon, c’est pas une grande aide mais t’nez."
+                "Euh… Bonjour.",
+                "Ca f’sait longtemps qu’on n’avait pas vu une nouvelle tête ici.",
+                "*Il vous écoute avec attention.",
+                "V’voulez une carte de l’île la plus proche ? J’irais pas là-bas si j’étais vous.",
+                "Y’a des courants bizarres sur l’chemin, et un tas d’gens étranges qui passent leur temps à creuser d’la pierre noire.",
+                "Et c’est pas mieux ailleurs sur cette mer.",
+                "Tout c’que vous trouverez c’est d’l’eau calme sans vent, ou des courants et récifs traîtres.",
+                "Et j’vous parle même pas de leurs “gens”…",
+                "Enfin bon, c’est pas une grande aide mais t’nez."
             ],
             "secondDialogue":
             [

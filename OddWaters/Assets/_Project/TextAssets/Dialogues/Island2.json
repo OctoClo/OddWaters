@@ -1,25 +1,26 @@
 {
     "languages":
     [
-      {
+        {
             "name": "Monk",
             "firstDialogue":
             [
                 "*The monk gazes at you quietly from a distance.",
-                "Another one of them making it to our island. Unusual.",
-                "Maybe this time they will listen.",
-                "Maybe this time, they will understand that the sea is to be respected.",
-                "*He talks in a tongue you don’t understand.",
-                "Some of them want to control it, and make it their own.",
-                "Most of them don’t know. How many times must we explain?",
-                "*He talks in an incomprehensible language.",
-            		"Take this if you want a chance to understand.",
-    				    "Go east, stand before the gate and pay attention to the sea.",
-            		"Listen to its roars and complaints, and it will open for you."
+                "It’s unusual to see someone like you here.",
+                "Your kind usually does not listen to the great Sea.",
+                "*He listens to your request.",
+                "Oh, but we shall not challenge the Sea, for its power created us all.",
+                "It separated us for a reason, you see.",
+                "The only way to understand the Sea is to be its servant.",
+                "*As you reiterate your demand, he interrupts you.",
+                "You must leave now. You do not belong here.",
+                "If you want to face the judgement of the Sea, so be it.",
+                "Go east, and stand before the sacred gate.",
+                "Listen to its roars and complaints, and it will open to you."
             ],
             "secondDialogue":
             [
-                "Listen to it, human.",
+                "Listen, human.",
                 "Find your way to the east, and listen to its complaints."
             ]
         },
@@ -28,20 +29,21 @@
             "firstDialogue":
             [
                 "*Le moine vous regarde silencieusement, en retrait.",
-                "Un nouveau venu sur notre île. Voilà qui est inhabituel.",
-                "Peut-être que cette fois, ils écouteront.",
-                "Peut-être que cette fois, ils comprendront que la mer doit être respectée.",
-                "*Il parle dans une langue que vous ne pouvez comprendre.",
-                "Certain d’entre eux veulent la contrôler et la posséder.",
-                "La plupart d’entre eux ne savent pas. Combien de fois devrons-nous l’expliquer ?",
-                "*Il parle dans un langage qui vous est étranger.",
-                "Prenez ça, si vous voulez avoir une chance de comprendre.",
-                "Allez à l’Est, tenez-vous devant l’arche et ouvrez-vous à la mer.",
-                "Ecoutez ses complaintes et rugissements, et peut-être s’ouvrira-t-elle à vous."
+                "Il est peu commun de voir quelqu’un comme vous ici.",
+                "Les gens de votre espèce n’écoutent pas la Grande Mer.",
+                "*Il prête attention à votre requête.",
+                "Oh, mais nous ne devons pas défier la Mer, car c’est son pouvoir qui nous a créés.",
+                "Vous savez, elle nous a séparés pour une raison.",
+                "La seule manière de comprendre la Mer, c’est d’être son serviteur.",
+                "*Alors que vous réitérez votre demande, il vous interrompt.",
+                "Partez maintenant. Votre place n’est pas ici.",
+                "Si vous souhaitez faire face au jugement de la Mer, ainsi soit-il.",
+                "Allez à l’est, et tenez-vous devant l’arche.",
+                "Ecoutez ses complaintes et rugissements, alors peut-être s’ouvrira-t-elle à vous."
             ],
             "secondDialogue":
             [
-                "Ecoute-la, humaine.",
+                "Ecoute, humaine.",
                 "Tu trouveras ton chemin à l’Est. Ecoute ses complaintes."
             ]
         }

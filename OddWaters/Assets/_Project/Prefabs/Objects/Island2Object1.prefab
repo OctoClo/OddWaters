@@ -126,8 +126,8 @@ MonoBehaviour:
     valueGuid: 317c3670be4eae44b6e7e4d528a2c0cd
     groupGuid: 3d7ac2e70dbfc949841ff81d10da064b
     groupID: -429652670
-  transcriptJSONRecto: {fileID: 0}
-  transcriptJSONVerso: {fileID: 0}
+  transcriptJSONRecto: {fileID: 4900000, guid: 11e9d4fd8f5806b4cad8ed84dde87b18, type: 3}
+  transcriptJSONVerso: {fileID: 4900000, guid: 7d181e39f91352943ae6ea8510732fac, type: 3}
   zoomOffset: 14
   grabOffset: 0.01
   rotationSpeed: 3
