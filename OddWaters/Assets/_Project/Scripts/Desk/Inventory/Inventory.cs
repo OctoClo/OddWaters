@@ -68,23 +68,29 @@ public class Inventory : MonoBehaviour
         prefabToGive = prefab;
 
         if (previousObject)
-        {
-            moving = true;
-            move = EMoveType.GIVE_FIRST_STEP;
-
-            foreach (Collider collider in colliders)
-                collider.isTrigger = true;
-            rb.useGravity = false;
-            rb.drag = 0;
-
-            targetPos = previousObject.transform.position;
-            targetPos.y += 1;
-            rb.velocity = (targetPos - previousObject.transform.position);
-        }
+            RemoveLastObjectFromInventory();
         else
             AddObjectToInventory(true);
 
         return (previousObject && prefabToGive);
+    }
+
+    public void RemoveLastObjectFromInventory()
+    {
+        moving = true;
+        move = EMoveType.GIVE_FIRST_STEP;
+
+        colliders = previousObject.GetComponents<Collider>();
+        foreach (Collider collider in colliders)
+            collider.isTrigger = true;
+
+        rb = previousObject.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.drag = 0;
+
+        targetPos = previousObject.transform.position;
+        targetPos.y += 1;
+        rb.velocity = (targetPos - previousObject.transform.position);
     }
 
     public void AddObjectToInventory(bool trade, GameObject prefab = null)
