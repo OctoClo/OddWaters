@@ -4,123 +4,174 @@ using UnityEngine;
 
 public enum EScreenType { SEA, ISLAND_FULLSCREEN, ISLAND_SMALL }
 
-public enum EIslandIlluType { FULLSCREEN, SMALL, COUNT }
-
 public class ScreenManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField]
-    GameObject telescope;
-
+    Animator globalAnimator;
+    [SerializeField]
+    GameObject telescopeScreen;
     [SerializeField]
     GameObject desk;
-
     [SerializeField]
     Inventory inventory;
-
     [SerializeField]
-    GameObject island;
+    DialogueManager dialogueManager;
     [SerializeField]
-    GameObject[] islandFolders;
+    GameObject islandScreen;
     [SerializeField]
-    GameObject[] islandIllustrations;
+    GameObject islandBackground;
     [SerializeField]
-    GameObject[] islandCharacters;
+    GameObject islandCharacter;
+    [SerializeField]
+    TutorialManager tutorialManager;
+    bool tutorial;
+    [SerializeField]
+    GameObject tutorialPanel;
+    [SerializeField]
+    InputManager inputManager;
 
     [HideInInspector]
     public EScreenType screenType = EScreenType.SEA;
 
-    EIslandIlluType islandIlluType;
-
     [HideInInspector]
     public int currentIslandNumber;
+    Island currentIsland;
     bool firstVisit;
     GameObject objectToGive;
     int nextZone;
 
     private void Start()
     {
-        AkSoundEngine.SetState("SeaIntensity", "CalmSea");
-        AkSoundEngine.SetState("Weather", "Fine");
-        AkSoundEngine.PostEvent("Play_AMB_Sea", gameObject);
         currentIslandNumber = -1;
+        tutorial = false;
     }
 
-    public void Berth(Island island)
+    void OnEnable()
     {
-        for (int i = 0; i < (int)EIslandIlluType.COUNT; i++)
+        EventManager.Instance.AddListener<DialogueEvent>(OnDialogueEvent);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<DialogueEvent>(OnDialogueEvent);
+    }
+
+    public void BeginNavigation()
+    {
+        globalAnimator.ResetTrigger("EndNavigationAtSea");
+        globalAnimator.SetTrigger("BeginNavigation");
+    }
+
+    public void EndNavigationAtSea()
+    {
+        globalAnimator.ResetTrigger("LeaveIsland");
+        globalAnimator.SetTrigger("EndNavigationAtSea");
+    }
+
+    public IEnumerator Berth(Island island, bool tutorialNow)
+    {
+        inputManager.StopCurrentInteractions();
+        inventory.HandleBerth(true);
+
+        currentIsland = island;
+        tutorial = tutorialNow;
+
+        if (!island.discovered)
         {
-            islandIllustrations[i].GetComponent<SpriteRenderer>().sprite = island.illustration;
-            islandCharacters[i].GetComponent<SpriteRenderer>().sprite = island.character;
+            yield return StartCoroutine(island.Discover(tutorialNow, tutorialManager));
+            yield return new WaitForSeconds(1);
         }
+
+        islandBackground.GetComponent<SpriteRenderer>().sprite = island.background;
+        islandCharacter.GetComponent<SpriteRenderer>().sprite = island.character;
 
         currentIslandNumber = island.islandNumber;
         firstVisit = island.firstTimeVisiting;
-        if (firstVisit)
+        island.Berth();
+
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
+
+        globalAnimator.SetTrigger("FirstBerth");
+        if (tutorialNow) tutorialManager.CompleteStep();
+        yield return new WaitForSeconds(4);
+        dialogueManager.StartDialogue(island.dialogue, firstVisit);
+    }
+
+    public IEnumerator RelaunchDialogue()
+    {
+        inputManager.StopCurrentInteractions();
+        inventory.HandleBerth(true);
+        EventManager.Instance.Raise(new BlockInputEvent() { block = true, navigation = false });
+        globalAnimator.SetTrigger("Retalk");
+        yield return new WaitForSeconds(1.2f);
+        dialogueManager.StartDialogue(currentIsland.dialogue, false);
+    }
+
+    public IEnumerator TransitionAfterFirstBerth(bool firstEncounter)
+    {
+        globalAnimator.SetTrigger("EndDialogue");
+
+        yield return new WaitForSeconds(1);
+
+        inventory.HandleBerth(false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (firstEncounter)
         {
-            objectToGive = island.objectToGive;
-            nextZone = island.nextZone;
-            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_FULLSCREEN));
+            if (tutorial)
+                tutorialManager.NextStep();
+
+            // Add object to inventory
+            AkSoundEngine.PostEvent("Play_Island" + currentIsland.islandNumber + "_Object0", gameObject);
+            objectToGive = currentIsland.objectToGive;
+            bool waitLonger = inventory.TradeObjects(objectToGive);
+            yield return new WaitForSeconds(1.2f + (waitLonger ? 1 : 0));
+
+            // Discover new zone
+            nextZone = currentIsland.nextZone;
+            EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
         }
         else
-            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_SMALL));
+            EventManager.Instance.Raise(new BlockInputEvent() { block = false, navigation = false });
     }
 
     public void LeaveIsland()
     {
+        globalAnimator.ResetTrigger("Berth");
+        globalAnimator.ResetTrigger("FirstBerth");
         AkSoundEngine.PostEvent("Stop_AMB_Island" + currentIslandNumber, gameObject);
-        StartCoroutine(ChangeScreenType(EScreenType.SEA));
+        globalAnimator.SetTrigger("LeaveIsland");
         currentIslandNumber = -1;
     }
 
-    IEnumerator ChangeScreenType(EScreenType newType)
+    void OnDialogueEvent(DialogueEvent e)
+    {
+        if (!e.ongoing)
+            StartCoroutine(TransitionAfterFirstBerth(e.firstEncounter));
+    }
+
+    void ChangeScreenType(EScreenType newType)
     {
         screenType = newType;
 
         if (screenType == EScreenType.ISLAND_FULLSCREEN)
         {
             desk.SetActive(false);
-            telescope.SetActive(false);
-            island.SetActive(true);
-            islandIlluType = EIslandIlluType.FULLSCREEN;
-            ChangeIslandIlluType();
-            yield return new WaitForSeconds(2);
-            StartCoroutine(ChangeScreenType(EScreenType.ISLAND_SMALL));
+            telescopeScreen.SetActive(false);
+            islandScreen.SetActive(true);
         }
         else if (screenType == EScreenType.ISLAND_SMALL)
         {
             desk.SetActive(true);
-            telescope.SetActive(false);
-            island.SetActive(true);
-            islandIlluType = EIslandIlluType.SMALL;
-            ChangeIslandIlluType();
-            if (firstVisit)
-            {
-                yield return new WaitForSeconds(0.5f);
-                inventory.AddToInventory(objectToGive);
-                AkSoundEngine.PostEvent("Play_Island" + currentIslandNumber + "_Object0", gameObject);
-                yield return new WaitForSeconds(2.5f);
-                EventManager.Instance.Raise(new DiscoverZoneEvent() { zoneNumber = nextZone });
-            }
-            else
-                EventManager.Instance.Raise(new BlockInputEvent() { block = false });
+            telescopeScreen.SetActive(false);
+            islandScreen.SetActive(true);
         }
         else
         {
-            island.SetActive(false);
-            telescope.SetActive(true);
+            islandScreen.SetActive(false);
+            telescopeScreen.SetActive(true);
         }
-    }
-
-    void ChangeIslandIlluType()
-    {
-        int otherType = ((int)islandIlluType + 1) % (int)EIslandIlluType.COUNT;
-
-        islandFolders[(int)islandIlluType].SetActive(true);
-        islandIllustrations[(int)islandIlluType].SetActive(true);
-        islandCharacters[(int)islandIlluType].SetActive(true);
-
-        islandFolders[otherType].SetActive(false);
-        islandIllustrations[otherType].SetActive(false);
-        islandCharacters[otherType].SetActive(false);
     }
 }

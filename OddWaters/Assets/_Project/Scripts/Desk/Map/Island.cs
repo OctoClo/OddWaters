@@ -4,38 +4,32 @@ using UnityEngine;
 
 public class DiscoverZoneEvent : GameEvent { public int zoneNumber; }
 
-public class Island : MonoBehaviour
+public class Island : MapElement
 {
+    [Header("Island")]
     public int islandNumber;
     public int nextZone;
-    public bool visible;
-    public Sprite illustration;
+    public Sprite background;
     public Sprite character;
     public GameObject objectToGive;
-    public Sprite islandSprite;
+    public TextAsset speech;
+
+    [HideInInspector]
+    public Dialogue dialogue;
 
     [HideInInspector]
     public bool firstTimeVisiting = true;
 
-    MeshRenderer meshRenderer;
-
-    void Start()
+    override protected void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.enabled = visible;
+        base.Start();
+        dialogue = JsonUtility.FromJson<Dialogue>(speech.text);
+        firstTimeVisiting = true;
     }
 
     public void Berth()
     {
-        AkSoundEngine.PostEvent("Play_AMB_Island" + islandNumber, gameObject);
+        AkSoundEngine.PostEvent("Play_AMB_" + name, gameObject);
         firstTimeVisiting = false;
-    }
-
-    public IEnumerator Discover()
-    {
-        AkSoundEngine.PostEvent("Play_Discovery_Acte1", gameObject);
-        yield return new WaitForSeconds(1.5f);
-        AkSoundEngine.PostEvent("Play_Note", gameObject);
-        meshRenderer.enabled = true;
     }
 }

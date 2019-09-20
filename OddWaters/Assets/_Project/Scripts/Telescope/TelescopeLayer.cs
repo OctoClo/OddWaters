@@ -5,12 +5,11 @@ using UnityEngine;
 public class TelescopeLayer : MonoBehaviour
 {
     public float layerSize = 90;
+    Vector3 initialPos;
 
     [SerializeField]
     bool parallax;
     public float parallaxSpeed = 1;
-    Transform randomChild;
-    float lastX;
 
     [HideInInspector]
     public float dragSpeed;
@@ -18,7 +17,9 @@ public class TelescopeLayer : MonoBehaviour
     [HideInInspector]
     public Transform[] children;
 
-    void Start()
+    bool initialized = false;
+
+     void Initialize()
     {
         children = new Transform[2];
         children[0] = transform.GetChild(0);
@@ -26,11 +27,15 @@ public class TelescopeLayer : MonoBehaviour
         element2.name = "Element2";
         children[1] = element2.transform;
 
-        children[0].localPosition = new Vector3(0, 0, 0);
-        children[1].localPosition = new Vector3(parallaxSpeed * layerSize, 0, 0);
+        initialPos = children[0].localPosition;
+        Vector3 newPos = initialPos;
+        newPos.x += parallaxSpeed * layerSize;
+        children[1].localPosition = newPos;
 
-        randomChild = children[0];
-        lastX = randomChild.localPosition.x;
+        foreach (SpriteRenderer spriteRenderer in transform.GetComponentsInChildren<SpriteRenderer>())
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+
+        initialized = true;
     }
 
     public void BeginDrag()
@@ -45,14 +50,20 @@ public class TelescopeLayer : MonoBehaviour
 
     public void ResetPosition()
     {
-        children[0].localPosition = Vector3.zero;
-        Vector3 newPosition = children[0].localPosition;
-        newPosition.x += parallaxSpeed * layerSize;
-        children[1].localPosition = newPosition;
+        if (!initialized)
+            Initialize();
+
+        children[0].localPosition = initialPos;
+        Vector3 newPos = initialPos;
+        newPos.x += parallaxSpeed * layerSize;
+        children[1].localPosition = newPos;
     }
 
     void Update()
     {
+        if (!initialized)
+            Initialize();
+
         // Move both layers
         Vector3 move = new Vector3(dragSpeed, 0, 0);
 
@@ -71,7 +82,6 @@ public class TelescopeLayer : MonoBehaviour
             Vector3 newPos = children[0].localPosition;
             newPos.x = children[1].localPosition.x + parallaxSpeed * layerSize;
             children[0].localPosition = newPos;
-            lastX = randomChild.localPosition.x;
             SwapLayers();
         }
         else if (dragSpeed > 0 && children[0].localPosition.x >= 0)
@@ -79,7 +89,6 @@ public class TelescopeLayer : MonoBehaviour
             Vector3 newPos = children[1].localPosition;
             newPos.x = children[0].localPosition.x - parallaxSpeed * layerSize;
             children[1].localPosition = newPos;
-            lastX = randomChild.localPosition.x;
             SwapLayers();
         }
     }

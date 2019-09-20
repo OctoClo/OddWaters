@@ -1,5 +1,96 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1235202461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1235202462}
+  - component: {fileID: 1235202463}
+  - component: {fileID: 140030273771562731}
+  - component: {fileID: 5162849374963221159}
+  m_Layer: 0
+  m_Name: TutorialGoal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1235202462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235202461}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.049, y: -0.035, z: -0}
+  m_LocalScale: {x: 0.07, y: 0.1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 359006016548906844}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1235202463
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235202461}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.17
+  m_Center: {x: 0, y: 0, z: 0.00000023841858}
+--- !u!33 &140030273771562731
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235202461}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5162849374963221159
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235202461}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 83003c5840a841a44ac8dc845378c111, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &359006014877531841
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,8 +119,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359006014877531841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.049999945, y: 0.319, z: -0.076}
-  m_LocalScale: {x: 0.21872267, y: 0.33200577, z: 1.1111122}
+  m_LocalPosition: {x: -0.091, y: -0.205, z: -0}
+  m_LocalScale: {x: 0.31881347, y: 0.48393664, z: 1}
   m_Children:
   - {fileID: 359006014965957679}
   m_Father: {fileID: 359006016548906844}
@@ -88,11 +179,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359006014877531841}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.41, y: 0.44, z: 0.3}
-  m_Center: {x: -0.0000009536743, y: 0, z: -0.12}
+  m_Size: {x: 0.65, y: 0.32, z: 0.3}
+  m_Center: {x: 0, y: -0.01, z: -0.12}
 --- !u!114 &359006014877531844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,14 +196,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45384d2e211b8f4793955f5416c7d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Island0
+  visible: 0
+  needSight: 1
+  needZoom: 1
+  needSuperPrecision: 0
+  magnetism: 0
+  elementsToActivate: []
+  playClue: 1
+  clueOneShot: 0
+  clueAlreadyPlayed: 0
+  discoverySound:
+    ID: -1078966765
+    valueGuid: e704cb5658159a46a3c77fc5590c163f
+  elementSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
+  layer: 1
+  discovered: 0
   islandNumber: 0
   nextZone: 1
-  visible: 0
-  illustration: {fileID: 21300000, guid: 9b94edee40395114cb1a4e0b2ad9d916, type: 3}
+  background: {fileID: 21300000, guid: 35784edd95a57ef47871ec2320f26c4b, type: 3}
   character: {fileID: 21300000, guid: bc92df9f08fbe3c4694fa3d531da0dbe, type: 3}
-  objectToGive: {fileID: 723177004646277754, guid: 97eebb436ca629642a9649afe354f579,
+  objectToGive: {fileID: 3606113474007394133, guid: 27479f17747256044b77b1832cdd1eca,
     type: 3}
-  islandSprite: {fileID: 21300000, guid: 88fe3b145db82b847a19431eb0d4cf35, type: 3}
+  speech: {fileID: 4900000, guid: 4d553299aa7cf924eace2f7b907f4b01, type: 3}
+  dialogue:
+    languages: []
   firstTimeVisiting: 1
 --- !u!1 &359006014965957672
 GameObject:
@@ -154,10 +262,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359006014965957672}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.58
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &359006014965957678
 MonoBehaviour:
@@ -171,6 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82eaeb0a9a7836c4da8b41b5fbc5c3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needTelescopeRefresh: 0
+  zone: 0
 --- !u!1 &359006016548906845
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,8 +290,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 359006016548906844}
-  - component: {fileID: 359006016548906832}
-  - component: {fileID: 359006016548906833}
   - component: {fileID: 359006016548906834}
   - component: {fileID: 359006016548906835}
   m_Layer: 0
@@ -200,57 +308,13 @@ Transform:
   m_GameObject: {fileID: 359006016548906845}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.68, y: 0, z: -2.04}
-  m_LocalScale: {x: 3.81, y: 2.51, z: 1}
+  m_LocalScale: {x: 3.87, y: 2.51, z: 1}
   m_Children:
   - {fileID: 359006014877531840}
+  - {fileID: 1235202462}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!33 &359006016548906832
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359006016548906845}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &359006016548906833
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359006016548906845}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 74bfdb2effe061148905932bbc990737, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!65 &359006016548906834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -277,8 +341,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneNumber: 0
-  telescopePanorama: {fileID: 9114687037443089392, guid: 4684c9a0c3986c846a2dc6e1cc6894ef,
-    type: 3}
   visible: 1
-  visibleMat: {fileID: 2100000, guid: 74bfdb2effe061148905932bbc990737, type: 2}
-  invisibleMat: {fileID: 2100000, guid: b546ef9e2e445c448bf28610455f6cae, type: 2}
+  seaIntensity:
+    ID: 437764669
+    valueGuid: e6c73e3f4ae7f5438857bbf41724e9a9
+    groupGuid: 2903329c32b5b54dbdad7b4b6b661c9c
+    groupID: 1729344733
+  weather:
+    ID: -76778153
+    valueGuid: 0f08de2a34d1a6478d60ff63b5a577cf
+    groupGuid: 1f21aa39b57a1d41a705434c99109e65
+    groupID: 317282339
+  telescopePanoramas:
+  - {fileID: 7127492151962068300, guid: 663873821be5da9498ed694614a80653, type: 3}
+  rain: 2
+  elementsToHide: []
+  clouds: {fileID: 0}

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,105 +6,151 @@ public enum ERotation { R0, R90, R180 };
 
 public class Interactible : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField]
-    TextAsset transcriptJSON;
-    Transcript transcript;
+    AK.Wwise.Switch soundMaterial;
+    [SerializeField]
+    TextAsset transcriptJSONRecto;
+    [SerializeField]
+    TextAsset transcriptJSONVerso;
+    protected Transcript transcriptRecto;
+    protected Transcript transcriptVerso;
+    bool switchTranscriptSide;
+    int side;
+
+    [Header("Offsets")]
+    [SerializeField]
+    [Range(2, 20)]
+    protected int zoomOffset = 4;
+    protected float currentZoomOffset;
+    [SerializeField]
+    [Range(0.01f, 0.5f)]
+    float grabOffset = 0.1f;
+
+    [Header("Rotations")]
     [SerializeField]
     [Range(1, 4)]
-    float rotationSpeed = 3f;
+    protected float rotationSpeed = 3f;
     [Tooltip("Ordre X - Y - Z")]
     public ERotation[] rotationsAmount = new ERotation[3];
 
+    [Header("References")]
     public InspectionInterface inspectionInterface;
+    public TutorialManager tutorialManager;
+
+    [HideInInspector]
+    public bool grabbable = false;
+    protected bool grabbed = false;
 
     [HideInInspector]
     public bool rotating;
-    Quaternion rotationBefore;
-    Quaternion rotationAfter;
+    protected Quaternion rotationBefore;
+    protected Quaternion rotationAfter;
     float rotationTime = 0;
-    float currentRotationSpeed;
+    protected float currentRotationSpeed;
 
     Camera mainCamera;
-    Rigidbody rigidBody;
-    BoxCollider boxCollider;
+    protected Rigidbody rigidBody;
+    protected Collider[] colliders;
 
-    bool zoom;
-    Vector3 beforeZoomPosition;
+    // Rotation interface
+    protected bool zoom;
+    protected Vector3 beforeZoomPosition;
     Vector3 zoomPosition;
-    Transform inventory;
+    protected Transform inventory;
 
-    [SerializeField]
-    AK.Wwise.Switch soundMaterial;
-
-    void Start()
+    protected virtual void Start()
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
-        boxCollider = GetComponent<BoxCollider>();
+        colliders = GetComponents<Collider>();
         rotating = false;
         currentRotationSpeed = rotationSpeed;
         inventory = transform.parent;
-        if (transcriptJSON != null)
-            transcript = JsonUtility.FromJson<Transcript>(transcriptJSON.text);
+        soundMaterial.SetValue(gameObject);
+        currentZoomOffset = zoomOffset;
+
+        if (transcriptJSONRecto != null)
+            transcriptRecto = JsonUtility.FromJson<Transcript>(transcriptJSONRecto.text);
+        if (transcriptJSONVerso != null)
+            transcriptVerso = JsonUtility.FromJson<Transcript>(transcriptJSONVerso.text);
+
+        switchTranscriptSide = false;
+        side = 0;
     }
 
-    public virtual void Trigger()
+    public virtual bool IsGrabbable()
     {
-
+        return (rigidBody.velocity.sqrMagnitude <= 0.5f);
     }
 
-    public bool IsGrabbable()
-    {
-        return Physics.Raycast(transform.position, -Vector3.up, boxCollider.bounds.extents.y + 0.1f);
-    }
-
-    public void Grab()
+    public virtual void Grab()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = false;
         transform.position = GetGrabbedPosition();
+        grabbed = true;
     }
 
-    public Vector3 GetGrabbedPosition()
+    public virtual Vector3 GetGrabbedPosition()
     {
-        Vector3 verticalGrabOffset = mainCamera.transform.position - gameObject.transform.position;
-        verticalGrabOffset.Normalize();
-        verticalGrabOffset.y *= 2;
-        return transform.position + verticalGrabOffset;
+        Vector3 position = mainCamera.transform.position - gameObject.transform.position;
+        position.Normalize();
+        position += transform.position;
+        position.y = grabOffset;
+        return position;
     }
 
     public void MoveTo(Vector3 newPosition)
     {
-        rigidBody.MovePosition(newPosition);
+        rigidBody.velocity = (newPosition - transform.position) * 15;
     }
 
-    public void Drop()
+    public virtual void Drop()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         rigidBody.useGravity = true;
+        grabbed = false;
     }
 
     public void Rotate(int axis, int direction)
     {
-        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
-        inspectionInterface.SetButtonsActive(false);
+        int angle = getRotation(axis);
 
-        rotating = true;
-        rotationTime = 0;
-        rotationBefore = transform.rotation;
+        if (angle != 0)
+        {
+            AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
 
-        Vector3 axisVec = Vector3.zero;
-        if (axis == 0)
-            axisVec = Vector3.right;
-        else if (axis == 1)
-            axisVec = Vector3.up;
-        else if (axis == 2)
-            axisVec = Vector3.forward;
+            foreach (Collider collider in colliders)
+                collider.enabled = false;
 
-        rotationAfter = Quaternion.AngleAxis(getRotation(axis) * direction, axisVec) * rotationBefore;
+            rotating = true;
+            rotationTime = 0;
+            rotationBefore = transform.rotation;
+
+            Vector3 axisVec = Vector3.zero;
+            if (axis == 0)
+                axisVec = Vector3.right;
+            else if (axis == 1)
+                axisVec = Vector3.up;
+            else if (axis == 2)
+                axisVec = Vector3.forward;
+
+            rotationAfter = Quaternion.AngleAxis(angle * direction, axisVec) * rotationBefore;
+
+            if (zoom)
+            {
+                inspectionInterface.SetButtonsInteractable(false);
+                if (axis == 2 && angle == 180)
+                    switchTranscriptSide = true;
+            }
+
+            if (tutorialManager.step == ETutorialStep.OBJECT_ROTATE)
+                tutorialManager.CompleteStep();
+        }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (rotating)
         {
@@ -118,7 +164,16 @@ public class Interactible : MonoBehaviour
             {
                 rotating = false;
                 currentRotationSpeed = rotationSpeed;
-                inspectionInterface.SetButtonsActive(true);
+                foreach (Collider collider in colliders)
+                    collider.enabled = true;
+                inspectionInterface.SetButtonsInteractable(true);
+
+                if (switchTranscriptSide)
+                {
+                    switchTranscriptSide = false;
+                    side = (side + 1) % 2;
+                    inspectionInterface.DisplayTranscriptSide(side);
+                }
             }
         }
     }
@@ -132,38 +187,46 @@ public class Interactible : MonoBehaviour
         return 0;
     }
 
-    public void EnterRotationInterface()
+    public virtual void EnterRotationInterface()
     {
         AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = true;
         rigidBody.useGravity = false;
+        foreach (Collider collider in colliders)
+            collider.isTrigger = true;
         beforeZoomPosition = gameObject.transform.position;
-        zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + 4, 0);
+        zoomPosition = new Vector3(mainCamera.transform.position.x, beforeZoomPosition.y + currentZoomOffset, 0);
         gameObject.transform.position = zoomPosition;
 
-        inspectionInterface.InitializeInterface(transcript);
+        inspectionInterface.InitializeInterface(transcriptRecto, transcriptVerso, side);
         for (int i = 0; i < 3; i++)
         {
             if (rotationsAmount[i] == ERotation.R0)
                 inspectionInterface.DeactivateAxis(i);
         }
-        inspectionInterface.SetButtonsActive(true);
+        inspectionInterface.InitializeButtons();
         transform.SetParent(null);
     }
 
-    public void ExitRotationInterface()
+    public virtual void ExitRotationInterface()
     {
-        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         if (rotating)
         {
             rotating = false;
             currentRotationSpeed = rotationSpeed;
             transform.rotation = rotationAfter;
         }
-        beforeZoomPosition.y += 1f;
-        gameObject.transform.position = beforeZoomPosition;
-        rigidBody.useGravity = true;
+
+        AkSoundEngine.PostEvent("Play_Manipulation", gameObject);
         zoom = false;
         transform.parent = inventory;
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
+            collider.isTrigger = false;
+        }
+        beforeZoomPosition.y += 0.5f;
+        gameObject.transform.position = beforeZoomPosition;
+        rigidBody.useGravity = true;
     }
 }

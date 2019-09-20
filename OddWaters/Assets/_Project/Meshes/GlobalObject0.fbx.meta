@@ -6,9 +6,11 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: initialShadingGroup1
+    2100002: lambert1
     2300000: //RootNode
     3300000: //RootNode
     4300000: Letter_02
+    4300002: Annas_Letter
     9500000: //RootNode
   externalObjects: {}
   materials:

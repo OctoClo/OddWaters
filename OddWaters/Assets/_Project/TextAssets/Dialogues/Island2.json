@@ -1,0 +1,51 @@
+{
+    "languages":
+    [
+        {
+            "name": "Monk",
+            "firstDialogue":
+            [
+                "*The monk gazes at you quietly from a distance.",
+                "It’s unusual to see someone like you here.",
+                "Your kind usually does not listen to the great Sea.",
+                "*He listens to your request.",
+                "Oh, but we shall not challenge the Sea, for its power created us all.",
+                "It separated us for a reason, you see.",
+                "The only way to understand the Sea is to be its servant.",
+                "*As you reiterate your demand, he interrupts you.",
+                "You must leave now. You do not belong here.",
+                "If you want to face the judgement of the Sea, so be it.",
+                "Go east, and stand before the sacred gate.",
+                "Listen to its roars and complaints, and it will open to you."
+            ],
+            "secondDialogue":
+            [
+                "Listen, human.",
+                "Find your way to the east, and listen to its complaints."
+            ]
+        },
+        {
+            "name": "Moine",
+            "firstDialogue":
+            [
+                "*Le moine vous regarde silencieusement, en retrait.",
+                "Il est peu commun de voir quelqu’un comme vous ici.",
+                "Les gens de votre espèce n’écoutent pas la Grande Mer.",
+                "*Il prête attention à votre requête.",
+                "Oh, mais nous ne devons pas défier la Mer, car c’est son pouvoir qui nous a créés.",
+                "Vous savez, elle nous a séparés pour une raison.",
+                "La seule manière de comprendre la Mer, c’est d’être son serviteur.",
+                "*Alors que vous réitérez votre demande, il vous interrompt.",
+                "Partez maintenant. Votre place n’est pas ici.",
+                "Si vous souhaitez faire face au jugement de la Mer, ainsi soit-il.",
+                "Allez à l’est, et tenez-vous devant l’arche.",
+                "Ecoutez ses complaintes et rugissements, alors peut-être s’ouvrira-t-elle à vous."
+            ],
+            "secondDialogue":
+            [
+                "Ecoute, humaine.",
+                "Tu trouveras ton chemin à l’Est. Ecoute ses complaintes."
+            ]
+        }
+    ]
+}

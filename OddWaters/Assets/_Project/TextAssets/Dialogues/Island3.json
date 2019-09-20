@@ -1,0 +1,77 @@
+{
+    "languages":
+    [
+      {
+            "name": "Faceless",
+            "firstDialogue":
+            [
+                "Here you are, at last.",
+                "I assume your journey was quite…",
+                "*As you interrupt him, he looks surprised then listens to you.",
+                "Oh.",
+                "Yes. The one you seek is lost.",
+                "She was unable to achieve her goal because she refused to listen.",
+                "*It pauses and turns to face you.",
+                "You have come so far on these waters, and you met its people.",
+                "You see, as different as they look, they all share something peculiar.",
+                "They don’t really know each other, but they heard stories.",
+                "They are so scared of what might happen if they ever try to leave their island.",
+                "For most, crossing the sea to reach others is not worth it.",
+                "For some, sailing is merely a way to assess dominance.",
+                "They all think they know enough…",
+                "But you, you borrowed their tools and their way of thinking. You put yourself in their shoes.",
+                "You understood that, ultimately, the sea is not an enemy. It connects us.",
+                "Even when you fail to stay the course, even when it seems you’re not making progress.",
+                "You simply have to try a little harder, to change your perspective.",
+                "If you try to understand each other's way, you eventually get to them.",
+                "Of course, you know this already…",
+                "But do you really?",
+                "As all things end, the choice is yours.",
+                "When you come back home , choose to navigate these tumultuous seas.",
+                "Learn the way of the sea. Be humbled by its chaos.",
+                "Let it carry you.",
+                "Or stay in the comfort of your island, rehashing your stories."
+            ],
+            "secondDialogue":
+            [
+                "Let go. Be one with the sea."
+            ]
+        },
+        {
+            "name": "Sans-Visage",
+            "firstDialogue":
+            [
+                "Te voilà enfin.",
+                "J’imagine que ton voyage fût assez…",
+                "*Alors que vous lui coupez la parole, il semble surpris puis tend une oreille.",
+                "Oh.",
+                "Oui. Celle que tu cherches s’est perdue.",
+                "Elle n’est pas parvenue à atteindre son but car elle refusait d’écouter.",
+                "*Il marque une pause, puis vous fait face.",
+                "Tu es arrivée si loin sur cette mer, et tu as rencontré ses habitants.",
+                "Vois-tu, aussi différents qu’ils en aient l’air, tous partagent quelque chose de particulier.",
+                "Ils ne se connaissent pas, mais ils ont entendu des rumeurs…",
+                "Ils sont tous si effrayés de ce qu’il se passerait s’ils essayaient de quitter leur île.",
+                "Pour la plupart, traverser ces eaux pour atteindre leurs pairs n’en vaut pas la peine.",
+                "Pour d’autres, prendre la mer n’est qu’un moyen de d’accéder à plus de pouvoir.",
+                "Ils croient tous qu’ils en savent assez…",
+                "Mais toi, tu as emprunté leurs outils et leur façon de penser. Tu t’es mis à leur place.",
+                "Tu as compris que, finalement, la mer n’est pas une ennemie. Elle nous relie.",
+                "Même quand tu peines à garder le cap, même quand tu crois ne pas avancer.",
+                "Il suffit de faire un effort, de changer de point de vue.",
+                "Si tu tentes de comprendre les autres, tu te rapprocheras d’eux.",
+                "Tu sais tout ça bien sûr…",
+                "Enfin peut-être ?",
+                "Puisque toute chose a une fin, le choix est tien.",
+                "Quand tu seras de retour chez toi, fais le choix de naviguer sur ces eaux tumultueuses.",
+                "Choisis la voie de la mer. Fais preuve d’humilité face à son chaos.",
+                "Laisse-la t’emporter.",
+                "Ou reste dans le confort de ton île, à ressasser tes histoires."
+            ],
+            "secondDialogue":
+            [
+                "Lâche prise. Ne fais plus qu'un avec la mer."
+            ]
+        }
+    ]
+}

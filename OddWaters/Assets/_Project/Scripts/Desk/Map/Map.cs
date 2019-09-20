@@ -6,20 +6,17 @@ public class Map : MonoBehaviour
 {
     [SerializeField]
     GameObject zonesFolder;
-    public MapZone[] mapZones;
+    MapZone[] mapZones;
     
-    public Island[] islands;
+    Island[] elements;
 
     [HideInInspector]
     public int currentZone;
 
-    [HideInInspector]
-    public GameObject currentPanorama;
-
     void Start()
     {
         mapZones = new MapZone[5];
-        islands = new Island[4];
+        elements = new Island[4];
 
         int mapCounter = 0;
         int islandCounter = 0;
@@ -36,57 +33,44 @@ public class Map : MonoBehaviour
             }
             else if (island)
             {
-                islands[islandCounter] = island;
+                elements[islandCounter] = island;
                 islandCounter++;
             }
         }
+
+        ChangeZone(0);
     }
 
     void OnEnable()
     {
         EventManager.Instance.AddListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.AddListener<DiscoverIslandEvent>(OnDiscoverIslandEvent);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<DiscoverZoneEvent>(OnDiscoverZoneEvent);
-        EventManager.Instance.RemoveListener<DiscoverIslandEvent>(OnDiscoverIslandEvent);
     }
 
     public void ChangeZone(int newZone)
     {
         currentZone = newZone;
-        currentPanorama = mapZones[currentZone].telescopePanorama;
+        mapZones[currentZone].seaIntensity.SetValue();
+        mapZones[currentZone].weather.SetValue();
     }
 
     public GameObject GetCurrentPanorama()
     {
-        if (currentPanorama)
-        {
-            GameObject panorama = currentPanorama;
-            currentPanorama = null;
-            return panorama;
-        }
+        return mapZones[currentZone].GetPanorama();
+    }
 
-        return null;
+    public ERainType GetCurrentRain()
+    {
+        return mapZones[currentZone].rain;
     }
 
     void OnDiscoverZoneEvent(DiscoverZoneEvent e)
     {
         Debug.Log("Discovered zone n°" + e.zoneNumber);
         mapZones[e.zoneNumber].Discover();
-    }
-
-    void OnDiscoverIslandEvent(DiscoverIslandEvent e)
-    {
-        Island island = islands[e.islandNumber];
-        if (!island.visible)
-        {
-            Debug.Log("Discovered island n°" + e.islandNumber);
-            island.visible = true;
-            StartCoroutine(islands[e.islandNumber].Discover());
-        }
-        
     }
 }

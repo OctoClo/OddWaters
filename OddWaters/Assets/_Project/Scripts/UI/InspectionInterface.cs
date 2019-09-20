@@ -7,30 +7,34 @@ using TMPro;
 public class InspectionInterface : MonoBehaviour
 {
     [SerializeField]
+    InputManager inputManager;
+
+    [SerializeField]
     Button transcriptButton;
 
     [SerializeField]
     GameObject transcriptZone;
 
     [SerializeField]
-    TextMeshProUGUI transcriptText;
-    Transcript currentTranscript;
+    TextMeshProUGUI transcriptField;
+    Transcript[] transcripts;
 
     [SerializeField]
     Button[] rotateButtons;
 
     bool[] axisActive = new bool[3];
 
-    public void InitializeInterface(Transcript transcript)
+    public void InitializeInterface(Transcript transcriptRecto, Transcript transcriptVerso, int side)
     {
-        currentTranscript = transcript;
-        if (transcript != null)
-        {
-            transcriptButton.gameObject.SetActive(true);
-            transcriptText.text = currentTranscript.textFrench;
-        }
-        else
-            transcriptButton.gameObject.SetActive(false);
+        transcripts = new Transcript[2];
+
+        if (transcriptRecto != null)
+            transcripts[0] = transcriptRecto;
+
+        if (transcriptVerso != null)
+            transcripts[1] = transcriptVerso;
+
+        DisplayTranscriptSide(side);
 
         for (int i = 0; i < 3; i++)
             axisActive[i] = true;
@@ -44,7 +48,18 @@ public class InspectionInterface : MonoBehaviour
         axisActive[axis] = false;
     }
 
-    public void SetButtonsActive(bool active)
+    public void InitializeButtons()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            rotateButtons[(i * 2)].gameObject.SetActive(axisActive[i]);
+            rotateButtons[(i * 2)].interactable = (axisActive[i]);
+            rotateButtons[(i * 2) + 1].gameObject.SetActive(axisActive[i]);
+            rotateButtons[(i * 2) + 1].interactable = (axisActive[i]);
+        }
+    }
+
+    public void SetButtonsInteractable(bool active)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -56,7 +71,27 @@ public class InspectionInterface : MonoBehaviour
     public void ToggleTranscript()
     {
         bool transcriptActive = !transcriptZone.activeSelf;
-        SetButtonsActive(!transcriptActive);
+        SetButtonsInteractable(!transcriptActive);
         transcriptZone.SetActive(transcriptActive);
+    }
+
+    public void DisplayTranscriptSide(int side)
+    {
+        Transcript newTranscript = transcripts[side];
+        if (newTranscript != null)
+        {
+            transcriptField.text = "";
+            int nbLines = newTranscript.languages[(int)OptionsManager.Instance.language].lines.Length;
+            for (int i = 0; i < nbLines; i++)
+                transcriptField.text += newTranscript.languages[(int)OptionsManager.Instance.language].lines[i] + "\n";
+            transcriptButton.gameObject.SetActive(true);
+        }
+        else
+            transcriptButton.gameObject.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        inputManager.ExitInterfaceRotation();
     }
 }
